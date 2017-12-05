@@ -1,0 +1,44 @@
+@charset "utf-8";
+
+// Tablet
+
+@include media($size-tablet) {
+  
+  main {
+    
+    // content
+    
+    .content {
+      
+      .form-group {
+        width: auto;
+        margin-left: $content-label-side;
+      }
+      
+      .content-item {
+        .content-label {
+          width: $content-label-side - 40px;
+          line-height: 34px;
+          text-align: right;
+          position: relative;
+          
+          label {
+            margin-bottom: 0;
+          }
+        }
+        
+        .content-input {
+          width: 100%;
+          margin-left: 0 - $content-label-side;
+          padding-left: $content-label-side;
+          position: relative;
+          float: right;
+          
+          input {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+@charset "utf-8";
+
+// debug
+
+body:before {
+  content: '- Mobile -';
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+@include media($size-tablet) {
+  body:before {
+    content: '- Tablet -';
+  }
+}
+
+@include media($size-medium) {
+  body:before {
+    content: '- Medium desktop -';
+  }
+}
+
+@include media($size-large) {
+  body:before {
+    content: '- Large desktop -';
+  }
+}

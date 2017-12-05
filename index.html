@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <!-- meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- link -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <!-- favicon -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon"/>
+    <link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon"/>
+    <!-- title -->
+    <title>clipweb</title>
+  </head>
+  <body>
+    <!-- header -->
+    <header>
+      <h1>clipweb</h1>
+    </header>
+    <!-- nav -->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarTop">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarTop">
+          <ul class="nav navbar-nav">
+            <li id="user-switch"><a>Login</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- main -->
+    <main>
+      <!-- error -->
+      <div class="content" id="error-area">
+        <div class="content-header">
+          非対応ブラウザ
+        </div>
+        <div class="content-item">
+          ES2015をサポートしているブラウザでご覧ください。
+        </div>
+      </div>
+    </main>
+    <!-- footer -->
+    <footer>
+      <p id="footer-text">
+        @ 2017 <a href="https://github.com/AyaNakazawa/clipweb/" target="_blank">clipweb</a>
+      </p>
+    </footer>
+    <!-- confirm -->
+    <div id="confirm-view"></div>
+    <!-- template -->
+    <!-- confirm-view -->
+    <script type="text/template" id="confirm-view-template">
+      <div id="<%- confirmId %>" class="modal fade" data-backdrop="static" data-keyboard="false" data-html="true" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" id="<%- confirmId %>-close">
+                <span>
+                  <i class="fa fa-close"></i>
+                </span>
+              </button>
+              <h4 class="modal-title"><%- confirmTitle %></h4>
+            </div>
+            <% if (imageUrl != null) { %>
+              <% if (imageUrl.length > 0) { %>
+                <img class="modal-body" src="<%- imageUrl %>" style="width:100%; height:auto;">
+              <% } %>
+            <% } %>
+            <% if (confirmMessage.length > 0) { %>
+              <div class="modal-body"><%- confirmMessage %></div>
+            <% } %>
+            <% if (type >= 1) { %>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="<%- confirmId %>-yes"><%- yes %></button>
+                <% if (type >= 2) { %>
+                  <button type="button" class="btn btn-default" data-dismiss="modal" id="<%- confirmId %>-no"><%- no %></button>
+                <% } %>
+              </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </script>
+    <!-- loading -->
+    <script type="text/template" id="loading-template">
+      <div class="content-header">
+        <%- header %>
+        <span class="fa fa-spinner loading-spinner"></span>
+      </div>
+      <div class="content-item">
+        <%- message %>
+        <span class="loading-dot"></span>
+      </div>
+    </script>
+    <!-- alert -->
+    <script type="text/template" id="alert-template">
+      <div class="alert alert-<%- type %> alert-dismissible" role="alert">
+        <% if (close) { %>
+        <button type="button" class="close" data-dismiss="alert">
+          <span class="fa fa-close" aria-hidden="true"></span>
+        </button>
+        <% } %>
+        <%- message %>
+      </div>
+    </script>
+    <!-- ruby -->
+    <script type="text/template" id="ruby-template">
+      <ruby>
+        <rb><%- body %></rb>
+        <rp>（</rp>
+        <rt><%- ruby %></rt>
+        <rp>）</rp>
+      </ruby>
+    </script>
+    <!-- script -->
+    <!-- init -->
+    <script src="js/mylib/init.js"></script>
+    <!-- error -->
+    <script src="js/mylib/error.js"></script>
+    <!-- lib -->
+    <script src="js/lib/underscore-min.js"></script>
+    <script src="js/lib/jquery-3.2.0.min.js"></script>
+    <script src="js/lib/jquery.easing.1.3.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/lib/sha256.js"></script>
+    <script src="js/lib/aes.js"></script>
+    <!-- mylib -->
+    <script src="js/mylib/common.js"></script>
+    <script src="js/mylib/confirm.js"></script>
+    <script src="js/mylib/popover.js"></script>
+    <script src="js/mylib/process-stack.js"></script>
+    <script src="js/mylib/scroll.js"></script>
+    <script src="js/mylib/static-class.js"></script>
+    <script src="js/mylib/switch.js"></script>
+    <script src="js/mylib/extension.js"></script>
+    <script src="js/mylib/content.js"></script>
+    <!-- myapp -->
+    <script src="js/myapp/project.js"></script>
+    <script src="js/myapp/process.js"></script>
+    <script src="js/myapp/user.js"></script>
+    <!-- app -->
+    <script src="js/global.js"></script>
+    <script src="js/myapp.js"></script>
+  </body>
+</html>
