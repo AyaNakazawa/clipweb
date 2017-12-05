@@ -104,44 +104,44 @@ class ConfirmEvent extends CommonEvent {
     if (this.MODEL.AUTO_OPEN) {
       this.CONTROLLER.openConfirm();
     } else {
-      super.setOn(
-        this.MODEL.EVENT_TRIGGER,
-        this.MODEL.EVENT_SELECTOR,
-        () => {
+      super.setOn({
+        trigger: this.MODEL.EVENT_TRIGGER,
+        selector: this.MODEL.EVENT_SELECTOR,
+        func: () => {
           this.CONTROLLER.openConfirm();
         }
-      );
+      });
     }
   }
   
   setOnYesClick() {
-    super.setOn(
-      'click',
-      this.MODEL.CONFIRM_ID_SELECTOR_YES,
-      () => {
+    super.setOn({
+      trigger: 'click',
+      selector: this.MODEL.CONFIRM_ID_SELECTOR_YES,
+      func: () => {
         this.CONTROLLER.selectYes();
       }
-    );
+    });
   }
   
   setOnNoClick() {
-    super.setOn(
-      'click',
-      this.MODEL.CONFIRM_ID_SELECTOR_NO,
-      () => {
+    super.setOn({
+      trigger: 'click',
+      selector: this.MODEL.CONFIRM_ID_SELECTOR_NO,
+      func: () => {
         this.CONTROLLER.selectNo();
       }
-    );
+    });
   }
   
   setOnCloseClick() {
-    super.setOn(
-      'click',
-      this.MODEL.CONFIRM_ID_SELECTOR_CLOSE,
-      () => {
+    super.setOn({
+      trigger: 'click',
+      selector: this.MODEL.CONFIRM_ID_SELECTOR_CLOSE,
+      func: () => {
         this.CONTROLLER.selectClose();
       }
-    );
+    });
   }
   
   setOffOpen() {

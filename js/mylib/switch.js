@@ -96,13 +96,14 @@ class SwitchEvent extends CommonEvent {
   
   setOnSwitch() {
     if (this.MODEL.TRIGGER_SELECTOR != null) {
-      super.setOn(
-        this.MODEL.EVENT_TRIGGER,
-        this.MODEL.TRIGGER_SELECTOR,
-        () => {
+      super.setOn({
+        trigger: this.MODEL.EVENT_TRIGGER,
+        selector: this.MODEL.TRIGGER_SELECTOR,
+        func: () => {
+          Log.log('click');
           this.CONTROLLER.switchView();
         }
-      );
+      });
     }
   }
 }

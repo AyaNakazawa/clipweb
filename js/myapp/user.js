@@ -1,20 +1,19 @@
 
 // ----------------------------------------------------------------
-// Template Class
+// User Class
 
 // ----------------------------------------------------------------
 // Model
 
-class TemplateModel extends CommonModel {
+class UserModel extends CommonModel {
   constructor(
     _initSetting = {
-      NAME: 'Template Object',
+      NAME: 'User Object',
     }
   ) {
     super(_initSetting);
     
-    this.TEMPLATE_TRIGGER = 'click';
-    this.TEMPLATE_SELECTOR = 'template';
+    this.AREA_SELECTOR = '#user-area';
     
   }
 }
@@ -22,10 +21,10 @@ class TemplateModel extends CommonModel {
 // ----------------------------------------------------------------
 // View
 
-class TemplateView extends CommonView {
+class UserView extends CommonView {
   constructor(
     _initSetting = {
-      NAME: 'Template View'
+      NAME: 'User View'
     }
   ) {
     super(_initSetting);
@@ -44,15 +43,17 @@ class TemplateView extends CommonView {
     Object.assign(args, _common, _initArgs);
     
     // Clear
-    $(this.MODEL.USER_AREA_SELECTOR).empty();
+    $(this.MODEL.AREA_SELECTOR).empty();
     
     // Generate Alert
-    this.generateAlert(
-      this.MODEL.USER_AREA_SELECTOR,
-      args.alertType,
-      args.alertMessage,
-      args.alertClose
-    );
+    if (args.alertMessage != null) {
+      this.generateAlert(
+        this.MODEL.AREA_SELECTOR,
+        args.alertType,
+        args.alertMessage,
+        args.alertClose
+      );
+    }
     
     // Generate Content
     
@@ -62,25 +63,25 @@ class TemplateView extends CommonView {
 // ----------------------------------------------------------------
 // Event
 
-class TemplateEvent extends CommonEvent {
+class UserEvent extends CommonEvent {
   constructor(
     _initSetting = {
-      NAME: 'Template Event'
+      NAME: 'User Event'
     }
   ) {
     super(_initSetting);
   }
   
   setEvent() {
-    this.setClickTemplate();
+    this.setClickUser();
   }
   
-  setClickTemplate() {
+  setClickUser() {
     super.setOn({
       trigger: this.MODEL.TEMPLATE_TRIGGER,
       selector: this.MODEL.TEMPLATE_SELECTOR,
       func: () => {
-        this.CONTROLLER.submitTemplate();
+        this.CONTROLLER.submitUser();
       }
     });
   }
@@ -89,14 +90,14 @@ class TemplateEvent extends CommonEvent {
 // ----------------------------------------------------------------
 // Controller
 
-class TemplateController extends CommonController {
+class UserController extends CommonController {
   constructor(
     _model = {},
     _initSetting = {
-      NAME: 'Template Controller',
-      MODEL: new TemplateModel(),
-      VIEW: new TemplateView(),
-      EVENT: new TemplateEvent()
+      NAME: 'User Controller',
+      MODEL: new UserModel(),
+      VIEW: new UserView(),
+      EVENT: new UserEvent()
     }
   ) {
     super(_model, _initSetting);

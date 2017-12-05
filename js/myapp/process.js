@@ -22,24 +22,24 @@ class Process extends CommonProcess {
   
   initContent() {
     $(this.MAIN_SELECTOR).empty();
-    $(this.MAIN_SELECTOR).append(Content.getContent('template-area'));
+    $(this.MAIN_SELECTOR).append(Content.getContent('user-area'));
   }
   
   static initPopover() {
-    new PopoverController({
-      SELECTOR: '#template-help',
-      HELP: 'Template help'
-    });
+    // new PopoverController({
+    //   SELECTOR: '#template-help',
+    //   HELP: 'Template help'
+    // });
   }
   
   initController() {
     this.CONTROLLER = {
-      TEMP: new TemplateController()
+      TEMP: new UserController()
     };
     
     this.CONTROLLER.SWITCH = {
       TEMP: new SwitchController({
-        TEMPLATE: 'template',
+        TEMPLATE: 'user',
         currentView: true,
         LS_KEY: 'none'
       })
@@ -47,9 +47,9 @@ class Process extends CommonProcess {
     
     this.CONTROLLER.SCROLL = {
       TEMP: new ScrollController({
-        NAME: 'Template Switch',
-        SCROLL_SELECTOR: '#template-area',
-        EVENT_SELECTOR: '#template-scroll'
+        NAME: 'User Switch',
+        SCROLL_SELECTOR: '#user-area',
+        EVENT_SELECTOR: '#user-scroll'
       })
     };
   }

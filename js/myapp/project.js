@@ -4,14 +4,14 @@
 
 class Project {
   static get NAME() {
-    return 'Template';
+    return 'clipweb';
   }
 
   static get NAME_ABBREVIATION() {
-    return 'TMP';
+    return 'CLPW';
   }
 
   static get NAME_KEY() {
-    return 'TMP';
+    return 'CLPW';
   }
 }

@@ -60,13 +60,13 @@ class ScrollEvent extends CommonEvent {
   
   setOnScroll() {
     if (this.MODEL.EVENT_SELECTOR != null) {
-      super.setOn(
-        this.MODEL.EVENT_TRIGGER,
-        this.MODEL.EVENT_SELECTOR,
-        () => {
+      super.setOn({
+        trigger: this.MODEL.EVENT_TRIGGER,
+        selector: this.MODEL.EVENT_SELECTOR,
+        func: () => {
           this.VIEW.scroll();
         }
-      );
+      });
     }
   }
 }
