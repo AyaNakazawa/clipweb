@@ -15,5 +15,5 @@ String.prototype.capitalize = function () {
 };
 
 String.prototype.getRows = function () {
-  return this.length - this.replace(/\n/g, "").length + 1;
+  return this.length - this.replace(/\n/g, '').length + 1;
 };
