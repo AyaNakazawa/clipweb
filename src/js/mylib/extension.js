@@ -8,12 +8,12 @@ Date.prototype.getString = function (_format = '%Y/%m/%d %H:%M:%S') {
   _format = _format.replace('%M', ('0' + this.getMinutes()).slice(-2));
   _format = _format.replace('%S', ('0' + this.getSeconds()).slice(-2));
   return _format;
-}
+};
 
 String.prototype.capitalize = function () {
   return this.substring(0, 1).toUpperCase() + this.substring(1);
-}
+};
 
 String.prototype.getRows = function () {
   return this.length - this.replace(/\n/g, "").length + 1;
-}
+};

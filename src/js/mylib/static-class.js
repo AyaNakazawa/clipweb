@@ -318,10 +318,10 @@ class Crypto {
     _password = null
   ) {
     if (_data == null) {
-      return false
+      return false;
     }
     if (_password == null) {
-      return false
+      return false;
     }
     
     return CryptoJS.AES.encrypt(_data, _password).toString();
@@ -332,10 +332,10 @@ class Crypto {
     _password = null
   ) {
     if (_data == null) {
-      return false
+      return false;
     }
     if (_password == null) {
-      return false
+      return false;
     }
     
     return CryptoJS.AES.decrypt(_data, _password).toString(CryptoJS.enc.Utf8);
