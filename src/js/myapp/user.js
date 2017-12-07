@@ -21,28 +21,28 @@ class UserModel extends CommonModel {
     }
   ) {
     super(_initSetting);
-    
+
     this.LOGIN = false;
-    
+
     this.ID = null;
     this.PASSWORD = null;
-    
+
     this.HASH_ID = null;
     this.HASH_PASSWORD = null;
     this.HASH_CRYPTO = null;
     this.SALT_CRYPTO = Project.NAME_KEY;
-    
+
     this.TEMPLATE_NOT_LOGIN = '#not-login-template';
     this.TEMPLATE_LOGINED = '#logined-template';
-    
+
     this.LENGTH_MIN_ID = 3;
     this.LENGTH_MAX_ID = 32;
     this.LENGTH_MIN_PASSWORD = 8;
     this.LENGTH_MAX_PASSWORD = 32;
-    
+
     this.SELECTOR_AREA = '#user-area';
     this.SELECTOR_SWITCH = '#user-switch';
-    
+
   }
 }
 
@@ -57,7 +57,7 @@ class UserView extends CommonView {
   ) {
     super(_initSetting);
   }
-  
+
   generateArea(
     _initArgs = {},
     _common = {
@@ -69,10 +69,10 @@ class UserView extends CommonView {
   ) {
     let args = {};
     Object.assign(args, _common, _initArgs);
-    
+
     // Clear
     $(this.MODEL.SELECTOR_AREA).empty();
-    
+
     // Generate Alert
     if (args.alertMessage != null) {
       this.generateAlert(
@@ -82,9 +82,9 @@ class UserView extends CommonView {
         args.alertClose
       );
     }
-    
+
     // Generate Content
-    
+
   }
 }
 
@@ -99,11 +99,11 @@ class UserEvent extends CommonEvent {
   ) {
     super(_initSetting);
   }
-  
+
   setEvent() {
     this.setClickUser();
   }
-  
+
   setClickUser() {
     super.setOn({
       trigger: this.MODEL.TRIGGER_TEMPLATE,
@@ -129,7 +129,7 @@ class UserController extends CommonController {
     }
   ) {
     super(_model, _initSetting);
-    
+
     this.EVENT.setEvent();
     this.VIEW.generateArea();
   }
