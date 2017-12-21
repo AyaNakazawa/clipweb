@@ -11,12 +11,12 @@ class CommonClass {
     }
   ) {
     Object.assign(this, _common, _initSetting);
-    
+
     if (this.NAME != null && this.VIEW_NAME) {
       this.showNameModel(this.NAME);
     }
   }
-  
+
   showName(_name) {
     // Draw line
     Log.log();
@@ -32,11 +32,11 @@ class CommonClass {
       Log.log(this.NAME, Log.ALIGN_CENTER);
     }
   }
-  
+
   showNameModel(_name, _model) {
     // Write name
     this.showName(_name);
-    
+
     // Check model
     if (_model != null) {
       // Exists model
@@ -62,26 +62,15 @@ class CommonModel extends CommonClass {
     }
   ) {
     super(_initSetting, _common);
-    
+
     this.ACTIVE = 'active';
     this.HOVER = 'hover';
-    
     this.SPEED_REMOVE = 400;
-    
-    this.ALERT_SUCCESS = 'success';
-    this.ALERT_INFO = 'info';
-    this.ALERT_WARNING = 'warning';
-    this.ALERT_DANGER = 'danger';
-    
     this.DISPLAY_NONE = 'display-none';
     this.CURRENT = 'current';
-    
     this.BODY = 'html, body';
-    this.TEMPLATE_LOADING = '#loading-template';
-    this.TEMPLATE_ALERT = '#alert-template';
-    this.TEMPLATE_RUBY = '#ruby-template';
   }
-  
+
   // Add var to Instance
   setKey(
     _key = 'KEY',
@@ -89,14 +78,14 @@ class CommonModel extends CommonClass {
   ) {
     this[_key] = _val;
   }
-  
+
   // Get var from Instance
   getKey(
     _key = 'KEY'
   ) {
     return this[_key];
   }
-  
+
   // Remove var from Instance
   removeKey(
     _key = 'KEY'
@@ -104,6 +93,9 @@ class CommonModel extends CommonClass {
     this[_key] = undefined;
   }
 }
+
+// ----------------------------------------------------------------
+// View
 
 class CommonView extends CommonClass {
   constructor(
@@ -115,95 +107,21 @@ class CommonView extends CommonClass {
   ) {
     super(_initSetting, _common);
   }
-  
-  getTemplate(
-    _initArgs = {},
-    _common = {
-      template: null,
-      model: {}
-    }
-  ) {
-    let args = {};
-    Object.assign(args, _common, _initArgs);
-    
-    if (args.template == null) {
+
+  generateAlert({
+    template = null,
+    model = {}
+  } = {}) {
+    if (template == null) {
       return null;
     }
-    const template = $(args.template).text();
-    const compiled = _.template(template);
-    return compiled(args.model);
   }
-  
-  generateLoading(
-    _initArgs = {},
-    _common = {
-      selector: this.AREA_SELECTOR,
-      header: 'Loading',
-      message: 'Loading'
-    }
-  ) {
-    let args = {};
-    Object.assign(args, _common, _initArgs);
-    
-    if (args.selector == null) {
-      Log.logCaution(this.NAME, 'generateLoading', 'Undefined selector');
-      return;
-    }
-    $(args.selector).empty();
-    $(args.selector).append(this.getTemplate(
-      $(this.MODEL.TEMPLATE_LOADING),
-      {
-        header: args.header,
-        message: args.message
-      }
-    ));
-  }
-  
-  generateAlert(
-    _initArgs = {},
-    _common = {
-      selector: null,
-      type: 'success',
-      message: null,
-      close: true
-    }
-  ) {
-    let args = {};
-    Object.assign(args, _common, _initArgs);
-    
-    if (args.selector == null) {
-      Log.logCaution(this.NAME, 'generateAlert', 'Undefined selector');
-      return;
-    }
-    if (args.message != null) {
-      $(args.selector).append(this.getTemplate(
-        $(this.MODEL.TEMPLATE_ALERT),
-        {
-          type: args.type,
-          message: args.message,
-          close: args.close
-        }
-      ));
-    }
-  }
-  
-  removeHTML(
-    _initArgs = {},
-    _common = {
-      selector: null,
-      speed: this.MODEL.SPEED_REMOVE
-    }
-  ) {
-    let args = {};
-    Object.assign(args, _common, _initArgs);
-    
-    if (args.selector == null) {
-      return false;
-    }
-    $(args.selector).slideUp(args.speed, () => {
-      $(args.selector).remove();
-    });
-    return true;
+
+  generateLoading({
+    header = 'Loading',
+    message = 'Loading'
+  } = {}) {
+
   }
 }
 
@@ -220,39 +138,27 @@ class CommonEvent extends CommonClass {
   ) {
     super(_initSetting, _common);
   }
-  
-  setOn(
-    _initArgs = {},
-    _common = {
-      trigger: 'click',
-      selector: null,
-      func: () => {}
-    }
-  ) {
-    let args = {};
-    Object.assign(args, _common, _initArgs);
-    
-    if (args.selector != null) {
-      $(document).on(args.trigger, args.selector, args.func);
+
+  setOn({
+    trigger = 'click',
+    selector = null,
+    func = () => {}
+  } = {}) {
+    if (selector != null) {
+      $(document).on(trigger, selector, func);
     } else {
-      $(document).on(args.trigger, args.func);
+      $(document).on(trigger, func);
     }
   }
-  
-  setOff(
-    _initArgs = {},
-    _common = {
-      trigger: 'click',
-      selector: null
-    }
-  ) {
-    let args = {};
-    Object.assign(args, _common, _initArgs);
-    
-    if (args.selector != null) {
-      $(document).off(args.trigger, args.selector);
+
+  setOff({
+    trigger = 'click',
+    selector = null
+  } = {}) {
+    if (selector != null) {
+      $(document).off(trigger, selector);
     } else {
-      $(document).off(args.trigger);
+      $(document).off(trigger);
     }
   }
 }
@@ -275,22 +181,22 @@ class CommonController extends CommonClass {
   ) {
     super(_initSetting, _common);
     Object.assign(this.MODEL, _model);
-    
+
     if (this.VIEW_OBJECT) {
       super.showNameModel(this.MODEL.NAME);
     }
-    
+
     this.applyObject();
   }
-  
+
   applyObject() {
     this.CONTROLLER = this;
-    
+
     this.VIEW.MODEL = this.MODEL;
     this.VIEW.VIEW = this.VIEW;
     this.VIEW.EVENT = this.EVENT;
     this.VIEW.CONTROLLER = this;
-    
+
     this.EVENT.MODEL = this.MODEL;
     this.EVENT.VIEW = this.VIEW;
     this.EVENT.EVENT = this.EVENT;

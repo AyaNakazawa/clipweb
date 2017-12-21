@@ -5,7 +5,7 @@
 // ----------------------------------------------------------------
 // Model
 
-class UserModel extends CommonModel {
+class UserModel extends ContentModel {
   constructor(
     _initSetting = {
       NAME: 'User Object',
@@ -43,13 +43,15 @@ class UserModel extends CommonModel {
     this.SELECTOR_AREA = '#user-area';
     this.SELECTOR_SWITCH = '#user-switch';
 
+    this.SELECTOR_NAV = `${this.SELECTOR_AREA} .${Content.NAV}`;
+
   }
 }
 
 // ----------------------------------------------------------------
 // View
 
-class UserView extends CommonView {
+class UserView extends ContentView {
   constructor(
     _initSetting = {
       NAME: 'User View'
@@ -58,32 +60,52 @@ class UserView extends CommonView {
     super(_initSetting);
   }
 
-  generateArea(
-    _initArgs = {},
-    _common = {
-      alertType: this.MODEL.ALERT_SUCCESS,
-      alertClose: true,
-      alertMessage: null,
-      view: false
-    }
-  ) {
-    let args = {};
-    Object.assign(args, _common, _initArgs);
-
+  generateArea({
+    view = false,
+    alertType = this.MODEL.ALERT_SUCCESS,
+    alertClose = true,
+    alertMessage = null,
+    loadingHeader = null,
+    loadingMessage = null
+  } = {}) {
     // Clear
-    $(this.MODEL.SELECTOR_AREA).empty();
+    this.clearArea();
+
+    // Generate Loading
+    if (loadingMessage != null) {
+      this.generateLoading({
+        header: loadingHeader,
+        message: loadingMessage
+      });
+    }
 
     // Generate Alert
-    if (args.alertMessage != null) {
-      this.generateAlert(
-        this.MODEL.SELECTOR_AREA,
-        args.alertType,
-        args.alertMessage,
-        args.alertClose
-      );
+    if (alertMessage != null) {
+      this.generateAlert({
+        type: alertType,
+        message: alertMessage,
+        close: alertClose
+      });
     }
 
     // Generate Content
+    $(this.MODEL.SELECTOR_AREA).append(Content.getHeader('header'));
+    $(this.MODEL.SELECTOR_AREA).append(Content.getNav());
+    $(this.MODEL.SELECTOR_NAV).append(Content.getNavItem({
+      addId: 'test-button',
+      name: 'button',
+      type: Content.TYPE_BUTTON
+    }));
+    $(this.MODEL.SELECTOR_NAV).append(Content.getNavItem({
+      addId: 'test-text',
+      name: 'text',
+      type: Content.TYPE_TEXT
+    }));
+    $(this.MODEL.SELECTOR_NAV).append(Content.getNavItem({
+      addId: 'test-input',
+      value: 'input',
+      type: Content.TYPE_INPUT
+    }));
 
   }
 }
@@ -91,7 +113,7 @@ class UserView extends CommonView {
 // ----------------------------------------------------------------
 // Event
 
-class UserEvent extends CommonEvent {
+class UserEvent extends ContentEvent {
   constructor(
     _initSetting = {
       NAME: 'User Event'
@@ -101,15 +123,23 @@ class UserEvent extends CommonEvent {
   }
 
   setEvent() {
-    this.setClickUser();
+    this.setClickTest();
   }
 
-  setClickUser() {
+  setClickTest() {
     super.setOn({
-      trigger: this.MODEL.TRIGGER_TEMPLATE,
-      selector: this.MODEL.SELECTOR_TEMPLATE,
+      selector: '#test-button',
       func: () => {
-        this.CONTROLLER.submitUser();
+        Log.log('click');
+        new ConfirmController({
+          CONFIRM_ID: 'confirm-submit-logout',
+          CONFIRM_TITLE: 'ログアウト',
+          CONFIRM_MESSAGE: 'ログアウトしてもよろしいですか？',
+          AUTO_OPEN: true,
+          FUNCTION_YES: () => {
+            Log.log('yes');
+          }
+        });
       }
     });
   }
@@ -118,7 +148,7 @@ class UserEvent extends CommonEvent {
 // ----------------------------------------------------------------
 // Controller
 
-class UserController extends CommonController {
+class UserController extends ContentController {
   constructor(
     _model = {},
     _initSetting = {
@@ -131,6 +161,10 @@ class UserController extends CommonController {
     super(_model, _initSetting);
 
     this.EVENT.setEvent();
-    this.VIEW.generateArea();
+    this.VIEW.generateArea({
+      alertMessage: 'alert',
+      loadingHeader: 'クリップ読み込み',
+      loadingMessage: '読み込み中'
+    });
   }
 }

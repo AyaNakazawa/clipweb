@@ -31,11 +31,11 @@ class ConfirmModel extends CommonModel {
     }
   ) {
     super(_initSetting);
-    
+
     this.GENERATE_SELECTOR = '#confirm-view';
     this.TEMPLATE_SELECTOR = '#confirm-view-template';
   }
-  
+
   updateSelector() {
     this.CONFIRM_ID_SELECTOR = `#${this.CONFIRM_ID}`;
     this.CONFIRM_ID_SELECTOR_YES = `#${this.CONFIRM_ID}-yes`;
@@ -55,9 +55,9 @@ class ConfirmView extends CommonView {
   ) {
     super(_initSetting);
   }
-  
+
   generateModal() {
-    $(this.MODEL.GENERATE_SELECTOR).html(super.getTemplate(
+    $(this.MODEL.GENERATE_SELECTOR).html(View.getTemplate(
       $(this.MODEL.TEMPLATE_SELECTOR),
       {
         confirmId: this.MODEL.CONFIRM_ID,
@@ -83,7 +83,7 @@ class ConfirmEvent extends CommonEvent {
   ) {
     super(_initSetting);
   }
-  
+
   setEvent(_set = null) {
     if (_set != null) {
       if (_set) {
@@ -99,7 +99,7 @@ class ConfirmEvent extends CommonEvent {
       }
     }
   }
-  
+
   setOnOpen() {
     if (this.MODEL.AUTO_OPEN) {
       this.CONTROLLER.openConfirm();
@@ -113,7 +113,7 @@ class ConfirmEvent extends CommonEvent {
       });
     }
   }
-  
+
   setOnYesClick() {
     super.setOn({
       trigger: 'click',
@@ -123,7 +123,7 @@ class ConfirmEvent extends CommonEvent {
       }
     });
   }
-  
+
   setOnNoClick() {
     super.setOn({
       trigger: 'click',
@@ -133,7 +133,7 @@ class ConfirmEvent extends CommonEvent {
       }
     });
   }
-  
+
   setOnCloseClick() {
     super.setOn({
       trigger: 'click',
@@ -143,7 +143,7 @@ class ConfirmEvent extends CommonEvent {
       }
     });
   }
-  
+
   setOffOpen() {
     if (!this.MODEL.AUTO_OPEN) {
       super.setOff(
@@ -152,21 +152,21 @@ class ConfirmEvent extends CommonEvent {
       );
     }
   }
-  
+
   setOffYesClick() {
     super.setOff(
       'click',
       this.MODEL.CONFIRM_ID_SELECTOR_YES
     );
   }
-  
+
   setOffNoClick() {
     super.setOff(
       'click',
       this.MODEL.CONFIRM_ID_SELECTOR_NO
     );
   }
-  
+
   setOffCloseClick() {
     super.setOff(
       'click',
@@ -189,40 +189,40 @@ class ConfirmController extends CommonController {
     }
   ) {
     super(_model, _initSetting);
-    
+
     this.initConfirm();
   }
-  
+
   initConfirm() {
     this.MODEL.updateSelector();
     this.VIEW.generateModal();
     this.EVENT.setEvent(true);
   }
-  
+
   openConfirm() {
     Log.logClassKey(this.NAME, this.MODEL.CONFIRM_TITLE, 'Open', Log.ARROW_INPUT);
     Log.logClass(this.NAME, this.MODEL.CONFIRM_ID_SELECTOR);
     $(this.MODEL.CONFIRM_ID_SELECTOR).modal();
   }
-  
+
   selectYes() {
     Log.logClassKey(this.NAME, this.MODEL.CONFIRM_TITLE, 'Yes', Log.ARROW_INPUT);
     this.MODEL.FUNCTION_YES();
     this.destroy();
   }
-  
+
   selectNo() {
     Log.logClassKey(this.NAME, this.MODEL.CONFIRM_TITLE, 'No', Log.ARROW_INPUT);
     this.MODEL.FUNCTION_NO();
     this.destroy();
   }
-  
+
   selectClose() {
     Log.logClassKey(this.NAME, this.MODEL.CONFIRM_TITLE, 'Close', Log.ARROW_INPUT);
     this.MODEL.FUNCTION_CLOSE();
     this.destroy();
   }
-  
+
   destroy() {
     if (this.MODEL.DESTROY) {
       Log.logClassKey(this.NAME, this.MODEL.CONFIRM_TITLE, 'Destroy', Log.ARROW_INPUT);
@@ -235,7 +235,7 @@ class ConfirmController extends CommonController {
       );
     }
   }
-  
+
   remove() {
     Log.logClassKey(this.NAME, this.MODEL.CONFIRM_TITLE, 'Remove', Log.ARROW_INPUT);
     $(this.MODEL.CONFIRM_ID_SELECTOR).remove();
