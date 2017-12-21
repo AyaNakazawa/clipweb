@@ -6,72 +6,80 @@ main {
   width: 100%;
   margin: 0;
   padding: 10px 0;
-  background: $main-back;
+  background: $app-back;
   @include border-c(top);
   @include border-c(bottom);
-  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: flex-start;
+
   // content
-  
+
   .content {
-    width: 90%;
-    @include margin-auto(10px);
-    padding: 10px;
+    flex-basis: auto;
+    order: 0;
+    margin: 8px;
+    padding: 0;
+    background: $content-back;
+    color: $content-color;
     overflow: hidden;
     @include border-c();
     border-radius: $border-radius-size;
-    
+
     // item
-    
+
     .content-item {
       width: 100%;
       padding: 4px;
       overflow: hidden;
-      
+
       li {
         margin: 8px;
       }
-      
+
       // name
-      
+
       .content-item-name {
         width: 100%;
         padding-bottom: 8px;
         text-align: center;
         @include border-c(bottom);
       }
-      
+
       // keys
-      
+
       .content-item-keys {
         width: 100%;
         padding: 8px 16px;
-        
+
         .content-item-key {
           margin-bottom: 8px;
-          
+
           &:last-child {
             margin-bottom: 0;
           }
         }
       }
-      
+
       // label
-      
+
       .content-label {
         display: inline-table;
-        
+
         label {
           margin: 0;
           margin-bottom: 8px;
         }
       }
-      
+
       // checkbox
-      
+
       .checkbox {
         display: inline-table;
       }
-      
+
       // item-list
       .item-list {
         & > * {
@@ -80,37 +88,108 @@ main {
         }
       }
     }
-    
+
     // header
-    
+
     .content-header {
       width: 100%;
-      margin-bottom: 8px;
+      margin: 0;
+      padding: 4px;
       text-align: center;
-      font-weight: bold;
-      font-size: 1.5em;
-      
+      font-size: 1.2em;
+      background: $content-header-back;
+      color: $content-header-color;
+      @include border-c(bottom);
+      border-radius: $border-radius-size $border-radius-size 0 0;
+
       button {
         margin-left: 8px;
       }
     }
-    
+
+    // nav
+
+    .content-nav {
+      width: 100%;
+      background: $content-nav-back;
+      color: $content-nav-color;
+      @include border-c(bottom);
+      display: inline-flex;
+
+      button {
+        margin-left: 8px;
+      }
+
+      // nav-item
+
+      .content-nav-item {
+        margin: 4px;
+        padding: 4px;
+        border-radius: $border-radius-size;
+
+        button {
+          margin-left: 8px;
+        }
+      }
+
+    }
+
     // item-header
-    
+
     .content-item-header {
       width: 100%;
       margin-bottom: 4px;
       text-align: center;
       font-weight: bold;
       font-size: 1.2em;
-      
+
       button {
         margin-left: 4px;
       }
     }
-    
+
+    // loading
+    .loading {
+      margin: 100px auto;
+      font-size: 25px;
+      width: 1em;
+      height: 1em;
+      border-radius: 50%;
+      position: relative;
+      @include animation($animation-loading 1.1s infinite ease);
+      @include translateZ(0);
+    }
+
+    @include keyframes($animation-loading) {
+      0%,
+      100% {
+        box-shadow: 0em -2.6em 0em 0em $loading-color-1, 1.8em -1.8em 0 0em $loading-color-4, 2.5em 0em 0 0em $loading-color-4, 1.75em 1.75em 0 0em $loading-color-4, 0em 2.5em 0 0em $loading-color-4, -1.8em 1.8em 0 0em $loading-color-4, -2.6em 0em 0 0em $loading-color-3, -1.8em -1.8em 0 0em $loading-color-2;
+      }
+      12.5% {
+        box-shadow: 0em -2.6em 0em 0em $loading-color-2, 1.8em -1.8em 0 0em $loading-color-1, 2.5em 0em 0 0em $loading-color-4, 1.75em 1.75em 0 0em $loading-color-4, 0em 2.5em 0 0em $loading-color-4, -1.8em 1.8em 0 0em $loading-color-4, -2.6em 0em 0 0em $loading-color-4, -1.8em -1.8em 0 0em $loading-color-3;
+      }
+      25% {
+        box-shadow: 0em -2.6em 0em 0em $loading-color-3, 1.8em -1.8em 0 0em $loading-color-2, 2.5em 0em 0 0em $loading-color-1, 1.75em 1.75em 0 0em $loading-color-4, 0em 2.5em 0 0em $loading-color-4, -1.8em 1.8em 0 0em $loading-color-4, -2.6em 0em 0 0em $loading-color-4, -1.8em -1.8em 0 0em $loading-color-4;
+      }
+      37.5% {
+        box-shadow: 0em -2.6em 0em 0em $loading-color-4, 1.8em -1.8em 0 0em $loading-color-3, 2.5em 0em 0 0em $loading-color-2, 1.75em 1.75em 0 0em $loading-color-1, 0em 2.5em 0 0em $loading-color-4, -1.8em 1.8em 0 0em $loading-color-4, -2.6em 0em 0 0em $loading-color-4, -1.8em -1.8em 0 0em $loading-color-4;
+      }
+      50% {
+        box-shadow: 0em -2.6em 0em 0em $loading-color-4, 1.8em -1.8em 0 0em $loading-color-4, 2.5em 0em 0 0em $loading-color-3, 1.75em 1.75em 0 0em $loading-color-2, 0em 2.5em 0 0em $loading-color-1, -1.8em 1.8em 0 0em $loading-color-4, -2.6em 0em 0 0em $loading-color-4, -1.8em -1.8em 0 0em $loading-color-4;
+      }
+      62.5% {
+        box-shadow: 0em -2.6em 0em 0em $loading-color-4, 1.8em -1.8em 0 0em $loading-color-4, 2.5em 0em 0 0em $loading-color-4, 1.75em 1.75em 0 0em $loading-color-3, 0em 2.5em 0 0em $loading-color-2, -1.8em 1.8em 0 0em $loading-color-1, -2.6em 0em 0 0em $loading-color-4, -1.8em -1.8em 0 0em $loading-color-4;
+      }
+      75% {
+        box-shadow: 0em -2.6em 0em 0em $loading-color-4, 1.8em -1.8em 0 0em $loading-color-4, 2.5em 0em 0 0em $loading-color-4, 1.75em 1.75em 0 0em $loading-color-4, 0em 2.5em 0 0em $loading-color-3, -1.8em 1.8em 0 0em $loading-color-2, -2.6em 0em 0 0em $loading-color-1, -1.8em -1.8em 0 0em $loading-color-4;
+      }
+      87.5% {
+        box-shadow: 0em -2.6em 0em 0em $loading-color-4, 1.8em -1.8em 0 0em $loading-color-4, 2.5em 0em 0 0em $loading-color-4, 1.75em 1.75em 0 0em $loading-color-4, 0em 2.5em 0 0em $loading-color-4, -1.8em 1.8em 0 0em $loading-color-3, -2.6em 0em 0 0em $loading-color-2, -1.8em -1.8em 0 0em $loading-color-1;
+      }
+    }
+
     // help
-    
+
     .help-icon {
       line-height: 22px;
       padding: 6px;
@@ -118,39 +197,11 @@ main {
       position: relative;
       z-index: $z-help-icon;
     }
-    
-    // animation
-    
-    .loading-spinner {
-      @include animation($animation-rotate 2s linear infinite);
-    }
-    
-    .loading-dot::after {
-      content: '';
-      @include animation($animation-dotting 3s linear infinite);
-    }
-    
-    // keyframes
-    
-    @include keyframes($animation-rotate) {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-    
-    @include keyframes($animation-dotting) {
-      25% {
-        content: '.';
-      }
-      50% {
-        content: '..';
-      }
-      75% {
-        content: '...';
-      }
+
+    // alert
+
+    .alert {
+      margin: 8px;
     }
   }
 }

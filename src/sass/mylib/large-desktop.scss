@@ -3,34 +3,24 @@
 // Large desktop
 
 @include media($size-large) {
-  
+
   // header
-  
-  header {
-    width: 1062px;
+
+  header .header-wrapper {
+    width: 1200px;
     @include margin-auto;
   }
-  
+
   // footer
-  
+
   footer {
     width: 1062px;
     @include margin-auto;
   }
-  
+
   // nav
-  
-  .navbar {
-    width: 1182px;
-    @include margin-auto;
-  }
-  
-  main {
-    
-    // content
-    
-    .content {
-      width: 1064px;
-    }
+
+  nav {
+    width: 1200px;
   }
 }

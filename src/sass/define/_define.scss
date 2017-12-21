@@ -5,26 +5,43 @@ $none: none;
 
 // main
 
-$main-back: #fff;
+$main-back: #fffbfb;
 $main-color: #333;
 $main-color-active: #111;
 $main-color-passive: #666;
 
-$main-color-link: #aaa;
+$back-color-active: rgba(0, 0, 0, 0.10);
+$back-color-passive: rgba(0, 0, 0, 0.05);
+
+$main-color-link: #888;
 
 // border
 
 $border-size: 1px;
 $border-radius-size: 4px;
-
 $border-style: solid;
 
 $border-color: #ddd;
-$border-color-active: #666;
-$border-color-passive: #ccc;
+$border-color-active: #888;
+$border-color-passive: #ddd;
 
-$back-color-active: rgba(0, 0, 0, 0.15);
-$back-color-passive: rgba(0, 0, 0, 0.05);
+// header
+
+$header-back: #fcdd6e;
+$header-color: #fff;
+$header-shadow: #d1b75a;
+
+// fotter
+
+$fotter-back: #fff;
+
+// nav
+
+$nav-back: #fff;
+$nav-main-color-active: #222;
+$nav-main-color-passive: #666;
+$nav-back-color-active: rgba(0, 0, 0, 0.10);
+$nav-back-color-passive: rgba(0, 0, 0, 0.05);
 
 // size
 
@@ -33,23 +50,35 @@ $size-tablet: 768px;
 $size-medium: 992px;
 $size-large: 1200px;
 
-// content
-
-$content-label-side: 180px;
-
 // animation
 
-$animation-rotate: infinite-rotate;
-$animation-dotting: dotting;
+$animation-loading: loading;
+$loading-color-1: rgba(255, 220, 142, 1);
+$loading-color-2: rgba(255, 220, 142, 0.7);
+$loading-color-3: rgba(255, 220, 142, 0.5);
+$loading-color-4: rgba(255, 220, 142, 0.2);
 
 // z-index
 
-$z-diary-hover: 20;
 $z-help-icon: 10;
 
 // app
 
-$app-back: #f8f8f8;
+$app-back: #fffbfb;
+$app-color: #333;
+
+// content
+
+$content-back: #fff;
+$content-color: #333;
+
+$content-header-back: #fffaff;
+$content-header-color: #000;
+
+$content-nav-back: #fff;
+$content-nav-color: #484848;
+
+$content-label-side: 180px;
 
 // function
 
@@ -80,6 +109,12 @@ $app-back: #f8f8f8;
   -webkit-animation: $animation;
   -moz-animation: $animation;
   animation: $animation;
+}
+
+@mixin translateZ($translateZ) {
+  -webkit-translateZ: $translateZ;
+  -moz-translateZ: $translateZ;
+  translateZ: $translateZ;
 }
 
 @mixin keyframes($animation-name) {

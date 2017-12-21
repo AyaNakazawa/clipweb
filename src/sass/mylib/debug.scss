@@ -5,8 +5,8 @@
 body:before {
   content: '- Mobile -';
   position: fixed;
-  top: 8px;
-  left: 8px;
+  bottom: 24px;
+  left: 24px;
   z-index: 9999;
   overflow: hidden;
 }
@@ -19,12 +19,12 @@ body:before {
 
 @include media($size-medium) {
   body:before {
-    content: '- Medium desktop -';
+    content: '- Medium -';
   }
 }
 
 @include media($size-large) {
   body:before {
-    content: '- Large desktop -';
+    content: '- Large -';
   }
 }

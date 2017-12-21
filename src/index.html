@@ -3,10 +3,11 @@
   <head>
     <!-- meta -->
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- link -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/fontawesome-all.min.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
     <!-- favicon -->
     <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon"/>
@@ -16,27 +17,42 @@
   </head>
   <body>
     <!-- header -->
-    <header>
-      <h1>clipweb</h1>
-    </header>
+    <div class="header-border">
+      <header>
+        <div class="header-wrapper">
+          <div class="header-title">clipweb</div>
+          <div class="header-content">
+            <div class="header-content-item"><i class="fab fa-github"></i></div>
+          </div>
+        </div>
+      </header>
+    </div>
     <!-- nav -->
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarTop">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div class="collapse navbar-collapse" id="navbarTop">
-          <ul class="nav navbar-nav">
-            <li id="user-switch"><a>Login</a></li>
+    <div class="navbar-area">
+      <nav class="navbar navbar-expand-md navbar-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-toggle" aria-controls="navbar-toggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar-toggle">
+          <ul class="navbar-nav col-md-6">
+            <li class="nav-item">
+              <a class="nav-link" id="nav-login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="nav-help">Help</a>
+            </li>
           </ul>
+          <div class="col-md-6 nav-seacrh">
+            <div class="input-group">
+              <input class="form-control" id="nav-seacrh-text" placeholder="Search">
+              <span class="input-group-btn">
+                <button class="btn btn-outline-info" id="nav-seacrh-button"><i class="fas fa-search"></i></button>
+              </span>
+            </div>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </div>
     <!-- main -->
     <main>
       <!-- error -->
@@ -51,9 +67,9 @@
     </main>
     <!-- footer -->
     <footer>
-      <p id="footer-text">
+      <span id="footer-text">
         @ 2017 <a href="https://github.com/AyaNakazawa/clipweb/" target="_blank">clipweb</a>
-      </p>
+      </span>
     </footer>
     <!-- confirm -->
     <div id="confirm-view"></div>
@@ -66,7 +82,7 @@
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" id="<%- confirmId %>-close">
                 <span>
-                  <i class="fa fa-close"></i>
+                  <i class="fas fa-times"></i>
                 </span>
               </button>
               <h4 class="modal-title"><%- confirmTitle %></h4>
@@ -93,13 +109,10 @@
     </script>
     <!-- loading -->
     <script type="text/template" id="loading-template">
-      <div class="content-header">
+      <div class="content-header content-loading-header">
         <%- header %>
-        <span class="fa fa-spinner loading-spinner"></span>
       </div>
-      <div class="content-item">
-        <%- message %>
-        <span class="loading-dot"></span>
+      <div class="content-item loading"></div>
       </div>
     </script>
     <!-- alert -->
@@ -107,7 +120,7 @@
       <div class="alert alert-<%- type %> alert-dismissible" role="alert">
         <% if (close) { %>
         <button type="button" class="close" data-dismiss="alert">
-          <span class="fa fa-close" aria-hidden="true"></span>
+          <i class="fas fa-times"></i>
         </button>
         <% } %>
         <%- message %>
@@ -131,25 +144,25 @@
     <script src="js/lib/underscore-min.js"></script>
     <script src="js/lib/jquery-3.2.0.min.js"></script>
     <script src="js/lib/jquery.easing.1.3.js"></script>
-    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/lib/bootstrap.bundle.min.js"></script>
     <script src="js/lib/sha256.js"></script>
     <script src="js/lib/aes.js"></script>
     <!-- mylib -->
     <script src="js/mylib/common.js"></script>
     <script src="js/mylib/confirm.js"></script>
     <script src="js/mylib/popover.js"></script>
-    <script src="js/mylib/process-stack.js"></script>
     <script src="js/mylib/scroll.js"></script>
     <script src="js/mylib/static-class.js"></script>
     <script src="js/mylib/switch.js"></script>
     <script src="js/mylib/extension.js"></script>
     <script src="js/mylib/content.js"></script>
+    <script src="js/mylib/view.js"></script>
     <!-- myapp -->
     <script src="js/myapp/project.js"></script>
     <script src="js/myapp/process.js"></script>
     <script src="js/myapp/user.js"></script>
     <!-- app -->
-    <script src="js/global.js"></script>
-    <script src="js/myapp.js"></script>
+    <script src="js/mylib/global.js"></script>
+    <script src="js/mylib/myapp.js"></script>
   </body>
 </html>
