@@ -8,7 +8,7 @@ body {
   margin: 0;
   padding: 0;
   color: #333;
-  background: #fffbfb;
+  background: #fff;
   font-family: メイリオ, Meiryo, "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", Quicksand, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
   font-size: 16px; }
 
@@ -70,11 +70,12 @@ textarea {
           font-size: 1.5rem; }
 
 footer {
-  margin: 40px 60px;
+  padding: 40px 60px;
   text-align: right; }
   footer span {
-    background: #fff;
+    background: #fffbfb;
     padding: 8px 16px;
+    border: 1px solid #ddd;
     border-radius: 24px; }
 
 .navbar-area {
@@ -171,7 +172,7 @@ main {
       padding: 4px;
       text-align: center;
       font-size: 1.2em;
-      background: #fffaff;
+      background: #fffeff;
       color: #000;
       border-bottom: 1px solid #ddd;
       border-radius: 4px 4px 0 0; }
