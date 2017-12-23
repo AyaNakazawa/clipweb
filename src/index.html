@@ -142,6 +142,31 @@
         <rp>）</rp>
       </ruby>
     </script>
+    <!-- login -->
+    <script type="text/template" id="login-template">
+      <div class="content-header">
+        Login
+      </div>
+      <div class="content-item-area">
+        <div class="content-item">
+          <label for="login-alias">Email Address</label>
+          <div class="content-input">
+            <input id="login-alias" type="email" required="required" class="form-control" placeholder="e.g. user@example.com">
+            <i class="content-input-icon fas fa-envelope"></i>
+          </div>
+        </div>
+        <div class="content-item">
+          <label for="login-password">Password</label>
+          <div class="content-input">
+            <input id="login-password" type="password" required="required" class="form-control" placeholder="">
+            <i class="content-input-icon fas fa-lock"></i>
+          </div>
+        </div>
+        <div class="content-item">
+          <button class="btn btn-primary">Sign In <i class="fas fa-sign-in-alt"></i></button>
+        </div>
+      </div>
+    </script>
     <!-- script -->
     <!-- init -->
     <script src="js/mylib/init.js"></script>
