@@ -70,6 +70,9 @@ class UserView extends ContentView {
   } = {}) {
     // View
 
+    if (PS.SWITCH.USER.getCurrentView() && view) {
+      PS.SWITCH.USER.VIEW.setView(false);
+    }
     PS.SWITCH.USER.VIEW.setView(view);
 
     // Clear
