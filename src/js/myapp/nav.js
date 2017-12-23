@@ -107,14 +107,47 @@ class NavEvent extends ContentEvent {
 
   setEvent() {
     this.setOpenLogin();
+    this.setOpenLogout();
+    this.setOpenSignup();
+    this.setOpenHelp();
   }
 
   setOpenLogin() {
     super.setOn({
-      selector: this.MODEL.SELECTOR_NAV_LOGIN,
+      selector: `#${this.MODEL.SELECTOR_NAV_LOGIN}`,
       func: () => {
         Log.log('Open Login');
         PS.CONTROLLER.USER.VIEW.openLogin();
+      }
+    });
+  }
+
+  setOpenLogout() {
+    super.setOn({
+      selector: `#${this.MODEL.SELECTOR_NAV_LOGOUT}`,
+      func: () => {
+        Log.log('Open Logout');
+        PS.CONTROLLER.USER.VIEW.openLogout();
+      }
+    });
+  }
+
+  setOpenSignup() {
+    super.setOn({
+      selector: `#${this.MODEL.SELECTOR_NAV_SIGNUP}`,
+      func: () => {
+        Log.log('Open Signup');
+        PS.CONTROLLER.USER.VIEW.openSignup();
+      }
+    });
+  }
+
+  setOpenHelp() {
+    super.setOn({
+      selector: `#${this.MODEL.SELECTOR_NAV_HELP}`,
+      func: () => {
+        Log.log('Open Help');
+        PS.CONTROLLER.HELP.VIEW.openHelp();
       }
     });
   }
