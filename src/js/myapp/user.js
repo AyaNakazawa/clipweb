@@ -166,4 +166,25 @@ class UserController extends ContentController {
     this.EVENT.setEvent();
     this.VIEW.generateArea();
   }
+
+  openLogin() {
+    this.VIEW.generateArea({
+      type: 'login',
+      view: true
+    });
+  }
+
+  openLogout() {
+    this.VIEW.generateArea({
+      type: 'logout',
+      view: true
+    });
+  }
+
+  openRegister() {
+    this.VIEW.generateArea({
+      type: 'register',
+      view: true
+    });
+  }
 }
