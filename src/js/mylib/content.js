@@ -32,6 +32,10 @@ class Content {
     return 'content-header';
   }
 
+  static get HEADER_BUTTON() {
+    return 'content-header-button';
+  }
+
   static get NAV() {
     return 'content-nav';
   }
@@ -62,6 +66,13 @@ class Content {
   static getHeader(_header = null) {
     if (_header != null) {
       return `<div class='${Content.HEADER}'>${_header}</div>`;
+    }
+    return '';
+  }
+
+  static getHeaderButton(_button = null) {
+    if (_button != null) {
+      return `<i class='${Content.HEADER_BUTTON} ${_button}'></i>`;
     }
     return '';
   }
