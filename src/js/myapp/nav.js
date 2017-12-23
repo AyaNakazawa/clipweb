@@ -117,7 +117,7 @@ class NavEvent extends ContentEvent {
       selector: `#${this.MODEL.SELECTOR_NAV_LOGIN}`,
       func: () => {
         Log.log('Open Login');
-        PS.CONTROLLER.USER.VIEW.openLogin();
+        PS.CONTROLLER.USER.CONTROLLER.openLogin();
       }
     });
   }
@@ -127,7 +127,7 @@ class NavEvent extends ContentEvent {
       selector: `#${this.MODEL.SELECTOR_NAV_LOGOUT}`,
       func: () => {
         Log.log('Open Logout');
-        PS.CONTROLLER.USER.VIEW.openLogout();
+        PS.CONTROLLER.USER.CONTROLLER.openLogout();
       }
     });
   }
@@ -137,7 +137,7 @@ class NavEvent extends ContentEvent {
       selector: `#${this.MODEL.SELECTOR_NAV_REGISTER}`,
       func: () => {
         Log.log('Open Register');
-        PS.CONTROLLER.USER.VIEW.openRegister();
+        PS.CONTROLLER.USER.CONTROLLER.openRegister();
       }
     });
   }
@@ -147,7 +147,7 @@ class NavEvent extends ContentEvent {
       selector: `#${this.MODEL.SELECTOR_NAV_HELP}`,
       func: () => {
         Log.log('Open Help');
-        PS.CONTROLLER.HELP.VIEW.openHelp();
+        PS.CONTROLLER.HELP.CONTROLLER.openHelp();
       }
     });
   }
