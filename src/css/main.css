@@ -91,7 +91,7 @@ textarea {
   margin: 0;
   padding: 0;
   background: #fff;
-  box-shadow: 0 0 2px 2px #dcdcd0;
+  box-shadow: 0 2px 1px 1px #dcdcd0;
   position: relative;
   z-index: 4; }
   .nav-area .navbar {
