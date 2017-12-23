@@ -9,28 +9,37 @@ class Process extends CommonProcess {
 
     this.SHOW_SPEED = 350;
     this.MAIN_SELECTOR = 'main';
+    this.BODY_SELECTOR = 'body';
 
     this.run();
   }
 
   run() {
-    this.initContent();
+    this.generateContent();
+    this.setViewContent();
     this.initController();
     this.show();
   }
 
-  initContent() {
+  generateContent() {
     $(this.MAIN_SELECTOR).empty();
     $(this.MAIN_SELECTOR).append(Content.getContent('user-area'));
+    $(this.MAIN_SELECTOR).append(Content.getContent('help-area'));
+  }
+
+  setViewContent() {
+    $('#user-area').hide();
+    $('#help-area').hide();
   }
 
   initController() {
     this.CONTROLLER = {
-      User: new UserController()
+      USER: new UserController(),
+      NAV: new NavController()
     };
 
     this.CONTROLLER.SWITCH = {
-      User: new SwitchController({
+      USER: new SwitchController({
         TEMPLATE: 'user',
         currentView: true,
         LS_KEY: 'none'
@@ -38,7 +47,7 @@ class Process extends CommonProcess {
     };
 
     this.CONTROLLER.SCROLL = {
-      User: new ScrollController({
+      USER: new ScrollController({
         NAME: 'User Switch',
         SCROLL_SELECTOR: '#user-area',
         EVENT_SELECTOR: '#user-scroll'
@@ -47,6 +56,7 @@ class Process extends CommonProcess {
   }
 
   show() {
+    $(this.BODY_SELECTOR).show();
     $(this.MAIN_SELECTOR).slideDown(this.SHOW_SPEED);
     Log.log();
     Log.logClass(this.NAME, 'Start');
