@@ -17,7 +17,7 @@ class NavModel extends ContentModel {
     this.SELECTOR_NAV = '.navbar-nav';
 
     this.SELECTOR_NAV_LOGIN = 'nav-login';
-    this.SELECTOR_NAV_SIGNUP = 'nav-signup';
+    this.SELECTOR_NAV_REGISTER = 'nav-register';
     this.SELECTOR_NAV_LOGOUT = 'nav-logout';
     this.SELECTOR_NAV_HELP = 'nav-help';
 
@@ -108,7 +108,7 @@ class NavEvent extends ContentEvent {
   setEvent() {
     this.setOpenLogin();
     this.setOpenLogout();
-    this.setOpenSignup();
+    this.setOpenRegister();
     this.setOpenHelp();
   }
 
@@ -132,12 +132,12 @@ class NavEvent extends ContentEvent {
     });
   }
 
-  setOpenSignup() {
+  setOpenRegister() {
     super.setOn({
-      selector: `#${this.MODEL.SELECTOR_NAV_SIGNUP}`,
+      selector: `#${this.MODEL.SELECTOR_NAV_REGISTER}`,
       func: () => {
-        Log.log('Open Signup');
-        PS.CONTROLLER.USER.VIEW.openSignup();
+        Log.log('Open Register');
+        PS.CONTROLLER.USER.VIEW.openRegister();
       }
     });
   }
