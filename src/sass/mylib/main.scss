@@ -123,9 +123,13 @@ main {
       color: $content-header-color;
       @include border-c(bottom);
       border-radius: $border-radius-size $border-radius-size 0 0;
+      position: relative;
 
-      button {
-        margin-left: 8px;
+      .content-header-button {
+        position: absolute;
+        right: 1rem;
+        top: 0.65rem;
+        cursor: pointer;
       }
     }
 
