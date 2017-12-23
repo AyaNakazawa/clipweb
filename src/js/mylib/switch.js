@@ -151,6 +151,10 @@ class SwitchController extends CommonController {
     }
   }
 
+  getCurrentView() {
+    return this.MODEL.currentView;
+  }
+
   switchView() {
     Log.logClass('Switch', `${this.MODEL.NAME}`);
 
