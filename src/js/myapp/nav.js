@@ -36,28 +36,51 @@ class NavView extends ContentView {
     super(_initSetting);
   }
 
+  clearNavItem() {
+    $(this.MODEL.SELECTOR_AREA).empty();
+    $(this.MODEL.SELECTOR_AREA).append('<ul class="navbar-nav col-md-6"></ul>');
+    $(this.MODEL.SELECTOR_AREA).append('<div class="col-md-6 nav-seacrh"><div class="input-group"><input class="form-control" id="nav-seacrh-text" placeholder="Search"><span class="input-group-btn"><button class="btn btn-outline-info" id="nav-seacrh-button"><i class="fas fa-search"></i></button></span></div></div>');
+  }
+
   addNavItem({
     id = null,
     name = null,
     type = 'append'
   } = {}) {
-    let element = '';
     if (id == null || name == null) {
+      Log.logClassKey('NavView', 'addNavItem', 'Need argument');
       return;
-    } else {
-      element = `<li class="nav-item"><a class="nav-link"id="${id}">${name}</a></li>`;
     }
+
+    if ($(`${this.MODEL.SELECTOR_NAV} #${id}`).length > 0) {
+      this.removeNavItem({
+        id: this.MODEL.SELECTOR_NAV_LOGIN
+      });
+    }
+
+    const _element = `<li class="nav-item"><a class="nav-link"id="${id}">${name}</a></li>`;
     if (type == 'prepend') {
-      $(this.MODEL.SELECTOR_NAV).prepend(element);
+      $(this.MODEL.SELECTOR_NAV).prepend(_element);
     } else {
-      $(this.MODEL.SELECTOR_NAV).append(element);
+      $(this.MODEL.SELECTOR_NAV).append(_element);
     }
   }
 
+  removeNavItem({
+    id = null
+  }) {
+    if (id == null) {
+      Log.logClassKey('NavView', 'removeNavItem', 'Need argument');
+      return;
+    }
+
+    $(`${this.MODEL.SELECTOR_NAV} #${id}`).each((_index, _element) => {
+      $(_element).parent().remove();
+    });
+  }
+
   initArea() {
-    $(this.MODEL.SELECTOR_AREA).empty();
-    $(this.MODEL.SELECTOR_AREA).append('<ul class="navbar-nav col-md-6"></ul>');
-    $(this.MODEL.SELECTOR_AREA).append('<div class="col-md-6 nav-seacrh"><div class="input-group"><input class="form-control" id="nav-seacrh-text" placeholder="Search"><span class="input-group-btn"><button class="btn btn-outline-info" id="nav-seacrh-button"><i class="fas fa-search"></i></button></span></div></div>');
+    this.clearNavItem();
 
     this.addNavItem({
       id: this.MODEL.SELECTOR_NAV_LOGIN,
