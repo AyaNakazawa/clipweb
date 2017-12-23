@@ -92,6 +92,24 @@ class UserView extends ContentView {
         close: alertClose
       });
     }
+
+    // Generate Content
+    if (type == 'login') {
+      $(this.MODEL.SELECTOR_AREA).append(View.getTemplate({
+        template: this.MODEL.TEMPLATE_LOGIN,
+        model: {}
+      }));
+    } else if (type == 'logout') {
+      $(this.MODEL.SELECTOR_AREA).append(View.getTemplate({
+        template: this.MODEL.TEMPLATE_LOGOUT,
+        model: {}
+      }));
+    }if (type == 'register') {
+      $(this.MODEL.SELECTOR_AREA).append(View.getTemplate({
+        template: this.MODEL.TEMPLATE_REGISTER,
+        model: {}
+      }));
+    }
   }
 }
 
