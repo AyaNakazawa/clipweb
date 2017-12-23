@@ -4,6 +4,8 @@
 
 body:before {
   content: '- Mobile -';
+  font-size: 1rem;
+  text-shadow: 1px 1px 1px $main-text-shadow-color;
   position: fixed;
   bottom: 24px;
   left: 24px;

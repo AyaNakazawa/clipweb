@@ -17,23 +17,34 @@
   </head>
   <body>
     <!-- header -->
-    <div class="header-border">
+    <div class="header-area">
       <header>
         <div class="header-wrapper">
-          <div class="header-title">clipweb</div>
+          <a href="./">
+            <div class="header-title">clipweb</div>
+          </a>
           <div class="header-content">
-            <div class="header-content-item"><i class="fab fa-github"></i></div>
+            <div class="header-content-item">
+              <a href="./">
+                <i class="fas fa-sync-alt"></i>
+              </a>
+            </div>
+            <div class="header-content-item">
+              <a href="https://github.com/AyaNakazawa/clipweb/" target="_blank">
+                <i class="fab fa-github"></i>
+              </a>
+            </div>
           </div>
         </div>
       </header>
     </div>
     <!-- nav -->
-    <div class="navbar-area">
+    <div class="nav-area">
       <nav class="navbar navbar-expand-md navbar-light">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-toggle" aria-controls="navbar-toggle" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbar">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbar-toggle">
+        <div class="collapse navbar-collapse" id="navbar">
           <ul class="navbar-nav col-md-6">
             <li class="nav-item">
               <a class="nav-link" id="nav-login">Login</a>
@@ -60,17 +71,24 @@
         <div class="content-header">
           非対応ブラウザ
         </div>
-        <div class="content-item">
-          ES2015をサポートしているブラウザでご覧ください。
+        <div class="content-item-area">
+          <div class="content-item">
+            ES6をサポートしているブラウザでご覧ください。
+          </div>
+          <div class="content-item">
+            詳細はこちら => <a href="https://caniuse.com/#search=ES6">Can I Use</a>
+          </div>
         </div>
       </div>
     </main>
     <!-- footer -->
-    <footer>
-      <span id="footer-text">
-        @ 2017 <a href="https://github.com/AyaNakazawa/clipweb/" target="_blank">clipweb</a>
-      </span>
-    </footer>
+    <div class="footer-area">
+      <footer>
+        <span id="footer-text">
+          @ 2017 <a href="https://github.com/AyaNakazawa/clipweb/" target="_blank">clipweb</a>
+        </span>
+      </footer>
+    </div>
     <!-- confirm -->
     <div id="confirm-view"></div>
     <!-- template -->
@@ -80,7 +98,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" id="<%- confirmId %>-close">
+              <button class="close" data-dismiss="modal" id="<%- confirmId %>-close">
                 <span>
                   <i class="fas fa-times-circle"></i>
                 </span>
@@ -97,9 +115,9 @@
             <% } %>
             <% if (type >= 1) { %>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" id="<%- confirmId %>-yes"><%- yes %></button>
+                <button class="btn btn-default" data-dismiss="modal" id="<%- confirmId %>-yes"><%- yes %></button>
                 <% if (type >= 2) { %>
-                  <button type="button" class="btn btn-default" data-dismiss="modal" id="<%- confirmId %>-no"><%- no %></button>
+                  <button class="btn btn-default" data-dismiss="modal" id="<%- confirmId %>-no"><%- no %></button>
                 <% } %>
               </div>
             <% } %>

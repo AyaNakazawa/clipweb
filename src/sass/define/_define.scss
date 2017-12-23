@@ -15,13 +15,16 @@ $back-color-passive: rgba(0, 0, 0, 0.05);
 
 $main-color-link: #888;
 
+$main-box-shadow-color: #dcdcd0;
+$main-text-shadow-color: #ccccc0;
+
 // border
 
-$border-size: 1px;
+$border-size: 2px;
 $border-radius-size: 4px;
 $border-style: solid;
 
-$border-color: #ddd;
+$border-color: #eee;
 $border-color-active: #888;
 $border-color-passive: #ddd;
 
@@ -29,7 +32,7 @@ $border-color-passive: #ddd;
 
 $header-back: #fcdd6e;
 $header-color: #fff;
-$header-shadow: #d1b75a;
+$header-shadow: #f1d46e;
 
 // fotter
 
@@ -64,7 +67,7 @@ $z-help-icon: 10;
 
 // app
 
-$app-back: #fffbfb;
+$app-back: #eee9db;
 $app-color: #333;
 
 // content
@@ -72,7 +75,7 @@ $app-color: #333;
 $content-back: #fff;
 $content-color: #333;
 
-$content-header-back: #fffeff;
+$content-header-back: #fcfcf0;
 $content-header-color: #000;
 
 $content-nav-back: #fff;

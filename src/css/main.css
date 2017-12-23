@@ -10,7 +10,8 @@ body {
   color: #333;
   background: #fff;
   font-family: メイリオ, Meiryo, "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", Quicksand, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
-  font-size: 16px; }
+  font-size: 16px;
+  font-weight: 700; }
 
 * {
   -webkit-transition-property: all;
@@ -33,61 +34,69 @@ a:hover {
 textarea {
   resize: vertical; }
 
-.header-border {
+.header-area {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 72px;
-  color: #fff;
   border-top: 4px dashed #fcdd6e;
-  border-bottom: 1px solid #d1b75a; }
-  .header-border header {
+  border-bottom: 2px solid #f1d46e; }
+  .header-area header {
     margin: 0;
     width: 100%;
     height: 100%;
     background: #fcdd6e; }
-    .header-border header .header-wrapper {
+    .header-area header * {
+      color: #fff;
+      text-shadow: 2px 2px 2px #ccccc0; }
+    .header-area header .header-wrapper {
       height: 100%;
-      padding: 0 32px;
+      padding: 0 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center; }
-      .header-border header .header-wrapper div {
+      .header-area header .header-wrapper div {
         margin: 4px; }
-      .header-border header .header-wrapper .header-title {
-        height: 48px;
-        line-height: 48px;
+      .header-area header .header-wrapper .header-title {
+        height: 2.4rem;
+        line-height: 2.4rem;
         font-size: 2.4rem;
         font-family: "Perfograma";
-        font-weight: bold; }
-        .header-border header .header-wrapper .header-title:hover {
-          cursor: pointer; }
-      .header-border header .header-wrapper .header-content {
+        font-weight: 500; }
+      .header-area header .header-wrapper .header-content {
         display: flex;
         justify-content: flex-end;
         align-items: center; }
-        .header-border header .header-wrapper .header-content .header-content-item {
+        .header-area header .header-wrapper .header-content .header-content-item {
+          margin: .5rem;
           font-size: 1.5rem; }
 
-footer {
-  padding: 40px 60px;
-  text-align: right; }
-  footer span {
-    background: #fffbfb;
-    padding: 8px 16px;
-    border: 1px solid #ddd;
-    border-radius: 24px; }
+.footer-area {
+  box-shadow: 0 -2px 1px 1px #dcdcd0; }
+  .footer-area footer {
+    padding: 40px 60px;
+    text-align: right;
+    text-shadow: 1px 1px 1px #ccccc0; }
+    .footer-area footer span {
+      background: #fffbfb;
+      padding: .5rem 1rem;
+      box-shadow: 2px 2px 1px 1px #dcdcd0;
+      border: 2px solid #eee;
+      border-radius: 24px; }
 
-.navbar-area {
+.nav-area {
   margin: 0;
+  margin-bottom: 3px;
   padding: 0;
-  border: 0;
-  background: #fff; }
+  background: #fff;
+  box-shadow: 0 2px 1px 1px #dcdcd0; }
 
 .navbar {
-  margin: 4px auto;
-  padding: 4px 16px;
-  border: 0; }
+  margin-left: auto;
+  margin-right: auto;
+  padding: 8px 16px;
+  border: 0;
+  text-shadow: 1px 1px 1px #ccccc0; }
   .navbar .input-group {
     margin: 0;
     padding: 0; }
@@ -120,9 +129,7 @@ main {
   width: 100%;
   margin: 0;
   padding: 10px 0;
-  background: #fffbfb;
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
+  background: #eee9db;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -132,49 +139,62 @@ main {
     flex-basis: auto;
     order: 0;
     margin: 8px;
-    padding: 0;
+    padding: 4px;
     background: #fff;
     color: #333;
     overflow: hidden;
-    border: 1px solid #ddd;
+    box-shadow: 2px 2px 1px 1px #dcdcd0;
+    border: 2px solid #eee;
     border-radius: 4px; }
-    main .content .content-item {
-      width: 100%;
-      padding: 4px;
-      overflow: hidden; }
-      main .content .content-item li {
-        margin: 8px; }
-      main .content .content-item .content-item-name {
+    main .content .content-item-area {
+      padding: 16px; }
+      main .content .content-item-area .content-item-header {
         width: 100%;
-        padding-bottom: 8px;
+        margin-bottom: 4px;
         text-align: center;
-        border-bottom: 1px solid #ddd; }
-      main .content .content-item .content-item-keys {
+        font-weight: bold;
+        font-size: 1.2em; }
+        main .content .content-item-area .content-item-header button {
+          margin-left: 4px; }
+      main .content .content-item-area .content-item {
         width: 100%;
-        padding: 8px 16px; }
-        main .content .content-item .content-item-keys .content-item-key {
-          margin-bottom: 8px; }
-          main .content .content-item .content-item-keys .content-item-key:last-child {
-            margin-bottom: 0; }
-      main .content .content-item .content-label {
-        display: inline-table; }
-        main .content .content-item .content-label label {
-          margin: 0;
-          margin-bottom: 8px; }
-      main .content .content-item .checkbox {
-        display: inline-table; }
-      main .content .content-item .item-list > * {
-        margin-top: 4px;
-        padding-top: 4px; }
+        padding: 4px;
+        overflow: hidden; }
+        main .content .content-item-area .content-item li {
+          margin: 8px; }
+        main .content .content-item-area .content-item .content-item-name {
+          width: 100%;
+          padding-bottom: 8px;
+          text-align: center;
+          border-bottom: 2px solid #eee; }
+        main .content .content-item-area .content-item .content-item-keys {
+          width: 100%;
+          padding: 8px 16px; }
+          main .content .content-item-area .content-item .content-item-keys .content-item-key {
+            margin-bottom: 8px; }
+            main .content .content-item-area .content-item .content-item-keys .content-item-key:last-child {
+              margin-bottom: 0; }
+        main .content .content-item-area .content-item .content-label {
+          display: inline-table; }
+          main .content .content-item-area .content-item .content-label label {
+            margin: 0;
+            margin-bottom: 8px; }
+        main .content .content-item-area .content-item .checkbox {
+          display: inline-table; }
+        main .content .content-item-area .content-item .item-list > * {
+          margin-top: 4px;
+          padding-top: 4px; }
     main .content .content-header {
       width: 100%;
       margin: 0;
       padding: 4px;
       text-align: center;
-      font-size: 1.2em;
-      background: #fffeff;
+      font-size: 1.2rem;
+      font-weight: 900;
+      text-shadow: 1px 1px 1px #ccccc0;
+      background: #fcfcf0;
       color: #000;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 2px solid #eee;
       border-radius: 4px 4px 0 0; }
       main .content .content-header button {
         margin-left: 8px; }
@@ -182,7 +202,7 @@ main {
       width: 100%;
       background: #fff;
       color: #484848;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 2px solid #eee;
       display: inline-flex; }
       main .content .content-nav button {
         margin-left: 8px; }
@@ -192,14 +212,13 @@ main {
         border-radius: 4px; }
         main .content .content-nav .content-nav-item button {
           margin-left: 8px; }
-    main .content .content-item-header {
-      width: 100%;
-      margin-bottom: 4px;
-      text-align: center;
-      font-weight: bold;
-      font-size: 1.2em; }
-      main .content .content-item-header button {
-        margin-left: 4px; }
+    main .content .content-input {
+      position: relative; }
+      main .content .content-input .content-input-icon {
+        opacity: 0.3;
+        position: absolute;
+        top: 0.7rem;
+        right: 1rem; }
     main .content .loading {
       margin: 100px auto;
       font-size: 25px;
@@ -278,28 +297,9 @@ main {
 
 @media (min-width: 768px) {
   .navbar {
-    margin: 0 auto; }
+    padding: 4px 16px; }
     .navbar .navbar-nav {
-      margin: 0; }
-
-  main .content .form-group {
-    width: auto;
-    margin-left: 180px; }
-  main .content .content-item .content-label {
-    width: 140px;
-    line-height: 34px;
-    text-align: right;
-    position: relative; }
-    main .content .content-item .content-label label {
-      margin-bottom: 0; }
-  main .content .content-item .content-input {
-    width: 100%;
-    margin-left: -180px;
-    padding-left: 180px;
-    position: relative;
-    float: right; }
-    main .content .content-item .content-input input {
-      width: 100%; } }
+      margin: 0; } }
 @media (min-width: 1200px) {
   header .header-wrapper {
     width: 1200px;
@@ -315,6 +315,8 @@ main {
     width: 1200px; } }
 body:before {
   content: '- Mobile -';
+  font-size: 1rem;
+  text-shadow: 1px 1px 1px #ccccc0;
   position: fixed;
   bottom: 24px;
   left: 24px;
@@ -330,5 +332,7 @@ body:before {
 @media (min-width: 1200px) {
   body:before {
     content: '- Large -'; } }
+#user-area {
+  width: 448px; }
 
 /*# sourceMappingURL=main.css.map */

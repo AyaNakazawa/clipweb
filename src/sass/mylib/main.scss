@@ -7,8 +7,6 @@ main {
   margin: 0;
   padding: 10px 0;
   background: $app-back;
-  @include border-c(top);
-  @include border-c(bottom);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -21,72 +19,94 @@ main {
     flex-basis: auto;
     order: 0;
     margin: 8px;
-    padding: 0;
+    padding: 4px;
     background: $content-back;
     color: $content-color;
     overflow: hidden;
+    box-shadow: 2px 2px 1px 1px $main-box-shadow-color;
     @include border-c();
     border-radius: $border-radius-size;
 
     // item
 
-    .content-item {
-      width: 100%;
-      padding: 4px;
-      overflow: hidden;
+    .content-item-area {
+      padding: 16px;
 
-      li {
-        margin: 8px;
-      }
+      // item-header
 
-      // name
-
-      .content-item-name {
+      .content-item-header {
         width: 100%;
-        padding-bottom: 8px;
+        margin-bottom: 4px;
         text-align: center;
-        @include border-c(bottom);
+        font-weight: bold;
+        font-size: 1.2em;
+
+        button {
+          margin-left: 4px;
+        }
       }
 
-      // keys
+      // item
 
-      .content-item-keys {
+      .content-item {
         width: 100%;
-        padding: 8px 16px;
+        padding: 4px;
+        overflow: hidden;
 
-        .content-item-key {
-          margin-bottom: 8px;
+        li {
+          margin: 8px;
+        }
 
-          &:last-child {
-            margin-bottom: 0;
+        // name
+
+        .content-item-name {
+          width: 100%;
+          padding-bottom: 8px;
+          text-align: center;
+          @include border-c(bottom);
+        }
+
+        // keys
+
+        .content-item-keys {
+          width: 100%;
+          padding: 8px 16px;
+
+          .content-item-key {
+            margin-bottom: 8px;
+
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+        }
+
+        // label
+
+        .content-label {
+          display: inline-table;
+
+          label {
+            margin: 0;
+            margin-bottom: 8px;
+          }
+        }
+
+        // checkbox
+
+        .checkbox {
+          display: inline-table;
+        }
+
+        // item-list
+        .item-list {
+          & > * {
+            margin-top: 4px;
+            padding-top: 4px;
           }
         }
       }
 
-      // label
-
-      .content-label {
-        display: inline-table;
-
-        label {
-          margin: 0;
-          margin-bottom: 8px;
-        }
-      }
-
-      // checkbox
-
-      .checkbox {
-        display: inline-table;
-      }
-
-      // item-list
-      .item-list {
-        & > * {
-          margin-top: 4px;
-          padding-top: 4px;
-        }
-      }
     }
 
     // header
@@ -96,7 +116,9 @@ main {
       margin: 0;
       padding: 4px;
       text-align: center;
-      font-size: 1.2em;
+      font-size: 1.2rem;
+      font-weight: 900;
+      text-shadow: 1px 1px 1px $main-text-shadow-color;
       background: $content-header-back;
       color: $content-header-color;
       @include border-c(bottom);
@@ -134,17 +156,16 @@ main {
 
     }
 
-    // item-header
+    // content-input
 
-    .content-item-header {
-      width: 100%;
-      margin-bottom: 4px;
-      text-align: center;
-      font-weight: bold;
-      font-size: 1.2em;
+    .content-input {
+      position: relative;
 
-      button {
-        margin-left: 4px;
+      .content-input-icon {
+        opacity: 0.3;
+        position: absolute;
+        top: 0.7rem;
+        right: 1rem;
       }
     }
 
