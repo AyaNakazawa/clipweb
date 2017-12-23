@@ -108,6 +108,13 @@ class CommonView extends CommonClass {
     super(_initSetting, _common);
   }
 
+  clearArea({
+    selector = this.MODEL.SELECTOR_AREA
+  } = {}) {
+    $(selector).empty();
+
+  }
+
   generateAlert({
     template = null,
     model = {}

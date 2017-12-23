@@ -174,13 +174,6 @@ class ContentView extends CommonView {
     super(_initSetting, _common);
   }
 
-  clearArea({
-    selector = this.MODEL.SELECTOR_AREA
-  } = {}) {
-    $(selector).empty();
-
-  }
-
   generateAlert({
     selector = this.MODEL.SELECTOR_AREA,
     type = View.ALERT_SUCCESS,
