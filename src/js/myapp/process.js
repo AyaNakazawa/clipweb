@@ -33,12 +33,7 @@ class Process extends CommonProcess {
   }
 
   initController() {
-    this.CONTROLLER = {
-      USER: new UserController(),
-      NAV: new NavController()
-    };
-
-    this.CONTROLLER.SWITCH = {
+    this.SWITCH = {
       USER: new SwitchController({
         TEMPLATE: 'user',
         currentView: true,
@@ -46,12 +41,19 @@ class Process extends CommonProcess {
       })
     };
 
-    this.CONTROLLER.SCROLL = {
+    this.SCROLL = {
       USER: new ScrollController({
         NAME: 'User Switch',
         SCROLL_SELECTOR: '#user-area',
         EVENT_SELECTOR: '#user-scroll'
       })
+    };
+
+    PS = this;
+
+    this.CONTROLLER = {
+      USER: new UserController(),
+      NAV: new NavController()
     };
   }
 
