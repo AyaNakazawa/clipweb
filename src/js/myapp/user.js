@@ -8,16 +8,7 @@
 class UserModel extends ContentModel {
   constructor(
     _initSetting = {
-      NAME: 'User Object',
-      SELECTOR_USER_ID: '#user-id',
-      SELECTOR_USER_PASSWORD: '#user-password',
-      SELECTOR_USER_CHECK: '#user-check',
-      SELECTOR_LOGIN: '#login-submit',
-      SELECTOR_LOGOUT: '#logout-submit',
-      SELECTOR_SIGNUP: '#signup-submit',
-      TRIGGER_LOGIN: 'click',
-      TRIGGER_LOGOUT: 'click',
-      TRIGGER_SIGNUP: 'click'
+      NAME: 'User Object'
     }
   ) {
     super(_initSetting);
@@ -32,13 +23,21 @@ class UserModel extends ContentModel {
     this.HASH_CRYPTO = null;
     this.SALT_CRYPTO = Project.NAME_KEY;
 
-    this.TEMPLATE_NOT_LOGIN = '#not-login-template';
+    this.TEMPLATE_LOGIN = '#login-template';
+    this.TEMPLATE_REGISTER = '#register-template';
     this.TEMPLATE_LOGINED = '#logined-template';
 
     this.LENGTH_MIN_ID = 3;
     this.LENGTH_MAX_ID = 32;
     this.LENGTH_MIN_PASSWORD = 8;
     this.LENGTH_MAX_PASSWORD = 32;
+
+    this.SELECTOR_USER_ID = '#user-id';
+    this.SELECTOR_USER_PASSWORD = '#user-password';
+    this.SELECTOR_USER_CHECK = '#user-check';
+    this.SELECTOR_LOGIN = '#login-submit';
+    this.SELECTOR_LOGOUT = '#logout-submit';
+    this.SELECTOR_REGISTER = '#register-submit';
 
     this.SELECTOR_AREA = '#user-area';
     this.SELECTOR_SWITCH = '#user-switch';
@@ -61,6 +60,7 @@ class UserView extends ContentView {
   }
 
   generateArea({
+    type = null,
     view = false,
     alertType = this.MODEL.ALERT_SUCCESS,
     alertClose = true,
@@ -68,6 +68,10 @@ class UserView extends ContentView {
     loadingHeader = null,
     loadingMessage = null
   } = {}) {
+    // View
+
+    PS.SWITCH.USER.VIEW.setView(view);
+
     // Clear
     this.clearArea();
 
@@ -77,6 +81,7 @@ class UserView extends ContentView {
         header: loadingHeader,
         message: loadingMessage
       });
+      return;
     }
 
     // Generate Alert
@@ -87,26 +92,6 @@ class UserView extends ContentView {
         close: alertClose
       });
     }
-
-    // Generate Content
-    $(this.MODEL.SELECTOR_AREA).append(Content.getHeader('header'));
-    $(this.MODEL.SELECTOR_AREA).append(Content.getNav());
-    $(this.MODEL.SELECTOR_NAV).append(Content.getNavItem({
-      addId: 'test-button',
-      name: 'button',
-      type: Content.TYPE_BUTTON
-    }));
-    $(this.MODEL.SELECTOR_NAV).append(Content.getNavItem({
-      addId: 'test-text',
-      name: 'text',
-      type: Content.TYPE_TEXT
-    }));
-    $(this.MODEL.SELECTOR_NAV).append(Content.getNavItem({
-      addId: 'test-input',
-      value: 'input',
-      type: Content.TYPE_INPUT
-    }));
-
   }
 }
 
@@ -161,10 +146,6 @@ class UserController extends ContentController {
     super(_model, _initSetting);
 
     this.EVENT.setEvent();
-    this.VIEW.generateArea({
-      alertMessage: 'alert',
-      loadingHeader: 'クリップ読み込み',
-      loadingMessage: '読み込み中'
-    });
+    this.VIEW.generateArea();
   }
 }
