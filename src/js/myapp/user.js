@@ -71,7 +71,7 @@ class UserView extends ContentView {
     // View
 
     if (PS.SWITCH.USER.getCurrentView() && view) {
-      PS.SWITCH.USER.VIEW.setView(false);
+      PS.SWITCH.USER.VIEW.setView(false, 0);
     }
     PS.SWITCH.USER.VIEW.setView(view);
 
@@ -158,7 +158,7 @@ class UserController extends ContentController {
     super(_model, _initSetting);
 
     this.EVENT.setEvent();
-    this.VIEW.generateArea();
+    this.openLogin();
   }
 
   openLogin() {
