@@ -129,23 +129,14 @@ class UserEvent extends ContentEvent {
   }
 
   setEvent() {
-    this.setClickTest();
+    this.setClickClose();
   }
 
-  setClickTest() {
+  setClickClose() {
     super.setOn({
-      selector: '#test-button',
+      selector: `${this.MODEL.SELECTOR_AREA} .content-header-button`,
       func: () => {
-        Log.log('click');
-        new ConfirmController({
-          CONFIRM_ID: 'confirm-submit-logout',
-          CONFIRM_TITLE: 'ログアウト',
-          CONFIRM_MESSAGE: 'ログアウトしてもよろしいですか？',
-          AUTO_OPEN: true,
-          FUNCTION_YES: () => {
-            Log.log('yes');
-          }
-        });
+        PS.SWITCH.USER.VIEW.setView(false);
       }
     });
   }
