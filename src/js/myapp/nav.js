@@ -45,7 +45,8 @@ class NavView extends ContentView {
   addNavItem({
     id = null,
     name = null,
-    type = 'append'
+    type = 'append',
+    fa = null
   } = {}) {
     if (id == null || name == null) {
       Log.logClassKey('NavView', 'addNavItem', 'Need argument');
@@ -58,7 +59,7 @@ class NavView extends ContentView {
       });
     }
 
-    const _element = `<li class="nav-item"><a class="nav-link"id="${id}">${name}</a></li>`;
+    const _element = `<li class="nav-item"><a class="nav-link"id="${id}"><i class="${fa}"></i> ${name}</a></li>`;
     if (type == 'prepend') {
       $(this.MODEL.SELECTOR_NAV).prepend(_element);
     } else {
