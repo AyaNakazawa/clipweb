@@ -39,7 +39,6 @@ class NavView extends ContentView {
   clearNavItem() {
     $(this.MODEL.SELECTOR_AREA).empty();
     $(this.MODEL.SELECTOR_AREA).append('<ul class="navbar-nav col-md-6"></ul>');
-    $(this.MODEL.SELECTOR_AREA).append('<div class="col-md-6 nav-seacrh"><div class="input-group"><input class="form-control" id="nav-seacrh-text" placeholder="Search"><span class="input-group-btn"><button class="btn btn-outline-info" id="nav-seacrh-button"><i class="fas fa-search"></i></button></span></div></div>');
   }
 
   addNavItem({
@@ -78,6 +77,10 @@ class NavView extends ContentView {
     $(`${this.MODEL.SELECTOR_NAV} #${id}`).each((_index, _element) => {
       $(_element).parent().remove();
     });
+  }
+
+  addNavSearch() {
+    $(this.MODEL.SELECTOR_AREA).append('<div class="col-md-6 nav-seacrh"><div class="input-group"><input class="form-control" id="nav-seacrh-text" placeholder="Search"><span class="input-group-btn"><button class="btn btn-outline-info" id="nav-seacrh-button"><i class="fas fa-search"></i></button></span></div></div>');
   }
 
   initArea() {
