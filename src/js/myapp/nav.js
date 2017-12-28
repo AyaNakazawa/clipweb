@@ -95,6 +95,20 @@ class NavView extends ContentView {
       name: 'Help'
     });
   }
+
+  generateLogined() {
+    this.clearNavItem();
+    this.addNavSearch();
+
+    this.addNavItem({
+      id: this.MODEL.SELECTOR_NAV_SETTING,
+      name: 'Setting'
+    });
+    this.addNavItem({
+      id: this.MODEL.SELECTOR_NAV_HELP,
+      name: 'Help'
+    });
+  }
 }
 
 // ----------------------------------------------------------------
