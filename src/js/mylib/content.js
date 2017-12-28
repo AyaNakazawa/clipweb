@@ -65,12 +65,18 @@ class Content {
 
   static getHeader(
     _header = null,
-    _button = null
+    _button = null,
+    _id = null
   ) {
     if (_header != null) {
       let button = '';
       if (_button != null) {
-        button = ` <i class='${Content.HEADER_BUTTON} ${_button}'></i>`;
+        let id = '';
+        if (_id != null) {
+          id = ` id=${_id}`;
+        }
+
+        button = ` <i class='${Content.HEADER_BUTTON} ${_button}'${id}></i>`;
       }
       return `<div class='${Content.HEADER}'>${_header}${button}</div>`;
     }
