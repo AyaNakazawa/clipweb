@@ -39,7 +39,7 @@ class NavView extends ContentView {
 
   clearNavItem() {
     $(this.MODEL.SELECTOR_AREA).empty();
-    $(this.MODEL.SELECTOR_AREA).append('<ul class="navbar-nav col-md-6"></ul>');
+    $(this.MODEL.SELECTOR_AREA).append('<ul class="navbar-nav col-md-8"></ul>');
   }
 
   addNavItem({
@@ -59,7 +59,13 @@ class NavView extends ContentView {
       });
     }
 
-    const _element = `<li class="nav-item"><a class="nav-link"id="${id}"><i class="${fa}"></i> ${name}</a></li>`;
+    let _icon = '';
+    if (fa != null) {
+      _icon = ` <i class="${fa}"></i>`;
+    }
+
+    const _element = `<li class="nav-item"><a class="nav-link"id="${id}">${name}${_icon}</a></li>`;
+
     if (type == 'prepend') {
       $(this.MODEL.SELECTOR_NAV).prepend(_element);
     } else {
@@ -81,7 +87,7 @@ class NavView extends ContentView {
   }
 
   addNavSearch() {
-    $(this.MODEL.SELECTOR_AREA).append('<div class="col-md-6 nav-seacrh"><div class="input-group"><input class="form-control" id="nav-seacrh-text" placeholder="Search"><span class="input-group-btn"><button class="btn btn-outline-info" id="nav-seacrh-button"><i class="fas fa-search"></i></button></span></div></div>');
+    $(this.MODEL.SELECTOR_AREA).append('<div class="col-md-4 nav-seacrh"><div class="input-group"><input class="form-control" id="nav-seacrh-text" placeholder="Search"><span class="input-group-btn"><button class="btn btn-outline-info" id="nav-seacrh-button"><i class="fas fa-search"></i></button></span></div></div>');
   }
 
   generateNotLogin() {
@@ -93,7 +99,7 @@ class NavView extends ContentView {
     });
     this.addNavItem({
       id: this.MODEL.SELECTOR_NAV_REGISTER,
-      name: 'Register'
+      name: 'Join'
     });
     this.addNavItem({
       id: this.MODEL.SELECTOR_NAV_HELP,
