@@ -2,8 +2,12 @@
 
 // font
 @font-face {
-  font-family: "Perfograma";
-  src: url("../webfonts/Perfograma.otf") format("opentype");
+  font-family: "ProximaSoft-Regular";
+  src: url("../webfonts/ProximaSoft-Regular.eot");
+  src: url("../webfonts/ProximaSoft-Regular.eot?#iefix") format("embedded-opentype"),
+  url("../webfonts/ProximaSoft-Regular.woff2") format("woff2"),
+  url("../webfonts/ProximaSoft-Regular.woff") format("woff"),
+  url("../webfonts/ProximaSoft-Regular.ttf") format("truetype");
 }
 
 // body
@@ -15,9 +19,9 @@ body {
   padding: 0;
   color: $main-color;
   background: $main-back;
-  font-family: メイリオ, Meiryo, "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", Quicksand, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+  font-family: "ProximaSoft-Regular", メイリオ, Meiryo, "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", Quicksand, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 // common
@@ -78,8 +82,7 @@ textarea {
         height: 2.4rem;
         line-height: 2.4rem;
         font-size: 2.4rem;
-        font-family: "Perfograma";
-        font-weight: 500;
+        font-weight: 900;
       }
 
       .header-content {
