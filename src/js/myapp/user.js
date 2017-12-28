@@ -13,36 +13,84 @@ class UserModel extends ContentModel {
   ) {
     super(_initSetting);
 
+    // ログインステータス
     this.LOGINED = false;
 
-    this.ID = null;
+    // ユーザ名
+    this.USERNAME = null;
+    // メールアドレス
+    this.EMAIL = null;
+    // パスワード
     this.PASSWORD = null;
+    // メール認証フラグ
+    // 認証していない場合は
+    //  - クリップ数を制限
+    //  - 公開クリップしか作れない
+    this.EMAIL_AUTH = false;
 
-    this.HASH_ID = null;
+    // ユーザハッシュ
+    // ユーザ名から生成
+    // ログイン、登録時に使用
+    // クリップ生成時に使用
+    // ユーザハッシュ + 日時 = クリップID
+    this.HASH_USER = null;
+    // パスワードハッシュ
+    // パスワード + クライアントSalt から生成
+    // ログイン、登録時に使用
+    // 暗号ハッシュ生成に使用
     this.HASH_PASSWORD = null;
+    // 暗号ハッシュ
+    // 非公開クリップの暗号化に使用
+    // ユーザハッシュ + パスワードハッシュ = 暗号ハッシュ
     this.HASH_CRYPTO = null;
-    this.SALT_CRYPTO = Project.NAME_KEY;
+    // メール認証ハッシュ
+    // メールアドレス + サーバSalt = メール認証ハッシュ
+    // メール認証に使用
+    this.HASH_EMAIL_AUTH = null;
 
+    // クライアントSalt
+    // パスワードハッシュの生成に使用
+    this.SALT = Project.NAME_KEY;
+
+    // テンプレート
     this.TEMPLATE_LOGIN = '#login-template';
     this.TEMPLATE_REGISTER = '#register-template';
     this.TEMPLATE_SETTING = '#user-setting-template';
+    this.TEMPLATE_LOGOUT = '#logout-template';
 
-    this.LENGTH_MIN_ID = 3;
-    this.LENGTH_MAX_ID = 32;
+    // バリデーション
+    this.LENGTH_MIN_USERNAME = 3;
+    this.LENGTH_MAX_USERNAME = 32;
     this.LENGTH_MIN_PASSWORD = 8;
     this.LENGTH_MAX_PASSWORD = 32;
 
-    this.SELECTOR_USER_ID = '#login-id';
-    this.SELECTOR_USER_PASSWORD = '#login-password';
-    this.SELECTOR_LOGIN = '#login-submit';
-    this.SELECTOR_LOGOUT = '#logout-submit';
-    this.SELECTOR_REGISTER = '#register-submit';
+    // セレクタ
 
+    // ログイン
+    this.SELECTOR_LOGIN_USERNAME = '#login-username';
+    this.SELECTOR_LOGIN_PASSWORD = '#login-password';
+    this.SELECTOR_LOGIN_SUBMIT = '#login-submit';
     this.SELECTOR_LOGIN_REGISTER = '#login-register';
 
-    this.SELECTOR_AREA = '#user-area';
+    // 登録
+    this.SELECTOR_REGISTER_EMAIL = '#register-email';
+    this.SELECTOR_REGISTER_USERNAME = '#register-username';
+    this.SELECTOR_REGISTER_PASSWORD = '#register-password';
+    this.SELECTOR_REGISTER_PASSWORD_RE = '#register-password-re';
+    this.SELECTOR_REGISTER_SUBMIT = '#register-submit';
 
-    this.SELECTOR_NAV = `${this.SELECTOR_AREA} .${Content.NAV}`;
+    // 設定
+    this.SELECTOR_SETTING_EMAIL = '#user-setting-email';
+    this.SELECTOR_SETTING_USERNAME = '#user-setting-username';
+    this.SELECTOR_SETTING_PASSWORD = '#user-setting-password';
+    this.SELECTOR_SETTING_PASSWORD_RE = '#user-setting-password-re';
+    this.SELECTOR_SETTING_UPDATE_SUBMIT = '#user-setting-update-submit';
+
+    // ログアウト
+    this.SELECTOR_LOGOUT_SUBMIT = '#logout-submit';
+
+    // エリア
+    this.SELECTOR_AREA = '#user-area';
 
   }
 }
@@ -148,7 +196,7 @@ class UserEvent extends ContentEvent {
 
   setClickLogin() {
     super.setOn({
-      selector: `${this.MODEL.SELECTOR_AREA} ${this.MODEL.SELECTOR_LOGIN}`,
+      selector: `${this.MODEL.SELECTOR_AREA} ${this.MODEL.SELECTOR_LOGIN_SUBMIT}`,
       func: () => {
         Log.logClassKey('User', 'Login', 'Submit');
         PS.CONTROLLER.NAV.VIEW.generateLogined();
