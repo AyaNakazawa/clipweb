@@ -68,12 +68,14 @@ class UserView extends ContentView {
     loadingHeader = null,
     loadingMessage = null
   } = {}) {
-    // View
 
+    // View
     if (PS.SWITCH.USER.getCurrentView() && view) {
       PS.SWITCH.USER.VIEW.setView(false, 0);
     }
-    PS.SWITCH.USER.VIEW.setView(view);
+    setTimeout(() => {
+      PS.SWITCH.USER.VIEW.setView(view);
+    }, 0);
 
     // Clear
     this.clearArea();
