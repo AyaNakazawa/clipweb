@@ -29,7 +29,7 @@ class UserModel extends ContentModel {
     this.EMAIL_AUTH = false;
 
     // ユーザハッシュ
-    // ユーザ名から生成
+    // メールアドレスから生成
     // ログイン、登録時に使用
     // クリップ生成時に使用
     // ユーザハッシュ + 日時 = クリップID
@@ -67,7 +67,7 @@ class UserModel extends ContentModel {
     // セレクタ
 
     // ログイン
-    this.SELECTOR_LOGIN_USERNAME = '#login-username';
+    this.SELECTOR_LOGIN_EMAIL = '#login-email';
     this.SELECTOR_LOGIN_PASSWORD = '#login-password';
     this.SELECTOR_LOGIN_SUBMIT = '#login-submit';
     this.SELECTOR_LOGIN_REGISTER = '#login-register';
