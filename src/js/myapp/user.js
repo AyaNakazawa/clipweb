@@ -110,6 +110,8 @@ class UserView extends ContentView {
   generateArea({
     type = null,
     view = false,
+    header = null,
+    headerButton = 'fas fa-times',
     alertType = this.MODEL.ALERT_SUCCESS,
     alertClose = true,
     alertMessage = null,
@@ -117,16 +119,39 @@ class UserView extends ContentView {
     loadingMessage = null
   } = {}) {
 
-    // View
-    if (PS.SWITCH.USER.getCurrentView() && view) {
-      PS.SWITCH.USER.VIEW.setView(false, 0);
+    // Set
+    let mainTemplate = null;
+    if (type == 'login') {
+      header = 'Login';
+      mainTemplate = this.MODEL.TEMPLATE_LOGIN;
+
+    } else if (type == 'setting') {
+      header = 'Setting';
+      mainTemplate = this.MODEL.TEMPLATE_SETTING;
+
+    } else if (type == 'logout') {
+      header = 'Logout';
+      mainTemplate = this.MODEL.TEMPLATE_LOGOUT;
+
+    } else if (type == 'register') {
+      header = 'Join clipweb';
+      mainTemplate = this.MODEL.TEMPLATE_REGISTER;
+
     }
-    setTimeout(() => {
-      PS.SWITCH.USER.VIEW.setView(view);
-    }, 0);
+
+    // Set Template
+    mainTemplate = View.getTemplate({
+      template: mainTemplate,
+      model: {}
+    });
 
     // Clear
     this.clearArea();
+
+    // Header
+    $(this.MODEL.SELECTOR_AREA).append(
+      Content.getHeader(header, headerButton)
+    );
 
     // Generate Loading
     if (loadingMessage != null) {
@@ -147,27 +172,16 @@ class UserView extends ContentView {
     }
 
     // Generate Content
-    if (type == 'login') {
-      $(this.MODEL.SELECTOR_AREA).append(View.getTemplate({
-        template: this.MODEL.TEMPLATE_LOGIN,
-        model: {}
-      }));
-    } else if (type == 'setting') {
-      $(this.MODEL.SELECTOR_AREA).append(View.getTemplate({
-        template: this.MODEL.TEMPLATE_SETTING,
-        model: {}
-      }));
-    } else if (type == 'logout') {
-      $(this.MODEL.SELECTOR_AREA).append(View.getTemplate({
-        template: this.MODEL.TEMPLATE_LOGOUT,
-        model: {}
-      }));
-    } else if (type == 'register') {
-      $(this.MODEL.SELECTOR_AREA).append(View.getTemplate({
-        template: this.MODEL.TEMPLATE_REGISTER,
-        model: {}
-      }));
+    $(this.MODEL.SELECTOR_AREA).append(mainTemplate);
+
+
+    // View
+    if (PS.SWITCH.USER.getCurrentView() && view) {
+      PS.SWITCH.USER.VIEW.setView(false, 0);
     }
+    setTimeout(() => {
+      PS.SWITCH.USER.VIEW.setView(view);
+    }, 0);
   }
 }
 
@@ -187,6 +201,7 @@ class UserEvent extends ContentEvent {
     this.setClickClose();
     this.setClickLogin();
     this.setClickLoginRegister();
+    this.setClickRegister();
   }
 
   setClickClose() {
@@ -219,6 +234,18 @@ class UserEvent extends ContentEvent {
       }
     });
   }
+
+  setClickRegister() {
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR_AREA} ${this.MODEL.SELECTOR_REGISTER_SUBMIT}`,
+      func: () => {
+        Log.logClassKey('User', 'Register', 'Submit');
+        this.CONTROLLER.openLogin({
+          alertMessage: 'Joined !'
+        });
+      }
+    });
+  }
 }
 
 // ----------------------------------------------------------------
@@ -240,31 +267,47 @@ class UserController extends ContentController {
     this.openLogin();
   }
 
-  openLogin() {
-    this.VIEW.generateArea({
+  openLogin(
+    args = null
+  ) {
+    let model = {
       type: 'login',
       view: true
-    });
+    };
+    Object.assign(model, args);
+    this.VIEW.generateArea(model);
   }
 
-  openSetting() {
-    this.VIEW.generateArea({
+  openSetting(
+    args = null
+  ) {
+    let model = {
       type: 'setting',
       view: true
-    });
+    };
+    Object.assign(model, args);
+    this.VIEW.generateArea(model);
   }
 
-  openLogout() {
-    this.VIEW.generateArea({
+  openLogout(
+    args = null
+  ) {
+    let model = {
       type: 'logout',
       view: true
-    });
+    };
+    Object.assign(model, args);
+    this.VIEW.generateArea(model);
   }
 
-  openRegister() {
-    this.VIEW.generateArea({
+  openRegister(
+    args = null
+  ) {
+    let model = {
       type: 'register',
       view: true
-    });
+    };
+    Object.assign(model, args);
+    this.VIEW.generateArea(model);
   }
 }
