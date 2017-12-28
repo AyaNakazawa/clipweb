@@ -19,6 +19,7 @@ class NavModel extends ContentModel {
     this.SELECTOR_NAV_LOGIN = 'nav-login';
     this.SELECTOR_NAV_REGISTER = 'nav-register';
     this.SELECTOR_NAV_SETTING = 'nav-setting';
+    this.SELECTOR_NAV_LOGOUT = 'nav-logout';
     this.SELECTOR_NAV_HELP = 'nav-help';
 
   }
@@ -108,6 +109,10 @@ class NavView extends ContentView {
       id: this.MODEL.SELECTOR_NAV_HELP,
       name: 'Help'
     });
+    this.addNavItem({
+      id: this.MODEL.SELECTOR_NAV_LOGOUT,
+      name: 'Logout'
+    });
   }
 }
 
@@ -126,6 +131,7 @@ class NavEvent extends ContentEvent {
   setEvent() {
     this.setOpenLogin();
     this.setOpenSetting();
+    this.setOpenLogout();
     this.setOpenRegister();
     this.setOpenHelp();
   }
@@ -144,8 +150,18 @@ class NavEvent extends ContentEvent {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR_NAV_SETTING}`,
       func: () => {
-        Log.logClassKey('Nav', 'User setting', 'Open');
+        Log.logClassKey('Nav', 'User Setting', 'Open');
         PS.CONTROLLER.USER.openSetting();
+      }
+    });
+  }
+
+  setOpenLogout() {
+    super.setOn({
+      selector: `#${this.MODEL.SELECTOR_NAV_LOGOUT}`,
+      func: () => {
+        Log.logClassKey('Nav', 'Logout', 'Open');
+        PS.CONTROLLER.USER.openLogout();
       }
     });
   }

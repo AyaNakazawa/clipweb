@@ -157,7 +157,12 @@ class UserView extends ContentView {
         template: this.MODEL.TEMPLATE_SETTING,
         model: {}
       }));
-    }if (type == 'register') {
+    } else if (type == 'logout') {
+      $(this.MODEL.SELECTOR_AREA).append(View.getTemplate({
+        template: this.MODEL.TEMPLATE_LOGOUT,
+        model: {}
+      }));
+    } else if (type == 'register') {
       $(this.MODEL.SELECTOR_AREA).append(View.getTemplate({
         template: this.MODEL.TEMPLATE_REGISTER,
         model: {}
@@ -245,6 +250,13 @@ class UserController extends ContentController {
   openSetting() {
     this.VIEW.generateArea({
       type: 'setting',
+      view: true
+    });
+  }
+
+  openLogout() {
+    this.VIEW.generateArea({
+      type: 'logout',
       view: true
     });
   }
