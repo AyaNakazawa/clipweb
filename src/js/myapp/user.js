@@ -138,7 +138,7 @@ class UserEvent extends ContentEvent {
     super.setOn({
       selector: `${this.MODEL.SELECTOR_AREA} .content-header-button`,
       func: () => {
-        Log.logClass('User', 'Close');
+        Log.logClassKey('User', 'Close', 'Submit');
         this.VIEW.generateArea();
       }
     });
@@ -148,7 +148,7 @@ class UserEvent extends ContentEvent {
     super.setOn({
       selector: `${this.MODEL.SELECTOR_AREA} ${this.MODEL.SELECTOR_LOGIN}`,
       func: () => {
-        Log.logClass('User', 'Login');
+        Log.logClassKey('User', 'Login', 'Submit');
         PS.CONTROLLER.NAV.VIEW.generateLogined();
         this.VIEW.generateArea();
       }
@@ -159,7 +159,7 @@ class UserEvent extends ContentEvent {
     super.setOn({
       selector: `${this.MODEL.SELECTOR_AREA} ${this.MODEL.SELECTOR_LOGIN_REGISTER}`,
       func: () => {
-        Log.logClass('User', 'Register');
+        Log.logClassKey('User', 'Register', 'Open');
         this.CONTROLLER.openRegister();
       }
     });

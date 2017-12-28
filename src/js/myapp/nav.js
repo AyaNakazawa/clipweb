@@ -134,7 +134,7 @@ class NavEvent extends ContentEvent {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR_NAV_LOGIN}`,
       func: () => {
-        Log.log('Open Login');
+        Log.logClassKey('Nav', 'Login', 'Open');
         PS.CONTROLLER.USER.openLogin();
       }
     });
@@ -144,7 +144,7 @@ class NavEvent extends ContentEvent {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR_NAV_SETTING}`,
       func: () => {
-        Log.log('Open User setting');
+        Log.logClassKey('Nav', 'User setting', 'Open');
         PS.CONTROLLER.USER.openSetting();
       }
     });
@@ -154,7 +154,7 @@ class NavEvent extends ContentEvent {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR_NAV_REGISTER}`,
       func: () => {
-        Log.log('Open Register');
+        Log.logClassKey('Nav', 'Register', 'Open');
         PS.CONTROLLER.USER.openRegister();
       }
     });
@@ -164,7 +164,7 @@ class NavEvent extends ContentEvent {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR_NAV_HELP}`,
       func: () => {
-        Log.log('Open Help');
+        Log.logClassKey('Nav', 'Help', 'Open');
         PS.CONTROLLER.HELP.openHelp();
       }
     });
