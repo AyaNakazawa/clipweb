@@ -203,6 +203,123 @@
         </div>
       </div>
     </script>
+    <!-- user-info -->
+    <script type="text/template" id="user-info-template">
+      <!-- Username -->
+      <div class="content-item-area">
+        <div class="content-item">
+          <label for="user-info-username">Username</label>
+          <div class="content-input">
+            <input id="user-info-username" type="text" required="required" class="form-control" placeholder="">
+            <i class="content-input-icon fas fa-user"></i>
+          </div>
+        </div>
+      </div>
+      <!-- Email address -->
+      <div class="content-item-area">
+        <div class="content-item">
+          <label for="user-info-email">Email address</label>
+          <div class="content-input">
+            <input id="user-info-email" type="email" required="required" class="form-control" placeholder="">
+            <i class="content-input-icon fas fa-envelope"></i>
+          </div>
+        </div>
+      </div>
+      <!-- Password -->
+      <div class="content-item-area">
+        <div class="content-item">
+          <label for="user-info-password-old">Password</label>
+          <div class="content-input">
+            <input id="user-info-password-old" type="password" required="required" class="form-control" placeholder="">
+            <i class="content-input-icon fas fa-lock"></i>
+          </div>
+        </div>
+        <div class="content-item content-split">
+          <div class="content-split-item">
+            <label for="user-info-password-new">New Password</label>
+            <div class="content-input">
+              <input id="user-info-password-new" type="password" required="required" class="form-control" placeholder="">
+              <i class="content-input-icon fas fa-lock"></i>
+            </div>
+          </div>
+          <div class="content-split-item">
+            <label for="user-info-password2-new">Confirm Password</label>
+            <div class="content-input">
+              <input id="user-info-password2-new" type="password" required="required" class="form-control" placeholder="">
+              <i class="content-input-icon fas fa-lock"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Action -->
+      <div class="content-item-area">
+        <div class="content-item d-flex justify-content-between">
+          <button id="user-info-setting" class="btn btn-primary">Setting <i class="fal fa-exchange-alt"></i></button>
+          <button id="user-info-update-submit" class="btn btn-primary">Save <i class="fal fa-cloud"></i></button>
+        </div>
+      </div>
+    </script>
+    <!-- user-setting -->
+    <script type="text/template" id="user-setting-template">
+      <!-- Avatar -->
+      <div class="content-item-area">
+        <div class="content-item">
+          <label for="user-setting-avatar">Avatar</label>
+          <div>
+            Using
+            <i class="fas fa-arrow-alt-right"></i>
+            <a href="https://ja.gravatar.com/">Gravatar</a>
+          </div>
+        </div>
+      </div>
+      <!-- Theme -->
+      <div class="content-item-area">
+        <div class="content-item">
+          <label for="user-setting-theme">Theme</label>
+          <div class="content-input">
+            <select id="user-setting-theme" class="form-control" placeholder="">
+              <option>Light</option>
+              <option>Dark</option>
+            </select>
+            <i class="content-input-icon fas fa-th-list"></i>
+          </div>
+        </div>
+      </div>
+      <!-- Owner Publish Mode -->
+      <div class="content-item-area">
+        <div class="content-item">
+          <label for="user-setting-owner-publish">Default Owner Publish</label>
+          <div class="content-input">
+            <select id="user-setting-owner-publish" class="form-control" placeholder="">
+              <option>Private</option>
+              <option>Public</option>
+            </select>
+            <i class="content-input-icon fas fa-user-circle"></i>
+          </div>
+        </div>
+      </div>
+      <!-- Clip Mode -->
+      <div class="content-item-area">
+        <div class="content-item">
+          <label for="user-setting-clip-mode">Default Clip mode</label>
+          <div class="content-input">
+            <select id="user-setting-clip-mode" class="form-control" placeholder="">
+              <option>Private</option>
+              <option>Public</option>
+              <option>Share</option>
+            </select>
+            <i class="content-input-icon fas fa-share-alt"></i>
+          </div>
+        </div>
+      </div>
+      <!-- Action -->
+      <div class="content-item-area">
+        <div class="content-item d-flex justify-content-between">
+          <button id="user-setting-info" class="btn btn-primary">Info <i class="fal fa-exchange-alt"></i></button>
+          <button id="user-setting-update-submit" class="btn btn-primary">Save <i class="fal fa-cloud"></i></button>
+        </div>
+      </div>
+    </script>
     <!-- logout -->
     <script type="text/template" id="logout-template">
       <div class="content-item-area">
