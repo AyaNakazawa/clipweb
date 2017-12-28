@@ -145,7 +145,6 @@ main {
     padding: 4px;
     background: #fff;
     color: #333;
-    overflow: hidden;
     box-shadow: 2px 2px 1px 1px #dcdcd0;
     border: 2px solid #eee;
     border-radius: 4px; }
@@ -162,8 +161,7 @@ main {
       main .content .content-item-area .content-item {
         width: 100%;
         padding: 8px 4px;
-        margin: 0;
-        overflow: hidden; }
+        margin: 0; }
         main .content .content-item-area .content-item:first-child {
           padding-top: 0; }
         main .content .content-item-area .content-item:last-child {
