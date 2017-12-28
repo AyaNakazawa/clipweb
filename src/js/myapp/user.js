@@ -56,6 +56,7 @@ class UserModel extends ContentModel {
     this.TEMPLATE_LOGIN = '#login-template';
     this.TEMPLATE_REGISTER = '#register-template';
     this.TEMPLATE_SETTING = '#user-setting-template';
+    this.TEMPLATE_INFO = '#user-info-template';
     this.TEMPLATE_LOGOUT = '#logout-template';
 
     // バリデーション
@@ -79,12 +80,20 @@ class UserModel extends ContentModel {
     this.SELECTOR_REGISTER_PASSWORD_RE = '#register-password-re';
     this.SELECTOR_REGISTER_SUBMIT = '#register-submit';
 
-    // 設定
-    this.SELECTOR_SETTING_EMAIL = '#user-setting-email';
-    this.SELECTOR_SETTING_USERNAME = '#user-setting-username';
-    this.SELECTOR_SETTING_PASSWORD = '#user-setting-password';
-    this.SELECTOR_SETTING_PASSWORD_RE = '#user-setting-password-re';
+    // ユーザ設定
+    this.SELECTOR_SETTING_THEME = 'user-setting-theme';
+    this.SELECTOR_SETTING_OWNER_PUBLISH = 'user-setting-owner-publish';
+    this.SELECTOR_SETTING_CLIP_MODE = 'user-setting-clip-mode';
     this.SELECTOR_SETTING_UPDATE_SUBMIT = '#user-setting-update-submit';
+    this.SELECTOR_SETTING_INFO = '#user-setting-info';
+
+    // ユーザ情報
+    this.SELECTOR_INFO_EMAIL = '#user-info-email';
+    this.SELECTOR_INFO_USERNAME = '#user-info-username';
+    this.SELECTOR_INFO_PASSWORD = '#user-info-password';
+    this.SELECTOR_INFO_PASSWORD_RE = '#user-info-password-re';
+    this.SELECTOR_INFO_UPDATE_SUBMIT = '#user-info-update-submit';
+    this.SELECTOR_INFO_SETTING = '#user-info-setting';
 
     // ログアウト
     this.SELECTOR_LOGOUT_SUBMIT = '#logout-submit';
@@ -121,28 +130,38 @@ class UserView extends ContentView {
 
     // Set
     let mainTemplate = null;
+    let mainModel = null;
     if (type == 'login') {
       header = 'Login';
       mainTemplate = this.MODEL.TEMPLATE_LOGIN;
+      mainModel = {};
 
     } else if (type == 'setting') {
-      header = 'Setting';
+      header = 'User Setting';
       mainTemplate = this.MODEL.TEMPLATE_SETTING;
+      mainModel = {};
+
+    } else if (type == 'info') {
+      header = 'User Info';
+      mainTemplate = this.MODEL.TEMPLATE_INFO;
+      mainModel = {};
 
     } else if (type == 'logout') {
       header = 'Logout';
       mainTemplate = this.MODEL.TEMPLATE_LOGOUT;
+      mainModel = {};
 
     } else if (type == 'register') {
       header = 'Join clipweb';
       mainTemplate = this.MODEL.TEMPLATE_REGISTER;
+      mainModel = {};
 
     }
 
     // Set Template
-    mainTemplate = View.getTemplate({
+    const area = View.getTemplate({
       template: mainTemplate,
-      model: {}
+      model: mainModel
     });
 
     // Clear
@@ -172,7 +191,7 @@ class UserView extends ContentView {
     }
 
     // Generate Content
-    $(this.MODEL.SELECTOR_AREA).append(mainTemplate);
+    $(this.MODEL.SELECTOR_AREA).append(area);
 
 
     // View
@@ -201,6 +220,10 @@ class UserEvent extends ContentEvent {
     this.setClickClose();
     this.setClickLogin();
     this.setClickLoginRegister();
+    this.setClickSetting();
+    this.setClickSettingUpdate();
+    this.setClickInfo();
+    this.setClickInfoUpdate();
     this.setClickRegister();
     this.setClickLogout();
   }
@@ -242,7 +265,53 @@ class UserEvent extends ContentEvent {
       func: () => {
         Log.logClassKey('User', 'Register', 'Submit');
         this.CONTROLLER.openLogin({
-          alertMessage: 'Joined !'
+          alertMessage: 'Please do email authentication'
+        });
+      }
+    });
+  }
+
+  setClickSetting() {
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR_AREA} ${this.MODEL.SELECTOR_INFO_SETTING}`,
+      func: () => {
+        Log.logClassKey('User', 'User Setting', 'Open');
+        this.CONTROLLER.openSetting();
+      }
+    });
+  }
+
+  setClickSettingUpdate() {
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR_AREA} ${this.MODEL.SELECTOR_SETTING_UPDATE_SUBMIT}`,
+      func: () => {
+        Log.logClassKey('User', 'User Setting', 'Submit');
+        // Update User Setting
+        this.CONTROLLER.openSetting({
+          alertMessage: 'Updated !'
+        });
+      }
+    });
+  }
+
+  setClickInfo() {
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR_AREA} ${this.MODEL.SELECTOR_SETTING_INFO}`,
+      func: () => {
+        Log.logClassKey('User', 'User Info', 'Open');
+        this.CONTROLLER.openInfo();
+      }
+    });
+  }
+
+  setClickInfoUpdate() {
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR_AREA} ${this.MODEL.SELECTOR_INFO_UPDATE_SUBMIT}`,
+      func: () => {
+        Log.logClassKey('User', 'User Info', 'Submit');
+        // Update User Info
+        this.CONTROLLER.openInfo({
+          alertMessage: 'Updated !'
         });
       }
     });
@@ -295,6 +364,17 @@ class UserController extends ContentController {
   ) {
     let model = {
       type: 'setting',
+      view: true
+    };
+    Object.assign(model, args);
+    this.VIEW.generateArea(model);
+  }
+
+  openInfo(
+    args = null
+  ) {
+    let model = {
+      type: 'info',
       view: true
     };
     Object.assign(model, args);
