@@ -164,6 +164,10 @@ main {
         padding: 8px 4px;
         margin: 0;
         overflow: hidden; }
+        main .content .content-item-area .content-item:first-child {
+          padding-top: 0; }
+        main .content .content-item-area .content-item:last-child {
+          padding-bottom: 0; }
         main .content .content-item-area .content-item li {
           margin: 8px; }
         main .content .content-item-area .content-item .content-item-name {
