@@ -38,6 +38,8 @@ class UserModel extends ContentModel {
     this.SELECTOR_LOGOUT = '#logout-submit';
     this.SELECTOR_REGISTER = '#register-submit';
 
+    this.SELECTOR_LOGIN_REGISTER = '#login-register';
+
     this.SELECTOR_AREA = '#user-area';
 
     this.SELECTOR_NAV = `${this.SELECTOR_AREA} .${Content.NAV}`;
@@ -128,6 +130,8 @@ class UserEvent extends ContentEvent {
 
   setEvent() {
     this.setClickClose();
+    this.setClickLogin();
+    this.setClickLoginRegister();
   }
 
   setClickClose() {
@@ -136,6 +140,27 @@ class UserEvent extends ContentEvent {
       func: () => {
         Log.logClass('User', 'Close');
         this.VIEW.generateArea();
+      }
+    });
+  }
+
+  setClickLogin() {
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR_AREA} ${this.MODEL.SELECTOR_LOGIN}`,
+      func: () => {
+        Log.logClass('User', 'Login');
+        PS.CONTROLLER.NAV.VIEW.generateLogined();
+        this.VIEW.generateArea();
+      }
+    });
+  }
+
+  setClickLoginRegister() {
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR_AREA} ${this.MODEL.SELECTOR_LOGIN_REGISTER}`,
+      func: () => {
+        Log.logClass('User', 'Register');
+        this.CONTROLLER.openRegister();
       }
     });
   }
