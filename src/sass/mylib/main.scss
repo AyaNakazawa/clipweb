@@ -51,6 +51,7 @@ main {
       .content-item {
         width: 100%;
         padding: 4px;
+        margin: 0;
         overflow: hidden;
 
         li {
@@ -106,7 +107,6 @@ main {
           }
         }
       }
-
     }
 
     // header
@@ -130,6 +130,24 @@ main {
         right: 1rem;
         top: 0.65rem;
         cursor: pointer;
+      }
+    }
+
+    // split
+
+    .content-split {
+      display: flex;
+
+      .content-split-item {
+        padding: 0 8px;
+
+        &:first-child {
+          padding-left: 0;
+        }
+
+        &:last-child {
+          padding-right: 0;
+        }
       }
     }
 

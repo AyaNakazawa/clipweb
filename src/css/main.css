@@ -162,6 +162,7 @@ main {
       main .content .content-item-area .content-item {
         width: 100%;
         padding: 4px;
+        margin: 0;
         overflow: hidden; }
         main .content .content-item-area .content-item li {
           margin: 8px; }
@@ -205,6 +206,14 @@ main {
         right: 1rem;
         top: 0.65rem;
         cursor: pointer; }
+    main .content .content-split {
+      display: flex; }
+      main .content .content-split .content-split-item {
+        padding: 0 8px; }
+        main .content .content-split .content-split-item:first-child {
+          padding-left: 0; }
+        main .content .content-split .content-split-item:last-child {
+          padding-right: 0; }
     main .content .content-nav {
       width: 100%;
       background: #fff;
