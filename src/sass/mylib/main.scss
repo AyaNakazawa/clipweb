@@ -39,6 +39,7 @@ main {
         text-align: center;
         font-weight: bold;
         font-size: 1.2em;
+        font-weight: 700;
 
         button {
           margin-left: 4px;
@@ -123,7 +124,7 @@ main {
       padding: 4px;
       text-align: center;
       font-size: 1.2rem;
-      font-weight: 900;
+      font-weight: 700;
       text-shadow: 1px 1px 1px $main-text-shadow-color;
       background: $content-header-back;
       color: $content-header-color;
@@ -194,6 +195,10 @@ main {
         position: absolute;
         top: 0.7rem;
         right: 1rem;
+
+        &.content-select-icon {
+          right: 1.6rem;
+        }
       }
     }
 
