@@ -18,7 +18,7 @@ class NavModel extends ContentModel {
 
     this.SELECTOR_NAV_LOGIN = 'nav-login';
     this.SELECTOR_NAV_REGISTER = 'nav-register';
-    this.SELECTOR_NAV_LOGOUT = 'nav-logout';
+    this.SELECTOR_NAV_SETTING = 'nav-setting';
     this.SELECTOR_NAV_HELP = 'nav-help';
 
   }
@@ -83,7 +83,7 @@ class NavView extends ContentView {
     $(this.MODEL.SELECTOR_AREA).append('<div class="col-md-6 nav-seacrh"><div class="input-group"><input class="form-control" id="nav-seacrh-text" placeholder="Search"><span class="input-group-btn"><button class="btn btn-outline-info" id="nav-seacrh-button"><i class="fas fa-search"></i></button></span></div></div>');
   }
 
-  initArea() {
+  generateNotLogin() {
     this.clearNavItem();
 
     this.addNavItem({
@@ -111,7 +111,7 @@ class NavEvent extends ContentEvent {
 
   setEvent() {
     this.setOpenLogin();
-    this.setOpenLogout();
+    this.setOpenSetting();
     this.setOpenRegister();
     this.setOpenHelp();
   }
@@ -126,12 +126,12 @@ class NavEvent extends ContentEvent {
     });
   }
 
-  setOpenLogout() {
+  setOpenSetting() {
     super.setOn({
-      selector: `#${this.MODEL.SELECTOR_NAV_LOGOUT}`,
+      selector: `#${this.MODEL.SELECTOR_NAV_SETTING}`,
       func: () => {
-        Log.log('Open Logout');
-        PS.CONTROLLER.USER.openLogout();
+        Log.log('Open User setting');
+        PS.CONTROLLER.USER.openSetting();
       }
     });
   }
@@ -173,6 +173,6 @@ class NavController extends ContentController {
     super(_model, _initSetting);
 
     this.EVENT.setEvent();
-    this.VIEW.initArea({});
+    this.VIEW.generateNotLogin();
   }
 }

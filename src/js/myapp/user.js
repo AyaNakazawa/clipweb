@@ -13,7 +13,7 @@ class UserModel extends ContentModel {
   ) {
     super(_initSetting);
 
-    this.LOGIN = false;
+    this.LOGINED = false;
 
     this.ID = null;
     this.PASSWORD = null;
@@ -25,22 +25,20 @@ class UserModel extends ContentModel {
 
     this.TEMPLATE_LOGIN = '#login-template';
     this.TEMPLATE_REGISTER = '#register-template';
-    this.TEMPLATE_LOGINED = '#logined-template';
+    this.TEMPLATE_SETTING = '#user-setting-template';
 
     this.LENGTH_MIN_ID = 3;
     this.LENGTH_MAX_ID = 32;
     this.LENGTH_MIN_PASSWORD = 8;
     this.LENGTH_MAX_PASSWORD = 32;
 
-    this.SELECTOR_USER_ID = '#user-id';
-    this.SELECTOR_USER_PASSWORD = '#user-password';
-    this.SELECTOR_USER_CHECK = '#user-check';
+    this.SELECTOR_USER_ID = '#login-id';
+    this.SELECTOR_USER_PASSWORD = '#login-password';
     this.SELECTOR_LOGIN = '#login-submit';
     this.SELECTOR_LOGOUT = '#logout-submit';
     this.SELECTOR_REGISTER = '#register-submit';
 
     this.SELECTOR_AREA = '#user-area';
-    this.SELECTOR_SWITCH = '#user-switch';
 
     this.SELECTOR_NAV = `${this.SELECTOR_AREA} .${Content.NAV}`;
 
@@ -102,9 +100,9 @@ class UserView extends ContentView {
         template: this.MODEL.TEMPLATE_LOGIN,
         model: {}
       }));
-    } else if (type == 'logout') {
+    } else if (type == 'setting') {
       $(this.MODEL.SELECTOR_AREA).append(View.getTemplate({
-        template: this.MODEL.TEMPLATE_LOGOUT,
+        template: this.MODEL.TEMPLATE_SETTING,
         model: {}
       }));
     }if (type == 'register') {
@@ -136,7 +134,8 @@ class UserEvent extends ContentEvent {
     super.setOn({
       selector: `${this.MODEL.SELECTOR_AREA} .content-header-button`,
       func: () => {
-        PS.SWITCH.USER.VIEW.setView(false);
+        Log.logClass('User', 'Close');
+        this.VIEW.generateArea();
       }
     });
   }
@@ -168,9 +167,9 @@ class UserController extends ContentController {
     });
   }
 
-  openLogout() {
+  openSetting() {
     this.VIEW.generateArea({
-      type: 'logout',
+      type: 'setting',
       view: true
     });
   }
