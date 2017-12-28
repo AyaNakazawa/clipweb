@@ -202,6 +202,7 @@ class UserEvent extends ContentEvent {
     this.setClickLogin();
     this.setClickLoginRegister();
     this.setClickRegister();
+    this.setClickLogout();
   }
 
   setClickClose() {
@@ -243,6 +244,17 @@ class UserEvent extends ContentEvent {
         this.CONTROLLER.openLogin({
           alertMessage: 'Joined !'
         });
+      }
+    });
+  }
+
+  setClickLogout() {
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR_AREA} ${this.MODEL.SELECTOR_LOGOUT_SUBMIT}`,
+      func: () => {
+        Log.logClassKey('User', 'Logout', 'Submit');
+        PS.CONTROLLER.NAV.VIEW.generateNotLogin();
+        this.CONTROLLER.openLogin();
       }
     });
   }
