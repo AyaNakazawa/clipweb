@@ -99,7 +99,7 @@ class NavView extends ContentView {
     });
     this.addNavItem({
       id: this.MODEL.SELECTOR_NAV_REGISTER,
-      name: 'Join'
+      name: 'Register'
     });
     this.addNavItem({
       id: this.MODEL.SELECTOR_NAV_HELP,
