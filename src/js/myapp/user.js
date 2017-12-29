@@ -147,6 +147,7 @@ class UserView extends ContentView {
     } else if (type == 'setting') {
       header = 'User Setting';
       mainTemplate = this.MODEL.TEMPLATE_SETTING;
+      this.MODEL.EMAIL = this.MODEL.EMAIL.toLowerCase().trim();
       this.MODEL.HASH_GRAVATAR = MD5.getHash(this.MODEL.EMAIL);
       mainModel = {
         gravatarHash: this.MODEL.HASH_GRAVATAR,
