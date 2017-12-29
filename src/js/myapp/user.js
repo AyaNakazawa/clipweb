@@ -364,7 +364,7 @@ class UserController extends ContentController {
     super(_model, _initSetting);
 
     this.EVENT.setEvent();
-    this.openSetting();
+    this.openLogin();
   }
 
   openLogin(
