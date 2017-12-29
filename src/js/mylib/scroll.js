@@ -31,7 +31,7 @@ class ScrollView extends CommonView {
   ) {
     super(_initSetting);
   }
-  
+
   scroll() {
     Log.logClass('Scroll', this.MODEL.NAME);
     $(this.MODEL.BODY).animate(
@@ -57,7 +57,7 @@ class ScrollEvent extends CommonEvent {
   ) {
     super(_initSetting);
   }
-  
+
   setOnScroll() {
     if (this.MODEL.EVENT_SELECTOR != null) {
       super.setOn({
@@ -86,7 +86,7 @@ class ScrollController extends CommonController {
     }
   ) {
     super(_model, _initSetting);
-    
+
     this.EVENT.setOnScroll();
   }
 }

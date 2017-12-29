@@ -7,7 +7,7 @@
 
 class PopoverModel extends CommonModel {
   constructor(
-    _setting = {}, 
+    _setting = {},
     _initSetting = {
       NAME: 'Popover Object',
       SELECTOR: null,
@@ -24,7 +24,7 @@ class PopoverModel extends CommonModel {
 
 class PopoverView extends CommonView {
   constructor(
-    _setting = {}, 
+    _setting = {},
     _initSetting = {
       NAME: 'Popover View'
     }
@@ -38,14 +38,14 @@ class PopoverView extends CommonView {
 
 class PopoverEvent extends CommonEvent {
   constructor(
-    _setting = {}, 
+    _setting = {},
     _initSetting = {
       NAME: 'Popover Event'
     }
   ) {
     super(_setting, _initSetting);
   }
-  
+
   setPopover() {
     if (this.MODEL.SELECTOR != null) {
       $(this.MODEL.SELECTOR).attr('data-toggle', 'popover');
@@ -61,7 +61,7 @@ class PopoverEvent extends CommonEvent {
 
 class PopoverController extends CommonController {
   constructor(
-    _model = {}, 
+    _model = {},
     _initSetting = {
       NAME: 'Popover Controller',
       MODEL: new PopoverModel(),
@@ -71,7 +71,7 @@ class PopoverController extends CommonController {
     }
   ) {
     super(_model, _initSetting);
-    
+
     this.EVENT.setPopover();
   }
 }
