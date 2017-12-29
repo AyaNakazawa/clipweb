@@ -47,10 +47,18 @@ class UserModel extends ContentModel {
     // メールアドレス + サーバSalt = メール認証ハッシュ
     // メール認証に使用
     this.HASH_EMAIL_AUTH = null;
+    // Gravatarハッシュ
+    // メールアドレスのMD5ハッシュ
+    this.HASH_GRAVATAR = null;
 
     // クライアントSalt
     // パスワードハッシュの生成に使用
     this.SALT = Project.NAME_KEY;
+
+    // ユーザ設定
+    this.THEME = 'light';
+    this.OWNER_PUBLISH = 'public';
+    this.CLIP_MODE = 'private';
 
     // テンプレート
     this.TEMPLATE_LOGIN = '#login-template';
@@ -139,17 +147,28 @@ class UserView extends ContentView {
     } else if (type == 'setting') {
       header = 'User Setting';
       mainTemplate = this.MODEL.TEMPLATE_SETTING;
-      mainModel = {};
+      this.MODEL.HASH_GRAVATAR = MD5.getHash(this.MODEL.EMAIL);
+      mainModel = {
+        gravatarHash: this.MODEL.HASH_GRAVATAR,
+        theme: this.MODEL.THEME,
+        ownerPublish: this.MODEL.OWNER_PUBLISH,
+        clipMode: this.MODEL.CLIP_MODE
+      };
 
     } else if (type == 'info') {
       header = 'User Info';
       mainTemplate = this.MODEL.TEMPLATE_INFO;
-      mainModel = {};
+      mainModel = {
+        username: this.MODEL.USERNAME,
+        email: this.MODEL.EMAIL
+      };
 
     } else if (type == 'logout') {
       header = 'Logout';
       mainTemplate = this.MODEL.TEMPLATE_LOGOUT;
-      mainModel = {};
+      mainModel = {
+        username: this.MODEL.USERNAME
+      };
 
     } else if (type == 'register') {
       header = 'Join clipweb';
@@ -345,7 +364,7 @@ class UserController extends ContentController {
     super(_model, _initSetting);
 
     this.EVENT.setEvent();
-    this.openLogin();
+    this.openSetting();
   }
 
   openLogin(

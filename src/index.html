@@ -210,7 +210,7 @@
         <div class="content-item">
           <label for="user-info-username">Username</label>
           <div class="content-input">
-            <input id="user-info-username" type="text" required="required" class="form-control" placeholder="">
+            <input id="user-info-username" type="text" required="required" class="form-control" placeholder="" value="<%- username %>">
             <i class="content-input-icon fas fa-user"></i>
           </div>
         </div>
@@ -220,7 +220,7 @@
         <div class="content-item">
           <label for="user-info-email">Email address</label>
           <div class="content-input">
-            <input id="user-info-email" type="email" required="required" class="form-control" placeholder="">
+            <input id="user-info-email" type="email" required="required" class="form-control" placeholder="" value="<%- email %>">
             <i class="content-input-icon fas fa-envelope"></i>
           </div>
         </div>
@@ -230,7 +230,7 @@
         <div class="content-item">
           <label for="user-info-password-old">Password</label>
           <div class="content-input">
-            <input id="user-info-password-old" type="password" required="required" class="form-control" placeholder="">
+            <input id="user-info-password-old" type="password" required="required" class="form-control" placeholder="" value="">
             <i class="content-input-icon fas fa-lock"></i>
           </div>
         </div>
@@ -238,14 +238,14 @@
           <div class="content-split-item">
             <label for="user-info-password-new">New Password</label>
             <div class="content-input">
-              <input id="user-info-password-new" type="password" required="required" class="form-control" placeholder="">
+              <input id="user-info-password-new" type="password" required="required" class="form-control" placeholder="" value="">
               <i class="content-input-icon fas fa-lock"></i>
             </div>
           </div>
           <div class="content-split-item">
             <label for="user-info-password2-new">Confirm Password</label>
             <div class="content-input">
-              <input id="user-info-password2-new" type="password" required="required" class="form-control" placeholder="">
+              <input id="user-info-password2-new" type="password" required="required" class="form-control" placeholder="" value="">
               <i class="content-input-icon fas fa-lock"></i>
             </div>
           </div>
@@ -266,10 +266,13 @@
         <div class="content-item">
           <label for="user-setting-avatar">Avatar</label>
           <div>
-            Using
+            <img src="https://www.gravatar.com/avatar/<%- gravatarHash %>" alt="My avatar" class="cw-avatar" id="user-setting-avatar">
+          </div>
+          <span>
+            Using Email address
             <i class="fas fa-long-arrow-alt-right"></i>
             <a href="https://ja.gravatar.com/">Gravatar</a>
-          </div>
+          </span>
         </div>
       </div>
       <!-- Theme -->
@@ -277,9 +280,17 @@
         <div class="content-item">
           <label for="user-setting-theme">Theme</label>
           <div class="content-input">
-            <select id="user-setting-theme" class="form-control" placeholder="">
-              <option>Light</option>
-              <option>Dark</option>
+            <select id="user-setting-theme" class="form-control" required>
+              <% if (theme == 'light') { %>
+                <option value="light" selected>Light</option>
+              <% } else { %>
+                <option value="light">Light</option>
+              <% } %>
+              <% if (theme == 'dark') { %>
+                <option value="dark" selected>Dark</option>
+              <% } else { %>
+                <option value="dark">Dark</option>
+              <% } %>
             </select>
             <i class="content-input-icon content-select-icon fas fa-th-list"></i>
           </div>
@@ -290,9 +301,17 @@
         <div class="content-item">
           <label for="user-setting-owner-publish">Default Owner Publish</label>
           <div class="content-input">
-            <select id="user-setting-owner-publish" class="form-control" placeholder="">
-              <option>Private</option>
-              <option>Public</option>
+            <select id="user-setting-owner-publish" class="form-control" required>
+              <% if (ownerPublish == 'private') { %>
+                <option value="private" selected>Private</option>
+              <% } else { %>
+                <option value="private">Private</option>
+              <% } %>
+              <% if (ownerPublish == 'public') { %>
+                <option value="public" selected>Public</option>
+              <% } else { %>
+                <option value="public">Public</option>
+              <% } %>
             </select>
             <i class="content-input-icon content-select-icon fas fa-user-circle"></i>
           </div>
@@ -303,10 +322,22 @@
         <div class="content-item">
           <label for="user-setting-clip-mode">Default Clip mode</label>
           <div class="content-input">
-            <select id="user-setting-clip-mode" class="form-control" placeholder="">
-              <option>Private</option>
-              <option>Public</option>
-              <option>Share</option>
+            <select id="user-setting-clip-mode" class="form-control" required>
+              <% if (clipMode == 'private') { %>
+                <option value="private" selected>Private</option>
+              <% } else { %>
+                <option value="private">Private</option>
+              <% } %>
+              <% if (clipMode == 'public') { %>
+                <option value="public" selected>Public</option>
+              <% } else { %>
+                <option value="public">Public</option>
+              <% } %>
+              <% if (clipMode == 'share') { %>
+                <option value="share" selected>Share</option>
+              <% } else { %>
+                <option value="share">Share</option>
+              <% } %>
             </select>
             <i class="content-input-icon content-select-icon fas fa-share-alt"></i>
           </div>
@@ -326,7 +357,7 @@
         <div class="content-item">
           <label for="logout-username">Username</label>
           <div class="content-input">
-            <input id="logout-username" type="text" required="required" class="form-control" placeholder="" value="aaa" readonly>
+            <input id="logout-username" type="text" required="required" class="form-control" placeholder="" value="<%- username %>" readonly>
             <i class="content-input-icon fas fa-user"></i>
           </div>
         </div>
