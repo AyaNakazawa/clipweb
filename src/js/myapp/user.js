@@ -17,11 +17,11 @@ class UserModel extends ContentModel {
     this.STATUS_LOGIN = false;
 
     // ユーザ名
-    this.USERNAME = 'Guest';
+    this.USERNAME = '';
     // メールアドレス
-    this.EMAIL = 'clipweb@ayatec.jp';
+    this.EMAIL = '';
     // パスワード
-    this.PASSWORD = 'clipweb';
+    this.PASSWORD = '';
     // メール認証フラグ
     // 認証していない場合は
     //  - クリップ数を制限
@@ -82,8 +82,8 @@ class UserModel extends ContentModel {
     this.SELECTOR_LOGIN_REGISTER = '#login-register';
 
     // 登録
-    this.SELECTOR_REGISTER_EMAIL = '#register-email';
     this.SELECTOR_REGISTER_USERNAME = '#register-username';
+    this.SELECTOR_REGISTER_EMAIL = '#register-email';
     this.SELECTOR_REGISTER_PASSWORD = '#register-password';
     this.SELECTOR_REGISTER_PASSWORD_RE = '#register-password-re';
     this.SELECTOR_REGISTER_SUBMIT = '#register-submit';
@@ -92,16 +92,17 @@ class UserModel extends ContentModel {
     this.SELECTOR_SETTING_THEME = 'user-setting-theme';
     this.SELECTOR_SETTING_OWNER_PUBLISH = 'user-setting-owner-publish';
     this.SELECTOR_SETTING_CLIP_MODE = 'user-setting-clip-mode';
-    this.SELECTOR_SETTING_UPDATE_SUBMIT = '#user-setting-update-submit';
     this.SELECTOR_SETTING_INFO = '#user-setting-info';
+    this.SELECTOR_SETTING_UPDATE_SUBMIT = '#user-setting-update-submit';
 
     // ユーザ情報
-    this.SELECTOR_INFO_EMAIL = '#user-info-email';
     this.SELECTOR_INFO_USERNAME = '#user-info-username';
-    this.SELECTOR_INFO_PASSWORD = '#user-info-password';
-    this.SELECTOR_INFO_PASSWORD_RE = '#user-info-password-re';
-    this.SELECTOR_INFO_UPDATE_SUBMIT = '#user-info-update-submit';
+    this.SELECTOR_INFO_EMAIL = '#user-info-email';
+    this.SELECTOR_INFO_OLD_PASSWORD = '#user-info-old-password';
+    this.SELECTOR_INFO_NEW_PASSWORD = '#user-info-new-password';
+    this.SELECTOR_INFO_NEW_PASSWORD_RE = '#user-info-new-password-re';
     this.SELECTOR_INFO_SETTING = '#user-info-setting';
+    this.SELECTOR_INFO_UPDATE_SUBMIT = '#user-info-update-submit';
 
     // ログアウト
     this.SELECTOR_LOGOUT_SUBMIT = '#logout-submit';
@@ -142,7 +143,9 @@ class UserView extends ContentView {
     if (type == 'login') {
       header = 'Login';
       mainTemplate = this.MODEL.TEMPLATE_LOGIN;
-      mainModel = {};
+      mainModel = {
+        email: this.MODEL.EMAIL
+      };
 
     } else if (type == 'setting') {
       header = 'User Setting';
@@ -174,7 +177,10 @@ class UserView extends ContentView {
     } else if (type == 'register') {
       header = 'Join clipweb';
       mainTemplate = this.MODEL.TEMPLATE_REGISTER;
-      mainModel = {};
+      mainModel = {
+        username: this.MODEL.USERNAME,
+        email: this.MODEL.EMAIL
+      };
 
     }
 
@@ -284,9 +290,7 @@ class UserEvent extends ContentEvent {
       selector: `${this.MODEL.SELECTOR_AREA} ${this.MODEL.SELECTOR_REGISTER_SUBMIT}`,
       func: () => {
         Log.logClassKey('User', 'Register', 'Submit');
-        this.CONTROLLER.openLogin({
-          alertMessage: 'Please do email authentication'
-        });
+        this.CONTROLLER.submitRegister();
       }
     });
   }
@@ -421,5 +425,23 @@ class UserController extends ContentController {
     };
     Object.assign(model, args);
     this.VIEW.generateArea(model);
+  }
+
+  submitRegister() {
+    let isRegister = false;
+
+    this.MODEL.USERNAME = $(this.MODEL.SELECTOR_REGISTER_USERNAME).val().trim();
+    this.MODEL.EMAIL = $(this.MODEL.SELECTOR_REGISTER_EMAIL).val().trim();
+
+    if (isRegister) {
+      this.openLogin({
+        alertMessage: 'Please do email authentication.'
+      });
+    } else {
+      this.openRegister({
+        alertMessage: 'Failed !',
+        alertType: View.ALERT_WARNING
+      });
+    }
   }
 }
