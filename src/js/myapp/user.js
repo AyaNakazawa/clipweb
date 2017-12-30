@@ -72,6 +72,7 @@ class UserModel extends ContentModel {
     this.LENGTH_MAX_USERNAME = 32;
     this.LENGTH_MIN_PASSWORD = 8;
     this.LENGTH_MAX_PASSWORD = 32;
+    this.PATTERN_PASSWORD = '^[a-zA-Z0-9]*(?:[a-zA-Z][0-9]|[0-9][a-zA-Z])[a-zA-Z0-9]*$';
 
     // セレクタ
 
@@ -144,7 +145,20 @@ class UserView extends ContentView {
       header = 'Login';
       mainTemplate = this.MODEL.TEMPLATE_LOGIN;
       mainModel = {
-        email: this.MODEL.EMAIL
+        length: {
+          min: {
+            username: this.MODEL.LENGTH_MIN_USERNAME,
+            password: this.MODEL.LENGTH_MIN_PASSWORD
+          },
+          max: {
+            username: this.MODEL.LENGTH_MAX_USERNAME,
+            password: this.MODEL.LENGTH_MAX_PASSWORD
+          }
+        },
+        email: this.MODEL.EMAIL,
+        pattern: {
+          password: this.MODEL.PATTERN_PASSWORD
+        }
       };
 
     } else if (type == 'setting') {
@@ -163,8 +177,21 @@ class UserView extends ContentView {
       header = 'User Info';
       mainTemplate = this.MODEL.TEMPLATE_INFO;
       mainModel = {
+        length: {
+          min: {
+            username: this.MODEL.LENGTH_MIN_USERNAME,
+            password: this.MODEL.LENGTH_MIN_PASSWORD
+          },
+          max: {
+            username: this.MODEL.LENGTH_MAX_USERNAME,
+            password: this.MODEL.LENGTH_MAX_PASSWORD
+          }
+        },
         username: this.MODEL.USERNAME,
-        email: this.MODEL.EMAIL
+        email: this.MODEL.EMAIL,
+        pattern: {
+          password: this.MODEL.PATTERN_PASSWORD
+        }
       };
 
     } else if (type == 'logout') {
@@ -178,8 +205,21 @@ class UserView extends ContentView {
       header = 'Join clipweb';
       mainTemplate = this.MODEL.TEMPLATE_REGISTER;
       mainModel = {
+        length: {
+          min: {
+            username: this.MODEL.LENGTH_MIN_USERNAME,
+            password: this.MODEL.LENGTH_MIN_PASSWORD
+          },
+          max: {
+            username: this.MODEL.LENGTH_MAX_USERNAME,
+            password: this.MODEL.LENGTH_MAX_PASSWORD
+          }
+        },
         username: this.MODEL.USERNAME,
-        email: this.MODEL.EMAIL
+        email: this.MODEL.EMAIL,
+        pattern: {
+          password: this.MODEL.PATTERN_PASSWORD
+        }
       };
 
     }
@@ -369,7 +409,7 @@ class UserController extends ContentController {
     super(_model, _initSetting);
 
     this.EVENT.setEvent();
-    this.openLogin();
+    this.openRegister();
   }
 
   openLogin(
@@ -428,18 +468,61 @@ class UserController extends ContentController {
   }
 
   submitRegister() {
-    let isRegister = false;
+    let _isRegister = false;
+    let _isCorrectUsername = true;
+    let _isCorrectEmail = true;
+    let _isCorrectPassword = true;
 
-    this.MODEL.USERNAME = $(this.MODEL.SELECTOR_REGISTER_USERNAME).val().trim();
-    this.MODEL.EMAIL = $(this.MODEL.SELECTOR_REGISTER_EMAIL).val().trim();
+    const _username = $(this.MODEL.SELECTOR_REGISTER_USERNAME);
+    const _email = $(this.MODEL.SELECTOR_REGISTER_EMAIL);
+    const _password = $(this.MODEL.SELECTOR_REGISTER_PASSWORD);
+    const _passwordRe = $(this.MODEL.SELECTOR_REGISTER_PASSWORD_RE);
 
-    if (isRegister) {
+    Log.logObj(_username);
+    Log.logObj(_email);
+    Log.logObj(_password);
+    Log.logObj(_passwordRe);
+
+    Log.log(this.MODEL.USERNAME = _username.val());
+    Log.log(this.MODEL.EMAIL = _email.val());
+    Log.log(this.MODEL.PASSWORD = _password.val());
+
+    if (!_username[0].validity.valid) {
+      _isCorrectUsername = false;
+    }
+
+    if (!_email[0].validity.valid) {
+      _isCorrectEmail = false;
+    }
+
+    if (!_password[0].validity.valid) {
+      _isCorrectPassword = false;
+    }
+    if (_password.val() != _passwordRe.val()) {
+      _isCorrectPassword = false;
+    }
+
+    if (_isCorrectUsername) {
+      this.MODEL.USERNAME = _username.val();
+    }
+    if (_isCorrectEmail) {
+      this.MODEL.EMAIL = _email.val();
+    }
+    if (_isCorrectPassword) {
+      this.MODEL.PASSWORD = _password.val();
+    }
+
+    if (_isCorrectUsername && _isCorrectEmail && _isCorrectPassword) {
+      _isRegister = true;
+    }
+
+    if (_isRegister) {
       this.openLogin({
         alertMessage: 'Please do email authentication.'
       });
     } else {
       this.openRegister({
-        alertMessage: 'Failed !',
+        alertMessage: 'Register failed.',
         alertType: View.ALERT_WARNING
       });
     }

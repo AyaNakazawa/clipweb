@@ -148,14 +148,16 @@
         <div class="content-item">
           <label for="login-email">Email address</label>
           <div class="content-input">
-            <input id="login-email" type="email" required="required" class="form-control" placeholder="" value="<%- email %>">
+            <input id="login-email" type="email" required class="form-control" value="<%- email %>">
+            <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-envelope"></i>
           </div>
         </div>
         <div class="content-item">
           <label for="login-password">Password</label>
           <div class="content-input">
-            <input id="login-password" type="password" required="required" class="form-control" placeholder="">
+            <input id="login-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" placeholder="">
+            <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-lock"></i>
           </div>
         </div>
@@ -171,14 +173,16 @@
         <div class="content-item">
           <label for="register-username">Username</label>
           <div class="content-input">
-            <input id="register-username" type="text" required="required" class="form-control" placeholder="" value="<%- username %>">
+            <input id="register-username" type="text" minLength="<%- length.min.username %>" maxLength="<%- length.max.username %>" required class="form-control" value="<%- username %>">
+            <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-user"></i>
           </div>
         </div>
         <div class="content-item">
           <label for="register-email">Email address</label>
           <div class="content-input">
-            <input id="register-email" type="email" required="required" class="form-control" placeholder="" value="<%- email %>">
+            <input id="register-email" type="email" required class="form-control" value="<%- email %>">
+            <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-envelope"></i>
           </div>
         </div>
@@ -186,14 +190,16 @@
           <div class="content-split-item">
             <label for="register-password">Password</label>
             <div class="content-input">
-              <input id="register-password" type="password" required="required" class="form-control" placeholder="">
+              <input id="register-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" placeholder="">
+              <span class="content-input-valid"></span>
               <i class="content-input-icon fas fa-lock"></i>
             </div>
           </div>
           <div class="content-split-item">
             <label for="register-password-re">Confirm Password</label>
             <div class="content-input">
-              <input id="register-password-re" type="password" required="required" class="form-control" placeholder="">
+              <input id="register-password-re" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" placeholder="">
+              <span class="content-input-valid"></span>
               <i class="content-input-icon fas fa-lock"></i>
             </div>
           </div>
@@ -210,7 +216,8 @@
         <div class="content-item">
           <label for="user-info-username">Username</label>
           <div class="content-input">
-            <input id="user-info-username" type="text" required="required" class="form-control" placeholder="" value="<%- username %>">
+            <input id="user-info-username" type="text" minLength="<%- length.min.username %>" maxLength="<%- length.max.username %>" required class="form-control" value="<%- username %>">
+            <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-user"></i>
           </div>
         </div>
@@ -220,7 +227,8 @@
         <div class="content-item">
           <label for="user-info-email">Email address</label>
           <div class="content-input">
-            <input id="user-info-email" type="email" required="required" class="form-control" placeholder="" value="<%- email %>">
+            <input id="user-info-email" type="email" required class="form-control" value="<%- email %>">
+            <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-envelope"></i>
           </div>
         </div>
@@ -230,7 +238,8 @@
         <div class="content-item">
           <label for="user-info-old-password">Password</label>
           <div class="content-input">
-            <input id="user-info-old-password" type="password" required="required" class="form-control" placeholder="" value="">
+            <input id="user-info-old-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" value="">
+            <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-lock"></i>
           </div>
         </div>
@@ -238,14 +247,16 @@
           <div class="content-split-item">
             <label for="user-info-new-password">New Password</label>
             <div class="content-input">
-              <input id="user-info-new-password" type="password" required="required" class="form-control" placeholder="" value="">
+              <input id="user-info-new-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" value="">
+              <span class="content-input-valid"></span>
               <i class="content-input-icon fas fa-lock"></i>
             </div>
           </div>
           <div class="content-split-item">
             <label for="user-info-new-password-re">Confirm Password</label>
             <div class="content-input">
-              <input id="user-info-new-password-re" type="password" required="required" class="form-control" placeholder="" value="">
+              <input id="user-info-new-password-re" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" value="">
+              <span class="content-input-valid"></span>
               <i class="content-input-icon fas fa-lock"></i>
             </div>
           </div>
@@ -292,6 +303,7 @@
                 <option value="dark">Dark</option>
               <% } %>
             </select>
+            <span class="content-input-valid"></span>
             <i class="content-input-icon content-select-icon fas fa-th-list"></i>
           </div>
         </div>
@@ -313,6 +325,7 @@
                 <option value="public">Public</option>
               <% } %>
             </select>
+            <span class="content-input-valid"></span>
             <i class="content-input-icon content-select-icon fas fa-user-circle"></i>
           </div>
         </div>
@@ -339,6 +352,7 @@
                 <option value="share">Share</option>
               <% } %>
             </select>
+            <span class="content-input-valid"></span>
             <i class="content-input-icon content-select-icon fas fa-share-alt"></i>
           </div>
         </div>
@@ -357,7 +371,8 @@
         <div class="content-item">
           <label for="logout-username">Username</label>
           <div class="content-input">
-            <input id="logout-username" type="text" required="required" class="form-control" placeholder="" value="<%- username %>" readonly>
+            <input id="logout-username" type="text" class="form-control" value="<%- username %>" readonly>
+            <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-user"></i>
           </div>
         </div>
