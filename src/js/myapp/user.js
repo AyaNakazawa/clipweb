@@ -14,9 +14,9 @@ class UserModel extends ContentModel {
     super(_initSetting);
 
     // ログインステータス
-    this.LOGINED = false;
+    this.STATUS_LOGIN = false;
     // ゲストステータス
-    this.GUEST = true;
+    this.STATUS_GUEST = true;
 
     // ユーザ名
     this.USERNAME = 'Guest';
