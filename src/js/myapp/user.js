@@ -15,13 +15,15 @@ class UserModel extends ContentModel {
 
     // ログインステータス
     this.LOGINED = false;
+    // ゲストステータス
+    this.GUEST = true;
 
     // ユーザ名
-    this.USERNAME = null;
+    this.USERNAME = 'Guest';
     // メールアドレス
-    this.EMAIL = null;
+    this.EMAIL = 'clipweb@ayatec.jp';
     // パスワード
-    this.PASSWORD = null;
+    this.PASSWORD = 'clipweb';
     // メール認証フラグ
     // 認証していない場合は
     //  - クリップ数を制限
