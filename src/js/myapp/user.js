@@ -41,7 +41,7 @@ class UserModel extends ContentModel {
     this.HASH_PASSWORD = null;
     // 暗号ハッシュ
     // 非公開クリップの暗号化に使用
-    // ユーザハッシュ + パスワードハッシュ = 暗号ハッシュ
+    // ユーザハッシュ + パスワード + クライアントSalt = 暗号ハッシュ
     this.HASH_CRYPTO = null;
     // メール認証ハッシュ
     // メールアドレス + サーバSalt = メール認証ハッシュ
