@@ -319,6 +319,18 @@ class Validate {
     }
     return false;
   }
+
+  static checkIncludeChar(
+    _string = null,
+    _char = null
+  ) {
+    if (_string != null && _char != null) {
+      if (~_string.indexOf(_char)) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
 
 class Crypto {
