@@ -190,8 +190,29 @@ main {
     .content-input {
       position: relative;
 
+      :valid + .content-input-valid::before {
+        color: $true-color;
+        content: "\f00c";
+      }
+
+      :invalid + .content-input-valid::before {
+        color: $false-color;
+        content: "\f05e";
+      }
+
+      .content-input-valid {
+        width: 1rem;
+        height: 1rem;
+        line-height: 1rem;
+        opacity: $content-input-icon-opacity;
+        position: absolute;
+        top: 0.7rem;
+        right: 2.7rem;
+        font-family: "Font Awesome 5 Pro Solid";
+      }
+
       .content-input-icon {
-        opacity: 0.3;
+        opacity: $content-input-icon-opacity;
         position: absolute;
         top: 0.7rem;
         right: 1rem;

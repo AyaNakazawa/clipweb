@@ -86,6 +86,11 @@ $content-nav-color: #484848;
 
 $content-label-side: 180px;
 
+$content-input-icon-opacity: 0.3;
+
+$true-color: #09ad00;
+$false-color: #ad0009;
+
 // function
 
 @mixin transition($type: all, $time: 250ms) {

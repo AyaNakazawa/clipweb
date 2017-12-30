@@ -235,6 +235,21 @@ main {
           margin-left: 8px; }
     main .content .content-input {
       position: relative; }
+      main .content .content-input :valid + .content-input-valid::before {
+        color: #09ad00;
+        content: "\f00c"; }
+      main .content .content-input :invalid + .content-input-valid::before {
+        color: #ad0009;
+        content: "\f05e"; }
+      main .content .content-input .content-input-valid {
+        width: 1rem;
+        height: 1rem;
+        line-height: 1rem;
+        opacity: 0.3;
+        position: absolute;
+        top: 0.7rem;
+        right: 2.7rem;
+        font-family: "Font Awesome 5 Pro Solid"; }
       main .content .content-input .content-input-icon {
         opacity: 0.3;
         position: absolute;
