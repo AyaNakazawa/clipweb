@@ -259,7 +259,6 @@ class UserView extends ContentView {
     // Generate Content
     $(this.MODEL.SELECTOR_AREA).append(area);
 
-
     // View
     if (PS.SWITCH.USER.getCurrentView() && view) {
       PS.SWITCH.USER.VIEW.setView(false, 0);
@@ -299,6 +298,9 @@ class UserEvent extends ContentEvent {
     this.setClickLogout();
   }
 
+  // ----------------------------------------------------------------
+  // general
+
   setClickClose() {
     super.setOn({
       selector: `${this.MODEL.SELECTOR_AREA} .content-header-button`,
@@ -308,6 +310,9 @@ class UserEvent extends ContentEvent {
       }
     });
   }
+
+  // ----------------------------------------------------------------
+  // login
 
   setClickLogin() {
     super.setOn({
@@ -329,6 +334,9 @@ class UserEvent extends ContentEvent {
       }
     });
   }
+
+  // ----------------------------------------------------------------
+  // register
 
   setClickRegister() {
     super.setOn({
@@ -396,7 +404,7 @@ class UserEvent extends ContentEvent {
       selector: `${this.MODEL.SELECTOR_AREA} ${this.MODEL.SELECTOR_REGISTER_PASSWORD}`,
       trigger: 'keyup',
       func: () => {
-        this.CONTROLLER.checkValidatePassword(
+        this.CONTROLLER.validPassword(
           this.MODEL.SELECTOR_REGISTER_PASSWORD,
           this.MODEL.SELECTOR_REGISTER_PASSWORD_RE
         );
@@ -406,13 +414,16 @@ class UserEvent extends ContentEvent {
       selector: `${this.MODEL.SELECTOR_AREA} ${this.MODEL.SELECTOR_REGISTER_PASSWORD_RE}`,
       trigger: 'keyup',
       func: () => {
-        this.CONTROLLER.checkValidatePassword(
+        this.CONTROLLER.validPassword(
           this.MODEL.SELECTOR_REGISTER_PASSWORD,
           this.MODEL.SELECTOR_REGISTER_PASSWORD_RE
         );
       }
     });
   }
+
+  // ----------------------------------------------------------------
+  // info
 
   setClickSetting() {
     super.setOn({
@@ -423,6 +434,22 @@ class UserEvent extends ContentEvent {
       }
     });
   }
+
+  setClickInfoUpdate() {
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR_AREA} ${this.MODEL.SELECTOR_INFO_UPDATE_SUBMIT}`,
+      func: () => {
+        Log.logClassKey('User', 'User Info', 'Submit');
+        // Update User Info
+        this.CONTROLLER.openInfo({
+          alertMessage: 'Updated !'
+        });
+      }
+    });
+  }
+
+  // ----------------------------------------------------------------
+  // setting
 
   setClickSettingUpdate() {
     super.setOn({
@@ -447,18 +474,8 @@ class UserEvent extends ContentEvent {
     });
   }
 
-  setClickInfoUpdate() {
-    super.setOn({
-      selector: `${this.MODEL.SELECTOR_AREA} ${this.MODEL.SELECTOR_INFO_UPDATE_SUBMIT}`,
-      func: () => {
-        Log.logClassKey('User', 'User Info', 'Submit');
-        // Update User Info
-        this.CONTROLLER.openInfo({
-          alertMessage: 'Updated !'
-        });
-      }
-    });
-  }
+  // ----------------------------------------------------------------
+  // logout
 
   setClickLogout() {
     super.setOn({
@@ -490,6 +507,9 @@ class UserController extends ContentController {
     this.EVENT.setEvent();
     this.openRegister();
   }
+
+  // ----------------------------------------------------------------
+  // open
 
   openLogin(
     args = null
@@ -546,6 +566,9 @@ class UserController extends ContentController {
     this.VIEW.generateArea(model);
   }
 
+  // ----------------------------------------------------------------
+  // submit
+
   submitRegister() {
     let _isRegister = false;
     let _isCorrectUsername = true;
@@ -600,7 +623,10 @@ class UserController extends ContentController {
     }
   }
 
-  checkValidatePassword (
+  // ----------------------------------------------------------------
+  // validate
+
+  validPassword (
     password = null,
     passwordRe = null
   ) {
