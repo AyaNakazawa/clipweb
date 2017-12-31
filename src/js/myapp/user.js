@@ -613,11 +613,11 @@ class UserController extends ContentController {
 
     if (_isRegister) {
       this.openLogin({
-        alertMessage: 'Please do email authentication.'
+        alertMessage: '<div>ユーザーを登録しました。</div><div>メール認証をしてください。</div>'
       });
     } else {
       this.openRegister({
-        alertMessage: 'Register failed.',
+        alertMessage: '登録に失敗しました。',
         alertType: View.ALERT_WARNING
       });
     }
