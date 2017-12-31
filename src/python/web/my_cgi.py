@@ -24,15 +24,17 @@ class CGI:
     # ----------------------------------------------------------------
     # Define
 
-    # FORM = cgi.FieldStorage()
+    FORM = None
 
     # ----------------------------------------------------------------
     # Constructor
     # ----------------------------------------------------------------
-    #
-    # def __init__:
-    #     print("Content-type: text/html; charset=UTF-8")
-    #     print()
+
+    def __init__(cls):
+        # cls.FORM = cgi.FieldStorage()
+        print("Content-type: text/html; charset=UTF-8")
+        print()
+        print("cgi init")
 
     # ----------------------------------------------------------------
     # Function
@@ -40,11 +42,7 @@ class CGI:
 
     # ----------------------------------------------------------------
     # Get CGI form value
-    # def get(_label):
-    #     if _label not in form:
-    #         return None
-    #     return cls.FORM.getvalue(_label, "")
-
-print("Content-type: text/html; charset=UTF-8")
-print()
-print("my cgi")
+    def get(cls, _label):
+        if _label not in form:
+            return None
+        return cls.FORM.getvalue(_label, "")
