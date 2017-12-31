@@ -286,6 +286,7 @@ class UserEvent extends ContentEvent {
     this.setClickClose();
     this.setClickLogin();
     this.setClickLoginRegister();
+    this.setChangeRegisterPasswordRe();
     this.setClickSetting();
     this.setClickSettingUpdate();
     this.setClickInfo();
@@ -331,6 +332,20 @@ class UserEvent extends ContentEvent {
       func: () => {
         Log.logClassKey('User', 'Register', 'Submit');
         this.CONTROLLER.submitRegister();
+      }
+    });
+  }
+
+  setChangeRegisterPasswordRe() {
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR_AREA} ${this.MODEL.SELECTOR_REGISTER_PASSWORD_RE}`,
+      trigger: 'keyup',
+      func: () => {
+        Log.logClassKey('User', 'setChangeRegisterPasswordRe', 'keyup');
+        this.CONTROLLER.checkValidatePassword(
+          this.MODEL.SELECTOR_REGISTER_PASSWORD,
+          this.MODEL.SELECTOR_REGISTER_PASSWORD_RE
+        );
       }
     });
   }
@@ -498,9 +513,6 @@ class UserController extends ContentController {
     if (!_password[0].validity.valid) {
       _isCorrectPassword = false;
     }
-    if (_password.val() != _passwordRe.val()) {
-      _isCorrectPassword = false;
-    }
 
     if (_isCorrectUsername) {
       this.MODEL.USERNAME = _username.val();
@@ -525,6 +537,21 @@ class UserController extends ContentController {
         alertMessage: 'Register failed.',
         alertType: View.ALERT_WARNING
       });
+    }
+  }
+
+  checkValidatePassword (
+    password = null,
+    passwordRe = null
+  ) {
+    if (password != null && passwordRe != null) {
+      password = $(password);
+      passwordRe = $(passwordRe);
+      if (password.val() != passwordRe.val()) {
+        passwordRe[0].setCustomValidity('パスワードが一致しません。');
+      } else {
+        passwordRe[0].setCustomValidity('');
+      }
     }
   }
 }
