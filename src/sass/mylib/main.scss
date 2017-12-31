@@ -221,6 +221,11 @@ main {
           right: 1.6rem;
         }
       }
+
+      .content-input-valid-message {
+        color: $false-color;
+        font-size: .7rem;
+      }
     }
 
     // loading

@@ -257,6 +257,9 @@ main {
         right: 1rem; }
         main .content .content-input .content-input-icon.content-select-icon {
           right: 1.6rem; }
+      main .content .content-input .content-input-valid-message {
+        color: #ad0009;
+        font-size: .7rem; }
     main .content .loading {
       margin: 100px auto;
       font-size: 25px;
