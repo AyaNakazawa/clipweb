@@ -185,3 +185,40 @@ textarea {
     }
   }
 }
+
+// modal
+.modal {
+  .modal-dialog {
+    .modal-content {
+      .modal-header {
+        .modal-title {
+          width: 100%;
+          height: 100%;
+          text-align: center;
+
+        }
+
+        .modal-close {
+
+        }
+      }
+      .modal-body {
+        .modal-img {
+
+        }
+
+        .modal-message {
+
+        }
+      }
+
+      .modal-footer {
+
+      }
+
+      .modal-button {
+
+      }
+    }
+  }
+}

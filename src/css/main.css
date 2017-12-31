@@ -130,6 +130,11 @@ textarea {
           .nav-area .navbar .navbar-nav li.active:hover {
             background: rgba(0, 0, 0, 0.05); }
 
+.modal .modal-dialog .modal-content .modal-header .modal-title {
+  width: 100%;
+  height: 100%;
+  text-align: center; }
+
 main {
   width: 100%;
   margin: 0;
