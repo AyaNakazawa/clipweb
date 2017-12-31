@@ -286,6 +286,10 @@ class UserEvent extends ContentEvent {
     this.setClickClose();
     this.setClickLogin();
     this.setClickLoginRegister();
+    this.setKeyupRegisterPasswordRe();
+    this.setChangeRegisterUsername();
+    this.setChangeRegisterEmail();
+    this.setChangeRegisterPassword();
     this.setChangeRegisterPasswordRe();
     this.setClickSetting();
     this.setClickSettingUpdate();
@@ -336,12 +340,72 @@ class UserEvent extends ContentEvent {
     });
   }
 
+  setChangeRegisterUsername() {
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR_AREA} ${this.MODEL.SELECTOR_REGISTER_USERNAME}`,
+      trigger: 'keyup',
+      func: () => {
+        this.CONTROLLER.updateValidMessage(
+          this.MODEL.SELECTOR_REGISTER_USERNAME
+        );
+      }
+    });
+  }
+
+  setChangeRegisterEmail() {
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR_AREA} ${this.MODEL.SELECTOR_REGISTER_EMAIL}`,
+      trigger: 'keyup',
+      func: () => {
+        this.CONTROLLER.updateValidMessage(
+          this.MODEL.SELECTOR_REGISTER_EMAIL
+        );
+      }
+    });
+  }
+
+  setChangeRegisterPassword() {
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR_AREA} ${this.MODEL.SELECTOR_REGISTER_PASSWORD}`,
+      trigger: 'keyup',
+      func: () => {
+        this.CONTROLLER.updateValidMessage(
+          this.MODEL.SELECTOR_REGISTER_PASSWORD
+        );
+        this.CONTROLLER.updateValidMessage(
+          this.MODEL.SELECTOR_REGISTER_PASSWORD_RE
+        );
+      }
+    });
+  }
+
   setChangeRegisterPasswordRe() {
     super.setOn({
       selector: `${this.MODEL.SELECTOR_AREA} ${this.MODEL.SELECTOR_REGISTER_PASSWORD_RE}`,
       trigger: 'keyup',
       func: () => {
-        Log.logClassKey('User', 'setChangeRegisterPasswordRe', 'keyup');
+        this.CONTROLLER.updateValidMessage(
+          this.MODEL.SELECTOR_REGISTER_PASSWORD_RE
+        );
+      }
+    });
+  }
+
+  setKeyupRegisterPasswordRe() {
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR_AREA} ${this.MODEL.SELECTOR_REGISTER_PASSWORD}`,
+      trigger: 'keyup',
+      func: () => {
+        this.CONTROLLER.checkValidatePassword(
+          this.MODEL.SELECTOR_REGISTER_PASSWORD,
+          this.MODEL.SELECTOR_REGISTER_PASSWORD_RE
+        );
+      }
+    });
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR_AREA} ${this.MODEL.SELECTOR_REGISTER_PASSWORD_RE}`,
+      trigger: 'keyup',
+      func: () => {
         this.CONTROLLER.checkValidatePassword(
           this.MODEL.SELECTOR_REGISTER_PASSWORD,
           this.MODEL.SELECTOR_REGISTER_PASSWORD_RE
@@ -487,20 +551,12 @@ class UserController extends ContentController {
     let _isCorrectUsername = true;
     let _isCorrectEmail = true;
     let _isCorrectPassword = true;
+    let _isCorrectPasswordRe = true;
 
     const _username = $(this.MODEL.SELECTOR_REGISTER_USERNAME);
     const _email = $(this.MODEL.SELECTOR_REGISTER_EMAIL);
     const _password = $(this.MODEL.SELECTOR_REGISTER_PASSWORD);
     const _passwordRe = $(this.MODEL.SELECTOR_REGISTER_PASSWORD_RE);
-
-    Log.logObj(_username);
-    Log.logObj(_email);
-    Log.logObj(_password);
-    Log.logObj(_passwordRe);
-
-    Log.log(this.MODEL.USERNAME = _username.val());
-    Log.log(this.MODEL.EMAIL = _email.val());
-    Log.log(this.MODEL.PASSWORD = _password.val());
 
     if (!_username[0].validity.valid) {
       _isCorrectUsername = false;
@@ -514,6 +570,10 @@ class UserController extends ContentController {
       _isCorrectPassword = false;
     }
 
+    if (!_passwordRe[0].validity.valid) {
+      _isCorrectPasswordRe = false;
+    }
+
     if (_isCorrectUsername) {
       this.MODEL.USERNAME = _username.val();
     }
@@ -524,7 +584,7 @@ class UserController extends ContentController {
       this.MODEL.PASSWORD = _password.val();
     }
 
-    if (_isCorrectUsername && _isCorrectEmail && _isCorrectPassword) {
+    if (_isCorrectUsername && _isCorrectEmail && _isCorrectPassword && _isCorrectPasswordRe) {
       _isRegister = true;
     }
 
@@ -553,5 +613,21 @@ class UserController extends ContentController {
         passwordRe[0].setCustomValidity('');
       }
     }
+  }
+
+  updateValidMessage (
+    inputElement = null
+  ) {
+    if (inputElement == null) {
+      return;
+    }
+    inputElement = $(inputElement);
+    const VALID_MESSAGE = inputElement[0].validationMessage;
+    const VALID_ELEMENT = inputElement
+      .parent('.content-input')
+      .children('.content-input-valid-message');
+
+    VALID_ELEMENT.text(VALID_MESSAGE);
+
   }
 }

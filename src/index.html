@@ -151,6 +151,7 @@
             <input id="login-email" type="email" required class="form-control" value="<%- email %>">
             <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-envelope"></i>
+            <span class="content-input-valid-message"></span>
           </div>
         </div>
         <div class="content-item">
@@ -159,6 +160,7 @@
             <input id="login-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" placeholder="">
             <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-lock"></i>
+            <span class="content-input-valid-message"></span>
           </div>
         </div>
         <div class="content-item d-flex justify-content-end">
@@ -176,6 +178,7 @@
             <input id="register-username" type="text" minLength="<%- length.min.username %>" maxLength="<%- length.max.username %>" required class="form-control" value="<%- username %>">
             <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-user"></i>
+            <span class="content-input-valid-message"></span>
           </div>
         </div>
         <div class="content-item">
@@ -184,6 +187,7 @@
             <input id="register-email" type="email" required class="form-control" value="<%- email %>">
             <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-envelope"></i>
+            <span class="content-input-valid-message"></span>
           </div>
         </div>
         <div class="content-item content-split">
@@ -193,14 +197,16 @@
               <input id="register-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" placeholder="">
               <span class="content-input-valid"></span>
               <i class="content-input-icon fas fa-lock"></i>
+              <span class="content-input-valid-message"></span>
             </div>
           </div>
           <div class="content-split-item">
             <label for="register-password-re">Confirm Password</label>
             <div class="content-input">
-              <input id="register-password-re" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" placeholder="">
+              <input id="register-password-re" type="password" required class="form-control" placeholder="">
               <span class="content-input-valid"></span>
               <i class="content-input-icon fas fa-lock"></i>
+              <span class="content-input-valid-message"></span>
             </div>
           </div>
         </div>
@@ -219,6 +225,7 @@
             <input id="user-info-username" type="text" minLength="<%- length.min.username %>" maxLength="<%- length.max.username %>" required class="form-control" value="<%- username %>">
             <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-user"></i>
+            <span class="content-input-valid-message"></span>
           </div>
         </div>
       </div>
@@ -230,6 +237,7 @@
             <input id="user-info-email" type="email" required class="form-control" value="<%- email %>">
             <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-envelope"></i>
+            <span class="content-input-valid-message"></span>
           </div>
         </div>
       </div>
@@ -241,6 +249,7 @@
             <input id="user-info-old-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" value="">
             <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-lock"></i>
+            <span class="content-input-valid-message"></span>
           </div>
         </div>
         <div class="content-item content-split">
@@ -250,14 +259,16 @@
               <input id="user-info-new-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" value="">
               <span class="content-input-valid"></span>
               <i class="content-input-icon fas fa-lock"></i>
+              <span class="content-input-valid-message"></span>
             </div>
           </div>
           <div class="content-split-item">
             <label for="user-info-new-password-re">Confirm Password</label>
             <div class="content-input">
-              <input id="user-info-new-password-re" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" value="">
+              <input id="user-info-new-password-re" type="password" required class="form-control" value="">
               <span class="content-input-valid"></span>
               <i class="content-input-icon fas fa-lock"></i>
+              <span class="content-input-valid-message"></span>
             </div>
           </div>
         </div>
@@ -303,7 +314,6 @@
                 <option value="dark">Dark</option>
               <% } %>
             </select>
-            <span class="content-input-valid"></span>
             <i class="content-input-icon content-select-icon fas fa-th-list"></i>
           </div>
         </div>
@@ -325,7 +335,6 @@
                 <option value="public">Public</option>
               <% } %>
             </select>
-            <span class="content-input-valid"></span>
             <i class="content-input-icon content-select-icon fas fa-user-circle"></i>
           </div>
         </div>
@@ -352,7 +361,6 @@
                 <option value="share">Share</option>
               <% } %>
             </select>
-            <span class="content-input-valid"></span>
             <i class="content-input-icon content-select-icon fas fa-share-alt"></i>
           </div>
         </div>
@@ -374,6 +382,7 @@
             <input id="logout-username" type="text" class="form-control" value="<%- username %>" readonly>
             <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-user"></i>
+            <span class="content-input-valid-message"></span>
           </div>
         </div>
         <div class="content-item d-flex justify-content-end">
