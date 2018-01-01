@@ -35,13 +35,13 @@ class UserModel extends ContentModel {
     // ユーザハッシュ + 日時 = クリップID
     this.HASH_USER = null;
     // パスワードハッシュ
-    // パスワード + クライアントSalt から生成
+    // パスワード から生成
     // ログイン、登録時に使用
     // 暗号ハッシュ生成に使用
     this.HASH_PASSWORD = null;
     // 暗号ハッシュ
     // 非公開クリップの暗号化に使用
-    // ユーザハッシュ + パスワード + クライアントSalt = 暗号ハッシュ
+    // ユーザハッシュ + パスワード = 暗号ハッシュ
     this.HASH_CRYPTO = null;
     // メール認証ハッシュ
     // メールアドレス + サーバSalt = メール認証ハッシュ
@@ -50,10 +50,6 @@ class UserModel extends ContentModel {
     // Gravatarハッシュ
     // メールアドレスのMD5ハッシュ
     this.HASH_GRAVATAR = null;
-
-    // クライアントSalt
-    // パスワードハッシュの生成に使用
-    this.SALT = Project.NAME_KEY;
 
     // ユーザ設定
     this.THEME = 'light';
