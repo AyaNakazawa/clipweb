@@ -38,3 +38,18 @@ class User:
     # ----------------------------------------------------------------
     # Function
     # ----------------------------------------------------------------
+
+    def register(cls):
+        print("User.register()")
+
+    def login(cls):
+        print("User.login()")
+
+    def setting(cls):
+        print("User.setting()")
+
+    def info(cls):
+        print("User.info()")
+
+    def leave(cls):
+        print("User.leave()")
