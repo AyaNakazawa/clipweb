@@ -3,7 +3,7 @@
 
 """
 ----------------------------------------------------------------
-CGI utility
+clipweb Share
   Author: Aya Nakazawa
   GitHub: https://github.com/AyaNakazawa
 ----------------------------------------------------------------
@@ -13,36 +13,28 @@ CGI utility
 # Import
 # ----------------------------------------------------------------
 
-import cgi
+from web import cgi
+from db import sqlite3
+
+AUTO_GENERATE = None
 
 # ----------------------------------------------------------------
 # Class
 # ----------------------------------------------------------------
 
-class CGI:
-
+class Share:
     # ----------------------------------------------------------------
     # Define
 
-    FORM = None
+    DB = sqlite3.SQLite3()
 
     # ----------------------------------------------------------------
     # Constructor
     # ----------------------------------------------------------------
 
     def __init__(cls):
-        # cls.FORM = cgi.FieldStorage()
-        print("Content-type: text/html; charset=UTF-8")
-        print()
-        print("cgi init")
+        print("init clipweb Share")
 
     # ----------------------------------------------------------------
     # Function
     # ----------------------------------------------------------------
-
-    # ----------------------------------------------------------------
-    # Get CGI form value
-    def get(cls, _label):
-        if _label not in form:
-            return None
-        return cls.FORM.getvalue(_label, "")

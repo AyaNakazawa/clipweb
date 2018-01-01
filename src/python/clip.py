@@ -3,7 +3,7 @@
 
 """
 ----------------------------------------------------------------
-SQLite3 utility
+clipweb Clip
   Author: Aya Nakazawa
   GitHub: https://github.com/AyaNakazawa
 ----------------------------------------------------------------
@@ -13,30 +13,28 @@ SQLite3 utility
 # Import
 # ----------------------------------------------------------------
 
-import sqlite3
-import json
+from web import cgi
+from db import sqlite3
+
+AUTO_GENERATE = None
 
 # ----------------------------------------------------------------
 # Class
 # ----------------------------------------------------------------
 
-class SQLite3:
+class Clip:
+    # ----------------------------------------------------------------
+    # Define
 
-    DB_PATH = "clipweb.db"
+    DB = sqlite3.SQLite3()
+
+    # ----------------------------------------------------------------
+    # Constructor
+    # ----------------------------------------------------------------
 
     def __init__(cls):
-        print("sqlite init")
-        # conn = sqlite3.connect(cls.DB_PATH)
-        # c = conn.cursor()
-        #
-        # insert = "insert into users(hash, name) values(?,?)"
-        # user = ("aaaa", "bbbb")
-        # c.execute(insert, user)
-        #
-        # conn.commit()
-        #
-        # select = "select * from users"
-        # for row in c.execute(select):
-        #     print(row)
-        #
-        # conn.close()
+        print("init clipweb Clip")
+
+    # ----------------------------------------------------------------
+    # Function
+    # ----------------------------------------------------------------
