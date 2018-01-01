@@ -1,6 +1,8 @@
 
 cgiを実行可能にする
 
+pip install pycrypto
+
 srcフォルダをデプロイ
 
 pythonのshebangを実行環境にあわせる
