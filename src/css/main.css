@@ -289,6 +289,15 @@ main {
       main .content .content-input .content-input-valid-message {
         color: #ad0009;
         font-size: .7rem; }
+    main .content .content-image {
+      width: 100%;
+      text-align: center; }
+      main .content .content-image img {
+        box-shadow: 2px 2px 1px 1px #dcdcd0;
+        border: 2px solid #eee;
+        border-radius: 8px; }
+      main .content .content-image .content-avatar {
+        border-radius: 50%; }
     main .content .loading {
       margin: 100px auto;
       font-size: 25px;

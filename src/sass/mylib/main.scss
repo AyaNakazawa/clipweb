@@ -228,6 +228,23 @@ main {
       }
     }
 
+    // content-image
+
+    .content-image {
+      width: 100%;
+      text-align: center;
+
+      img {
+        box-shadow: 2px 2px 1px 1px $main-box-shadow-color;
+        @include border();
+        border-radius: 8px;
+      }
+
+      .content-avatar {
+        border-radius: 50%;
+      }
+    }
+
     // loading
     .loading {
       margin: 100px auto;
