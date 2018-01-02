@@ -168,10 +168,7 @@ class UserView extends ContentView {
     } else if (type == 'setting') {
       header = 'User Setting';
       mainTemplate = this.MODEL.TEMPLATE_SETTING;
-      this.MODEL.EMAIL = this.MODEL.EMAIL.toLowerCase().trim();
-      this.MODEL.HASH_GRAVATAR = MD5.getHash(this.MODEL.EMAIL);
       mainModel = {
-        gravatarHash: this.MODEL.HASH_GRAVATAR,
         theme: this.MODEL.THEME,
         ownerPublish: this.MODEL.OWNER_PUBLISH,
         clipMode: this.MODEL.CLIP_MODE
@@ -193,6 +190,7 @@ class UserView extends ContentView {
         },
         username: this.MODEL.USERNAME,
         email: this.MODEL.EMAIL,
+        gravatarHash: this.MODEL.HASH_GRAVATAR,
         pattern: {
           password: this.MODEL.PATTERN_PASSWORD
         }
@@ -615,6 +613,8 @@ class UserController extends ContentController {
       _isRegister = true;
     }
 
+    this.updateModel(this.MODEL.REGISTER);
+
     if (_isRegister) {
       this.openLogin({
         alertMessage: '<div>ユーザーを登録しました。</div><div>メール認証をしてください。</div>'
@@ -625,6 +625,103 @@ class UserController extends ContentController {
         alertType: View.ALERT_WARNING
       });
     }
+  }
+
+  // ----------------------------------------------------------------
+  // update
+
+  updateModel (
+    type = null
+  ) {
+    if (type == null) {
+      this.clearModel();
+    }
+
+    if (type == this.MODEL.REGISTER) {
+      // REGISTER
+      this.MODEL.USERNAME = this.MODEL.USERNAME.trim();
+      this.MODEL.EMAIL = this.MODEL.EMAIL.toLowerCase().trim();
+      this.MODEL.HASH_USERNAME = SHA256.getHash(this.MODEL.USERNAME);
+      this.MODEL.HASH_PASSWORD = SHA256.getHash(this.MODEL.PASSWORD);
+      this.MODEL.HASH_GRAVATAR = MD5.getHash(this.MODEL.EMAIL);
+
+    } else if (type == this.MODEL.LOGIN) {
+      // LOGIN
+      this.MODEL.USERNAME = this.MODEL.USERNAME.trim();
+      this.MODEL.EMAIL = this.MODEL.EMAIL.toLowerCase().trim();
+      this.MODEL.HASH_USERNAME = SHA256.getHash(this.MODEL.USERNAME);
+      this.MODEL.HASH_PASSWORD = SHA256.getHash(this.MODEL.PASSWORD);
+      this.MODEL.HASH_CRYPTO = SHA256.getHash(
+        this.MODEL.HASH_USERNAME + this.MODEL.PASSWORD
+      );
+      this.MODEL.HASH_GRAVATAR = MD5.getHash(this.MODEL.EMAIL);
+
+    } else if (type == this.MODEL.LOGOUT) {
+      // LOGOUT
+      this.clearModel();
+
+    } else if (type == this.MODEL.LEAVE) {
+      // LEAVE
+      this.clearModel();
+
+    } else if (type == this.MODEL.SETTING) {
+      // SETTING
+
+    } else if (type == this.MODEL.INFO) {
+      // INFO
+      this.MODEL.USERNAME = this.MODEL.USERNAME.trim();
+      this.MODEL.EMAIL = this.MODEL.EMAIL.toLowerCase().trim();
+      this.MODEL.HASH_USERNAME = SHA256.getHash(this.MODEL.USERNAME);
+      this.MODEL.HASH_PASSWORD = SHA256.getHash(this.MODEL.PASSWORD);
+      this.MODEL.HASH_CRYPTO = SHA256.getHash(
+        this.MODEL.HASH_USERNAME + this.MODEL.PASSWORD
+      );
+      this.MODEL.HASH_GRAVATAR = MD5.getHash(this.MODEL.EMAIL);
+
+    }
+    return;
+  }
+
+  clearModel () {
+    this.MODEL.USERNAME = '';
+    this.MODEL.EMAIL = '';
+    this.MODEL.PASSWORD = '';
+    this.MODEL.HASH_USERNAME = '';
+    this.MODEL.HASH_PASSWORD = '';
+    this.MODEL.HASH_CRYPTO = '';
+    this.MODEL.HASH_GRAVATAR = '';
+  }
+
+  // ----------------------------------------------------------------
+  // post
+
+  postModel (
+    type = null
+  ) {
+    if (type == null) {
+      return;
+    }
+
+    if (type == this.MODEL.REGISTER) {
+      // REGISTER
+
+    } else if (type == this.MODEL.LOGIN) {
+      // LOGIN
+
+    } else if (type == this.MODEL.LOGOUT) {
+      // LOGOUT
+
+    } else if (type == this.MODEL.LEAVE) {
+      // LEAVE
+
+    } else if (type == this.MODEL.SETTING) {
+      // SETTING
+
+    } else if (type == this.MODEL.INFO) {
+      // INFO
+
+    }
+    return;
   }
 
   // ----------------------------------------------------------------

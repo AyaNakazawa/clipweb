@@ -219,8 +219,21 @@
     </script>
     <!-- user-info -->
     <script type="text/template" id="user-info-template">
-      <!-- Username -->
+      <!-- Avatar -->
       <div class="content-item-area">
+        <div class="content-item">
+          <div class="d-flex justify-content-between">
+            <span>Avatar</span>
+            <span>
+              Using
+              <a href="https://ja.gravatar.com/">Gravatar</a>
+            </span>
+          </div>
+          <div class="content-image">
+            <img src="https://www.gravatar.com/avatar/<%- gravatarHash %>?s=120" alt="My avatar" class="content-avatar" id="user-setting-avatar">
+          </div>
+        </div>
+        <!-- Username -->
         <div class="content-item">
           <label for="user-info-username">Username</label>
           <div class="content-input">
@@ -230,9 +243,7 @@
             <span class="content-input-valid-message"></span>
           </div>
         </div>
-      </div>
-      <!-- Email address -->
-      <div class="content-item-area">
+        <!-- Email address -->
         <div class="content-item">
           <label for="user-info-email">Email address</label>
           <div class="content-input">
@@ -285,20 +296,6 @@
     </script>
     <!-- user-setting -->
     <script type="text/template" id="user-setting-template">
-      <!-- Avatar -->
-      <div class="content-item-area">
-        <div class="content-item">
-          <label for="user-setting-avatar">Avatar</label>
-          <div>
-            <img src="https://www.gravatar.com/avatar/<%- gravatarHash %>" alt="My avatar" class="cw-avatar" id="user-setting-avatar">
-          </div>
-          <span>
-            Using Email address
-            <i class="fas fa-long-arrow-alt-right"></i>
-            <a href="https://ja.gravatar.com/">Gravatar</a>
-          </span>
-        </div>
-      </div>
       <!-- Theme -->
       <div class="content-item-area">
         <div class="content-item">
