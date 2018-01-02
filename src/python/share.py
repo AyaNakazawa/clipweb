@@ -33,7 +33,8 @@ class Share:
     # ----------------------------------------------------------------
 
     def __init__(cls):
-        print("init clipweb Share")
+        print("[INIT]")
+        print("clipweb Share")
 
     # ----------------------------------------------------------------
     # Function

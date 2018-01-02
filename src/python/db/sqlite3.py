@@ -25,7 +25,8 @@ class SQLite3:
     DB_PATH = "clipweb.db"
 
     def __init__(cls):
-        print("init sqlite")
+        print("[INIT]")
+        print("SQLite3")
         # conn = sqlite3.connect(cls.DB_PATH)
         # c = conn.cursor()
         #

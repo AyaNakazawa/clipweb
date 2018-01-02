@@ -29,7 +29,8 @@ class CGI:
     # Get CGI form value
     @staticmethod
     def get(_label):
-        print("CGI.get")
+        print("[FUNC]")
+        print("CGI.get({0})".format(_label))
         FORM = cgi.FieldStorage()
         if _label not in FORM:
             return None
@@ -41,7 +42,8 @@ class CGI:
     def init():
         print("Content-type: text/html; charset=UTF-8")
         print()
-        print("init cgi")
+        print("[INIT]")
+        print("CGI")
 
 # ----------------------------------------------------------------
 # Ready
