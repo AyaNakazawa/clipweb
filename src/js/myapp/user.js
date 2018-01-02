@@ -13,6 +13,14 @@ class UserModel extends ContentModel {
   ) {
     super(_initSetting);
 
+    // 識別子
+    this.REGISTER = 'REGISTER';
+    this.LOGIN = 'LOGIN';
+    this.LOGOUT = 'LOGOUT';
+    this.LEAVE = 'LEAVE';
+    this.SETTING = 'SETTING';
+    this.INFO = 'INFO';
+
     // ログインステータス
     this.STATUS_LOGIN = false;
 
@@ -33,7 +41,7 @@ class UserModel extends ContentModel {
     // ログイン、登録時に使用
     // クリップ生成時に使用
     // ユーザハッシュ + 日時 = クリップID
-    this.HASH_USER = null;
+    this.HASH_USERNAME = null;
     // パスワードハッシュ
     // パスワード から生成
     // ログイン、登録時に使用
