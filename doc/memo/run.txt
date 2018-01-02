@@ -1,7 +1,12 @@
 
+pythonのセットアップ
+Windowsの場合
+  python 3.6.4 32bitをインストール
+  他のバージョンがある場合はアンインストールをする
+
 pip install pycrypto
 
-windowsの場合
+Windowsの場合
   git bashから
     $ pip install pycrypto
     inttypes.hでエラーが出た場合
@@ -12,7 +17,7 @@ windowsの場合
       再度インストール
         $ pip install pycrypto
 
-
+pip install Simple-AES-Cipher
 
 srcフォルダをデプロイ
 
