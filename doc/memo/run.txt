@@ -1,32 +1,33 @@
 
+apache2のセットアップ
+  apache2について
+    https://httpd.apache.org/
+    2017年1月3日現在
+      Apache/2.4.29
+  apache2をインストールする
+  CGIを実行可能にする
+  .htaccessを許可するか、.pyをCGIとして実行可能にする
+  apache2を再起動する
+
 pythonのセットアップ
-Windowsの場合
-  python 3.6.4 32bitをインストール
-  他のバージョンがある場合はアンインストールをする
-
-pip install pycrypto
-
-Windowsの場合
-  git bashから
-    $ pip install pycrypto
-    inttypes.hでエラーが出た場合
-      そのファイルのエラーの直前に
-        #define intmax_t long long
-        #define uintmax_t unsigned long long
-      を追加
-      再度インストール
-        $ pip install pycrypto
-
-pip install Simple-AES-Cipher
+  pythonについて
+    https://www.python.org/
+    2017年1月3日現在
+      python 3.6.4
+  python3をインストールする
 
 srcフォルダをデプロイ
 
 DBを初期化
 
-DBの読み書き権限を与える
-CGIの実行権限を与える
+DBに読み書き権限を与える
+CGIに実行権限を与える
 
-CGIを実行可能にする
 CGIのshebangを実行環境にあわせる
 
+sass/mylib/debug.scssを削除し、Sassをコンパイル
 sassフォルダを削除
+
+コードを軽量化する
+
+Googleアナリティクスを付ける
