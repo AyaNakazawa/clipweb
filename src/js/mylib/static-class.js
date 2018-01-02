@@ -345,9 +345,6 @@ class Crypto {
       return false;
     }
 
-    _data = CryptoJS.enc.Utf8.parse(_data);
-    _password = CryptoJS.enc.Utf8.parse(_password);
-
     return CryptoJS.AES.encrypt(_data, _password).toString();
   }
 
