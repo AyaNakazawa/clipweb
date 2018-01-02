@@ -1,10 +1,27 @@
 
-cgiを実行可能にする
-
 pip install pycrypto
+
+windowsの場合
+  git bashから
+    $ pip install pycrypto
+    inttypes.hでエラーが出た場合
+      そのファイルのエラーの直前に
+        #define intmax_t long long
+        #define uintmax_t unsigned long long
+      を追加
+      再度インストール
+        $ pip install pycrypto
+
+
 
 srcフォルダをデプロイ
 
-pythonのshebangを実行環境にあわせる
 DBを初期化
+
+DBの読み書き権限を与える
+CGIの実行権限を与える
+
+CGIを実行可能にする
+CGIのshebangを実行環境にあわせる
+
 sassフォルダを削除
