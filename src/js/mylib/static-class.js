@@ -334,6 +334,83 @@ class Validate {
 }
 
 class Crypto {
+  static get KEY_SIZE () {
+    return 128 / 8;
+  }
+
+  static get ITERATIONS () {
+    return 500;
+  }
+
+  static get MODE () {
+    return CryptoJS.mode.CBC;
+  }
+
+  static get PADDING () {
+    return CryptoJS.pad.Pkcs7;
+  }
+
+  static getKey (pass = null, salt = null) {
+    if (pass != null && salt != null){
+      const RESULT = CryptoJS.PBKDF2(
+        pass,
+        salt,
+        {
+          keySize: Crypto.KEY_SIZE,
+          iterations: Crypto.ITERATIONS
+        }
+      );
+      return RESULT;
+    }
+    return null;
+  }
+
+  static getRand (keySize = Crypto.KEY_SIZE) {
+    return CryptoJS.lib.WordArray.random(Crypto.KEY_SIZE);
+  }
+
+  static toUTF8 (_data = null) {
+    if (_data != null) {
+      return _data.toString(CryptoJS.enc.Utf8);
+    }
+    return null;
+  }
+
+  static parseUTF8 (_data = null) {
+    if (_data != null) {
+      return CryptoJS.enc.Utf8.parse(_data);
+    }
+    return null;
+  }
+
+  static parseHex (_data = null) {
+    if (_data != null) {
+      return CryptoJS.enc.Hex.parse(_data);
+    }
+    return null;
+  }
+
+  static parseBase64 (_data = null) {
+    if (_data != null) {
+      return CryptoJS.enc.Base64.parse(_data);
+    }
+    return null;
+  }
+
+  static stringifyHex (_data = null) {
+    if (_data != null) {
+      return CryptoJS.enc.Hex.stringify(_data);
+    }
+    return null;
+  }
+
+  static getOption (iv = null, mode = Crypto.MODE, padding = Crypto.PADDING) {
+    if (iv != null) {
+      return {iv: iv, mode: mode, padding: padding};
+    }
+    return null;
+  }
+
   static encrypt (
     _data = null,
     _password = null
@@ -345,7 +422,23 @@ class Crypto {
       return false;
     }
 
-    return CryptoJS.AES.encrypt(_data, _password).toString();
+    let result = '';
+
+    const DATA = Crypto.parseUTF8(_data);
+    const PASSWORD = Crypto.parseUTF8(_password);
+
+    const SALT = Crypto.getRand();
+    const KEY = Crypto.getKey(PASSWORD, SALT);
+    const IV = Crypto.getRand();
+    const OPTIONS = Crypto.getOption(IV);
+
+    const ENCRYPTED = CryptoJS.AES.encrypt(DATA, KEY, OPTIONS);
+
+    result += Crypto.stringifyHex(SALT);
+    result += (':' + Crypto.stringifyHex(IV));
+    result += (':' + ENCRYPTED);
+
+    return result;
   }
 
   static decrypt (
@@ -359,6 +452,21 @@ class Crypto {
       return false;
     }
 
-    return CryptoJS.AES.decrypt(_data, _password).toString(CryptoJS.enc.Utf8);
+    let result = '';
+
+    const DATA = _data.split(':');
+
+    const ENCRYPTED = Crypto.parseBase64(DATA[2]);
+    const PASSWORD = Crypto.parseUTF8(_password);
+
+    const SALT = Crypto.parseHex(DATA[0]);
+    const IV = Crypto.parseHex(DATA[1]);
+    const KEY = Crypto.getKey(PASSWORD, SALT);
+    const OPTIONS = Crypto.getOption(IV);
+
+    result = CryptoJS.AES.decrypt({'ciphertext': ENCRYPTED}, KEY, OPTIONS);
+    result = Crypto.toUTF8(result);
+
+    return result;
   }
 }
