@@ -5,7 +5,7 @@
 // ----------------------------------------------------------------
 // Model
 
-class NavModel extends ContentModel {
+class NavModel extends CommonModel {
   constructor(
     _initSetting = {
       NAME: 'Nav Object',
@@ -28,7 +28,7 @@ class NavModel extends ContentModel {
 // ----------------------------------------------------------------
 // View
 
-class NavView extends ContentView {
+class NavView extends CommonView {
   constructor(
     _initSetting = {
       NAME: 'Nav View'
@@ -129,7 +129,7 @@ class NavView extends ContentView {
 // ----------------------------------------------------------------
 // Event
 
-class NavEvent extends ContentEvent {
+class NavEvent extends CommonEvent {
   constructor(
     _initSetting = {
       NAME: 'Nav Event'
@@ -200,7 +200,7 @@ class NavEvent extends ContentEvent {
 // ----------------------------------------------------------------
 // Controller
 
-class NavController extends ContentController {
+class NavController extends CommonController {
   constructor(
     _model = {},
     _initSetting = {
