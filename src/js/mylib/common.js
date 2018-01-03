@@ -69,6 +69,9 @@ class CommonModel extends CommonClass {
     this.DISPLAY_NONE = 'display-none';
     this.CURRENT = 'current';
     this.BODY = 'html, body';
+
+    this.SELECTOR = {};
+    this.SELECTOR.AREA = '#area';
   }
 
   // Add var to Instance
@@ -109,7 +112,7 @@ class CommonView extends CommonClass {
   }
 
   clearArea({
-    selector = this.MODEL.SELECTOR_AREA
+    selector = this.MODEL.SELECTOR.AREA
   } = {}) {
     $(selector).empty();
 
