@@ -45,36 +45,66 @@ class Log {
   static get STYLE_ERROR_CONTENT() { return 'color:#111;'; }
 
   static get STYLE_CAUTION_LINE() { return 'color:#aa0;'; }
-  static get STYLE_CAUTION_HEADER() { return 'color:#440;'; }
+  static get STYLE_CAUTION_HEADER() { return 'color:#880;'; }
   static get STYLE_CAUTION_CONTENT() { return 'color:#111;'; }
 
-  static logError(...array) {
+  static logError(obj = null, ...array) {
     // View permission
     if (this.LOG_VIEW_ERROR) {
       // Draw line
       this.log(null, null, this.STYLE_ERROR_LINE);
       // Write title
-      this.log('ERROR', this.ALIGN_CENTER, this.STYLE_ERROR_HEADER);
+      this.log('Error', this.ALIGN_CENTER, this.STYLE_ERROR_HEADER);
+
+      // Write info
+      this.logObj(obj);
+      this.logClass('Class Name', obj.constructor.name);
+      this.logClass('Object Name', obj.NAME);
+      this.logClass('Model Name', obj.MODEL.NAME);
+
+      // Draw line
+      this.log(null, null, this.STYLE_ERROR_LINE);
+      // Write title
+      this.log('Message', this.ALIGN_CENTER, this.STYLE_ERROR_HEADER);
+
       // Write array
       for (let i = 0; i < array.length; i++) {
         this.log(array[i], this.ALIGN_LEFT, this.STYLE_ERROR_CONTENT);
       }
+
+      // Write exit
+      this.log('Exit', this.ALIGN_CENTER, this.STYLE_ERROR_HEADER);
       // Draw line
       this.log(null, null, this.STYLE_ERROR_LINE);
     }
   }
 
-  static logCaution(...array) {
+  static logCaution(obj = null, ...array) {
     // View permission
     if (this.LOG_VIEW_CAUTION) {
       // Draw line
       this.log(null, null, this.STYLE_CAUTION_LINE);
       // Write title
-      this.log('CAUTION', this.ALIGN_CENTER, this.STYLE_CAUTION_HEADER);
+      this.log('Caution', this.ALIGN_CENTER, this.STYLE_CAUTION_HEADER);
+
+      // Write info
+      this.logObj(obj);
+      this.logClass('Class Name', obj.constructor.name);
+      this.logClass('Object Name', obj.NAME);
+      this.logClass('Model Name', obj.MODEL.NAME);
+
+      // Draw line
+      this.log(null, null, this.STYLE_CAUTION_LINE);
+      // Write title
+      this.log('Message', this.ALIGN_CENTER, this.STYLE_CAUTION_HEADER);
+
       // Write array
       for (let i = 0; i < array.length; i++) {
         this.log(array[i], this.ALIGN_LEFT, this.STYLE_CAUTION_CONTENT);
       }
+
+      // Write exit
+      this.log('Exit', this.ALIGN_CENTER, this.STYLE_CAUTION_HEADER);
       // Draw line
       this.log(null, null, this.STYLE_CAUTION_LINE);
     }

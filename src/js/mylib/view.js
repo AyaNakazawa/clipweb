@@ -73,7 +73,15 @@ class View {
   } = {}) {
     message = message || text;
     if (message == null) {
-      Log.logCaution(View.NAME, 'getAlert', 'Undefined message');
+      Log.logCaution(
+        this,
+        'getAlert',
+        'Undefined message',
+        `type: ${type}`,
+        `message: ${message}`,
+        `text: ${text}`,
+        `close: ${close}`
+      );
       return;
     }
 
@@ -97,7 +105,14 @@ class View {
   } = {}) {
     message = message || text;
     if (message == null) {
-      Log.logCaution(View.NAME, 'getLoading', 'Undefined message');
+      Log.logCaution(
+        this,
+        'getLoading',
+        'Undefined message',
+        `header: ${header}`,
+        `message: ${message}`,
+        `text: ${text}`
+      );
       return;
     }
 

@@ -1,2 +1,7 @@
 
-logCautionとかにthisを渡して自動でいろいろ出してもらう
+やること
+
+
+やったこと
+  logCautionとかにthisを渡して自動でいろいろ出してもらう
+  avatarのスタイル
