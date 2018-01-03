@@ -1,2 +1,2 @@
 
-.avatarのスタイル
+logCautionとかにthisを渡して自動でいろいろ出してもらう
