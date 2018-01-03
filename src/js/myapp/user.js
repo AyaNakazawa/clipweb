@@ -52,7 +52,7 @@ class UserModel extends ContentModel {
     // ログイン、登録時に使用
     // クリップ生成時に使用
     // ユーザハッシュ + 日時 = クリップID
-    this.HASH.USERNAME = null;
+    this.HASH.USER = null;
     // パスワードハッシュ
     // パスワード から生成
     // ログイン、登録時に使用
@@ -667,12 +667,12 @@ class UserController extends ContentController {
       if (timing == this.MODEL.TIMING.BEFORE) {
         this.MODEL.USERNAME = this.MODEL.USERNAME.trim();
         this.MODEL.EMAIL = this.MODEL.EMAIL.toLowerCase().trim();
-        this.MODEL.HASH.USERNAME = SHA256.getHash(this.MODEL.USERNAME);
+        this.MODEL.HASH.USER = SHA256.getHash(this.MODEL.USERNAME + new Date().toString());
         this.MODEL.HASH.PASSWORD = SHA256.getHash(this.MODEL.PASSWORD);
       } else if (timing == this.MODEL.TIMING.AFTER) {
         this.MODEL.USERNAME = this.MODEL.USERNAME.trim();
         this.MODEL.EMAIL = this.MODEL.EMAIL.toLowerCase().trim();
-        this.MODEL.HASH.USERNAME = SHA256.getHash(this.MODEL.USERNAME);
+        this.MODEL.HASH.USER = SHA256.getHash(this.MODEL.USERNAME + new Date().toString());
         this.MODEL.HASH.PASSWORD = SHA256.getHash(this.MODEL.PASSWORD);
       }
 
@@ -680,10 +680,10 @@ class UserController extends ContentController {
       // LOGIN
       this.MODEL.USERNAME = this.MODEL.USERNAME.trim();
       this.MODEL.EMAIL = this.MODEL.EMAIL.toLowerCase().trim();
-      this.MODEL.HASH.USERNAME = SHA256.getHash(this.MODEL.USERNAME);
+      this.MODEL.HASH.USER = SHA256.getHash(this.MODEL.USERNAME + new Date().toString());
       this.MODEL.HASH.PASSWORD = SHA256.getHash(this.MODEL.PASSWORD);
       this.MODEL.HASH.CRYPTO = SHA256.getHash(
-        this.MODEL.HASH.USERNAME + this.MODEL.PASSWORD
+        this.MODEL.HASH.USER + this.MODEL.PASSWORD
       );
       this.MODEL.HASH.GRAVATAR = MD5.getHash(this.MODEL.EMAIL);
 
@@ -702,10 +702,10 @@ class UserController extends ContentController {
       // INFO
       this.MODEL.USERNAME = this.MODEL.USERNAME.trim();
       this.MODEL.EMAIL = this.MODEL.EMAIL.toLowerCase().trim();
-      this.MODEL.HASH.USERNAME = SHA256.getHash(this.MODEL.USERNAME);
+      this.MODEL.HASH.USER = SHA256.getHash(this.MODEL.USERNAME);
       this.MODEL.HASH.PASSWORD = SHA256.getHash(this.MODEL.PASSWORD);
       this.MODEL.HASH.CRYPTO = SHA256.getHash(
-        this.MODEL.HASH.USERNAME + this.MODEL.PASSWORD
+        this.MODEL.HASH.USER + this.MODEL.PASSWORD
       );
       this.MODEL.HASH.GRAVATAR = MD5.getHash(this.MODEL.EMAIL);
 
@@ -717,7 +717,7 @@ class UserController extends ContentController {
     this.MODEL.USERNAME = '';
     this.MODEL.EMAIL = '';
     this.MODEL.PASSWORD = '';
-    this.MODEL.HASH.USERNAME = '';
+    this.MODEL.HASH.USER = '';
     this.MODEL.HASH.PASSWORD = '';
     this.MODEL.HASH.CRYPTO = '';
     this.MODEL.HASH.GRAVATAR = '';
