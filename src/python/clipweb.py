@@ -35,99 +35,99 @@ class Clipweb:
     def __init__(cls):
         print("[INIT]")
         print("clipweb")
-        _mode = cgi.CGI.get("mode")
-        _mode = "USER.REGISTER"
+        _type = cgi.CGI.get("type")
+        _type = "USER.REGISTER"
 
-        if _mode is not None:
-            cls.check_mode(_mode)
+        if _type is not None:
+            cls.check_type(_type)
 
-    def check_mode(cls, _mode=None):
-        # print(cls._mode)
-        _mode = _mode.split(".")
-        if _mode[0] == "USER":
+    def check_type(cls, _type=None):
+        # print(cls._type)
+        _type = _type.split(".")
+        if _type[0] == "USER":
             # print("user")
-            cls.check_user(_mode[1])
+            cls.check_user(_type[1])
 
-        elif _mode[0] == "CLIP":
+        elif _type[0] == "CLIP":
             # print("clip")
-            cls.check_clip(_mode[1])
+            cls.check_clip(_type[1])
 
-        elif _mode[0] == "SHARE":
+        elif _type[0] == "SHARE":
             # print("share")
-            cls.check_share(_mode[1])
+            cls.check_share(_type[1])
 
         else:
             print("[ERROR]")
-            print("check_mode: {0}".format(_mode))
+            print("check_type: {0}".format(_type))
 
-    def check_user(cls, _mode=None):
+    def check_user(cls, _type=None):
         USER = user.User()
         # print("check user")
-        if _mode == "REGISTER":
+        if _type == "REGISTER":
             # print("register")
             USER.register()
 
-        elif _mode == "LOGIN":
+        elif _type == "LOGIN":
             # print("login")
             USER.login()
 
-        elif _mode == "SETTING":
+        elif _type == "SETTING":
             # print("setting")
             USER.setting()
 
-        elif _mode == "INFO":
+        elif _type == "INFO":
             # print("info")
             USER.info()
 
-        elif _mode == "LEAVE":
+        elif _type == "LEAVE":
             # print("leave")
             USER.leave()
 
         else:
             print("[ERROR]")
-            print("check_user: {0}".format(_mode))
+            print("check_user: {0}".format(_type))
 
-    def check_clip(cls, _mode=None):
+    def check_clip(cls, _type=None):
         CLIP = clip.Clip()
         # print("check clip")
-        if _mode == "NEW":
+        if _type == "NEW":
             # print("new")
             CLIP.new()
 
-        elif _mode == "SAVE":
+        elif _type == "SAVE":
             # print("save")
             CLIP.save()
 
-        elif _mode == "DELETE":
+        elif _type == "DELETE":
             # print("delete")
             CLIP.delete()
 
         else:
             print("[ERROR]")
-            print("check_clip: {0}".format(_mode))
+            print("check_clip: {0}".format(_type))
 
-    def check_share(cls, _mode=None):
+    def check_share(cls, _type=None):
         SHARE = share.Share()
         # print("check share")
-        if _mode == "ALIVE":
+        if _type == "ALIVE":
             # print("alive")
             SHARE.alive()
 
-        elif _mode == "READ":
+        elif _type == "READ":
             # print("read")
             SHARE.read()
 
-        elif _mode == "WRITE":
+        elif _type == "WRITE":
             # print("write")
             SHARE.write()
 
-        elif _mode == "LEAVE":
+        elif _type == "LEAVE":
             # print("leave")
             SHARE.leave()
 
         else:
             print("[ERROR]")
-            print("check_share: {0}".format(_mode))
+            print("check_share: {0}".format(_type))
 
     # ----------------------------------------------------------------
     # Function
