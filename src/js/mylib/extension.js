@@ -1,5 +1,5 @@
 
-Date.prototype.getString = function (_format = '%Y/%m/%d %H:%M:%S') {
+Date.prototype.toString = function (_format = '%Y/%m/%d %H:%M:%S') {
   _format = _format.replace('%Y', ('000' + this.getFullYear()).slice(-4));
   _format = _format.replace('%y', ('0' + this.getFullYear()).slice(-2));
   _format = _format.replace('%m', ('0' + (this.getMonth() + 1)).slice(-2));
