@@ -7,9 +7,13 @@ class Process extends CommonProcess {
   ) {
     super(_initSetting);
 
-    this.SHOW_SPEED = 350;
-    this.MAIN_SELECTOR = 'main';
-    this.BODY_SELECTOR = 'body';
+    this.SELECTOR = {};
+    this.SELECTOR.MAIN = 'main';
+    this.SELECTOR.BODY = 'body';
+
+    this.SELECTOR.CONTENT = {};
+    this.SELECTOR.CONTENT.USER = 'user-area';
+    this.SELECTOR.CONTENT.HELP = 'help-area';
 
     this.run();
   }
@@ -22,41 +26,25 @@ class Process extends CommonProcess {
   }
 
   generateContent() {
-    $(this.MAIN_SELECTOR).empty();
-    $(this.MAIN_SELECTOR).append(Content.getContent('user-area'));
-    $(this.MAIN_SELECTOR).append(Content.getContent('help-area'));
+    $(this.SELECTOR.MAIN).empty();
+    $.each(this.SELECTOR.CONTENT, (index, selector) => {
+      $(this.SELECTOR.MAIN).append(Content.getContent(selector));
+    });
   }
 
   setViewContent() {
-    $('#user-area').hide();
-    $('#help-area').hide();
+    $.each(this.SELECTOR.CONTENT, (index, selector) => {
+      $(`#${selector}`).hide();
+    });
   }
 
   initController() {
-    this.SWITCH = {
-      USER: new SwitchController({
-        TEMPLATE: 'user',
-        currentView: true,
-        LS_KEY: 'none'
-      })
-    };
-
-    this.SCROLL = {
-      USER: new ScrollController({
-        NAME: 'User Switch',
-        SCROLL_SELECTOR: '#user-area',
-        EVENT_SELECTOR: '#user-scroll'
-      })
-    };
-
-    this.CONTROLLER = {
-      USER: new UserController(),
-      NAV: new NavController()
-    };
+    this.USER = new UserController();
+    this.NAV = new NavController();
   }
 
   show() {
-    $(this.BODY_SELECTOR).show();
-    $(this.MAIN_SELECTOR).slideDown(this.SHOW_SPEED);
+    $(this.SELECTOR.BODY).show();
+    $(this.SELECTOR.MAIN).show();
   }
 }
