@@ -13,7 +13,7 @@ Date.prototype.formatString = function (_format = '%Y/%m/%d(%W) %H:%M:%S.%MS') {
 };
 
 String.prototype.capitalize = function () {
-  return this.substring(0, 1).toUpperCase() + this.substring(1);
+  return this.substring(0, 1).toUpperCase() + this.substring(1).toLowerCase();
 };
 
 String.prototype.getRows = function () {
