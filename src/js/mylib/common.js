@@ -355,6 +355,9 @@ class CommonEvent extends CommonClass {
     }
   ) {
     super(_initSetting, _common);
+
+    this.SELECTOR = {};
+    this.SELECTOR.ROOT = document;
   }
 
   setOn({
@@ -363,9 +366,9 @@ class CommonEvent extends CommonClass {
     func = () => {}
   } = {}) {
     if (selector != null) {
-      $(document).on(trigger, selector, func);
+      $(this.SELECTOR.ROOT).on(trigger, selector, func);
     } else {
-      $(document).on(trigger, func);
+      $(this.SELECTOR.ROOT).on(trigger, func);
     }
   }
 
@@ -374,10 +377,27 @@ class CommonEvent extends CommonClass {
     selector = null
   } = {}) {
     if (selector != null) {
-      $(document).off(trigger, selector);
+      $(this.SELECTOR.ROOT).off(trigger, selector);
     } else {
-      $(document).off(trigger);
+      $(this.SELECTOR.ROOT).off(trigger);
     }
+  }
+
+  trigger({
+    trigger = null,
+    selector = this.SELECTOR.ROOT
+  } = {}) {
+    if (trigger == null) {
+      Log.logCaution(
+        this,
+        'trigger',
+        `trigger: ${trigger}`,
+        `selector: ${selector}`
+      );
+      return;
+    }
+
+    $(selector).trigger(trigger);
   }
 }
 
