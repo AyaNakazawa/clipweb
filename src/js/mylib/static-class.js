@@ -63,7 +63,6 @@ class Log {
       this.logObj(obj);
       this.logClass('Class Name', obj.constructor.name);
       this.logClass('Object Name', obj.NAME);
-      this.logClass('Model Name', obj.MODEL.NAME);
 
       // Draw line
       this.log(null, null, this.STYLE_ERROR_LINE);
@@ -94,7 +93,6 @@ class Log {
       this.logObj(obj);
       this.logClass('Class Name', obj.constructor.name);
       this.logClass('Object Name', obj.NAME);
-      this.logClass('Model Name', obj.MODEL.NAME);
 
       // Draw line
       this.log(null, null, this.STYLE_CAUTION_LINE);
