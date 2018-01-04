@@ -77,6 +77,7 @@ class CommonModel extends CommonClass {
     this.COMMON.SPEED.SHOW = 500;
     this.COMMON.SPEED.HIDE = 500;
     this.COMMON.SPEED.VIEW = 500;
+    this.COMMON.SPEED.SCROLL = 750;
 
     this.COMMON.EFFECT = {};
     this.COMMON.EFFECT.SHOW = 'show';
@@ -89,6 +90,18 @@ class CommonModel extends CommonClass {
     this.COMMON.EFFECT.DEFAULT = {};
     this.COMMON.EFFECT.DEFAULT.SHOW = this.COMMON.EFFECT.SHOW;
     this.COMMON.EFFECT.DEFAULT.HIDE = this.COMMON.EFFECT.HIDE;
+
+    this.COMMON.EASING = {};
+    this.COMMON.EASING.CLEAR = 'easeInOutQuart';
+    this.COMMON.EASING.SHOW = 'easeInOutQuart';
+    this.COMMON.EASING.HIDE = 'easeInOutQuart';
+    this.COMMON.EASING.SCROLL = 'easeInOutQuart';
+
+    this.COMMON.TRIGGER = {};
+    this.COMMON.TRIGGER.SCROLL = null;
+    this.COMMON.TRIGGER.CLEAR = null;
+    this.COMMON.TRIGGER.SHOW = null;
+    this.COMMON.TRIGGER.HIDE = null;
 
     this.COMMON.SELECTOR = {};
     this.COMMON.SELECTOR.ROOT = document;
