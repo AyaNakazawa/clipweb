@@ -36,7 +36,6 @@ class Clipweb:
         print("[INIT]")
         print("clipweb")
         _type = cgi.CGI.get("type")
-        _type = "USER.REGISTER"
 
         if _type is not None:
             cls.check_type(_type)
