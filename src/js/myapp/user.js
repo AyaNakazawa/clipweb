@@ -943,8 +943,7 @@ class UserController extends CommonController {
 
     let _path = 'python/clipweb.py';
     let _model = {};
-    let _method = 'POST';
-    let _dataType = 'json';
+    let _cache = false;
 
     if (type == this.MODEL.TYPE.REGISTER) {
       // REGISTER
@@ -969,10 +968,15 @@ class UserController extends CommonController {
     $.ajax({
       url: _path,
       data: _model,
-      method: _method,
-      dataType: _dataType,
+      cache: _cache,
+      beforeSend: (jqXHR, settings) => {
+        Log.logClassKey(this.NAME, 'post', 'Send');
+        Log.logClassKey(this.NAME, 'settings', settings);
+        Log.logClass(this.NAME, 'jqXHR');
+        Log.logObj(jqXHR);
+      },
       success: (data, textStatus, jqXHR) => {
-        Log.logClassKey(this.NAME, 'post', 'success');
+        Log.logClassKey(this.NAME, 'post', 'Success');
         Log.logClassKey(this.NAME, 'textStatus', textStatus);
         Log.logClass(this.NAME, 'data');
         Log.logObj(data);
@@ -981,7 +985,7 @@ class UserController extends CommonController {
         this.EVENT.trigger({trigger: this.MODEL.TRIGGER.POST.SUCCESS});
       },
       error: (jqXHR, textStatus, errorThrown) => {
-        Log.logClassKey(this.NAME, 'post', 'error');
+        Log.logClassKey(this.NAME, 'post', 'Error');
         Log.logClassKey(this.NAME, 'textStatus', textStatus);
         Log.logClassKey(this.NAME, 'errorThrown', errorThrown);
         Log.logClass(this.NAME, 'jqXHR');
