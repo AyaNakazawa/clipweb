@@ -49,8 +49,6 @@ class Process extends CommonProcess {
       })
     };
 
-    PS = this;
-
     this.CONTROLLER = {
       USER: new UserController(),
       NAV: new NavController()
@@ -60,7 +58,5 @@ class Process extends CommonProcess {
   show() {
     $(this.BODY_SELECTOR).show();
     $(this.MAIN_SELECTOR).slideDown(this.SHOW_SPEED);
-    Log.log();
-    Log.logClass(this.NAME, 'Start');
   }
 }
