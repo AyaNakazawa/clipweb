@@ -168,11 +168,26 @@ class UserView extends CommonView {
     alertType = this.MODEL.ALERT_SUCCESS,
     alertClose = true,
     alertMessage = null,
-    loadingHeader = null,
-    loadingMessage = null
+    loadingHeader = null
   } = {}) {
 
     // Set
+
+    if (loadingHeader != null) {
+      view = true;
+    }
+    if (alertMessage != null) {
+      view = true;
+    }
+    if (header != null) {
+      view = true;
+    }
+    if (type != null) {
+      view = true;
+    }
+
+    // Type
+
     let mainTemplate = null;
     let mainModel = null;
     if (type == this.MODEL.TYPE.LOGIN) {
@@ -283,17 +298,15 @@ class UserView extends CommonView {
     );
 
     // Generate Loading
-    if (loadingMessage != null) {
-      this.generateLoading({
-        header: loadingHeader,
-        message: loadingMessage
+    if (loadingHeader != null) {
+      super.generateLoading({
+        header: loadingHeader
       });
-      return;
     }
 
     // Generate Alert
     if (alertMessage != null) {
-      this.generateAlert({
+      super.generateAlert({
         type: alertType,
         message: alertMessage,
         close: alertClose
@@ -535,7 +548,8 @@ class UserEvent extends CommonEvent {
 
   setOnLoading({
     type = null,
-    func = null
+    func = null,
+    model = {}
   }) {
     if (type == null || func == null) {
       Log.logCaution(
@@ -545,6 +559,7 @@ class UserEvent extends CommonEvent {
         `type :${type}`,
         `func :${func}`
       );
+      return;
     }
     Log.logClassKey('User', type.capitalize(), 'Loading');
     this.CONTROLLER.openLoading(type);
@@ -552,7 +567,7 @@ class UserEvent extends CommonEvent {
       trigger: this.MODEL.TRIGGER.LOADING,
       func: () => {
         Log.logClassKey('User', type.capitalize(), 'Open');
-        func();
+        func(model);
         super.setOff({
           trigger: this.MODEL.TRIGGER.LOADING
         });
@@ -577,6 +592,7 @@ class UserController extends CommonController {
     super(_model, _initSetting);
 
     this.EVENT.setEvent();
+    this.VIEW.closeArea({speed: 0});
     this.openRegister();
   }
 
@@ -638,6 +654,53 @@ class UserController extends CommonController {
     this.VIEW.generateArea(model);
   }
 
+  openLoading(
+    type = null
+  ) {
+    if (type == null) {
+      Log.logCaution(
+        this,
+        'openLoading',
+        'includes null in args',
+        `type :${type}`
+      );
+      return;
+    }
+    let _loadingHeader = null;
+
+    if (type == this.MODEL.TYPE.REGISTER) {
+      _loadingHeader = 'Registering to clipweb';
+
+    } else if (type == this.MODEL.TYPE.LOGIN) {
+      _loadingHeader = 'Login to clipweb';
+
+    } else if (type == this.MODEL.TYPE.LOGOUT) {
+      _loadingHeader = 'Logout from clipweb';
+
+    } else if (type == this.MODEL.TYPE.LEAVE) {
+      _loadingHeader = 'Leaving from clipweb';
+
+    } else if (type == this.MODEL.TYPE.SETTING) {
+      _loadingHeader = 'Save your Setting';
+
+    } else if (type == this.MODEL.TYPE.INFO) {
+      _loadingHeader = 'Save your Info';
+
+    } else {
+      Log.logCaution(
+        this,
+        'openLoading',
+        'unknown type',
+        `type :${type}`
+      );
+      return;
+    }
+
+    this.VIEW.generateArea({
+      loadingHeader: _loadingHeader
+    });
+  }
+
   // ----------------------------------------------------------------
   // submit
 
@@ -686,9 +749,14 @@ class UserController extends CommonController {
     this.updateHash(this.MODEL.TYPE.REGISTER);
 
     if (_isRegister) {
-      this.openLogin({
-        alertMessage: '<div>ユーザーを登録しました。</div><div>メール認証をしてください。</div>'
+      this.EVENT.setOnLoading({
+        type: this.MODEL.TYPE.REGISTER,
+        func: this.openLogin,
+        model: {
+          alertMessage: '<div>ユーザーを登録しました。</div><div>メール認証をしてください。</div>'
+        }
       });
+
     } else {
       this.openRegister({
         alertMessage: '登録に失敗しました。',
