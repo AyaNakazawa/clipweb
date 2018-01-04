@@ -92,10 +92,10 @@ class CommonModel extends CommonClass {
     this.COMMON.EFFECT.DEFAULT.HIDE = this.COMMON.EFFECT.HIDE;
 
     this.COMMON.EASING = {};
-    this.COMMON.EASING.CLEAR = 'easeInOutQuart';
-    this.COMMON.EASING.SHOW = 'easeInOutQuart';
-    this.COMMON.EASING.HIDE = 'easeInOutQuart';
-    this.COMMON.EASING.SCROLL = 'easeInOutQuart';
+    this.COMMON.EASING.CLEAR = 'easeOutCirc';
+    this.COMMON.EASING.SHOW = 'easeOutCirc';
+    this.COMMON.EASING.HIDE = 'easeOutCirc';
+    this.COMMON.EASING.SCROLL = 'easeOutCirc';
 
     this.COMMON.TRIGGER = {};
     this.COMMON.TRIGGER.SCROLL = null;
@@ -168,7 +168,8 @@ class CommonView extends CommonClass {
   clear({
     selector = this.MODEL.SELECTOR.AREA,
     speed = this.MODEL.COMMON.SPEED.CLEAR,
-    type = this.MODEL.COMMON.EFFECT.DEFAULT.HIDE
+    type = this.MODEL.COMMON.EFFECT.DEFAULT.HIDE,
+    easing = this.MODEL.COMMON.EASING.CLEAR
   } = {}) {
     if (selector == null) {
       Log.logCaution(
@@ -186,7 +187,8 @@ class CommonView extends CommonClass {
         view: false,
         selector: selector,
         speed: speed,
-        type: type
+        type: type,
+        easing: easing
       });
     }
     $(selector).empty();
@@ -197,7 +199,8 @@ class CommonView extends CommonClass {
   show({
     selector = this.MODEL.SELECTOR.AREA,
     speed = this.MODEL.COMMON.SPEED.SHOW,
-    type = this.MODEL.COMMON.EFFECT.DEFAULT.SHOW
+    type = this.MODEL.COMMON.EFFECT.DEFAULT.SHOW,
+    easing = this.MODEL.COMMON.EASING.SHOW
   } = {}) {
     if (selector == null) {
       Log.logCaution(
@@ -213,14 +216,16 @@ class CommonView extends CommonClass {
       view: true,
       selector: selector,
       speed: speed,
-      type: type
+      type: type,
+      easing: easing
     });
   }
 
   hide({
     selector = this.MODEL.SELECTOR.AREA,
     speed = this.MODEL.COMMON.SPEED.HIDE,
-    type = this.MODEL.COMMON.EFFECT.DEFAULT.HIDE
+    type = this.MODEL.COMMON.EFFECT.DEFAULT.HIDE,
+    easing = this.MODEL.COMMON.EASING.HIDE
   } = {}) {
     if (selector == null) {
       Log.logCaution(
@@ -236,7 +241,8 @@ class CommonView extends CommonClass {
       view: false,
       selector: selector,
       speed: speed,
-      type: type
+      type: type,
+      easing: easing
     });
   }
 
@@ -244,6 +250,7 @@ class CommonView extends CommonClass {
     selector = this.MODEL.SELECTOR.AREA,
     speed = this.MODEL.COMMON.SPEED.VIEW,
     type = null,
+    easing = null,
     view = null,
     callback = null
   }) {
@@ -255,6 +262,7 @@ class CommonView extends CommonClass {
         `selector: ${selector}`,
         `speed: ${speed}`,
         `type: ${type}`,
+        `easing: ${easing}`,
         `view: ${view}`,
         `callback: ${callback}`
       );
@@ -262,8 +270,10 @@ class CommonView extends CommonClass {
     }
     Log.logClassKey(this.NAME, 'View', view, Log.ARROW_INPUT);
 
+    // skip
     this.skip(selector);
 
+    // type
     if (type == null) {
       if (view) {
         type = this.MODEL.COMMON.EFFECT.DEFAULT.SHOW;
@@ -272,28 +282,48 @@ class CommonView extends CommonClass {
       }
     }
 
+    // easing
+    if (easing == null) {
+      if (view) {
+        easing = this.MODEL.COMMON.EASING.SHOW;
+      } else if (!view) {
+        easing = this.MODEL.COMMON.EASING.HIDE;
+      }
+    }
+
+    // view
     this.MODEL.COMMON.VIEW = view;
 
     if (view) {
+      // show
       if (type == this.MODEL.COMMON.EFFECT.SHOW) {
         if (callback != null) {
-          $(selector).show(speed, callback);
+          $(selector).show(speed, easing, callback);
         } else {
-          $(selector).show(speed);
+          $(selector).show({
+            duration: speed,
+            easing: easing
+          });
         }
 
       } else if (type == this.MODEL.COMMON.EFFECT.SLIDE_DOWN) {
         if (callback != null) {
-          $(selector).slideDown(speed, callback);
+          $(selector).slideDown(speed, easing, callback);
         } else {
-          $(selector).slideDown(speed);
+          $(selector).slideDown({
+            duration: speed,
+            easing: easing
+          });
         }
 
       } else if (type == this.MODEL.COMMON.EFFECT.FADE_IN) {
         if (callback != null) {
-          $(selector).fadeIn(speed, callback);
+          $(selector).fadeIn(speed, easing, callback);
         } else {
-          $(selector).fadeIn(speed);
+          $(selector).fadeIn({
+            duration: speed,
+            easing: easing
+          });
         }
 
       } else {
@@ -304,31 +334,42 @@ class CommonView extends CommonClass {
           `selector: ${selector}`,
           `speed: ${speed}`,
           `type: ${type}`,
+          `easing: ${easing}`,
           `view: ${view}`,
           `callback: ${callback}`
         );
         return null;
       }
     } else if (!view) {
+      // hide
       if (type == this.MODEL.COMMON.EFFECT.HIDE) {
         if (callback != null) {
-          $(selector).hide(speed, callback);
+          $(selector).hide(speed, easing, callback);
         } else {
-          $(selector).hide(speed);
+          $(selector).hide({
+            duration: speed,
+            easing: easing
+          });
         }
 
       } else if (type == this.MODEL.COMMON.EFFECT.SLIDE_UP) {
         if (callback != null) {
-          $(selector).slideUp(speed, callback);
+          $(selector).slideUp(speed, easing, callback);
         } else {
-          $(selector).slideUp(speed);
+          $(selector).slideUp({
+            duration: speed,
+            easing: easing
+          });
         }
 
       } else if (type == this.MODEL.COMMON.EFFECT.FADE_OUT) {
         if (callback != null) {
-          $(selector).fadeOut(speed, callback);
+          $(selector).fadeOut(speed, easing, callback);
         } else {
-          $(selector).fadeOut(speed);
+          $(selector).fadeOut({
+            duration: speed,
+            easing: easing
+          });
         }
 
       } else {
@@ -339,6 +380,7 @@ class CommonView extends CommonClass {
           `selector: ${selector}`,
           `speed: ${speed}`,
           `type: ${type}`,
+          `easing: ${easing}`,
           `view: ${view}`,
           `callback: ${callback}`
         );
