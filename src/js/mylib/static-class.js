@@ -10,6 +10,7 @@ class Log {
   // View permission
   static get LOG_VIEW() { return true; }
   static get LOG_VIEW_OBJECT() { return true; }
+  static get LOG_VIEW_TIME() { return true; }
   static get LOG_VIEW_CLASS() { return true; }
   static get LOG_VIEW_CLASS_KEY() { return true; }
   static get LOG_VIEW_ERROR() { return true; }
@@ -35,6 +36,8 @@ class Log {
   static get STYLE_COLOR_YELLOW() { return 'color:#ff0;'; }
   static get STYLE_COLOR_MAGENTA() { return 'color:#f0f;'; }
   static get STYLE_COLOR_CYAN() { return 'color:#0ff;'; }
+
+  static get STYLE_TIME() { return 'color:#333;font-weight:bold;'; }
 
   static get STYLE_CLASS() { return 'color:#222;'; }
   static get STYLE_KEY() { return 'color:#828;'; }
@@ -115,6 +118,14 @@ class Log {
     if (this.LOG_VIEW_OBJECT) {
       // Write object
       console.log(_obj);
+    }
+  }
+
+  static logTime(_format) {
+    // View permission
+    if (this.LOG_VIEW_TIME) {
+      // Write object
+      this.log(new Date().formatString(), this.ALIGN_CENTER, this.STYLE_TIME);
     }
   }
 
