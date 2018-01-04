@@ -69,6 +69,7 @@ class CommonModel extends CommonClass {
     this.COMMON.HOVER = 'hover';
     this.COMMON.CURRENT = 'current';
     this.COMMON.DISPLAY_NONE = 'display-none';
+    this.COMMON.OFFSET = 0;
 
     this.COMMON.VIEW = null;
 
@@ -76,7 +77,6 @@ class CommonModel extends CommonClass {
     this.COMMON.SPEED.CLEAR = 0;
     this.COMMON.SPEED.SHOW = 500;
     this.COMMON.SPEED.HIDE = 500;
-    this.COMMON.SPEED.VIEW = 500;
     this.COMMON.SPEED.SCROLL = 750;
 
     this.COMMON.EFFECT = {};
@@ -92,10 +92,10 @@ class CommonModel extends CommonClass {
     this.COMMON.EFFECT.DEFAULT.HIDE = this.COMMON.EFFECT.HIDE;
 
     this.COMMON.EASING = {};
-    this.COMMON.EASING.CLEAR = 'easeOutCirc';
-    this.COMMON.EASING.SHOW = 'easeOutCirc';
-    this.COMMON.EASING.HIDE = 'easeOutCirc';
-    this.COMMON.EASING.SCROLL = 'easeOutCirc';
+    this.COMMON.EASING.CLEAR = 'easeOutCubic';
+    this.COMMON.EASING.SHOW = 'easeOutCubic';
+    this.COMMON.EASING.HIDE = 'easeOutCubic';
+    this.COMMON.EASING.SCROLL = 'easeInOutCubic';
 
     this.COMMON.TRIGGER = {};
     this.COMMON.TRIGGER.SCROLL = null;
@@ -248,7 +248,7 @@ class CommonView extends CommonClass {
 
   setView({
     selector = this.MODEL.SELECTOR.AREA,
-    speed = this.MODEL.COMMON.SPEED.VIEW,
+    speed = null,
     type = null,
     easing = null,
     view = null,
@@ -279,6 +279,15 @@ class CommonView extends CommonClass {
         type = this.MODEL.COMMON.EFFECT.DEFAULT.SHOW;
       } else if (!view) {
         type = this.MODEL.COMMON.EFFECT.DEFAULT.HIDE;
+      }
+    }
+
+    // speed
+    if (speed == null) {
+      if (view) {
+        speed = this.MODEL.COMMON.SPEED.SHOW;
+      } else if (!view) {
+        speed = this.MODEL.COMMON.SPEED.HIDE;
       }
     }
 
@@ -408,8 +417,49 @@ class CommonView extends CommonClass {
     this.MODEL.COMMON.VIEW = $(this.MODEL.SELECTOR.AREA).is(':visible');
   }
 
-  scroll() {
+  scroll({
+    selector = this.MODEL.SELECTOR.AREA,
+    speed = this.MODEL.COMMON.SPEED.SCROLL,
+    easing = this.MODEL.COMMON.EASING.SCROLL,
+    offset = this.MODEL.COMMON.OFFSET,
+    callback = null
+  } = {}) {
+    if (selector == null || speed == null || easing == null) {
+      Log.logCaution(
+        this,
+        'scroll',
+        'includes null in args.',
+        `selector: ${selector}`,
+        `speed: ${speed}`,
+        `easing: ${easing}`,
+        `callback: ${callback}`
+      );
+      return null;
+    }
+    Log.logClassKey(this.NAME, 'View', 'Scroll', Log.ARROW_INPUT);
 
+    const _TOP = $(selector).offset().top + offset;
+
+    if (callback != null) {
+      $(this.MODEL.COMMON.BODY).animate(
+        {
+          scrollTop: _TOP
+        },
+        speed,
+        easing,
+        callback
+      );
+    } else {
+      $(this.MODEL.COMMON.BODY).animate(
+        {
+          scrollTop: _TOP
+        },
+        {
+          duration: speed,
+          easing: easing
+        }
+      );
+    }
   }
 
   generateAlert({
