@@ -356,7 +356,7 @@ class UserEvent extends CommonEvent {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} .content-header-button`,
       func: () => {
-        Log.logClassKey('User', 'Close', 'Submit');
+        Log.logClassKey(this.NAME, 'Close', 'Submit');
         this.VIEW.closeArea();
       }
     });
@@ -369,8 +369,8 @@ class UserEvent extends CommonEvent {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.LOGIN.SUBMIT}`,
       func: () => {
-        Log.logClassKey('User', 'Login', 'Submit');
-        PS.CONTROLLER.NAV.VIEW.generateLogined();
+        Log.logClassKey(this.NAME, 'Login', 'Submit');
+        PS.NAV.VIEW.generateLogined();
         this.VIEW.closeArea();
       }
     });
@@ -380,7 +380,7 @@ class UserEvent extends CommonEvent {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.LOGIN.REGISTER}`,
       func: () => {
-        Log.logClassKey('User', 'Register', 'Open');
+        Log.logClassKey(this.NAME, 'Register', 'Open');
         this.CONTROLLER.openRegister();
       }
     });
@@ -393,7 +393,7 @@ class UserEvent extends CommonEvent {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.REGISTER.SUBMIT}`,
       func: () => {
-        Log.logClassKey('User', 'Register', 'Submit');
+        Log.logClassKey(this.NAME, 'Register', 'Submit');
         this.CONTROLLER.submitRegister();
       }
     });
@@ -480,7 +480,7 @@ class UserEvent extends CommonEvent {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.INFO.SETTING}`,
       func: () => {
-        Log.logClassKey('User', 'User Setting', 'Open');
+        Log.logClassKey(this.NAME, 'User Setting', 'Open');
         this.CONTROLLER.openSetting();
       }
     });
@@ -490,7 +490,7 @@ class UserEvent extends CommonEvent {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.INFO.UPDATE_SUBMIT}`,
       func: () => {
-        Log.logClassKey('User', 'User Info', 'Submit');
+        Log.logClassKey(this.NAME, 'User Info', 'Submit');
         // Update User Info
         this.CONTROLLER.openInfo({
           alertMessage: 'Updated !'
@@ -506,7 +506,7 @@ class UserEvent extends CommonEvent {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.UPDATE_SUBMIT}`,
       func: () => {
-        Log.logClassKey('User', 'User Setting', 'Submit');
+        Log.logClassKey(this.NAME, 'User Setting', 'Submit');
         // Update User Setting
         this.CONTROLLER.openSetting({
           alertMessage: 'Updated !'
@@ -519,7 +519,7 @@ class UserEvent extends CommonEvent {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.INFO}`,
       func: () => {
-        Log.logClassKey('User', 'User Info', 'Open');
+        Log.logClassKey(this.NAME, 'User Info', 'Open');
         this.CONTROLLER.openInfo();
       }
     });
@@ -532,8 +532,8 @@ class UserEvent extends CommonEvent {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.LOGOUT.SUBMIT}`,
       func: () => {
-        Log.logClassKey('User', 'Logout', 'Submit');
-        PS.CONTROLLER.NAV.VIEW.generateNotLogin();
+        Log.logClassKey(this.NAME, 'Logout', 'Submit');
+        PS.NAV.VIEW.generateNotLogin();
         this.CONTROLLER.openLogin();
       }
     });
@@ -549,7 +549,6 @@ class UserEvent extends CommonEvent {
     errorOpenType = null,
     errorModel = {}
   }) {
-    Log.logClassKey('User', type.capitalize(), 'Loading');
     if (type == null || successOpenType == null) {
       Log.logCaution(
         this,
@@ -561,6 +560,7 @@ class UserEvent extends CommonEvent {
       );
       return;
     }
+    Log.logClassKey(this.NAME, type.capitalize(), 'Loading');
 
     // Loading
     this.CONTROLLER.openLoading(type);
@@ -569,7 +569,7 @@ class UserEvent extends CommonEvent {
     super.setOn({
       trigger: this.MODEL.TRIGGER.POST.SUCCESS,
       func: () => {
-        Log.logClassKey('User', successOpenType.capitalize(), 'Open');
+        Log.logClassKey(this.NAME, successOpenType.capitalize(), 'Open');
         this.CONTROLLER.open(successOpenType, successModel);
       }
     });
@@ -577,7 +577,7 @@ class UserEvent extends CommonEvent {
     super.setOn({
       trigger: this.MODEL.TRIGGER.POST.ERROR,
       func: () => {
-        Log.logClassKey('User', errorOpenType.capitalize(), 'Open');
+        Log.logClassKey(this.NAME, errorOpenType.capitalize(), 'Open');
         this.CONTROLLER.open(errorOpenType, errorModel);
       }
     });
@@ -585,7 +585,7 @@ class UserEvent extends CommonEvent {
     super.setOn({
       trigger: this.MODEL.TRIGGER.POST.COMPLETE,
       func: () => {
-        Log.logClassKey('User', type.capitalize(), 'Complete');
+        Log.logClassKey(this.NAME, type.capitalize(), 'Complete');
         this.setOffPost();
       }
     });
@@ -614,8 +614,7 @@ class UserController extends CommonController {
     super(_model, _initSetting);
 
     this.EVENT.setEvent();
-    this.VIEW.closeArea({speed: 0});
-    this.openRegister();
+    this.open(this.MODEL.TYPE.REGISTER);
   }
 
   // ----------------------------------------------------------------
@@ -811,8 +810,6 @@ class UserController extends CommonController {
       _isRegister = true;
     }
 
-    this.updateHash(_TYPE);
-
     if (_isRegister) {
       this.EVENT.setOnLoading({
         type: _TYPE,
@@ -934,6 +931,8 @@ class UserController extends CommonController {
       return;
     }
 
+    Log.logClassKey(this.NAME, 'post', type.capitalize());
+
     let _path = 'python/clipweb.py';
     let _model = {};
     let _method = 'GET';
@@ -941,6 +940,8 @@ class UserController extends CommonController {
     let _dateType = 'json';
 
     _model['type'] = `${this.MODEL.KEY}.${type}`;
+
+    this.updateHash(type, this.MODEL.TIMING.BEFORE);
 
     if (type == this.MODEL.TYPE.REGISTER) {
       // REGISTER
@@ -1019,6 +1020,7 @@ class UserController extends CommonController {
         this.EVENT.trigger({trigger: this.MODEL.TRIGGER.POST.ERROR});
       },
       complete: (jqXHR, textStatus) => {
+        this.updateHash(type, this.MODEL.TIMING.AFTER);
         this.EVENT.trigger({trigger: this.MODEL.TRIGGER.POST.COMPLETE});
       }
     });

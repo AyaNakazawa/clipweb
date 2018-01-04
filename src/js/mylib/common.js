@@ -166,13 +166,16 @@ class CommonView extends CommonClass {
       );
       return null;
     }
+    Log.logClassKey(this.NAME, 'View', 'Clear', Log.ARROW_INPUT);
 
-    this.setView({
-      view: false,
-      selector: selector,
-      speed: speed,
-      type: type
-    });
+    if (speed > 0 || this.getView()) {
+      this.setView({
+        view: false,
+        selector: selector,
+        speed: speed,
+        type: type
+      });
+    }
     $(selector).empty();
 
     return true;
@@ -231,8 +234,6 @@ class CommonView extends CommonClass {
     view = null,
     callback = null
   }) {
-    Log.logClassKey('View', this.NAME, view, Log.ARROW_INPUT);
-
     if (view == null) {
       Log.logCaution(
         this,
@@ -246,6 +247,7 @@ class CommonView extends CommonClass {
       );
       return null;
     }
+    Log.logClassKey(this.NAME, 'View', view, Log.ARROW_INPUT);
 
     this.skip(selector);
 
@@ -459,7 +461,7 @@ class CommonController extends CommonClass {
     _common = {
       NAME: 'Common Controller',
       VIEW_NAME: false,
-      VIEW_OBJECT: true,
+      VIEW_OBJECT: false,
       MODEL: new CommonModel(),
       VIEW: new CommonView(),
       EVENT: new CommonEvent()
