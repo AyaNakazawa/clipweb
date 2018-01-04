@@ -43,6 +43,30 @@ class View {
     return '#ruby-template';
   }
 
+  static div({
+    id = null,
+    cls = null,
+    content = null
+  } = {}) {
+    let result = '';
+    let _id = '';
+    let _cls = '';
+    let _content = '';
+
+    if (id != null) {
+      _id = ` id=${id}`;
+    }
+    if (cls != null) {
+      _cls = ` class=${cls}`;
+    }
+    if (content != null) {
+      _content = content;
+    }
+
+    result = `<div${_id}${_cls}>${content}</div>`;
+    return result;
+  }
+
   static addNav({
     id = 'nav-new'
   } = {}) {
