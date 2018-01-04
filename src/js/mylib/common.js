@@ -63,12 +63,32 @@ class CommonModel extends CommonClass {
   ) {
     super(_initSetting, _common);
 
-    this.ACTIVE = 'active';
-    this.HOVER = 'hover';
-    this.SPEED_REMOVE = 400;
-    this.DISPLAY_NONE = 'display-none';
-    this.CURRENT = 'current';
-    this.BODY = 'html, body';
+    this.COMMON = {};
+    this.COMMON.BODY = 'html, body';
+    this.COMMON.ACTIVE = 'active';
+    this.COMMON.HOVER = 'hover';
+    this.COMMON.CURRENT = 'current';
+    this.COMMON.DISPLAY_NONE = 'display-none';
+
+    this.COMMON.VIEW = null;
+
+    this.COMMON.SPEED = {};
+    this.COMMON.SPEED.CLEAR = 0;
+    this.COMMON.SPEED.OPEN = 500;
+    this.COMMON.SPEED.CLOSE = 500;
+    this.COMMON.SPEED.VIEW = 500;
+
+    this.COMMON.EFFECT = {};
+    this.COMMON.EFFECT.SHOW = 'show';
+    this.COMMON.EFFECT.FADE_IN = 'fadeIn';
+    this.COMMON.EFFECT.SLIDE_DOWN = 'slideDown';
+    this.COMMON.EFFECT.HIDE = 'hide';
+    this.COMMON.EFFECT.FADE_OUT = 'fadeOut';
+    this.COMMON.EFFECT.SLIDE_UP = 'slideUp';
+
+    this.COMMON.EFFECT.DEFAULT = {};
+    this.COMMON.EFFECT.DEFAULT.SHOW = this.COMMON.EFFECT.SHOW;
+    this.COMMON.EFFECT.DEFAULT.HIDE = this.COMMON.EFFECT.HIDE;
 
     this.SELECTOR = {};
     this.SELECTOR.AREA = '#area';
@@ -112,26 +132,217 @@ class CommonView extends CommonClass {
   }
 
   clearArea({
-    selector = this.MODEL.SELECTOR.AREA
+    selector = this.MODEL.SELECTOR.AREA,
+    speed = this.MODEL.COMMON.SPEED.CLEAR,
+    type = this.MODEL.COMMON.EFFECT.DEFAULT.HIDE
   } = {}) {
-    $(selector).empty();
+    const _FUNCTION_EMPTY = () => {
+      $(selector).empty();
+    };
+    this.MODEL.COMMON.VIEW = false;
 
-  }
+    if (speed > 0) {
+      if (type == this.MODEL.COMMON.EFFECT.HIDE) {
+        $(selector).hide(speed, _FUNCTION_EMPTY);
 
-  generateAlert({
-    template = null,
-    model = {}
-  } = {}) {
-    if (template == null) {
-      return null;
+      } else if (type == this.MODEL.COMMON.EFFECT.SLIDE_UP) {
+        $(selector).slideUp(speed, _FUNCTION_EMPTY);
+
+      } else if (type == this.MODEL.COMMON.EFFECT.FADE_OUT) {
+        $(selector).fadeOut(speed, _FUNCTION_EMPTY);
+
+      } else {
+        super.showNameModel();
+        Log.logCaution(
+          this,
+          'clearArea',
+          'type of args is unknown.',
+          `selector: ${selector}`,
+          `speed: ${speed}`,
+          `type: ${type}`
+        );
+      }
+    } else {
+      _FUNCTION_EMPTY();
     }
   }
 
+  openArea({
+    selector = this.MODEL.SELECTOR.AREA,
+    speed = this.MODEL.COMMON.SPEED.OPEN,
+    type = this.MODEL.COMMON.EFFECT.DEFAULT.SHOW
+  } = {}) {
+    this.MODEL.COMMON.VIEW = true;
+
+    if (type == this.MODEL.COMMON.EFFECT.SHOW) {
+      $(selector).show(speed);
+
+    } else if (type == this.MODEL.COMMON.EFFECT.SLIDE_DOWN) {
+      $(selector).slideDown(speed);
+
+    } else if (type == this.MODEL.COMMON.EFFECT.FADE_IN) {
+      $(selector).fadeIn(speed);
+
+    }
+  }
+
+  closeArea({
+    selector = this.MODEL.SELECTOR.AREA,
+    speed = this.MODEL.COMMON.SPEED.CLOSE,
+    type = this.MODEL.COMMON.EFFECT.DEFAULT.HIDE,
+    clear = false
+  } = {}) {
+    this.MODEL.COMMON.VIEW = false;
+
+    if (type == this.MODEL.COMMON.EFFECT.HIDE) {
+      if (clear) {
+        $(selector).hide(speed, this.clearArea);
+      } else if (!clear) {
+        $(selector).hide(speed);
+      }
+
+    } else if (type == this.MODEL.COMMON.EFFECT.SLIDE_UP) {
+      if (clear) {
+        $(selector).slideUp(speed, this.clearArea);
+      } else if (!clear) {
+        $(selector).slideUp(speed);
+      }
+
+    } else if (type == this.MODEL.COMMON.EFFECT.FADE_OUT) {
+      if (clear) {
+        $(selector).fadeOut(speed, this.clearArea);
+      } else if (!clear) {
+        $(selector).fadeOut(speed);
+      }
+
+    } else {
+      Log.logCaution(
+        this,
+        'closeArea',
+        'type of args is unknown.',
+        `selector: ${selector}`,
+        `speed: ${speed}`,
+        `type: ${type}`
+      );
+    }
+  }
+
+  setView({
+    selector = this.MODEL.SELECTOR.AREA,
+    speed = this.MODEL.COMMON.SPEED.VIEW,
+    type = null,
+    view = null
+  }) {
+    Log.logClassKey('View', this.NAME, view, Log.ARROW_INPUT);
+
+    if (view == null) {
+      Log.logCaution(
+        this,
+        'setView',
+        'view of args is null.',
+        `view: ${view}`,
+        `speed: ${speed}`
+      );
+      return null;
+    }
+
+    if (type == null) {
+      if (view) {
+        type = this.MODEL.COMMON.EFFECT.DEFAULT.SHOW;
+      } else if (!view) {
+        type = this.MODEL.COMMON.EFFECT.DEFAULT.HIDE;
+      }
+    }
+
+    this.MODEL.COMMON.VIEW = view;
+
+    if (view) {
+      if (type == this.MODEL.COMMON.EFFECT.SHOW) {
+        $(selector).show(speed);
+
+      } else if (type == this.MODEL.COMMON.EFFECT.SLIDE_DOWN) {
+        $(selector).slideDown(speed);
+
+      } else if (type == this.MODEL.COMMON.EFFECT.FADE_IN) {
+        $(selector).fadeIn(speed);
+
+      }
+    } else if (!view) {
+      if (type == this.MODEL.COMMON.EFFECT.HIDE) {
+        $(selector).hide(speed);
+
+      } else if (type == this.MODEL.COMMON.EFFECT.SLIDE_UP) {
+        $(selector).slideUp(speed);
+
+      } else if (type == this.MODEL.COMMON.EFFECT.FADE_OUT) {
+        $(selector).fadeOut(speed);
+
+      }
+    }
+
+    return this.MODEL.COMMON.VIEW;
+  }
+
+  getView() {
+    const result = this.MODEL.COMMON.VIEW;
+    if (result != true && result != false) {
+      Log.logCaution(
+        this,
+        'getView',
+        'Current view is unknown.',
+        `this.MODEL.COMMON.VIEW: ${this.MODEL.COMMON.VIEW}`
+      );
+    }
+    return result;
+  }
+
+  generateAlert({
+    selector = this.MODEL.SELECTOR.AREA,
+    type = View.ALERT_SUCCESS,
+    message = null,
+    close = true
+  } = {}) {
+    if (selector == null) {
+      Log.logCaution(
+        this,
+        'generateAlert',
+        'Undefined selector',
+        `selector: ${selector}`,
+        `type: ${type}`,
+        `message: ${message}`,
+        `close: ${close}`
+      );
+      return;
+    }
+
+    $(selector).append(View.getAlert({
+      type: type,
+      message: message,
+      close: close
+    }));
+  }
+
   generateLoading({
+    selector = this.MODEL.SELECTOR.AREA,
     header = 'Loading',
     message = 'Loading'
   } = {}) {
+    if (selector == null) {
+      Log.logCaution(
+        this,
+        'generateLoading',
+        'Undefined selector',
+        `selector: ${selector}`,
+        `header: ${header}`,
+        `message: ${message}`
+      );
+      return;
+    }
 
+    $(selector).append(View.getLoading({
+      header: header,
+      message: message
+    }));
   }
 }
 
