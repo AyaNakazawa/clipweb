@@ -79,6 +79,11 @@ class CommonModel extends CommonClass {
     this.COMMON.SPEED.HIDE = 500;
     this.COMMON.SPEED.SCROLL = 750;
 
+    this.COMMON.DELAY = {};
+    this.COMMON.DELAY.CLEAR = 0;
+    this.COMMON.DELAY.SHOW = 0;
+    this.COMMON.DELAY.HIDE = 0;
+
     this.COMMON.EFFECT = {};
     this.COMMON.EFFECT.SHOW = 'show';
     this.COMMON.EFFECT.FADE_IN = 'fadeIn';
@@ -167,8 +172,9 @@ class CommonView extends CommonClass {
 
   clear({
     selector = this.MODEL.SELECTOR.AREA,
-    speed = this.MODEL.COMMON.SPEED.CLEAR,
     type = this.MODEL.COMMON.EFFECT.DEFAULT.HIDE,
+    speed = this.MODEL.COMMON.SPEED.CLEAR,
+    delay = this.MODEL.COMMON.DELAY.CLEAR,
     easing = this.MODEL.COMMON.EASING.CLEAR
   } = {}) {
     if (selector == null) {
@@ -186,8 +192,9 @@ class CommonView extends CommonClass {
       this.setView({
         view: false,
         selector: selector,
-        speed: speed,
         type: type,
+        speed: speed,
+        delay: delay,
         easing: easing
       });
     }
@@ -198,8 +205,9 @@ class CommonView extends CommonClass {
 
   show({
     selector = this.MODEL.SELECTOR.AREA,
-    speed = this.MODEL.COMMON.SPEED.SHOW,
     type = this.MODEL.COMMON.EFFECT.DEFAULT.SHOW,
+    speed = this.MODEL.COMMON.SPEED.SHOW,
+    delay = this.MODEL.COMMON.DELAY.SHOW,
     easing = this.MODEL.COMMON.EASING.SHOW
   } = {}) {
     if (selector == null) {
@@ -215,16 +223,18 @@ class CommonView extends CommonClass {
     return this.setView({
       view: true,
       selector: selector,
-      speed: speed,
       type: type,
+      speed: speed,
+      delay: delay,
       easing: easing
     });
   }
 
   hide({
     selector = this.MODEL.SELECTOR.AREA,
-    speed = this.MODEL.COMMON.SPEED.HIDE,
     type = this.MODEL.COMMON.EFFECT.DEFAULT.HIDE,
+    speed = this.MODEL.COMMON.SPEED.HIDE,
+    delay = this.MODEL.COMMON.DELAY.HIDE,
     easing = this.MODEL.COMMON.EASING.HIDE
   } = {}) {
     if (selector == null) {
@@ -240,8 +250,9 @@ class CommonView extends CommonClass {
     return this.setView({
       view: false,
       selector: selector,
-      speed: speed,
       type: type,
+      speed: speed,
+      delay: delay,
       easing: easing
     });
   }
@@ -249,6 +260,7 @@ class CommonView extends CommonClass {
   setView({
     selector = this.MODEL.SELECTOR.AREA,
     speed = null,
+    delay = null,
     type = null,
     easing = null,
     view = null,
@@ -261,6 +273,7 @@ class CommonView extends CommonClass {
         'view of args is null.',
         `selector: ${selector}`,
         `speed: ${speed}`,
+        `delay: ${delay}`,
         `type: ${type}`,
         `easing: ${easing}`,
         `view: ${view}`,
@@ -291,6 +304,15 @@ class CommonView extends CommonClass {
       }
     }
 
+    // delay
+    if (delay == null) {
+      if (view) {
+        delay = this.MODEL.COMMON.DELAY.SHOW;
+      } else if (!view) {
+        delay = this.MODEL.COMMON.DELAY.HIDE;
+      }
+    }
+
     // easing
     if (easing == null) {
       if (view) {
@@ -306,33 +328,66 @@ class CommonView extends CommonClass {
     if (view) {
       // show
       if (type == this.MODEL.COMMON.EFFECT.SHOW) {
-        if (callback != null) {
-          $(selector).show(speed, easing, callback);
+        if (delay > 0) {
+          if (callback != null) {
+            $(selector).delay(delay).show(speed, easing, callback);
+          } else {
+            $(selector).delay(delay).show({
+              duration: speed,
+              easing: easing
+            });
+          }
         } else {
-          $(selector).show({
-            duration: speed,
-            easing: easing
-          });
+          if (callback != null) {
+            $(selector).show(speed, easing, callback);
+          } else {
+            $(selector).show({
+              duration: speed,
+              easing: easing
+            });
+          }
         }
 
       } else if (type == this.MODEL.COMMON.EFFECT.SLIDE_DOWN) {
-        if (callback != null) {
-          $(selector).slideDown(speed, easing, callback);
+        if (delay > 0) {
+          if (callback != null) {
+            $(selector).delay(delay).slideDown(speed, easing, callback);
+          } else {
+            $(selector).delay(delay).slideDown({
+              duration: speed,
+              easing: easing
+            });
+          }
         } else {
-          $(selector).slideDown({
-            duration: speed,
-            easing: easing
-          });
+          if (callback != null) {
+            $(selector).slideDown(speed, easing, callback);
+          } else {
+            $(selector).slideDown({
+              duration: speed,
+              easing: easing
+            });
+          }
         }
 
       } else if (type == this.MODEL.COMMON.EFFECT.FADE_IN) {
-        if (callback != null) {
-          $(selector).fadeIn(speed, easing, callback);
+        if (delay > 0) {
+          if (callback != null) {
+            $(selector).delay(delay).fadeIn(speed, easing, callback);
+          } else {
+            $(selector).delay(delay).fadeIn({
+              duration: speed,
+              easing: easing
+            });
+          }
         } else {
-          $(selector).fadeIn({
-            duration: speed,
-            easing: easing
-          });
+          if (callback != null) {
+            $(selector).fadeIn(speed, easing, callback);
+          } else {
+            $(selector).fadeIn({
+              duration: speed,
+              easing: easing
+            });
+          }
         }
 
       } else {
@@ -352,33 +407,66 @@ class CommonView extends CommonClass {
     } else if (!view) {
       // hide
       if (type == this.MODEL.COMMON.EFFECT.HIDE) {
-        if (callback != null) {
-          $(selector).hide(speed, easing, callback);
+        if (delay > 0) {
+          if (callback != null) {
+            $(selector).delay(delay).hide(speed, easing, callback);
+          } else {
+            $(selector).delay(delay).hide({
+              duration: speed,
+              easing: easing
+            });
+          }
         } else {
-          $(selector).hide({
-            duration: speed,
-            easing: easing
-          });
+          if (callback != null) {
+            $(selector).hide(speed, easing, callback);
+          } else {
+            $(selector).hide({
+              duration: speed,
+              easing: easing
+            });
+          }
         }
 
       } else if (type == this.MODEL.COMMON.EFFECT.SLIDE_UP) {
-        if (callback != null) {
-          $(selector).slideUp(speed, easing, callback);
+        if (delay > 0) {
+          if (callback != null) {
+            $(selector).delay(delay).slideUp(speed, easing, callback);
+          } else {
+            $(selector).delay(delay).slideUp({
+              duration: speed,
+              easing: easing
+            });
+          }
         } else {
-          $(selector).slideUp({
-            duration: speed,
-            easing: easing
-          });
+          if (callback != null) {
+            $(selector).slideUp(speed, easing, callback);
+          } else {
+            $(selector).slideUp({
+              duration: speed,
+              easing: easing
+            });
+          }
         }
 
       } else if (type == this.MODEL.COMMON.EFFECT.FADE_OUT) {
-        if (callback != null) {
-          $(selector).fadeOut(speed, easing, callback);
+        if (delay > 0) {
+          if (callback != null) {
+            $(selector).delay(delay).fadeOut(speed, easing, callback);
+          } else {
+            $(selector).delay(delay).fadeOut({
+              duration: speed,
+              easing: easing
+            });
+          }
         } else {
-          $(selector).fadeOut({
-            duration: speed,
-            easing: easing
-          });
+          if (callback != null) {
+            $(selector).fadeOut(speed, easing, callback);
+          } else {
+            $(selector).fadeOut({
+              duration: speed,
+              easing: easing
+            });
+          }
         }
 
       } else {
