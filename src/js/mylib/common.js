@@ -324,8 +324,7 @@ class CommonView extends CommonClass {
 
   generateLoading({
     selector = this.MODEL.SELECTOR.AREA,
-    header = 'Loading',
-    message = 'Loading'
+    header = 'Loading'
   } = {}) {
     if (selector == null) {
       Log.logCaution(
@@ -333,15 +332,13 @@ class CommonView extends CommonClass {
         'generateLoading',
         'Undefined selector',
         `selector: ${selector}`,
-        `header: ${header}`,
-        `message: ${message}`
+        `header: ${header}`
       );
       return;
     }
 
     $(selector).append(View.getLoading({
-      header: header,
-      message: message
+      header: header
     }));
   }
 }

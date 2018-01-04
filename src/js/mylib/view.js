@@ -99,19 +99,14 @@ class View {
   }
 
   static getLoading({
-    header = 'LOADING',
-    message = null,
-    text = 'LOADING',
+    header = 'LOADING'
   } = {}) {
-    message = message || text;
-    if (message == null) {
+    if (header == null) {
       Log.logCaution(
         this,
         'getLoading',
-        'Undefined message',
-        `header: ${header}`,
-        `message: ${message}`,
-        `text: ${text}`
+        'Undefined header',
+        `header: ${header}`
       );
       return;
     }
@@ -120,8 +115,7 @@ class View {
     result = View.getTemplate({
       template: View.TEMPLATE_LOADING,
       model: {
-        header: header,
-        message: message
+        header: header
       }
     });
 
