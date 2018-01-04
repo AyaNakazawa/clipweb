@@ -83,6 +83,7 @@ class CommonModel extends CommonClass {
     this.COMMON.DELAY.CLEAR = 0;
     this.COMMON.DELAY.SHOW = 0;
     this.COMMON.DELAY.HIDE = 0;
+    this.COMMON.DELAY.SCROLL = 0;
 
     this.COMMON.EFFECT = {};
     this.COMMON.EFFECT.SHOW = 'show';
@@ -508,6 +509,7 @@ class CommonView extends CommonClass {
   scroll({
     selector = this.MODEL.SELECTOR.AREA,
     speed = this.MODEL.COMMON.SPEED.SCROLL,
+    delay = this.MODEL.COMMON.DELAY.SCROLL,
     easing = this.MODEL.COMMON.EASING.SCROLL,
     offset = this.MODEL.COMMON.OFFSET,
     callback = null
@@ -528,25 +530,48 @@ class CommonView extends CommonClass {
 
     const _TOP = $(selector).offset().top + offset;
 
-    if (callback != null) {
-      $(this.MODEL.COMMON.BODY).animate(
-        {
-          scrollTop: _TOP
-        },
-        speed,
-        easing,
-        callback
-      );
+    if (delay > 0) {
+      if (callback != null) {
+        $(this.MODEL.COMMON.BODY).delay(delay).animate(
+          {
+            scrollTop: _TOP
+          },
+          speed,
+          easing,
+          callback
+        );
+      } else {
+        $(this.MODEL.COMMON.BODY).delay(delay).animate(
+          {
+            scrollTop: _TOP
+          },
+          {
+            duration: speed,
+            easing: easing
+          }
+        );
+      }
     } else {
-      $(this.MODEL.COMMON.BODY).animate(
-        {
-          scrollTop: _TOP
-        },
-        {
-          duration: speed,
-          easing: easing
-        }
-      );
+      if (callback != null) {
+        $(this.MODEL.COMMON.BODY).animate(
+          {
+            scrollTop: _TOP
+          },
+          speed,
+          easing,
+          callback
+        );
+      } else {
+        $(this.MODEL.COMMON.BODY).animate(
+          {
+            scrollTop: _TOP
+          },
+          {
+            duration: speed,
+            easing: easing
+          }
+        );
+      }
     }
   }
 
