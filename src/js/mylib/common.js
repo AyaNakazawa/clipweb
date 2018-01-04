@@ -349,6 +349,10 @@ class CommonView extends CommonClass {
     return result;
   }
 
+  initView() {
+    this.MODEL.COMMON.VIEW = $(this.MODEL.SELECTOR.AREA).is(':visible');
+  }
+
   generateAlert({
     selector = this.MODEL.SELECTOR.AREA,
     type = View.ALERT_SUCCESS,
@@ -475,6 +479,7 @@ class CommonController extends CommonClass {
     }
 
     this.applyObject();
+    this.VIEW.initView();
   }
 
   applyObject() {
