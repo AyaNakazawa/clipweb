@@ -151,6 +151,9 @@ class UserModel extends CommonModel {
     this.SELECTOR.LOGOUT = {};
     this.SELECTOR.LOGOUT.SUBMIT = '#logout-submit';
 
+    // オフセット
+    this.COMMON.OFFSET = -8;
+
   }
 }
 
@@ -317,6 +320,9 @@ class UserView extends CommonView {
 
     // View
     this.setView({view: view});
+    if (view) {
+      this.scroll();
+    }
   }
 }
 
