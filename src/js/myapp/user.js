@@ -17,7 +17,6 @@ class UserModel extends CommonModel {
 
     // 識別子
     this.TYPE = {};
-
     this.TYPE.REGISTER = 'REGISTER';
     this.TYPE.LOGIN = 'LOGIN';
     this.TYPE.LOGOUT = 'LOGOUT';
@@ -26,27 +25,24 @@ class UserModel extends CommonModel {
     this.TYPE.INFO = 'INFO';
 
     this.TIMING = {};
-
     this.TIMING.AFTER = 'AFTER';
     this.TIMING.BEFORE = 'BEFORE';
 
     // トリガー
     this.TRIGGER = {};
     this.TRIGGER.POST = {};
-
     this.TRIGGER.POST.SUCCESS = 'cw.user.post.success';
     this.TRIGGER.POST.ERROR = 'cw.user.post.error';
     this.TRIGGER.POST.COMPLETE = 'cw.user.post.complete';
 
     // ログインステータス
     this.STATUS = {};
-
     this.STATUS.LOGIN = false;
 
     // ユーザ名
-    this.USERNAME = '';
+    this.USERNAME = 'test';
     // メールアドレス
-    this.EMAIL = '';
+    this.EMAIL = 'test@test';
     // パスワード
     this.PASSWORD = '';
     // メール認証フラグ
@@ -57,7 +53,6 @@ class UserModel extends CommonModel {
 
     // ハッシュ
     this.HASH = {};
-
     // ユーザハッシュ
     // メールアドレスから生成
     // ログイン、登録時に使用
@@ -89,7 +84,6 @@ class UserModel extends CommonModel {
 
     // テンプレート
     this.TEMPLATE = {};
-
     this.TEMPLATE.LOGIN = '#login-template';
     this.TEMPLATE.REGISTER = '#register-template';
     this.TEMPLATE.SETTING = '#user-setting-template';
@@ -98,7 +92,6 @@ class UserModel extends CommonModel {
 
     // バリデーション
     this.VALIDATE = {};
-
     this.VALIDATE.LENGTH = {};
     this.VALIDATE.LENGTH.MIN_USERNAME = 3;
     this.VALIDATE.LENGTH.MAX_USERNAME = 32;
