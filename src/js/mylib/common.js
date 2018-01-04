@@ -90,8 +90,12 @@ class CommonModel extends CommonClass {
     this.COMMON.EFFECT.DEFAULT.SHOW = this.COMMON.EFFECT.SHOW;
     this.COMMON.EFFECT.DEFAULT.HIDE = this.COMMON.EFFECT.HIDE;
 
+    this.COMMON.SELECTOR = {};
+    this.COMMON.SELECTOR.ROOT = document;
+    this.COMMON.SELECTOR.AREA = '#area';
+
     this.SELECTOR = {};
-    this.SELECTOR.AREA = '#area';
+    this.SELECTOR.AREA = this.COMMON.SELECTOR.AREA;
   }
 
   // Add var to Instance
@@ -355,9 +359,6 @@ class CommonEvent extends CommonClass {
     }
   ) {
     super(_initSetting, _common);
-
-    this.SELECTOR = {};
-    this.SELECTOR.ROOT = document;
   }
 
   setOn({
@@ -366,9 +367,9 @@ class CommonEvent extends CommonClass {
     func = () => {}
   } = {}) {
     if (selector != null) {
-      $(this.SELECTOR.ROOT).on(trigger, selector, func);
+      $(this.MODEL.COMMON.SELECTOR.ROOT).on(trigger, selector, func);
     } else {
-      $(this.SELECTOR.ROOT).on(trigger, func);
+      $(this.MODEL.COMMON.SELECTOR.ROOT).on(trigger, func);
     }
   }
 
@@ -377,15 +378,15 @@ class CommonEvent extends CommonClass {
     selector = null
   } = {}) {
     if (selector != null) {
-      $(this.SELECTOR.ROOT).off(trigger, selector);
+      $(this.MODEL.COMMON.SELECTOR.ROOT).off(trigger, selector);
     } else {
-      $(this.SELECTOR.ROOT).off(trigger);
+      $(this.MODEL.COMMON.SELECTOR.ROOT).off(trigger);
     }
   }
 
   trigger({
     trigger = null,
-    selector = this.SELECTOR.ROOT
+    selector = this.MODEL.COMMON.SELECTOR.ROOT
   } = {}) {
     if (trigger == null) {
       Log.logCaution(
