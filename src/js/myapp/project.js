@@ -7,11 +7,19 @@ class Project {
     return 'clipweb';
   }
 
-  static get NAME_ABBREVIATION() {
+  static get KEY() {
     return 'CLPW';
   }
 
+  static get ABBREVIATION() {
+    return Project.KEY;
+  }
+
   static get NAME_KEY() {
-    return 'CLPW';
+    return Project.KEY;
+  }
+
+  static get NAME_ABBREVIATION() {
+    return Project.ABBREVIATION;
   }
 }
