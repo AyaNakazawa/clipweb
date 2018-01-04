@@ -30,8 +30,11 @@ class UserModel extends CommonModel {
 
     // トリガー
     this.TRIGGER = {};
+    this.TRIGGER.POST = {};
 
-    this.TRIGGER.LOADING = 'loading.cw.user';
+    this.TRIGGER.POST.SUCCESS = 'cw.user.post.success';
+    this.TRIGGER.POST.ERROR = 'cw.user.post.error';
+    this.TRIGGER.POST.COMPLETE = 'cw.user.post.complete';
 
     // ログインステータス
     this.STATUS = {};
@@ -548,31 +551,57 @@ class UserEvent extends CommonEvent {
 
   setOnLoading({
     type = null,
-    openType = null,
-    model = {}
+    successOpenType = null,
+    successModel = {},
+    errorOpenType = null,
+    errorModel = {}
   }) {
-    if (type == null || openType == null) {
+    Log.logClassKey('User', type.capitalize(), 'Loading');
+    if (type == null || successOpenType == null) {
       Log.logCaution(
         this,
         'setOnLoading',
         'includes null in args',
         `type :${type}`,
-        `openType :${openType}`
+        `successOpenType :${successOpenType}`,
+        `errorOpenType :${errorOpenType}`
       );
       return;
     }
-    Log.logClassKey('User', type.capitalize(), 'Loading');
+
+    // Loading
     this.CONTROLLER.openLoading(type);
+
+    // Success
     super.setOn({
-      trigger: this.MODEL.TRIGGER.LOADING,
+      trigger: this.MODEL.TRIGGER.POST.SUCCESS,
       func: () => {
-        Log.logClassKey('User', type.capitalize(), 'Open');
-        this.CONTROLLER.open(openType, model);
-        super.setOff({
-          trigger: this.MODEL.TRIGGER.LOADING
-        });
+        Log.logClassKey('User', successOpenType.capitalize(), 'Open');
+        this.CONTROLLER.open(successOpenType, successModel);
       }
     });
+    // Error
+    super.setOn({
+      trigger: this.MODEL.TRIGGER.POST.ERROR,
+      func: () => {
+        Log.logClassKey('User', errorOpenType.capitalize(), 'Open');
+        this.CONTROLLER.open(errorOpenType, errorModel);
+      }
+    });
+    // Error
+    super.setOn({
+      trigger: this.MODEL.TRIGGER.POST.COMPLETE,
+      func: () => {
+        Log.logClassKey('User', type.capitalize(), 'Complete');
+        this.setOffPost();
+      }
+    });
+  }
+
+  setOffPost() {
+    super.setOff({trigger: this.MODEL.TRIGGER.POST.SUCCESS});
+    super.setOff({trigger: this.MODEL.TRIGGER.POST.ERROR});
+    super.setOff({trigger: this.MODEL.TRIGGER.POST.COMPLETE});
   }
 }
 
@@ -794,11 +823,19 @@ class UserController extends CommonController {
     if (_isRegister) {
       this.EVENT.setOnLoading({
         type: TYPE,
-        openType: this.MODEL.TYPE.LOGIN,
-        model: {
+        successOpenType: this.MODEL.TYPE.LOGIN,
+        successModel: {
           alertMessage:
             View.div({content: 'ユーザーを登録しました。'}) +
             View.div({content: 'メール認証をしてください。'})
+        },
+        errorOpenType: TYPE,
+        errorModel: {
+          alertMessage: (
+            View.div({content: 'ユーザー登録に失敗しました。'}) +
+            View.div({content: 'もう一度登録してください。'})
+          ),
+          alertType: View.ALERT_DANGER
         }
       });
 
@@ -806,7 +843,7 @@ class UserController extends CommonController {
 
     } else {
       this.openRegister({
-        alertMessage: '登録に失敗しました。',
+        alertMessage: 'すべての項目を正しく入力してください。',
         alertType: View.ALERT_WARNING
       });
     }
@@ -941,6 +978,7 @@ class UserController extends CommonController {
         Log.logObj(data);
         Log.logClass(this.NAME, 'jqXHR');
         Log.logObj(jqXHR);
+        this.EVENT.trigger({trigger: this.MODEL.TRIGGER.POST.SUCCESS});
       },
       error: (jqXHR, textStatus, errorThrown) => {
         Log.logClassKey(this.NAME, 'post', 'error');
@@ -948,11 +986,10 @@ class UserController extends CommonController {
         Log.logClassKey(this.NAME, 'errorThrown', errorThrown);
         Log.logClass(this.NAME, 'jqXHR');
         Log.logObj(jqXHR);
+        this.EVENT.trigger({trigger: this.MODEL.TRIGGER.POST.ERROR});
       },
       complete: (jqXHR, textStatus) => {
-        this.EVENT.trigger({
-          trigger: this.MODEL.TRIGGER.LOADING
-        });
+        this.EVENT.trigger({trigger: this.MODEL.TRIGGER.POST.COMPLETE});
       }
     });
   }
