@@ -191,13 +191,13 @@ class UserView extends CommonView {
 
     // Type
 
-    let mainTemplate = null;
-    let mainModel = null;
+    let _mainTemplate = null;
+    let _mainModel = null;
     if (type == this.MODEL.TYPE.LOGIN) {
       // LOGIN
       header = 'Login';
-      mainTemplate = this.MODEL.TEMPLATE.LOGIN;
-      mainModel = {
+      _mainTemplate = this.MODEL.TEMPLATE.LOGIN;
+      _mainModel = {
         length: {
           min: {
             username: this.MODEL.VALIDATE.LENGTH.MIN_USERNAME,
@@ -217,8 +217,8 @@ class UserView extends CommonView {
     } else if (type == this.MODEL.TYPE.SETTING) {
       // SETTING
       header = 'User Setting';
-      mainTemplate = this.MODEL.TEMPLATE.SETTING;
-      mainModel = {
+      _mainTemplate = this.MODEL.TEMPLATE.SETTING;
+      _mainModel = {
         theme: this.MODEL.THEME,
         ownerPublish: this.MODEL.OWNER_PUBLISH,
         clipMode: this.MODEL.CLIP_MODE
@@ -227,8 +227,8 @@ class UserView extends CommonView {
     } else if (type == this.MODEL.TYPE.INFO) {
       // INFO
       header = 'User Info';
-      mainTemplate = this.MODEL.TEMPLATE.INFO;
-      mainModel = {
+      _mainTemplate = this.MODEL.TEMPLATE.INFO;
+      _mainModel = {
         length: {
           min: {
             username: this.MODEL.VALIDATE.LENGTH.MIN_USERNAME,
@@ -250,16 +250,16 @@ class UserView extends CommonView {
     } else if (type == this.MODEL.TYPE.LOGOUT) {
       // LOGOUT
       header = 'Logout';
-      mainTemplate = this.MODEL.TEMPLATE.LOGOUT;
-      mainModel = {
+      _mainTemplate = this.MODEL.TEMPLATE.LOGOUT;
+      _mainModel = {
         username: this.MODEL.USERNAME
       };
 
     } else if (type == this.MODEL.TYPE.REGISTER) {
       // REGISTER
       header = 'Join clipweb';
-      mainTemplate = this.MODEL.TEMPLATE.REGISTER;
-      mainModel = {
+      _mainTemplate = this.MODEL.TEMPLATE.REGISTER;
+      _mainModel = {
         length: {
           min: {
             username: this.MODEL.VALIDATE.LENGTH.MIN_USERNAME,
@@ -280,9 +280,9 @@ class UserView extends CommonView {
     }
 
     // Set Template
-    const area = View.getTemplate({
-      template: mainTemplate,
-      model: mainModel
+    const _AREA = View.getTemplate({
+      template: _mainTemplate,
+      model: _mainModel
     });
 
     // View
@@ -317,7 +317,7 @@ class UserView extends CommonView {
     }
 
     // Generate Content
-    $(this.MODEL.SELECTOR.AREA).append(area);
+    $(this.MODEL.SELECTOR.AREA).append(_AREA);
 
     setTimeout(() => {
       this.setView({
@@ -775,7 +775,7 @@ class UserController extends CommonController {
   // submit
 
   submitRegister() {
-    const TYPE = this.MODEL.TYPE.REGISTER;
+    const _TYPE = this.MODEL.TYPE.REGISTER;
 
     let _isRegister = false;
     let _isCorrectUsername = true;
@@ -783,53 +783,53 @@ class UserController extends CommonController {
     let _isCorrectPassword = true;
     let _isCorrectPasswordRe = true;
 
-    const _username = $(this.MODEL.SELECTOR.REGISTER.USERNAME);
-    const _email = $(this.MODEL.SELECTOR.REGISTER.EMAIL);
-    const _password = $(this.MODEL.SELECTOR.REGISTER.PASSWORD);
-    const _passwordRe = $(this.MODEL.SELECTOR.REGISTER.PASSWORD_RE);
+    const _USERNAME = $(this.MODEL.SELECTOR.REGISTER.USERNAME);
+    const _EMAIL = $(this.MODEL.SELECTOR.REGISTER.EMAIL);
+    const _PASSWORD = $(this.MODEL.SELECTOR.REGISTER.PASSWORD);
+    const _PASSWORD_RE = $(this.MODEL.SELECTOR.REGISTER.PASSWORD_RE);
 
-    if (!_username[0].validity.valid) {
+    if (!_USERNAME[0].validity.valid) {
       _isCorrectUsername = false;
     }
 
-    if (!_email[0].validity.valid) {
+    if (!_EMAIL[0].validity.valid) {
       _isCorrectEmail = false;
     }
 
-    if (!_password[0].validity.valid) {
+    if (!_PASSWORD[0].validity.valid) {
       _isCorrectPassword = false;
     }
 
-    if (!_passwordRe[0].validity.valid) {
+    if (!_PASSWORD_RE[0].validity.valid) {
       _isCorrectPasswordRe = false;
     }
 
     if (_isCorrectUsername) {
-      this.MODEL.USERNAME = _username.val().trim();
+      this.MODEL.USERNAME = _USERNAME.val().trim();
     }
     if (_isCorrectEmail) {
-      this.MODEL.EMAIL = _email.val().trim();
+      this.MODEL.EMAIL = _EMAIL.val().trim();
     }
     if (_isCorrectPassword) {
-      this.MODEL.PASSWORD = _password.val();
+      this.MODEL.PASSWORD = _PASSWORD.val();
     }
 
     if (_isCorrectUsername && _isCorrectEmail && _isCorrectPassword && _isCorrectPasswordRe) {
       _isRegister = true;
     }
 
-    this.updateHash(TYPE);
+    this.updateHash(_TYPE);
 
     if (_isRegister) {
       this.EVENT.setOnLoading({
-        type: TYPE,
+        type: _TYPE,
         successOpenType: this.MODEL.TYPE.LOGIN,
         successModel: {
           alertMessage:
             View.div({content: 'ユーザーを登録しました。'}) +
             View.div({content: 'メール認証をしてください。'})
         },
-        errorOpenType: TYPE,
+        errorOpenType: _TYPE,
         errorModel: {
           alertMessage: (
             View.div({content: 'ユーザー登録に失敗しました。'}) +
@@ -839,7 +839,7 @@ class UserController extends CommonController {
         }
       });
 
-      this.post(TYPE);
+      this.post(_TYPE);
 
     } else {
       this.openRegister({
@@ -1019,12 +1019,12 @@ class UserController extends CommonController {
       return;
     }
     inputElement = $(inputElement);
-    const VALID_MESSAGE = inputElement[0].validationMessage;
-    const VALID_ELEMENT = inputElement
+    const _VALID_MESSAGE = inputElement[0].validationMessage;
+    const _VALID_ELEMENT = inputElement
       .parent('.content-input')
       .children('.content-input-valid-message');
 
-    VALID_ELEMENT.text(VALID_MESSAGE);
+    _VALID_ELEMENT.text(_VALID_MESSAGE);
 
   }
 }
