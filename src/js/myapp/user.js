@@ -13,6 +13,8 @@ class UserModel extends CommonModel {
   ) {
     super(_initSetting);
 
+    this.KEY = 'USER';
+
     // 識別子
     this.TYPE = {};
 
@@ -67,6 +69,7 @@ class UserModel extends CommonModel {
     // ログイン、登録時に使用
     // 暗号ハッシュ生成に使用
     this.HASH.PASSWORD = null;
+    this.HASH.PASSWORD_NEW = null;
     // 暗号ハッシュ
     // 非公開クリップの暗号化に使用
     // ユーザハッシュ + パスワード = 暗号ハッシュ
@@ -933,35 +936,68 @@ class UserController extends CommonController {
 
     let _path = 'python/clipweb.py';
     let _model = {};
+    let _method = 'GET';
     let _cache = false;
+    let _dateType = 'json';
+
+    _model['type'] = `${this.MODEL.KEY}.${type}`;
 
     if (type == this.MODEL.TYPE.REGISTER) {
       // REGISTER
+      _method = 'POST';
+      _model['hash'] = this.MODEL.HASH.USER;
+      _model['username'] = this.MODEL.USERNAME;
+      _model['email_address'] = this.MODEL.EMAIL;
+      _model['password_hash'] = this.MODEL.HASH.PASSWORD;
 
     } else if (type == this.MODEL.TYPE.LOGIN) {
       // LOGIN
+      _method = 'GET';
+      _model['email_address'] = this.MODEL.EMAIL;
+      _model['password_hash'] = this.MODEL.HASH.PASSWORD;
 
     } else if (type == this.MODEL.TYPE.LOGOUT) {
       // LOGOUT
+      _method = 'GET';
 
     } else if (type == this.MODEL.TYPE.LEAVE) {
       // LEAVE
+      _method = 'POST';
+      _model['hash'] = this.MODEL.HASH.USER;
+      _model['username'] = this.MODEL.USERNAME;
+      _model['email_address'] = this.MODEL.EMAIL;
+      _model['password_hash'] = this.MODEL.HASH.PASSWORD;
 
     } else if (type == this.MODEL.TYPE.SETTING) {
       // SETTING
+      _method = 'POST';
+      _model['hash'] = this.MODEL.HASH.USER;
+      _model['password_hash'] = this.MODEL.HASH.PASSWORD;
+      _model['theme'] = this.MODEL.THEME;
+      _model['default_owner_publish'] = this.MODEL.OWNER_PUBLISH;
+      _model['default_clip_mode'] = this.MODEL.CLIP_MODE;
 
     } else if (type == this.MODEL.TYPE.INFO) {
       // INFO
+      _method = 'POST';
+      _model['hash'] = this.MODEL.HASH.USER;
+      _model['username'] = this.MODEL.USERNAME;
+      _model['email_address'] = this.MODEL.EMAIL;
+      _model['password_hash'] = this.MODEL.HASH.PASSWORD;
+      _model['password_hash_new'] = this.MODEL.HASH.PASSWORD_NEW;
 
     }
 
     $.ajax({
       url: _path,
       data: _model,
+      method: _method,
       cache: _cache,
+      dateType: _dateType,
       beforeSend: (jqXHR, settings) => {
         Log.logClassKey(this.NAME, 'post', 'Send');
-        Log.logClassKey(this.NAME, 'settings', settings);
+        Log.logClass(this.NAME, 'settings');
+        Log.logObj(settings);
         Log.logClass(this.NAME, 'jqXHR');
         Log.logObj(jqXHR);
       },
