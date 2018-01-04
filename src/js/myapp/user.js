@@ -535,8 +535,17 @@ class UserEvent extends CommonEvent {
 
   setOnLoading({
     type = null,
-    func = () => {}
+    func = null
   }) {
+    if (type == null || func == null) {
+      Log.logCaution(
+        this,
+        'setOnLoading',
+        'includes null in args',
+        `type :${type}`,
+        `func :${func}`
+      );
+    }
     Log.logClassKey('User', type.capitalize(), 'Loading');
     this.CONTROLLER.openLoading(type);
     super.setOn({
