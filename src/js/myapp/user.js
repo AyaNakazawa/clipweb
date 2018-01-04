@@ -285,13 +285,6 @@ class UserView extends CommonView {
       model: _mainModel
     });
 
-    // View
-    if (this.getView() && view) {
-      super.closeArea({
-        speed: 0
-      });
-    }
-
     // Clear
     this.clearArea();
 
@@ -319,11 +312,8 @@ class UserView extends CommonView {
     // Generate Content
     $(this.MODEL.SELECTOR.AREA).append(_AREA);
 
-    setTimeout(() => {
-      this.setView({
-        view: view
-      });
-    }, 0);
+    // View
+    this.setView({view: view});
   }
 }
 
