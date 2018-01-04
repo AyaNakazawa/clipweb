@@ -74,8 +74,8 @@ class CommonModel extends CommonClass {
 
     this.COMMON.SPEED = {};
     this.COMMON.SPEED.CLEAR = 0;
-    this.COMMON.SPEED.OPEN = 500;
-    this.COMMON.SPEED.CLOSE = 500;
+    this.COMMON.SPEED.SHOW = 500;
+    this.COMMON.SPEED.HIDE = 500;
     this.COMMON.SPEED.VIEW = 500;
 
     this.COMMON.EFFECT = {};
@@ -152,7 +152,7 @@ class CommonView extends CommonClass {
     return true;
   }
 
-  clearArea({
+  clear({
     selector = this.MODEL.SELECTOR.AREA,
     speed = this.MODEL.COMMON.SPEED.CLEAR,
     type = this.MODEL.COMMON.EFFECT.DEFAULT.HIDE
@@ -160,7 +160,7 @@ class CommonView extends CommonClass {
     if (selector == null) {
       Log.logCaution(
         this,
-        'clearArea',
+        'clear',
         'selector of args is null.',
         `selector: ${selector}`
       );
@@ -181,15 +181,15 @@ class CommonView extends CommonClass {
     return true;
   }
 
-  openArea({
+  show({
     selector = this.MODEL.SELECTOR.AREA,
-    speed = this.MODEL.COMMON.SPEED.OPEN,
+    speed = this.MODEL.COMMON.SPEED.SHOW,
     type = this.MODEL.COMMON.EFFECT.DEFAULT.SHOW
   } = {}) {
     if (selector == null) {
       Log.logCaution(
         this,
-        'openArea',
+        'show',
         'selector of args is null.',
         `selector: ${selector}`
       );
@@ -204,15 +204,15 @@ class CommonView extends CommonClass {
     });
   }
 
-  closeArea({
+  hide({
     selector = this.MODEL.SELECTOR.AREA,
-    speed = this.MODEL.COMMON.SPEED.CLOSE,
+    speed = this.MODEL.COMMON.SPEED.HIDE,
     type = this.MODEL.COMMON.EFFECT.DEFAULT.HIDE
   } = {}) {
     if (selector == null) {
       Log.logCaution(
         this,
-        'closeArea',
+        'hide',
         'selector of args is null.',
         `selector: ${selector}`
       );
@@ -351,6 +351,10 @@ class CommonView extends CommonClass {
 
   initView() {
     this.MODEL.COMMON.VIEW = $(this.MODEL.SELECTOR.AREA).is(':visible');
+  }
+
+  scroll() {
+
   }
 
   generateAlert({

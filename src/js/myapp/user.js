@@ -289,7 +289,7 @@ class UserView extends CommonView {
     });
 
     // Clear
-    this.clearArea();
+    this.clear();
 
     // Header
     $(this.MODEL.SELECTOR.AREA).append(
@@ -357,7 +357,7 @@ class UserEvent extends CommonEvent {
       selector: `${this.MODEL.SELECTOR.AREA} .content-header-button`,
       func: () => {
         Log.logClassKey(this.NAME, 'Close', 'Submit');
-        this.VIEW.closeArea();
+        this.VIEW.hide();
       }
     });
   }
@@ -371,7 +371,7 @@ class UserEvent extends CommonEvent {
       func: () => {
         Log.logClassKey(this.NAME, 'Login', 'Submit');
         PS.NAV.VIEW.generateLogined();
-        this.VIEW.closeArea();
+        this.VIEW.hide();
       }
     });
   }
