@@ -121,11 +121,11 @@ class Log {
     }
   }
 
-  static logTime(_date = new Date()) {
+  static logTime(_format) {
     // View permission
     if (this.LOG_VIEW_TIME) {
       // Write object
-      this.log(_date.formatString(), this.ALIGN_CENTER, this.STYLE_TIME);
+      this.log(new Date().formatString(), this.ALIGN_CENTER, this.STYLE_TIME);
     }
   }
 
