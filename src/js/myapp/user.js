@@ -670,58 +670,58 @@ class UserController extends CommonController {
   }
 
   openLogin(
-    args = {}
+    model = {}
   ) {
-    let model = {
+    let _model = {
       type: this.MODEL.TYPE.LOGIN,
       view: true
     };
-    Object.assign(model, args);
-    this.VIEW.generateArea(model);
+    Object.assign(_model, model);
+    this.VIEW.generateArea(_model);
   }
 
   openSetting(
-    args = {}
+    model = {}
   ) {
-    let model = {
+    let _model = {
       type: this.MODEL.TYPE.SETTING,
       view: true
     };
-    Object.assign(model, args);
-    this.VIEW.generateArea(model);
+    Object.assign(_model, model);
+    this.VIEW.generateArea(_model);
   }
 
   openInfo(
-    args = {}
+    model = {}
   ) {
-    let model = {
+    let _model = {
       type: this.MODEL.TYPE.INFO,
       view: true
     };
-    Object.assign(model, args);
-    this.VIEW.generateArea(model);
+    Object.assign(_model, model);
+    this.VIEW.generateArea(_model);
   }
 
   openLogout(
-    args = {}
+    model = {}
   ) {
-    let model = {
+    let _model = {
       type: this.MODEL.TYPE.LOGOUT,
       view: true
     };
-    Object.assign(model, args);
-    this.VIEW.generateArea(model);
+    Object.assign(_model, model);
+    this.VIEW.generateArea(_model);
   }
 
   openRegister(
-    args = {}
+    model = {}
   ) {
-    let model = {
+    let _model = {
       type: this.MODEL.TYPE.REGISTER,
       view: true
     };
-    Object.assign(model, args);
-    this.VIEW.generateArea(model);
+    Object.assign(_model, model);
+    this.VIEW.generateArea(_model);
   }
 
   openLoading(
