@@ -297,7 +297,7 @@ class LocalStorage {
 class SHA256 {
   static getHash(_string = null) {
     if (_string != null) {
-      return CryptoJS.SHA256(_string);
+      return CryptoJS.SHA256(_string).toString();
     }
     return null;
   }
