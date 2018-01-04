@@ -5,7 +5,7 @@
 // ----------------------------------------------------------------
 // Model
 
-class UserModel extends ContentModel {
+class UserModel extends CommonModel {
   constructor(
     _initSetting = {
       NAME: 'User Object'
@@ -28,6 +28,11 @@ class UserModel extends ContentModel {
     this.TIMING.AFTER = 'AFTER';
     this.TIMING.BEFORE = 'BEFORE';
 
+    // トリガー
+    this.TRIGGER = {};
+
+    this.TRIGGER.LOADING = 'loading.cw.user';
+
     // ログインステータス
     this.STATUS = {};
 
@@ -45,6 +50,7 @@ class UserModel extends ContentModel {
     //  - 公開クリップしか作れない
     this.EMAIL_AUTH = false;
 
+    // ハッシュ
     this.HASH = {};
 
     // ユーザハッシュ
@@ -145,7 +151,7 @@ class UserModel extends ContentModel {
 // ----------------------------------------------------------------
 // View
 
-class UserView extends ContentView {
+class UserView extends CommonView {
   constructor(
     _initSetting = {
       NAME: 'User View'
@@ -169,7 +175,8 @@ class UserView extends ContentView {
     // Set
     let mainTemplate = null;
     let mainModel = null;
-    if (type == 'login') {
+    if (type == this.MODEL.TYPE.LOGIN) {
+      // LOGIN
       header = 'Login';
       mainTemplate = this.MODEL.TEMPLATE.LOGIN;
       mainModel = {
@@ -189,7 +196,8 @@ class UserView extends ContentView {
         }
       };
 
-    } else if (type == 'setting') {
+    } else if (type == this.MODEL.TYPE.SETTING) {
+      // SETTING
       header = 'User Setting';
       mainTemplate = this.MODEL.TEMPLATE.SETTING;
       mainModel = {
@@ -198,7 +206,8 @@ class UserView extends ContentView {
         clipMode: this.MODEL.CLIP_MODE
       };
 
-    } else if (type == 'info') {
+    } else if (type == this.MODEL.TYPE.INFO) {
+      // INFO
       header = 'User Info';
       mainTemplate = this.MODEL.TEMPLATE.INFO;
       mainModel = {
@@ -220,14 +229,16 @@ class UserView extends ContentView {
         }
       };
 
-    } else if (type == 'logout') {
+    } else if (type == this.MODEL.TYPE.LOGOUT) {
+      // LOGOUT
       header = 'Logout';
       mainTemplate = this.MODEL.TEMPLATE.LOGOUT;
       mainModel = {
         username: this.MODEL.USERNAME
       };
 
-    } else if (type == 'register') {
+    } else if (type == this.MODEL.TYPE.REGISTER) {
+      // REGISTER
       header = 'Join clipweb';
       mainTemplate = this.MODEL.TEMPLATE.REGISTER;
       mainModel = {
@@ -255,6 +266,13 @@ class UserView extends ContentView {
       template: mainTemplate,
       model: mainModel
     });
+
+    // View
+    if (this.getView() && view) {
+      super.closeArea({
+        speed: 0
+      });
+    }
 
     // Clear
     this.clearArea();
@@ -285,12 +303,10 @@ class UserView extends ContentView {
     // Generate Content
     $(this.MODEL.SELECTOR.AREA).append(area);
 
-    // View
-    if (PS.SWITCH.USER.getCurrentView() && view) {
-      PS.SWITCH.USER.VIEW.setView(false, 0);
-    }
     setTimeout(() => {
-      PS.SWITCH.USER.VIEW.setView(view);
+      this.setView({
+        view: view
+      });
     }, 0);
   }
 }
@@ -298,7 +314,7 @@ class UserView extends ContentView {
 // ----------------------------------------------------------------
 // Event
 
-class UserEvent extends ContentEvent {
+class UserEvent extends CommonEvent {
   constructor(
     _initSetting = {
       NAME: 'User Event'
@@ -332,7 +348,7 @@ class UserEvent extends ContentEvent {
       selector: `${this.MODEL.SELECTOR.AREA} .content-header-button`,
       func: () => {
         Log.logClassKey('User', 'Close', 'Submit');
-        this.VIEW.generateArea();
+        this.VIEW.closeArea();
       }
     });
   }
@@ -346,7 +362,7 @@ class UserEvent extends ContentEvent {
       func: () => {
         Log.logClassKey('User', 'Login', 'Submit');
         PS.CONTROLLER.NAV.VIEW.generateLogined();
-        this.VIEW.generateArea();
+        this.VIEW.closeArea();
       }
     });
   }
@@ -513,12 +529,33 @@ class UserEvent extends ContentEvent {
       }
     });
   }
+
+  // ----------------------------------------------------------------
+  // set on with loading
+
+  setOnLoading({
+    type = null,
+    func = () => {}
+  }) {
+    Log.logClassKey('User', type.capitalize(), 'Loading');
+    this.CONTROLLER.openLoading(type);
+    super.setOn({
+      trigger: this.MODEL.TRIGGER.LOADING,
+      func: () => {
+        Log.logClassKey('User', type.capitalize(), 'Open');
+        func();
+        super.setOff({
+          trigger: this.MODEL.TRIGGER.LOADING
+        });
+      }
+    });
+  }
 }
 
 // ----------------------------------------------------------------
 // Controller
 
-class UserController extends ContentController {
+class UserController extends CommonController {
   constructor(
     _model = {},
     _initSetting = {
@@ -538,10 +575,10 @@ class UserController extends ContentController {
   // open
 
   openLogin(
-    args = null
+    args = {}
   ) {
     let model = {
-      type: 'login',
+      type: this.MODEL.TYPE.LOGIN,
       view: true
     };
     Object.assign(model, args);
@@ -549,10 +586,10 @@ class UserController extends ContentController {
   }
 
   openSetting(
-    args = null
+    args = {}
   ) {
     let model = {
-      type: 'setting',
+      type: this.MODEL.TYPE.SETTING,
       view: true
     };
     Object.assign(model, args);
@@ -560,10 +597,10 @@ class UserController extends ContentController {
   }
 
   openInfo(
-    args = null
+    args = {}
   ) {
     let model = {
-      type: 'info',
+      type: this.MODEL.TYPE.INFO,
       view: true
     };
     Object.assign(model, args);
@@ -571,10 +608,10 @@ class UserController extends ContentController {
   }
 
   openLogout(
-    args = null
+    args = {}
   ) {
     let model = {
-      type: 'logout',
+      type: this.MODEL.TYPE.LOGOUT,
       view: true
     };
     Object.assign(model, args);
@@ -582,10 +619,10 @@ class UserController extends ContentController {
   }
 
   openRegister(
-    args = null
+    args = {}
   ) {
     let model = {
-      type: 'register',
+      type: this.MODEL.TYPE.REGISTER,
       view: true
     };
     Object.assign(model, args);
@@ -624,10 +661,10 @@ class UserController extends ContentController {
     }
 
     if (_isCorrectUsername) {
-      this.MODEL.USERNAME = _username.val();
+      this.MODEL.USERNAME = _username.val().trim();
     }
     if (_isCorrectEmail) {
-      this.MODEL.EMAIL = _email.val();
+      this.MODEL.EMAIL = _email.val().trim();
     }
     if (_isCorrectPassword) {
       this.MODEL.PASSWORD = _password.val();
@@ -637,7 +674,7 @@ class UserController extends ContentController {
       _isRegister = true;
     }
 
-    this.updateModel(this.MODEL.REGISTER);
+    this.updateHash(this.MODEL.TYPE.REGISTER);
 
     if (_isRegister) {
       this.openLogin({
@@ -654,66 +691,76 @@ class UserController extends ContentController {
   // ----------------------------------------------------------------
   // update
 
-  updateModel (
+  updateHash (
     type = null,
     timing = null
   ) {
     if (type == null || timing == null) {
-      this.clearModel();
+      this.clearHash();
     }
 
     if (type == this.MODEL.TYPE.REGISTER) {
       // REGISTER
       if (timing == this.MODEL.TIMING.BEFORE) {
-        this.MODEL.USERNAME = this.MODEL.USERNAME.trim();
-        this.MODEL.EMAIL = this.MODEL.EMAIL.toLowerCase().trim();
+        // BEFORE
         this.MODEL.HASH.USER = SHA256.getHash(this.MODEL.USERNAME + new Date().toString());
         this.MODEL.HASH.PASSWORD = SHA256.getHash(this.MODEL.PASSWORD);
       } else if (timing == this.MODEL.TIMING.AFTER) {
-        this.MODEL.USERNAME = this.MODEL.USERNAME.trim();
-        this.MODEL.EMAIL = this.MODEL.EMAIL.toLowerCase().trim();
-        this.MODEL.HASH.USER = SHA256.getHash(this.MODEL.USERNAME + new Date().toString());
-        this.MODEL.HASH.PASSWORD = SHA256.getHash(this.MODEL.PASSWORD);
+        // AFTER
       }
 
     } else if (type == this.MODEL.TYPE.LOGIN) {
       // LOGIN
-      this.MODEL.USERNAME = this.MODEL.USERNAME.trim();
-      this.MODEL.EMAIL = this.MODEL.EMAIL.toLowerCase().trim();
-      this.MODEL.HASH.USER = SHA256.getHash(this.MODEL.USERNAME + new Date().toString());
-      this.MODEL.HASH.PASSWORD = SHA256.getHash(this.MODEL.PASSWORD);
-      this.MODEL.HASH.CRYPTO = SHA256.getHash(
-        this.MODEL.HASH.USER + this.MODEL.PASSWORD
-      );
-      this.MODEL.HASH.GRAVATAR = MD5.getHash(this.MODEL.EMAIL);
+      if (timing == this.MODEL.TIMING.BEFORE) {
+        // BEFORE
+        this.MODEL.HASH.PASSWORD = SHA256.getHash(this.MODEL.PASSWORD);
+      } else if (timing == this.MODEL.TIMING.AFTER) {
+        // AFTER
+        this.MODEL.HASH.CRYPTO = SHA256.getHash(
+          this.MODEL.HASH.USER + this.MODEL.PASSWORD
+        );
+        this.MODEL.HASH.GRAVATAR = MD5.getHash(this.MODEL.EMAIL.toLowerCase().trim());
+      }
 
     } else if (type == this.MODEL.TYPE.LOGOUT) {
       // LOGOUT
-      this.clearModel();
+      if (timing == this.MODEL.TIMING.BEFORE) {
+        // BEFORE
+        this.clearHash();
+      } else if (timing == this.MODEL.TIMING.AFTER) {
+        // AFTER
+        this.clearHash();
+      }
 
     } else if (type == this.MODEL.TYPE.LEAVE) {
       // LEAVE
-      this.clearModel();
+      if (timing == this.MODEL.TIMING.BEFORE) {
+        // BEFORE
+        this.MODEL.HASH.PASSWORD = SHA256.getHash(this.MODEL.PASSWORD);
+      } else if (timing == this.MODEL.TIMING.AFTER) {
+        // AFTER
+        this.clearHash();
+      }
 
     } else if (type == this.MODEL.TYPE.SETTING) {
       // SETTING
 
     } else if (type == this.MODEL.TYPE.INFO) {
       // INFO
-      this.MODEL.USERNAME = this.MODEL.USERNAME.trim();
-      this.MODEL.EMAIL = this.MODEL.EMAIL.toLowerCase().trim();
-      this.MODEL.HASH.USER = SHA256.getHash(this.MODEL.USERNAME);
-      this.MODEL.HASH.PASSWORD = SHA256.getHash(this.MODEL.PASSWORD);
-      this.MODEL.HASH.CRYPTO = SHA256.getHash(
-        this.MODEL.HASH.USER + this.MODEL.PASSWORD
-      );
-      this.MODEL.HASH.GRAVATAR = MD5.getHash(this.MODEL.EMAIL);
-
+      if (timing == this.MODEL.TIMING.BEFORE) {
+        // BEFORE
+        this.MODEL.HASH.PASSWORD = SHA256.getHash(this.MODEL.PASSWORD);
+      } else if (timing == this.MODEL.TIMING.AFTER) {
+        // AFTER
+        this.MODEL.HASH.CRYPTO = SHA256.getHash(
+          this.MODEL.HASH.USER + this.MODEL.PASSWORD
+        );
+        this.MODEL.HASH.GRAVATAR = MD5.getHash(this.MODEL.EMAIL.toLowerCase().trim());
+      }
     }
-    return;
   }
 
-  clearModel () {
+  clearHash () {
     this.MODEL.USERNAME = '';
     this.MODEL.EMAIL = '';
     this.MODEL.PASSWORD = '';
@@ -726,7 +773,7 @@ class UserController extends ContentController {
   // ----------------------------------------------------------------
   // post
 
-  postModel (
+  post (
     type = null
   ) {
     if (type == null) {
@@ -752,7 +799,6 @@ class UserController extends ContentController {
       // INFO
 
     }
-    return;
   }
 
   // ----------------------------------------------------------------
