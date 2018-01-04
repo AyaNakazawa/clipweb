@@ -135,40 +135,47 @@ class CommonView extends CommonClass {
     super(_initSetting, _common);
   }
 
+  skip(
+    selector = null
+  ) {
+    if (selector == null) {
+      Log.logCaution(
+        this,
+        'skip',
+        'selector of args is null.',
+        `selector: ${selector}`
+      );
+      return null;
+    }
+
+    $(selector).finish();
+    return true;
+  }
+
   clearArea({
     selector = this.MODEL.SELECTOR.AREA,
     speed = this.MODEL.COMMON.SPEED.CLEAR,
     type = this.MODEL.COMMON.EFFECT.DEFAULT.HIDE
   } = {}) {
-    const _FUNCTION_EMPTY = () => {
-      $(selector).empty();
-    };
-    this.MODEL.COMMON.VIEW = false;
-
-    if (speed > 0) {
-      if (type == this.MODEL.COMMON.EFFECT.HIDE) {
-        $(selector).hide(speed, _FUNCTION_EMPTY);
-
-      } else if (type == this.MODEL.COMMON.EFFECT.SLIDE_UP) {
-        $(selector).slideUp(speed, _FUNCTION_EMPTY);
-
-      } else if (type == this.MODEL.COMMON.EFFECT.FADE_OUT) {
-        $(selector).fadeOut(speed, _FUNCTION_EMPTY);
-
-      } else {
-        super.showNameModel();
-        Log.logCaution(
-          this,
-          'clearArea',
-          'type of args is unknown.',
-          `selector: ${selector}`,
-          `speed: ${speed}`,
-          `type: ${type}`
-        );
-      }
-    } else {
-      _FUNCTION_EMPTY();
+    if (selector == null) {
+      Log.logCaution(
+        this,
+        'clearArea',
+        'selector of args is null.',
+        `selector: ${selector}`
+      );
+      return null;
     }
+
+    this.setView({
+      view: false,
+      selector: selector,
+      speed: speed,
+      type: type
+    });
+    $(selector).empty();
+
+    return true;
   }
 
   openArea({
@@ -176,66 +183,53 @@ class CommonView extends CommonClass {
     speed = this.MODEL.COMMON.SPEED.OPEN,
     type = this.MODEL.COMMON.EFFECT.DEFAULT.SHOW
   } = {}) {
-    this.MODEL.COMMON.VIEW = true;
-
-    if (type == this.MODEL.COMMON.EFFECT.SHOW) {
-      $(selector).show(speed);
-
-    } else if (type == this.MODEL.COMMON.EFFECT.SLIDE_DOWN) {
-      $(selector).slideDown(speed);
-
-    } else if (type == this.MODEL.COMMON.EFFECT.FADE_IN) {
-      $(selector).fadeIn(speed);
-
+    if (selector == null) {
+      Log.logCaution(
+        this,
+        'openArea',
+        'selector of args is null.',
+        `selector: ${selector}`
+      );
+      return null;
     }
+
+    return this.setView({
+      view: true,
+      selector: selector,
+      speed: speed,
+      type: type
+    });
   }
 
   closeArea({
     selector = this.MODEL.SELECTOR.AREA,
     speed = this.MODEL.COMMON.SPEED.CLOSE,
-    type = this.MODEL.COMMON.EFFECT.DEFAULT.HIDE,
-    clear = false
+    type = this.MODEL.COMMON.EFFECT.DEFAULT.HIDE
   } = {}) {
-    this.MODEL.COMMON.VIEW = false;
-
-    if (type == this.MODEL.COMMON.EFFECT.HIDE) {
-      if (clear) {
-        $(selector).hide(speed, this.clearArea);
-      } else if (!clear) {
-        $(selector).hide(speed);
-      }
-
-    } else if (type == this.MODEL.COMMON.EFFECT.SLIDE_UP) {
-      if (clear) {
-        $(selector).slideUp(speed, this.clearArea);
-      } else if (!clear) {
-        $(selector).slideUp(speed);
-      }
-
-    } else if (type == this.MODEL.COMMON.EFFECT.FADE_OUT) {
-      if (clear) {
-        $(selector).fadeOut(speed, this.clearArea);
-      } else if (!clear) {
-        $(selector).fadeOut(speed);
-      }
-
-    } else {
+    if (selector == null) {
       Log.logCaution(
         this,
         'closeArea',
-        'type of args is unknown.',
-        `selector: ${selector}`,
-        `speed: ${speed}`,
-        `type: ${type}`
+        'selector of args is null.',
+        `selector: ${selector}`
       );
+      return null;
     }
+
+    return this.setView({
+      view: false,
+      selector: selector,
+      speed: speed,
+      type: type
+    });
   }
 
   setView({
     selector = this.MODEL.SELECTOR.AREA,
     speed = this.MODEL.COMMON.SPEED.VIEW,
     type = null,
-    view = null
+    view = null,
+    callback = null
   }) {
     Log.logClassKey('View', this.NAME, view, Log.ARROW_INPUT);
 
@@ -244,11 +238,16 @@ class CommonView extends CommonClass {
         this,
         'setView',
         'view of args is null.',
+        `selector: ${selector}`,
+        `speed: ${speed}`,
+        `type: ${type}`,
         `view: ${view}`,
-        `speed: ${speed}`
+        `callback: ${callback}`
       );
       return null;
     }
+
+    this.skip(selector);
 
     if (type == null) {
       if (view) {
@@ -262,25 +261,73 @@ class CommonView extends CommonClass {
 
     if (view) {
       if (type == this.MODEL.COMMON.EFFECT.SHOW) {
-        $(selector).show(speed);
+        if (callback != null) {
+          $(selector).show(speed, callback);
+        } else {
+          $(selector).show(speed);
+        }
 
       } else if (type == this.MODEL.COMMON.EFFECT.SLIDE_DOWN) {
-        $(selector).slideDown(speed);
+        if (callback != null) {
+          $(selector).slideDown(speed, callback);
+        } else {
+          $(selector).slideDown(speed);
+        }
 
       } else if (type == this.MODEL.COMMON.EFFECT.FADE_IN) {
-        $(selector).fadeIn(speed);
+        if (callback != null) {
+          $(selector).fadeIn(speed, callback);
+        } else {
+          $(selector).fadeIn(speed);
+        }
 
+      } else {
+        Log.logCaution(
+          this,
+          'setView',
+          'unknown type.',
+          `selector: ${selector}`,
+          `speed: ${speed}`,
+          `type: ${type}`,
+          `view: ${view}`,
+          `callback: ${callback}`
+        );
+        return null;
       }
     } else if (!view) {
       if (type == this.MODEL.COMMON.EFFECT.HIDE) {
-        $(selector).hide(speed);
+        if (callback != null) {
+          $(selector).hide(speed, callback);
+        } else {
+          $(selector).hide(speed);
+        }
 
       } else if (type == this.MODEL.COMMON.EFFECT.SLIDE_UP) {
-        $(selector).slideUp(speed);
+        if (callback != null) {
+          $(selector).slideUp(speed, callback);
+        } else {
+          $(selector).slideUp(speed);
+        }
 
       } else if (type == this.MODEL.COMMON.EFFECT.FADE_OUT) {
-        $(selector).fadeOut(speed);
+        if (callback != null) {
+          $(selector).fadeOut(speed, callback);
+        } else {
+          $(selector).fadeOut(speed);
+        }
 
+      } else {
+        Log.logCaution(
+          this,
+          'setView',
+          'unknown type.',
+          `selector: ${selector}`,
+          `speed: ${speed}`,
+          `type: ${type}`,
+          `view: ${view}`,
+          `callback: ${callback}`
+        );
+        return null;
       }
     }
 
@@ -324,6 +371,7 @@ class CommonView extends CommonClass {
       message: message,
       close: close
     }));
+    return true;
   }
 
   generateLoading({
@@ -344,6 +392,7 @@ class CommonView extends CommonClass {
     $(selector).append(View.getLoading({
       header: header
     }));
+    return true;
   }
 }
 
@@ -367,10 +416,9 @@ class CommonEvent extends CommonClass {
     func = () => {}
   } = {}) {
     if (selector != null) {
-      $(this.MODEL.COMMON.SELECTOR.ROOT).on(trigger, selector, func);
-    } else {
-      $(this.MODEL.COMMON.SELECTOR.ROOT).on(trigger, func);
+      return $(this.MODEL.COMMON.SELECTOR.ROOT).on(trigger, selector, func);
     }
+    return $(this.MODEL.COMMON.SELECTOR.ROOT).on(trigger, func);
   }
 
   setOff({
@@ -378,10 +426,9 @@ class CommonEvent extends CommonClass {
     selector = null
   } = {}) {
     if (selector != null) {
-      $(this.MODEL.COMMON.SELECTOR.ROOT).off(trigger, selector);
-    } else {
-      $(this.MODEL.COMMON.SELECTOR.ROOT).off(trigger);
+      return $(this.MODEL.COMMON.SELECTOR.ROOT).off(trigger, selector);
     }
+    return $(this.MODEL.COMMON.SELECTOR.ROOT).off(trigger);
   }
 
   trigger({
@@ -398,7 +445,7 @@ class CommonEvent extends CommonClass {
       return;
     }
 
-    $(selector).trigger(trigger);
+    return $(selector).trigger(trigger);
   }
 }
 
