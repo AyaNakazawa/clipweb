@@ -548,16 +548,16 @@ class UserEvent extends CommonEvent {
 
   setOnLoading({
     type = null,
-    func = null,
+    openType = null,
     model = {}
   }) {
-    if (type == null || func == null) {
+    if (type == null || openType == null) {
       Log.logCaution(
         this,
         'setOnLoading',
         'includes null in args',
         `type :${type}`,
-        `func :${func}`
+        `openType :${openType}`
       );
       return;
     }
@@ -567,7 +567,7 @@ class UserEvent extends CommonEvent {
       trigger: this.MODEL.TRIGGER.LOADING,
       func: () => {
         Log.logClassKey('User', type.capitalize(), 'Open');
-        func(model);
+        this.CONTROLLER.open(openType, model);
         super.setOff({
           trigger: this.MODEL.TRIGGER.LOADING
         });
@@ -598,6 +598,47 @@ class UserController extends CommonController {
 
   // ----------------------------------------------------------------
   // open
+
+  open(
+    type = null,
+    model = {}
+  ) {
+    if (type == null) {
+      Log.logCaution(
+        this,
+        'open',
+        'includes null in args',
+        `type :${type}`
+      );
+      return;
+    }
+
+    if (type == this.MODEL.TYPE.REGISTER) {
+      // REGISTER
+      this.openRegister(model);
+
+    } else if (type == this.MODEL.TYPE.LOGIN) {
+      // LOGIN
+      this.openLogin(model);
+
+    } else if (type == this.MODEL.TYPE.LOGOUT) {
+      // LOGOUT
+      this.openLogout(model);
+
+    } else if (type == this.MODEL.TYPE.LEAVE) {
+      // LEAVE
+      this.openLeave(model);
+
+    } else if (type == this.MODEL.TYPE.SETTING) {
+      // SETTING
+      this.openSetting(model);
+
+    } else if (type == this.MODEL.TYPE.INFO) {
+      // INFO
+      this.openInfo(model);
+
+    }
+  }
 
   openLogin(
     args = {}
@@ -705,6 +746,8 @@ class UserController extends CommonController {
   // submit
 
   submitRegister() {
+    const TYPE = this.MODEL.TYPE.REGISTER;
+
     let _isRegister = false;
     let _isCorrectUsername = true;
     let _isCorrectEmail = true;
@@ -746,16 +789,20 @@ class UserController extends CommonController {
       _isRegister = true;
     }
 
-    this.updateHash(this.MODEL.TYPE.REGISTER);
+    this.updateHash(TYPE);
 
     if (_isRegister) {
       this.EVENT.setOnLoading({
-        type: this.MODEL.TYPE.REGISTER,
-        func: this.openLogin,
+        type: TYPE,
+        openType: this.MODEL.TYPE.LOGIN,
         model: {
-          alertMessage: '<div>ユーザーを登録しました。</div><div>メール認証をしてください。</div>'
+          alertMessage:
+            View.div({content: 'ユーザーを登録しました。'}) +
+            View.div({content: 'メール認証をしてください。'})
         }
       });
+
+      this.post(TYPE);
 
     } else {
       this.openRegister({
@@ -857,6 +904,11 @@ class UserController extends CommonController {
       return;
     }
 
+    let _path = 'python/clipweb.py';
+    let _model = {};
+    let _method = 'POST';
+    let _dataType = 'json';
+
     if (type == this.MODEL.TYPE.REGISTER) {
       // REGISTER
 
@@ -876,6 +928,33 @@ class UserController extends CommonController {
       // INFO
 
     }
+
+    $.ajax({
+      url: _path,
+      data: _model,
+      method: _method,
+      dataType: _dataType,
+      success: (data, textStatus, jqXHR) => {
+        Log.logClassKey(this.NAME, 'post', 'success');
+        Log.logClassKey(this.NAME, 'textStatus', textStatus);
+        Log.logClass(this.NAME, 'data');
+        Log.logObj(data);
+        Log.logClass(this.NAME, 'jqXHR');
+        Log.logObj(jqXHR);
+      },
+      error: (jqXHR, textStatus, errorThrown) => {
+        Log.logClassKey(this.NAME, 'post', 'error');
+        Log.logClassKey(this.NAME, 'textStatus', textStatus);
+        Log.logClassKey(this.NAME, 'errorThrown', errorThrown);
+        Log.logClass(this.NAME, 'jqXHR');
+        Log.logObj(jqXHR);
+      },
+      complete: (jqXHR, textStatus) => {
+        this.EVENT.trigger({
+          trigger: this.MODEL.TRIGGER.LOADING
+        });
+      }
+    });
   }
 
   // ----------------------------------------------------------------
