@@ -49,15 +49,11 @@ class NavView extends CommonView {
     fa = null
   } = {}) {
     if (id == null || name == null) {
-      Log.logCautionCommon(
-        this,
-        'addNavItem',
-        'includes null in args.',
-        `id: ${id}`,
-        `name: ${name}`,
-        `type: ${type}`,
-        `fa: ${fa}`
-      );
+      Log.logCautionCommon({
+        obj: this,
+        func: this.addNavItem,
+        args: arguments
+      });
       return;
     }
 
@@ -85,12 +81,11 @@ class NavView extends CommonView {
     id = null
   }) {
     if (id == null) {
-      Log.logCautionCommon(
-        this,
-        'removeNavItem',
-        'includes null in args.',
-        `id: ${id}`
-      );
+      Log.logCautionCommon({
+        obj: this,
+        func: this.addNavItem,
+        args: arguments
+      });
       return;
     }
 

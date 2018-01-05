@@ -158,12 +158,11 @@ class CommonView extends CommonClass {
     selector = null
   ) {
     if (selector == null) {
-      Log.logCautionCommon(
-        this,
-        'skip',
-        'selector of args is null.',
-        `selector: ${selector}`
-      );
+      Log.logCautionCommon({
+        obj: this,
+        func: this.skip,
+        args: arguments
+      });
       return null;
     }
 
@@ -179,12 +178,11 @@ class CommonView extends CommonClass {
     easing = this.MODEL.COMMON.EASING.CLEAR
   } = {}) {
     if (selector == null) {
-      Log.logCautionCommon(
-        this,
-        'clear',
-        'selector of args is null.',
-        `selector: ${selector}`
-      );
+      Log.logCautionCommon({
+        obj: this,
+        func: this.clear,
+        args: arguments
+      });
       return null;
     }
     Log.logClassKey(this.NAME, 'View', 'Clear', Log.ARROW_INPUT);
@@ -212,12 +210,11 @@ class CommonView extends CommonClass {
     easing = this.MODEL.COMMON.EASING.SHOW
   } = {}) {
     if (selector == null) {
-      Log.logCautionCommon(
-        this,
-        'show',
-        'selector of args is null.',
-        `selector: ${selector}`
-      );
+      Log.logCautionCommon({
+        obj: this,
+        func: this.show,
+        args: arguments
+      });
       return null;
     }
 
@@ -239,12 +236,11 @@ class CommonView extends CommonClass {
     easing = this.MODEL.COMMON.EASING.HIDE
   } = {}) {
     if (selector == null) {
-      Log.logCautionCommon(
-        this,
-        'hide',
-        'selector of args is null.',
-        `selector: ${selector}`
-      );
+      Log.logCautionCommon({
+        obj: this,
+        func: this.hide,
+        args: arguments
+      });
       return null;
     }
 
@@ -268,18 +264,11 @@ class CommonView extends CommonClass {
     callback = null
   }) {
     if (view == null) {
-      Log.logCautionCommon(
-        this,
-        'setView',
-        'view of args is null.',
-        `selector: ${selector}`,
-        `speed: ${speed}`,
-        `delay: ${delay}`,
-        `type: ${type}`,
-        `easing: ${easing}`,
-        `view: ${view}`,
-        `callback: ${callback}`
-      );
+      Log.logCautionCommon({
+        obj: this,
+        func: this.setView,
+        args: arguments
+      });
       return null;
     }
     Log.logClassKey(this.NAME, 'View', view, Log.ARROW_INPUT);
@@ -392,17 +381,12 @@ class CommonView extends CommonClass {
         }
 
       } else {
-        Log.logCautionCommon(
-          this,
-          'setView',
-          'unknown type.',
-          `selector: ${selector}`,
-          `speed: ${speed}`,
-          `type: ${type}`,
-          `easing: ${easing}`,
-          `view: ${view}`,
-          `callback: ${callback}`
-        );
+        Log.logCautionCommon({
+          obj: this,
+          func: this.setView,
+          args: arguments,
+          message: 'unknown type.'
+        });
         return null;
       }
     } else if (!view) {
@@ -471,17 +455,12 @@ class CommonView extends CommonClass {
         }
 
       } else {
-        Log.logCautionCommon(
-          this,
-          'setView',
-          'unknown type.',
-          `selector: ${selector}`,
-          `speed: ${speed}`,
-          `type: ${type}`,
-          `easing: ${easing}`,
-          `view: ${view}`,
-          `callback: ${callback}`
-        );
+        Log.logCautionCommon({
+          obj: this,
+          func: this.setView,
+          args: arguments,
+          message: 'unknown type.'
+        });
         return null;
       }
     }
@@ -492,12 +471,14 @@ class CommonView extends CommonClass {
   getView() {
     const result = this.MODEL.COMMON.VIEW;
     if (result != true && result != false) {
-      Log.logCautionCommon(
-        this,
-        'getView',
-        'Current view is unknown.',
-        `this.MODEL.COMMON.VIEW: ${this.MODEL.COMMON.VIEW}`
-      );
+      Log.logCautionCommon({
+        obj: this,
+        func: this.getView,
+        message: [
+          'unknown current view.',
+          `this.MODEL.COMMON.VIEW: ${this.MODEL.COMMON.VIEW}`
+        ]
+      });
     }
     return result;
   }
@@ -515,15 +496,11 @@ class CommonView extends CommonClass {
     callback = null
   } = {}) {
     if (selector == null || speed == null || easing == null) {
-      Log.logCautionCommon(
-        this,
-        'scroll',
-        'includes null in args.',
-        `selector: ${selector}`,
-        `speed: ${speed}`,
-        `easing: ${easing}`,
-        `callback: ${callback}`
-      );
+      Log.logCautionCommon({
+        obj: this,
+        func: this.scroll,
+        args: arguments
+      });
       return null;
     }
     Log.logClassKey(this.NAME, 'View', 'Scroll', Log.ARROW_INPUT);
@@ -582,15 +559,11 @@ class CommonView extends CommonClass {
     close = true
   } = {}) {
     if (selector == null) {
-      Log.logCautionCommon(
-        this,
-        'generateAlert',
-        'Undefined selector',
-        `selector: ${selector}`,
-        `type: ${type}`,
-        `message: ${message}`,
-        `close: ${close}`
-      );
+      Log.logCautionCommon({
+        obj: this,
+        func: this.generateAlert,
+        args: arguments
+      });
       return;
     }
 
@@ -607,13 +580,11 @@ class CommonView extends CommonClass {
     header = 'Loading'
   } = {}) {
     if (selector == null) {
-      Log.logCautionCommon(
-        this,
-        'generateLoading',
-        'Undefined selector',
-        `selector: ${selector}`,
-        `header: ${header}`
-      );
+      Log.logCautionCommon({
+        obj: this,
+        func: this.generateLoading,
+        args: arguments
+      });
       return;
     }
 
@@ -664,12 +635,11 @@ class CommonEvent extends CommonClass {
     selector = this.MODEL.COMMON.SELECTOR.ROOT
   } = {}) {
     if (trigger == null) {
-      Log.logCautionCommon(
-        this,
-        'trigger',
-        `trigger: ${trigger}`,
-        `selector: ${selector}`
-      );
+      Log.logCautionCommon({
+        obj: this,
+        func: this.trigger,
+        args: arguments
+      });
       return;
     }
 

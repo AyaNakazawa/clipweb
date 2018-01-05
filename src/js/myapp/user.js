@@ -549,14 +549,11 @@ class UserEvent extends CommonEvent {
     errorModel = {}
   }) {
     if (type == null || successOpenType == null) {
-      Log.logCautionCommon(
-        this,
-        'setOnLoading',
-        'includes null in args',
-        `type :${type}`,
-        `successOpenType :${successOpenType}`,
-        `errorOpenType :${errorOpenType}`
-      );
+      Log.logCautionCommon({
+        obj: this,
+        func: this.setOnLoading,
+        args: arguments
+      });
       return;
     }
     Log.logClassKey(this.NAME, type.capitalize(), 'Loading');
@@ -569,7 +566,10 @@ class UserEvent extends CommonEvent {
       trigger: this.MODEL.TRIGGER.POST.SUCCESS,
       func: () => {
         Log.logClassKey(this.NAME, successOpenType.capitalize(), 'Open');
-        this.CONTROLLER.open(successOpenType, successModel);
+        this.CONTROLLER.open({
+          type: successOpenType,
+          model: successModel
+        });
       }
     });
     // Error
@@ -577,7 +577,10 @@ class UserEvent extends CommonEvent {
       trigger: this.MODEL.TRIGGER.POST.ERROR,
       func: () => {
         Log.logClassKey(this.NAME, errorOpenType.capitalize(), 'Open');
-        this.CONTROLLER.open(errorOpenType, errorModel);
+        this.CONTROLLER.open({
+          type: errorOpenType,
+          model: errorModel
+        });
       }
     });
     // Error
@@ -613,23 +616,22 @@ class UserController extends CommonController {
     super(_model, _initSetting);
 
     this.EVENT.setEvent();
-    this.open(this.MODEL.TYPE.REGISTER);
+    this.open({type: this.MODEL.TYPE.REGISTER});
   }
 
   // ----------------------------------------------------------------
   // open
 
-  open(
+  open({
     type = null,
     model = {}
-  ) {
+  }) {
     if (type == null) {
-      Log.logCautionCommon(
-        this,
-        'open',
-        'includes null in args',
-        `type :${type}`
-      );
+      Log.logErrorCommon({
+        obj: this,
+        func: this.open,
+        args: arguments
+      });
       return;
     }
 
@@ -719,12 +721,11 @@ class UserController extends CommonController {
     type = null
   ) {
     if (type == null) {
-      Log.logCautionCommon(
-        this,
-        'openLoading',
-        'includes null in args',
-        `type :${type}`
-      );
+      Log.logCautionCommon({
+        obj: this,
+        func: this.openLoading,
+        args: arguments
+      });
       return;
     }
     let _loadingHeader = null;
@@ -748,12 +749,12 @@ class UserController extends CommonController {
       _loadingHeader = 'Save your Info';
 
     } else {
-      Log.logCautionCommon(
-        this,
-        'openLoading',
-        'unknown type',
-        `type :${type}`
-      );
+      Log.logCautionCommon({
+        obj: this,
+        func: this.openLoading,
+        args: arguments,
+        message: 'unknown type.'
+      });
       return;
     }
 

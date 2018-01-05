@@ -97,15 +97,11 @@ class View {
   } = {}) {
     message = message || text;
     if (message == null) {
-      Log.logCautionCommon(
-        this,
-        'getAlert',
-        'Undefined message',
-        `type: ${type}`,
-        `message: ${message}`,
-        `text: ${text}`,
-        `close: ${close}`
-      );
+      Log.logCautionCommon({
+        obj: this,
+        func: this.getAlert,
+        args: arguments
+      });
       return;
     }
 
@@ -126,12 +122,11 @@ class View {
     header = 'LOADING'
   } = {}) {
     if (header == null) {
-      Log.logCautionCommon(
-        this,
-        'getLoading',
-        'Undefined header',
-        `header: ${header}`
-      );
+      Log.logCautionCommon({
+        obj: this,
+        func: this.getLoading,
+        args: arguments
+      });
       return;
     }
 
