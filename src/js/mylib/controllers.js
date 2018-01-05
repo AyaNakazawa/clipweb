@@ -59,19 +59,19 @@ class Confirm extends ConfirmController {
 /**
  * Popover
  * Doc: https://getbootstrap.com/docs/4.0/components/popovers/#options
- * @param  {String}  NAME              Name of Object
- * @param  {String}  selector          Selector of Popover
- * @param  {String}  title             Title of Popover
- * @param  {String}  content           Content of Popover
- * @param  {String}  trigger           Trigger of Popover
- * @param  {String}  placement         Placement of Popover
- * @param  {Number}  delay             Delay of Popover
- * @param  {Boolean} html              Html insert flag of Popover
- * @param  {String}  offset            Offset of Popover
- * @param  {String}  container         Container of Popover
- * @param  {String}  fallbackPlacement Fallback placement of Popover
- * @param  {String}  boundary          Boundary of Popover
- * @return {Popover}                   extends PopoverController, CommonController, Commonclass
+ * @param  {String}        NAME              Name of Object
+ * @param  {String}        selector          Selector of Popover
+ * @param  {String}        title             Title of Popover
+ * @param  {String}        content           Content of Popover
+ * @param  {String}        trigger           Trigger of Popover
+ * @param  {String}        placement         Placement of Popover
+ * @param  {Number}        delay             Delay of Popover
+ * @param  {Boolean}       html              Html insert flag of Popover
+ * @param  {String|Number} offset            Offset of Popover
+ * @param  {String}        container         Container of Popover
+ * @param  {String}        fallbackPlacement Fallback placement of Popover
+ * @param  {String}        boundary          Boundary of Popover
+ * @return {Popover}                         Extends PopoverController, CommonController, Commonclass
 **/
 
 class Popover extends PopoverController {
@@ -89,6 +89,36 @@ class Popover extends PopoverController {
       // container: true,
       // fallbackPlacement: 'flip',
       // boundary: 'scrollParent'
+    }
+  ) {
+    super(_model);
+  }
+}
+
+// ----------------------------------------------------------------
+/**
+ * Scroll
+ * Doc: https://getbootstrap.com/docs/4.0/components/popovers/#options
+ * @param  {String}  NAME           NAME of Object
+ * @param  {Number}  selector       Selector of Scroll
+ * @param  {String}  speed          Speed of Scroll
+ * @param  {String}  easing         Easing of Scroll
+ * @param  {String}  offset         Offset of Scroll
+ * @param  {String}  eventSelector  Selector of Event
+ * @param  {String}  eventTrigger   Trigger of Event
+ * @return {Scroll}                 Extends ScrollController, CommonController, Commonclass
+**/
+
+class Scroll extends ScrollController {
+  constructor(
+    _model = {
+      // NAME: 'Scroll Object',
+      // selector: null,
+      // speed: 750,
+      // easing: 'easeInOutCubic',
+      // offset: 0,
+      // eventSelector: null,
+      // eventTrigger: 'click'
     }
   ) {
     super(_model);

@@ -9,12 +9,12 @@ class ScrollModel extends CommonModel {
   constructor(
     _initSetting = {
       NAME: 'Scroll Object',
-      SPEED: 750,
-      EASING: 'easeOutBack',
-      OFFSET: 0,
-      TRIGGER_EVENT: 'click',
-      SELECTOR_EVENT: null,
-      SELECTOR_SCROLL: null
+      selector: null,
+      speed: 750,
+      easing: 'easeInOutCubic',
+      offset: 0,
+      eventSelector: null,
+      eventTrigger: 'click'
     }
   ) {
     super(_initSetting);
@@ -37,11 +37,11 @@ class ScrollView extends CommonView {
     Log.logClass(this.NAME, 'Scroll');
     $(this.MODEL.COMMON.BODY).animate(
       {
-        scrollTop: $(this.MODEL.SELECTOR_SCROLL).offset().top + this.MODEL.OFFSET
+        scrollTop: $(this.MODEL.selector).offset().top + this.MODEL.offset
       },
       {
-        duration: this.MODEL.SPEED,
-        easing: this.MODEL.EASING
+        duration: this.MODEL.speed,
+        easing: this.MODEL.easing
       }
     );
   }
@@ -60,10 +60,10 @@ class ScrollEvent extends CommonEvent {
   }
 
   setOnScroll() {
-    if (this.MODEL.SELECTOR_EVENT != null) {
+    if (this.MODEL.eventSelector != null) {
       super.setOn({
-        trigger: this.MODEL.TRIGGER_EVENT,
-        selector: this.MODEL.SELECTOR_EVENT,
+        trigger: this.MODEL.eventTrigger,
+        selector: this.MODEL.eventSelector,
         func: () => {
           this.VIEW.scroll();
         }
