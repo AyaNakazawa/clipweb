@@ -45,11 +45,11 @@ class Log {
 
   static get STYLE_ERROR_LINE() { return 'color:#f00;'; }
   static get STYLE_ERROR_HEADER() { return 'color:#a00;'; }
-  static get STYLE_ERROR_CONTENT() { return 'color:#111;'; }
+  static get STYLE_ERROR_CONTENT() { return 'color:#411;'; }
 
   static get STYLE_CAUTION_LINE() { return 'color:#aa0;'; }
   static get STYLE_CAUTION_HEADER() { return 'color:#880;'; }
-  static get STYLE_CAUTION_CONTENT() { return 'color:#111;'; }
+  static get STYLE_CAUTION_CONTENT() { return 'color:#441;'; }
 
   static logError(...array) {
     // View permission
@@ -91,64 +91,109 @@ class Log {
     }
   }
 
-  static logErrorCommon(obj = null, ...array) {
+  static logCommon({
+    obj = null,
+    func = null,
+    args = null,
+    message = '',
+    view = null,
+    styleLine = null,
+    styleHeader = null,
+    styleContent = null
+  } = {}) {
     // View permission
-    if (this.LOG_VIEW_ERROR) {
+    if (view) {
       // Draw line
-      this.log(null, null, this.STYLE_ERROR_LINE);
+      this.log(null, null, styleLine);
       // Write title
-      this.log('Error', this.ALIGN_CENTER, this.STYLE_ERROR_HEADER);
+      this.log('Caution', this.ALIGN_CENTER, styleHeader);
 
       // Write info
-      this.logObj(obj);
-      this.logClass('Class Name', obj.constructor.name);
-      this.logClass('Object Name', obj.NAME);
+      if (obj !== null) {
+        this.logObj(obj);
+        this.logClass('Class Name', obj.constructor.name, styleContent);
+      }
+      if (func !== null) {
+        this.logClass('Function Name', func.name, styleContent);
+      }
 
-      // Draw line
-      this.log(null, null, this.STYLE_ERROR_LINE);
-      // Write title
-      this.log('Message', this.ALIGN_CENTER, this.STYLE_ERROR_HEADER);
+      // Write args
+      if (args !== null) {
+        if (args.length > 0) {
+          // Draw line
+          this.log(null, null, styleLine);
+          // Write title
+          this.log('Arguments', this.ALIGN_CENTER, styleHeader);
 
-      // Write array
-      for (let i = 0; i < array.length; i++) {
-        this.log(array[i], this.ALIGN_LEFT, this.STYLE_ERROR_CONTENT);
+          // Write args
+          for (let i = 0; i < args.length; i++) {
+            if (!Object.typeIs('Object', args[i]) && !Object.typeIs('Array', args[i])) {
+              args[i] = [args[i]];
+            }
+            for (let key of Object.keys(args[i])) {
+              this.logClass(`arguments ${i} ${key}`, args[i][key], styleContent);
+            }
+          }
+        }
+      }
+
+      // Write message
+      if (message.length > 0) {
+        // Draw line
+        this.log(null, null, styleLine);
+        // Write title
+        this.log('Message', this.ALIGN_CENTER, styleHeader);
+
+        // Write message
+        if (!Object.typeIs('Array', message)) {
+          message = [message];
+        }
+        for (let i = 0; i < message.length; i++) {
+          this.log(message[i], this.ALIGN_LEFT, styleContent);
+        }
       }
 
       // Write exit
-      this.log('Exit', this.ALIGN_CENTER, this.STYLE_ERROR_HEADER);
+      this.log('Exit', this.ALIGN_CENTER, styleHeader);
       // Draw line
-      this.log(null, null, this.STYLE_ERROR_LINE);
+      this.log(null, null, styleLine);
     }
   }
 
-  static logCautionCommon(obj = null, ...array) {
-    // View permission
-    if (this.LOG_VIEW_CAUTION) {
-      // Draw line
-      this.log(null, null, this.STYLE_CAUTION_LINE);
-      // Write title
-      this.log('Caution', this.ALIGN_CENTER, this.STYLE_CAUTION_HEADER);
+  static logErrorCommon({
+    obj = null,
+    func = null,
+    args = null,
+    message = ''
+  } = {}) {
+    this.logCommon({
+      obj: obj,
+      func: func,
+      args: args,
+      message: message,
+      view: this.LOG_VIEW_ERROR,
+      styleLine: this.STYLE_ERROR_LINE,
+      styleHeader: this.STYLE_ERROR_HEADER,
+      styleContent: this.STYLE_ERROR_CONTENT
+    });
+  }
 
-      // Write info
-      this.logObj(obj);
-      this.logClass('Class Name', obj.constructor.name);
-      this.logClass('Object Name', obj.NAME);
-
-      // Draw line
-      this.log(null, null, this.STYLE_CAUTION_LINE);
-      // Write title
-      this.log('Message', this.ALIGN_CENTER, this.STYLE_CAUTION_HEADER);
-
-      // Write array
-      for (let i = 0; i < array.length; i++) {
-        this.log(array[i], this.ALIGN_LEFT, this.STYLE_CAUTION_CONTENT);
-      }
-
-      // Write exit
-      this.log('Exit', this.ALIGN_CENTER, this.STYLE_CAUTION_HEADER);
-      // Draw line
-      this.log(null, null, this.STYLE_CAUTION_LINE);
-    }
+  static logCautionCommon({
+    obj = null,
+    func = null,
+    args = null,
+    message = ''
+  } = {}) {
+    this.logCommon({
+      obj: obj,
+      func: func,
+      args: args,
+      message: message,
+      view: this.LOG_VIEW_CAUTION,
+      styleLine: this.STYLE_CAUTION_LINE,
+      styleHeader: this.STYLE_CAUTION_HEADER,
+      styleContent: this.STYLE_CAUTION_CONTENT
+    });
   }
 
   static logObj(_obj) {
