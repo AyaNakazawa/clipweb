@@ -124,3 +124,35 @@ class Scroll extends ScrollController {
     super(_model);
   }
 }
+
+// ----------------------------------------------------------------
+/**
+ * Switch
+ * Doc: https://getbootstrap.com/docs/4.0/components/popovers/#options
+ * @param  {String}  NAME            NAME of Object
+ * @param  {Number}  selector        selector of Switch
+ * @param  {String}  view            view when init
+ * @param  {String}  speed           speed of Switch
+ * @param  {String}  template        template of Switch
+ * @param  {String}  localStorageKey localStorageKey of Switch view
+ * @param  {String}  eventTrigger    Trigger of Event
+ * @param  {String}  eventSelector   Selector of Event
+ * @return {Switch}                  Extends SwitchController, CommonController, Commonclass
+**/
+
+class Switch extends SwitchController {
+  constructor(
+    _model = {
+      // NAME: 'Switch Object',
+      // selector: null,
+      // view: null,
+      // speed: 500,
+      // template: null,
+      // localStorageKey: null,
+      // eventTrigger: 'click',
+      // eventSelector: null
+    }
+  ) {
+    super(_model);
+  }
+}
