@@ -665,6 +665,11 @@ class CommonController extends CommonClass {
   ) {
     super(_initSetting, _common);
     Object.assign(this.MODEL, _model);
+    Object.assignType(this, this.EVENT, 'Function');
+    Object.assignType(this, this.VIEW, 'Function');
+    Object.assignType(this, this.MODEL, 'Function');
+
+    Log.logObj(this);
 
     if (this.VIEW_OBJECT) {
       super.showNameModel(this.MODEL.NAME);
