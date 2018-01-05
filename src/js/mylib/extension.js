@@ -55,6 +55,44 @@ EX.Object.typeIs = function(type, obj) {
   return obj !== undefined && obj !== null && _CLAS === type;
 };
 
+/**
+ * Object.prototype.assignType
+ * @param  {Object}          target Target Object
+ * @param  {Object}          source Source Object
+ * @param  {String|String[]} type   Assign target array of type
+ * @return {Object}                 Result Object
+**/
+
+EX.Object.assignType = function (
+  target = null,
+  source = null,
+  type = null
+) {
+  if (target === null) {
+    return;
+  }
+  if (source === null) {
+    return;
+  }
+  if (type === null) {
+    return Object.assign(target, source);
+  }
+  if (!Array.isArray(type)) {
+    type = [type];
+  }
+  for (let key of Object.getOwnPropertyNames(source)) {
+    if (type.includes(Object.getType(source[key]))) {
+      target[key] = source[key];
+    }
+  }
+  for (let key of Object.getOwnPropertyNames(source.__proto__)) {
+    if (type.includes(Object.getType(source[key])) && key != 'constructor') {
+      target.__proto__[key] = source[key];
+    }
+  }
+  return target;
+};
+
 // ----------------------------------------------------------------
 // defineProperty
 
