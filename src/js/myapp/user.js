@@ -371,6 +371,7 @@ class UserEvent extends CommonEvent {
         Log.logClassKey(this.NAME, 'Login', 'Submit');
         PS.NAV.VIEW.generateLogined();
         this.VIEW.hide();
+        this.CONTROLLER.submitLogin();
       }
     });
   }
@@ -491,9 +492,7 @@ class UserEvent extends CommonEvent {
       func: () => {
         Log.logClassKey(this.NAME, 'User Info', 'Submit');
         // Update User Info
-        this.CONTROLLER.openInfo({
-          alertMessage: 'Updated !'
-        });
+        this.CONTROLLER.submitInfo();
       }
     });
   }
@@ -507,9 +506,7 @@ class UserEvent extends CommonEvent {
       func: () => {
         Log.logClassKey(this.NAME, 'User Setting', 'Submit');
         // Update User Setting
-        this.CONTROLLER.openSetting({
-          alertMessage: 'Updated !'
-        });
+        this.CONTROLLER.submitSetting();
       }
     });
   }
@@ -533,7 +530,7 @@ class UserEvent extends CommonEvent {
       func: () => {
         Log.logClassKey(this.NAME, 'Logout', 'Submit');
         PS.NAV.VIEW.generateNotLogin();
-        this.CONTROLLER.openLogin();
+        this.CONTROLLER.submitLogout();
       }
     });
   }
@@ -634,32 +631,8 @@ class UserController extends CommonController {
       });
       return;
     }
-
-    if (type == this.MODEL.TYPE.REGISTER) {
-      // REGISTER
-      this.openRegister(model);
-
-    } else if (type == this.MODEL.TYPE.LOGIN) {
-      // LOGIN
-      this.openLogin(model);
-
-    } else if (type == this.MODEL.TYPE.LOGOUT) {
-      // LOGOUT
-      this.openLogout(model);
-
-    } else if (type == this.MODEL.TYPE.LEAVE) {
-      // LEAVE
-      this.openLeave(model);
-
-    } else if (type == this.MODEL.TYPE.SETTING) {
-      // SETTING
-      this.openSetting(model);
-
-    } else if (type == this.MODEL.TYPE.INFO) {
-      // INFO
-      this.openInfo(model);
-
-    }
+    model['type'] = type;
+    this.VIEW.generateArea(model);
   }
 
   openLogin(
@@ -670,7 +643,7 @@ class UserController extends CommonController {
       view: true
     };
     Object.assign(_model, model);
-    this.VIEW.generateArea(_model);
+    this.open({type: _model['type'], model: _model});
   }
 
   openSetting(
@@ -681,7 +654,7 @@ class UserController extends CommonController {
       view: true
     };
     Object.assign(_model, model);
-    this.VIEW.generateArea(_model);
+    this.open({type: _model['type'], model: _model});
   }
 
   openInfo(
@@ -692,7 +665,7 @@ class UserController extends CommonController {
       view: true
     };
     Object.assign(_model, model);
-    this.VIEW.generateArea(_model);
+    this.open({type: _model['type'], model: _model});
   }
 
   openLogout(
@@ -703,7 +676,7 @@ class UserController extends CommonController {
       view: true
     };
     Object.assign(_model, model);
-    this.VIEW.generateArea(_model);
+    this.open({type: _model['type'], model: _model});
   }
 
   openRegister(
@@ -714,7 +687,7 @@ class UserController extends CommonController {
       view: true
     };
     Object.assign(_model, model);
-    this.VIEW.generateArea(_model);
+    this.open({type: _model['type'], model: _model});
   }
 
   openLoading(
@@ -839,6 +812,21 @@ class UserController extends CommonController {
     }
   }
 
+  submitLogin() {
+
+  }
+
+  submitInfo() {
+
+  }
+
+  submitSetting() {
+
+  }
+
+  submitLogout() {
+
+  }
   // ----------------------------------------------------------------
   // update
 
