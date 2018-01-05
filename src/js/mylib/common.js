@@ -7,46 +7,48 @@ class CommonClass {
     _initSetting = {},
     _common = {
       NAME: 'Common Class',
-      VIEW_NAME: false
+      VIEW_NAME: false,
+      VIEW_OBJECT: false
     }
   ) {
     Object.assign(this, _common, _initSetting);
 
-    if (this.NAME != null && this.VIEW_NAME) {
-      this.showNameModel(this.NAME);
+    if (this.VIEW_OBJECT) {
+      this.showNameModel();
+
+    } else if (this.VIEW_NAME) {
+      this.showName();
+
     }
   }
 
-  showName(_name) {
+  showName(name = null) {
     // Draw line
     Log.log();
-    // Check name
-    if (_name != null) {
-      // Exists name
-      // Write name
-      Log.log(_name, Log.ALIGN_CENTER);
+    // Write name
+    if (name != null) {
+      Log.log(name, Log.ALIGN_CENTER);
       return;
     } else {
-      // Not exists name
-      // Write this name
       Log.log(this.NAME, Log.ALIGN_CENTER);
     }
   }
 
-  showNameModel(_name, _model) {
+  showModel(model = null) {
     // Write name
-    this.showName(_name);
-
-    // Check model
-    if (_model != null) {
-      // Exists model
-      // Write model
-      Log.logObj(_model);
+    if (model != null) {
+      Log.logObj(model);
+      return;
     } else {
-      // Not exists model
-      // Write this
       Log.logObj(this);
     }
+  }
+
+  showNameModel(name = null, model = null) {
+    // Write name
+    this.showName(name);
+    // Write model
+    this.showModel(model);
   }
 }
 
@@ -57,8 +59,7 @@ class CommonModel extends CommonClass {
   constructor(
     _initSetting = {},
     _common = {
-      NAME: 'Common Object',
-      VIEW_NAME: false
+      NAME: 'Common Object'
     }
   ) {
     super(_initSetting, _common);
@@ -147,8 +148,7 @@ class CommonView extends CommonClass {
   constructor(
     _initSetting = {},
     _common = {
-      NAME: 'Common View',
-      VIEW_NAME: false
+      NAME: 'Common View'
     }
   ) {
     super(_initSetting, _common);
@@ -602,8 +602,7 @@ class CommonEvent extends CommonClass {
   constructor(
     _initSetting = {},
     _common = {
-      NAME: 'Common Event',
-      VIEW_NAME: false
+      NAME: 'Common Event'
     }
   ) {
     super(_initSetting, _common);
@@ -656,8 +655,7 @@ class CommonController extends CommonClass {
     _initSetting = {},
     _common = {
       NAME: 'Common Controller',
-      VIEW_NAME: false,
-      VIEW_OBJECT: false,
+      VIEW_OBJECT: true,
       MODEL: new CommonModel(),
       VIEW: new CommonView(),
       EVENT: new CommonEvent()
@@ -668,12 +666,6 @@ class CommonController extends CommonClass {
     Object.assignType(this, this.EVENT, 'Function');
     Object.assignType(this, this.VIEW, 'Function');
     Object.assignType(this, this.MODEL, 'Function');
-
-    Log.logObj(this);
-
-    if (this.VIEW_OBJECT) {
-      super.showNameModel(this.MODEL.NAME);
-    }
 
     this.applyObject();
     this.VIEW.initView();
@@ -702,7 +694,7 @@ class CommonProcess extends CommonClass {
     _initSetting = {},
     _common = {
       NAME: 'Common Process',
-      VIEW_NAME: true
+      VIEW_OBJECT: true
     }
   ) {
     super(_initSetting, _common);
