@@ -11,7 +11,6 @@ class PopoverModel extends CommonModel {
     _initSetting = {
       NAME: 'Popover Object',
       selector: null,
-      container: false,
       title: null,
       content: null,
       trigger: 'hover',
@@ -19,6 +18,7 @@ class PopoverModel extends CommonModel {
       delay: 0,
       html: false,
       offset: 0,
+      container: true,
       fallbackPlacement: 'flip',
       boundary: 'scrollParent'
     }
@@ -100,7 +100,9 @@ class PopoverEvent extends CommonEvent {
       Log.log('test');
     } else {
       if (this.MODEL.content != null || this.MODEL.title != null) {
-        this.MODEL.container = this.MODEL.selector;
+        if (this.MODEL.container == true) {
+          this.MODEL.container = this.MODEL.selector;
+        }
         $(this.MODEL.selector).attr('title', this.MODEL.title);
         $(this.MODEL.selector).attr('data-content', this.MODEL.content);
         $(this.MODEL.selector).attr('data-trigger', this.MODEL.trigger);

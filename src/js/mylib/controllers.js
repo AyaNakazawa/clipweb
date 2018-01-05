@@ -68,6 +68,7 @@ class Confirm extends ConfirmController {
  * @param  {Number}  delay             Delay of Popover
  * @param  {Boolean} html              Html insert flag of Popover
  * @param  {String}  offset            Offset of Popover
+ * @param  {String}  container         Container of Popover
  * @param  {String}  fallbackPlacement Fallback placement of Popover
  * @param  {String}  boundary          Boundary of Popover
  * @return {Popover}                   extends PopoverController, CommonController, Commonclass
@@ -75,7 +76,20 @@ class Confirm extends ConfirmController {
 
 class Popover extends PopoverController {
   constructor(
-    _model = {}
+    _model = {
+      // NAME: 'Popover Object',
+      // selector: null,
+      // title: null,
+      // content: null,
+      // trigger: 'hover',
+      // placement: 'top',
+      // delay: 0,
+      // html: false,
+      // offset: 0,
+      // container: true,
+      // fallbackPlacement: 'flip',
+      // boundary: 'scrollParent'
+    }
   ) {
     super(_model);
   }
