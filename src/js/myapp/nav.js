@@ -49,7 +49,7 @@ class NavView extends CommonView {
     fa = null
   } = {}) {
     if (id == null || name == null) {
-      Log.logCaution(
+      Log.logCautionCommon(
         this,
         'addNavItem',
         'includes null in args.',
@@ -85,7 +85,7 @@ class NavView extends CommonView {
     id = null
   }) {
     if (id == null) {
-      Log.logCaution(
+      Log.logCautionCommon(
         this,
         'removeNavItem',
         'includes null in args.',

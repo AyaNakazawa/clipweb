@@ -97,7 +97,7 @@ class View {
   } = {}) {
     message = message || text;
     if (message == null) {
-      Log.logCaution(
+      Log.logCautionCommon(
         this,
         'getAlert',
         'Undefined message',
@@ -126,7 +126,7 @@ class View {
     header = 'LOADING'
   } = {}) {
     if (header == null) {
-      Log.logCaution(
+      Log.logCautionCommon(
         this,
         'getLoading',
         'Undefined header',

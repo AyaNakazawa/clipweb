@@ -549,7 +549,7 @@ class UserEvent extends CommonEvent {
     errorModel = {}
   }) {
     if (type == null || successOpenType == null) {
-      Log.logCaution(
+      Log.logCautionCommon(
         this,
         'setOnLoading',
         'includes null in args',
@@ -624,7 +624,7 @@ class UserController extends CommonController {
     model = {}
   ) {
     if (type == null) {
-      Log.logCaution(
+      Log.logCautionCommon(
         this,
         'open',
         'includes null in args',
@@ -719,7 +719,7 @@ class UserController extends CommonController {
     type = null
   ) {
     if (type == null) {
-      Log.logCaution(
+      Log.logCautionCommon(
         this,
         'openLoading',
         'includes null in args',
@@ -748,7 +748,7 @@ class UserController extends CommonController {
       _loadingHeader = 'Save your Info';
 
     } else {
-      Log.logCaution(
+      Log.logCautionCommon(
         this,
         'openLoading',
         'unknown type',

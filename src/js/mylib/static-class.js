@@ -51,7 +51,47 @@ class Log {
   static get STYLE_CAUTION_HEADER() { return 'color:#880;'; }
   static get STYLE_CAUTION_CONTENT() { return 'color:#111;'; }
 
-  static logError(obj = null, ...array) {
+  static logError(...array) {
+    // View permission
+    if (this.LOG_VIEW_ERROR) {
+      // Draw line
+      this.log(null, null, this.STYLE_ERROR_LINE);
+      // Write title
+      this.log('Error', this.ALIGN_CENTER, this.STYLE_ERROR_HEADER);
+
+      // Write array
+      for (let i = 0; i < array.length; i++) {
+        this.log(array[i], this.ALIGN_LEFT, this.STYLE_ERROR_CONTENT);
+      }
+
+      // Write exit
+      this.log('Exit', this.ALIGN_CENTER, this.STYLE_ERROR_HEADER);
+      // Draw line
+      this.log(null, null, this.STYLE_ERROR_LINE);
+    }
+  }
+
+  static logCaution(...array) {
+    // View permission
+    if (this.LOG_VIEW_CAUTION) {
+      // Draw line
+      this.log(null, null, this.STYLE_CAUTION_LINE);
+      // Write title
+      this.log('Caution', this.ALIGN_CENTER, this.STYLE_CAUTION_HEADER);
+
+      // Write array
+      for (let i = 0; i < array.length; i++) {
+        this.log(array[i], this.ALIGN_LEFT, this.STYLE_CAUTION_CONTENT);
+      }
+
+      // Write exit
+      this.log('Exit', this.ALIGN_CENTER, this.STYLE_CAUTION_HEADER);
+      // Draw line
+      this.log(null, null, this.STYLE_CAUTION_LINE);
+    }
+  }
+
+  static logErrorCommon(obj = null, ...array) {
     // View permission
     if (this.LOG_VIEW_ERROR) {
       // Draw line
@@ -81,7 +121,7 @@ class Log {
     }
   }
 
-  static logCaution(obj = null, ...array) {
+  static logCautionCommon(obj = null, ...array) {
     // View permission
     if (this.LOG_VIEW_CAUTION) {
       // Draw line

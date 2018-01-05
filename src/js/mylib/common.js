@@ -158,7 +158,7 @@ class CommonView extends CommonClass {
     selector = null
   ) {
     if (selector == null) {
-      Log.logCaution(
+      Log.logCautionCommon(
         this,
         'skip',
         'selector of args is null.',
@@ -179,7 +179,7 @@ class CommonView extends CommonClass {
     easing = this.MODEL.COMMON.EASING.CLEAR
   } = {}) {
     if (selector == null) {
-      Log.logCaution(
+      Log.logCautionCommon(
         this,
         'clear',
         'selector of args is null.',
@@ -212,7 +212,7 @@ class CommonView extends CommonClass {
     easing = this.MODEL.COMMON.EASING.SHOW
   } = {}) {
     if (selector == null) {
-      Log.logCaution(
+      Log.logCautionCommon(
         this,
         'show',
         'selector of args is null.',
@@ -239,7 +239,7 @@ class CommonView extends CommonClass {
     easing = this.MODEL.COMMON.EASING.HIDE
   } = {}) {
     if (selector == null) {
-      Log.logCaution(
+      Log.logCautionCommon(
         this,
         'hide',
         'selector of args is null.',
@@ -268,7 +268,7 @@ class CommonView extends CommonClass {
     callback = null
   }) {
     if (view == null) {
-      Log.logCaution(
+      Log.logCautionCommon(
         this,
         'setView',
         'view of args is null.',
@@ -392,7 +392,7 @@ class CommonView extends CommonClass {
         }
 
       } else {
-        Log.logCaution(
+        Log.logCautionCommon(
           this,
           'setView',
           'unknown type.',
@@ -471,7 +471,7 @@ class CommonView extends CommonClass {
         }
 
       } else {
-        Log.logCaution(
+        Log.logCautionCommon(
           this,
           'setView',
           'unknown type.',
@@ -492,7 +492,7 @@ class CommonView extends CommonClass {
   getView() {
     const result = this.MODEL.COMMON.VIEW;
     if (result != true && result != false) {
-      Log.logCaution(
+      Log.logCautionCommon(
         this,
         'getView',
         'Current view is unknown.',
@@ -515,7 +515,7 @@ class CommonView extends CommonClass {
     callback = null
   } = {}) {
     if (selector == null || speed == null || easing == null) {
-      Log.logCaution(
+      Log.logCautionCommon(
         this,
         'scroll',
         'includes null in args.',
@@ -582,7 +582,7 @@ class CommonView extends CommonClass {
     close = true
   } = {}) {
     if (selector == null) {
-      Log.logCaution(
+      Log.logCautionCommon(
         this,
         'generateAlert',
         'Undefined selector',
@@ -607,7 +607,7 @@ class CommonView extends CommonClass {
     header = 'Loading'
   } = {}) {
     if (selector == null) {
-      Log.logCaution(
+      Log.logCautionCommon(
         this,
         'generateLoading',
         'Undefined selector',
@@ -664,7 +664,7 @@ class CommonEvent extends CommonClass {
     selector = this.MODEL.COMMON.SELECTOR.ROOT
   } = {}) {
     if (trigger == null) {
-      Log.logCaution(
+      Log.logCautionCommon(
         this,
         'trigger',
         `trigger: ${trigger}`,
