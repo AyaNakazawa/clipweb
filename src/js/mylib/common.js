@@ -503,7 +503,7 @@ class CommonView extends CommonClass {
       });
       return null;
     }
-    Log.logClassKey(this.NAME, 'View', 'Scroll', Log.ARROW_INPUT);
+    Log.logClassKey(this.NAME, 'View', 'Scroll');
 
     const _TOP = $(selector).offset().top + offset;
 

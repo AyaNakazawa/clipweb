@@ -275,7 +275,6 @@ class UserView extends CommonView {
           password: this.MODEL.VALIDATE.PATTERN.PASSWORD
         }
       };
-
     }
 
     // Set Template
@@ -286,6 +285,9 @@ class UserView extends CommonView {
 
     // Clear
     this.clear();
+
+    // Generate
+    Log.logClassKey(this.NAME, type.capitalize(), 'Generate');
 
     // Header
     $(this.MODEL.SELECTOR.AREA).append(
