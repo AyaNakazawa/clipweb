@@ -83,33 +83,33 @@
     <!-- template -->
     <!-- confirm-view -->
     <script type="text/template" id="confirm-view-template">
-      <div class="modal fade" id="<%- confirmId %>" data-html="true" tabindex="-1">
+      <div class="modal fade" id="<%- id %>" data-backdrop="<%= backdrop %>" data-keyboard="<%= keyboard %>" data-focus="<%= focus %>" tabindex="-1">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <% if (confirmTitle.length > 0) { %>
-                <div class="modal-title"><%- confirmTitle %></div>
+              <% if (title.length > 0) { %>
+                <div class="modal-title"><%- title %></div>
               <% } %>
-              <button class="close modal-close" data-dismiss="modal" id="<%- confirmId %>-close">
+              <button class="close modal-close" data-dismiss="modal" id="<%- id %>-close">
                 <i class="fal fa-times"></i>
               </button>
             </div>
-            <% if (image.length + confirmMessage.length > 0) { %>
+            <% if (image.length + content.length > 0) { %>
               <div class="modal-body">
                 <% if (image.length > 0) { %>
                   <img class="modal-img" src="<%- image %>" style="width:90%; height:auto;">
                 <% } %>
-                <% if (confirmMessage.length > 0) { %>
-                  <div class="modal-message"><%= confirmMessage %></div>
+                <% if (content.length > 0) { %>
+                  <div class="modal-message"><%= content %></div>
                 <% } %>
               </div>
             <% } %>
             <% if (type >= 1) { %>
               <div class="modal-footer">
                 <% if (type >= 2) { %>
-                  <button class="modal-button btn btn-secondary" data-dismiss="modal" id="<%- confirmId %>-no"><%- no %></button>
+                  <button class="modal-button btn btn-secondary" data-dismiss="modal" id="<%- id %>-no"><%- no %></button>
                 <% } %>
-                <button class="modal-button btn btn-primary" data-dismiss="modal" id="<%- confirmId %>-yes"><%- yes %></button>
+                <button class="modal-button btn btn-primary" data-dismiss="modal" id="<%- id %>-yes"><%- yes %></button>
               </div>
             <% } %>
           </div>

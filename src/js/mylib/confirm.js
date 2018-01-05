@@ -6,44 +6,48 @@
 // Model
 
 class ConfirmModel extends CommonModel {
-  static get TYPE_0BUTTON() { return 0; }
-  static get TYPE_1BUTTON() { return 1; }
-  static get TYPE_2BUTTON() { return 2; }
-
   constructor(
     _initSetting = {
       NAME: 'Confirm Object',
-      CONFIRM_ID: 'confirm-id',
-      CONFIRM_TITLE: '',
-      CONFIRM_MESSAGE: '',
-      EVENT_TRIGGER: 'click',
-      EVENT_SELECTOR: null,
-      AUTO_OPEN: false,
-      TYPE: 2,
-      IMAGE: '',
-      YES: 'Accept',
-      NO: 'Close',
-      FUNCTION_YES: () => {},
-      FUNCTION_NO: () => {},
-      FUNCTION_CLOSE: () => {}
+      id: '',
+      title: '',
+      content: '',
+      type: Confirm.TYPE_YES_NO,
+      show: true,
+      backdrop: true,
+      keyboard: true,
+      focus: true,
+      selector: null,
+      trigger: 'click',
+      image: '',
+      yes: 'Accept',
+      no: 'Close',
+      functionYes: null,
+      functionNo: null,
+      functionClose: null
     }
   ) {
     super(_initSetting);
 
-    this.GENERATE_SELECTOR = '#confirm-view';
-    this.TEMPLATE_SELECTOR = '#confirm-view-template';
+    this.SELECTOR = {};
+    this.SELECTOR.AREA = '#confirm-view';
+    this.SELECTOR.TEMPLATE = '#confirm-view-template';
 
-    this.TRIGGER_SHOW = 'show.bs.modal';
-    this.TRIGGER_SHOWN = 'shown.bs.modal';
-    this.TRIGGER_HIDE = 'hide.bs.modal';
-    this.TRIGGER_HIDDEN = 'hidden.bs.modal';
+    this.TRIGGER = {};
+    this.TRIGGER.SHOW = 'show.bs.modal';
+    this.TRIGGER.SHOWN = 'shown.bs.modal';
+    this.TRIGGER.HIDE = 'hide.bs.modal';
+    this.TRIGGER.HIDDEN = 'hidden.bs.modal';
   }
 
   updateSelector() {
-    this.CONFIRM_ID_SELECTOR = `#${this.CONFIRM_ID}`;
-    this.CONFIRM_ID_SELECTOR_YES = `#${this.CONFIRM_ID}-yes`;
-    this.CONFIRM_ID_SELECTOR_NO = `#${this.CONFIRM_ID}-no`;
-    this.CONFIRM_ID_SELECTOR_CLOSE = `#${this.CONFIRM_ID}-close`;
+    if (this.id == '') {
+      this.id = SHA256.getHash(new Date().formatString()).substr(0, 7);
+    }
+    this.id = `confirm-${this.id}`;
+    this.SELECTOR.ID = `#${this.id}`;
+    this.SELECTOR.YES = `${this.SELECTOR.ID}-yes`;
+    this.SELECTOR.NO = `${this.SELECTOR.ID}-no`;
   }
 }
 
@@ -60,16 +64,19 @@ class ConfirmView extends CommonView {
   }
 
   generateModal() {
-    $(this.MODEL.GENERATE_SELECTOR).html(View.getTemplate({
-      template: $(this.MODEL.TEMPLATE_SELECTOR),
+    $(this.MODEL.SELECTOR.AREA).html(View.getTemplate({
+      template: $(this.MODEL.SELECTOR.TEMPLATE),
       model: {
-        confirmId: this.MODEL.CONFIRM_ID,
-        confirmTitle: this.MODEL.CONFIRM_TITLE,
-        confirmMessage: this.MODEL.CONFIRM_MESSAGE,
-        yes: this.MODEL.YES,
-        no: this.MODEL.NO,
-        type: this.MODEL.TYPE,
-        image: this.MODEL.IMAGE
+        id: this.MODEL.id,
+        title: this.MODEL.title,
+        content: this.MODEL.content,
+        type: this.MODEL.type,
+        backdrop: this.MODEL.backdrop,
+        keyboard: this.MODEL.keyboard,
+        focus: this.MODEL.focus,
+        image: this.MODEL.image,
+        yes: this.MODEL.yes,
+        no: this.MODEL.no
       }
     }));
   }
@@ -87,24 +94,31 @@ class ConfirmEvent extends CommonEvent {
     super(_initSetting);
   }
 
-  setOnHidden() {
-    super.setOn({
-      trigger: this.MODEL.TRIGGER_HIDDEN,
-      func: () => {
-        this.CONTROLLER.remove();
+  // ----------------------------------------------------------------
+  // Set Event
+
+  setEvent(_set = null) {
+    if (_set != null) {
+      if (_set) {
+        this.setOnHide();
+        this.setOnYesClick();
+        this.setOnNoClick();
+        this.setOnOpen();
+      } else {
+        this.setOffHide();
+        this.setOffYesClick();
+        this.setOffNoClick();
+        this.setOffOpen();
       }
-    });
+    }
   }
 
-  setOffHidden() {
-    super.setOff({
-      trigger: this.MODEL.TRIGGER_HIDDEN
-    });
-  }
+  // ----------------------------------------------------------------
+  // Set Hide
 
   setOnHide() {
     super.setOn({
-      trigger: this.MODEL.TRIGGER_HIDE,
+      trigger: this.MODEL.TRIGGER.HIDE,
       func: () => {
         this.CONTROLLER.destroy();
       }
@@ -113,33 +127,38 @@ class ConfirmEvent extends CommonEvent {
 
   setOffHide() {
     super.setOff({
-      trigger: this.MODEL.TRIGGER_HIDE
+      trigger: this.MODEL.TRIGGER.HIDE
     });
   }
 
-  setEvent(_set = null) {
-    if (_set != null) {
-      if (_set) {
-        this.setOnHide();
-        this.setOnOpen();
-        this.setOnYesClick();
-        this.setOnNoClick();
-      } else {
-        this.setOffHide();
-        this.setOffOpen();
-        this.setOffYesClick();
-        this.setOffNoClick();
+  // ----------------------------------------------------------------
+  // Set Hidden
+
+  setOnHidden() {
+    super.setOn({
+      trigger: this.MODEL.TRIGGER.HIDDEN,
+      func: () => {
+        this.CONTROLLER.remove();
       }
-    }
+    });
   }
 
+  setOffHidden() {
+    super.setOff({
+      trigger: this.MODEL.TRIGGER.HIDDEN
+    });
+  }
+
+  // ----------------------------------------------------------------
+  // Set On
+
   setOnOpen() {
-    if (this.MODEL.AUTO_OPEN) {
+    if (this.MODEL.show) {
       this.CONTROLLER.openConfirm();
     } else {
       super.setOn({
-        trigger: this.MODEL.EVENT_TRIGGER,
-        selector: this.MODEL.EVENT_SELECTOR,
+        trigger: this.MODEL.trigger,
+        selector: this.MODEL.selector,
         func: () => {
           this.CONTROLLER.openConfirm();
         }
@@ -150,7 +169,7 @@ class ConfirmEvent extends CommonEvent {
   setOnYesClick() {
     super.setOn({
       trigger: 'click',
-      selector: this.MODEL.CONFIRM_ID_SELECTOR_YES,
+      selector: this.MODEL.SELECTOR.YES,
       func: () => {
         this.CONTROLLER.selectYes();
       }
@@ -160,18 +179,21 @@ class ConfirmEvent extends CommonEvent {
   setOnNoClick() {
     super.setOn({
       trigger: 'click',
-      selector: this.MODEL.CONFIRM_ID_SELECTOR_NO,
+      selector: this.MODEL.SELECTOR.NO,
       func: () => {
         this.CONTROLLER.selectNo();
       }
     });
   }
 
+  // ----------------------------------------------------------------
+  // Set Off
+
   setOffOpen() {
-    if (!this.MODEL.AUTO_OPEN) {
+    if (!this.MODEL.show) {
       super.setOff({
-        trigger: this.MODEL.EVENT_TRIGGER,
-        selector: this.MODEL.EVENT_SELECTOR
+        trigger: this.MODEL.trigger,
+        selector: this.MODEL.selector
       });
     }
   }
@@ -179,21 +201,14 @@ class ConfirmEvent extends CommonEvent {
   setOffYesClick() {
     super.setOff({
       trigger: 'click',
-      selector: this.MODEL.CONFIRM_ID_SELECTOR_YES
+      selector: this.MODEL.SELECTOR.YES
     });
   }
 
   setOffNoClick() {
     super.setOff({
       trigger: 'click',
-      selector: this.MODEL.CONFIRM_ID_SELECTOR_NO
-    });
-  }
-
-  setOffCloseClick() {
-    super.setOff({
-      trigger: 'click',
-      selector: this.MODEL.CONFIRM_ID_SELECTOR_CLOSE
+      selector: this.MODEL.SELECTOR.NO
     });
   }
 }
@@ -223,31 +238,44 @@ class ConfirmController extends CommonController {
   }
 
   openConfirm() {
-    Log.logClassKey(this.NAME, this.MODEL.CONFIRM_ID_SELECTOR, 'Open', Log.ARROW_INPUT);
-    $(this.MODEL.CONFIRM_ID_SELECTOR).modal();
+    Log.logClassKey(this.NAME, this.MODEL.id, 'Open', Log.ARROW_INPUT);
+    $(this.MODEL.SELECTOR.ID).modal();
   }
 
   selectYes() {
-    Log.logClassKey(this.NAME, this.MODEL.CONFIRM_TITLE, 'Yes', Log.ARROW_INPUT);
-    this.MODEL.FUNCTION_YES();
+    Log.logClassKey(this.NAME, this.MODEL.id, 'Yes', Log.ARROW_INPUT);
+    if (Object.getType(this.MODEL.functionYes) == 'Function') {
+      Log.logClassKey(this.NAME, 'Yes', 'Exec', Log.ARROW_INPUT);
+      this.MODEL.functionYes();
+    }
   }
 
   selectNo() {
-    Log.logClassKey(this.NAME, this.MODEL.CONFIRM_TITLE, 'No', Log.ARROW_INPUT);
-    this.MODEL.FUNCTION_NO();
+    Log.logClassKey(this.NAME, this.MODEL.id, 'No', Log.ARROW_INPUT);
+    if (Object.getType(this.MODEL.functionNo) == 'Function') {
+      Log.logClassKey(this.NAME, 'No', 'Exec', Log.ARROW_INPUT);
+      this.MODEL.functionNo();
+    }
   }
 
   destroy() {
     setTimeout(() => {
-      Log.logClassKey(this.NAME, this.MODEL.CONFIRM_TITLE, 'Destroy', Log.ARROW_INPUT);
+      Log.logClassKey(this.NAME, this.MODEL.id, 'Close', Log.ARROW_INPUT);
+      if (Object.getType(this.MODEL.functionClose) == 'Function') {
+        Log.logClassKey(this.NAME, 'Close', 'Exec', Log.ARROW_INPUT);
+        this.MODEL.functionClose();
+      }
+    });
+    setTimeout(() => {
+      Log.logClassKey(this.NAME, this.MODEL.id, 'Destroy', Log.ARROW_INPUT);
       this.EVENT.setEvent(false);
       this.EVENT.setOnHidden();
     });
   }
 
   remove() {
-    Log.logClassKey(this.NAME, this.MODEL.CONFIRM_TITLE, 'Remove', Log.ARROW_INPUT);
-    $(this.MODEL.CONFIRM_ID_SELECTOR).remove();
+    Log.logClassKey(this.NAME, this.MODEL.id, 'Remove', Log.ARROW_INPUT);
+    $(this.MODEL.SELECTOR.ID).remove();
     this.EVENT.setOffHidden();
   }
 }
