@@ -287,7 +287,9 @@ class UserView extends CommonView {
     this.clear();
 
     // Generate
-    Log.logClassKey(this.NAME, type.capitalize(), 'Generate');
+    if (type != null) {
+      Log.logClassKey(this.NAME, type.capitalize(), 'Generate');
+    }
 
     // Header
     $(this.MODEL.SELECTOR.AREA).append(
@@ -640,56 +642,36 @@ class UserController extends CommonController {
   openLogin(
     model = {}
   ) {
-    let _model = {
-      type: this.MODEL.TYPE.LOGIN,
-      view: true
-    };
-    Object.assign(_model, model);
-    this.open({type: _model['type'], model: _model});
+    model['view'] = true;
+    this.open({type: this.MODEL.TYPE.LOGIN, model: model});
   }
 
   openSetting(
     model = {}
   ) {
-    let _model = {
-      type: this.MODEL.TYPE.SETTING,
-      view: true
-    };
-    Object.assign(_model, model);
-    this.open({type: _model['type'], model: _model});
+    model['view'] = true;
+    this.open({type: this.MODEL.TYPE.SETTING, model: model});
   }
 
   openInfo(
     model = {}
   ) {
-    let _model = {
-      type: this.MODEL.TYPE.INFO,
-      view: true
-    };
-    Object.assign(_model, model);
-    this.open({type: _model['type'], model: _model});
+    model['view'] = true;
+    this.open({type: this.MODEL.TYPE.INFO, model: model});
   }
 
   openLogout(
     model = {}
   ) {
-    let _model = {
-      type: this.MODEL.TYPE.LOGOUT,
-      view: true
-    };
-    Object.assign(_model, model);
-    this.open({type: _model['type'], model: _model});
+    model['view'] = true;
+    this.open({type: this.MODEL.TYPE.LOGOUT, model: model});
   }
 
   openRegister(
     model = {}
   ) {
-    let _model = {
-      type: this.MODEL.TYPE.REGISTER,
-      view: true
-    };
-    Object.assign(_model, model);
-    this.open({type: _model['type'], model: _model});
+    model['view'] = true;
+    this.open({type: this.MODEL.TYPE.REGISTER, model: model});
   }
 
   openLoading(
