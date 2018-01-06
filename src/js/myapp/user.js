@@ -390,6 +390,17 @@ class UserEvent extends CommonEvent {
         this.CONTROLLER.submitRegister();
       }
     });
+
+    this.setValidate(
+      this.MODEL.SELECTOR.REGISTER.USERNAME
+    );
+    this.setValidate(
+      this.MODEL.SELECTOR.REGISTER.EMAIL
+    );
+    this.setValidatePassword(
+      this.MODEL.SELECTOR.REGISTER.PASSWORD,
+      this.MODEL.SELECTOR.REGISTER.PASSWORD_RE
+    );
   }
 
   setLogin () {
@@ -407,9 +418,16 @@ class UserEvent extends CommonEvent {
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.LOGIN.REGISTER}`,
       func: () => {
         Log.logClassKey(this.NAME, 'Register', 'Open');
-        this.CONTROLLER.openRegister();
+        this.CONTROLLER.open({ type: this.MODEL.TYPE.REGISTER });
       }
     });
+
+    this.setValidate(
+      this.MODEL.SELECTOR.LOGIN.EMAIL
+    );
+    this.setValidate(
+      this.MODEL.SELECTOR.LOGIN.PASSWORD
+    );
   }
 
   setLogout () {
@@ -429,7 +447,7 @@ class UserEvent extends CommonEvent {
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.INFO.SETTING}`,
       func: () => {
         Log.logClassKey(this.NAME, 'User Setting', 'Open');
-        this.CONTROLLER.openSetting();
+        this.CONTROLLER.open({ type: this.MODEL.TYPE.SETTING });
       }
     });
 
@@ -441,6 +459,20 @@ class UserEvent extends CommonEvent {
         this.CONTROLLER.submitInfo();
       }
     });
+
+    this.setValidate(
+      this.MODEL.SELECTOR.INFO.USERNAME
+    );
+    this.setValidate(
+      this.MODEL.SELECTOR.INFO.EMAIL
+    );
+    this.setValidate(
+      this.MODEL.SELECTOR.INFO.OLD_PASSWORD
+    );
+    this.setValidatePassword(
+      this.MODEL.SELECTOR.INFO.NEW_PASSWORD,
+      this.MODEL.SELECTOR.INFO.NEW_PASSWORD_RE
+    );
   }
 
   setSetting () {
@@ -448,7 +480,7 @@ class UserEvent extends CommonEvent {
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.INFO}`,
       func: () => {
         Log.logClassKey(this.NAME, 'User Info', 'Open');
-        this.CONTROLLER.openInfo();
+        this.CONTROLLER.open({ type: this.MODEL.TYPE.INFO });
       }
     });
 
