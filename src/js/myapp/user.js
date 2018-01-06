@@ -22,19 +22,21 @@ class UserModel extends CommonModel {
     this.TYPE.LOGIN = 'LOGIN';
     this.TYPE.LOGOUT = 'LOGOUT';
     this.TYPE.LEAVE = 'LEAVE';
-    this.TYPE.SETTING = 'SETTING';
     this.TYPE.INFO = 'INFO';
+    this.TYPE.SETTING = 'SETTING';
 
     this.TIMING = {};
     this.TIMING.AFTER = 'AFTER';
     this.TIMING.BEFORE = 'BEFORE';
 
     // ----------------------------------------------------------------
-    // ログインステータス
+    // ステータス
     this.STATUS = {};
     this.STATUS.LOGIN = false;
 
     // ----------------------------------------------------------------
+    // ユーザ情報
+
     // ユーザ名
     this.USERNAME = 'test';
     // メールアドレス
@@ -100,6 +102,10 @@ class UserModel extends CommonModel {
     this.VALIDATE.PATTERN.PASSWORD = '^[a-zA-Z0-9]*(?:[a-zA-Z][0-9]|[0-9][a-zA-Z])[a-zA-Z0-9]*$';
 
     // ----------------------------------------------------------------
+    // オフセット
+    this.COMMON.OFFSET = -8;
+
+    // ----------------------------------------------------------------
     // トリガー
     this.TRIGGER = {};
 
@@ -118,13 +124,6 @@ class UserModel extends CommonModel {
     // エリア
     this.SELECTOR.AREA = '#user-area';
 
-    // ログイン
-    this.SELECTOR.LOGIN = {};
-    this.SELECTOR.LOGIN.EMAIL = '#login-email';
-    this.SELECTOR.LOGIN.PASSWORD = '#login-password';
-    this.SELECTOR.LOGIN.SUBMIT = '#login-submit';
-    this.SELECTOR.LOGIN.REGISTER = '#login-register';
-
     // 登録
     this.SELECTOR.REGISTER = {};
     this.SELECTOR.REGISTER.USERNAME = '#register-username';
@@ -133,13 +132,16 @@ class UserModel extends CommonModel {
     this.SELECTOR.REGISTER.PASSWORD_RE = '#register-password-re';
     this.SELECTOR.REGISTER.SUBMIT = '#register-submit';
 
-    // ユーザ設定
-    this.SELECTOR.SETTING = {};
-    this.SELECTOR.SETTING.THEME = 'user-setting-theme';
-    this.SELECTOR.SETTING.OWNER_PUBLISH = 'user-setting-owner-publish';
-    this.SELECTOR.SETTING.CLIP_MODE = 'user-setting-clip-mode';
-    this.SELECTOR.SETTING.INFO = '#user-setting-info';
-    this.SELECTOR.SETTING.UPDATE_SUBMIT = '#user-setting-update-submit';
+    // ログイン
+    this.SELECTOR.LOGIN = {};
+    this.SELECTOR.LOGIN.EMAIL = '#login-email';
+    this.SELECTOR.LOGIN.PASSWORD = '#login-password';
+    this.SELECTOR.LOGIN.SUBMIT = '#login-submit';
+    this.SELECTOR.LOGIN.REGISTER = '#login-register';
+
+    // ログアウト
+    this.SELECTOR.LOGOUT = {};
+    this.SELECTOR.LOGOUT.SUBMIT = '#logout-submit';
 
     // ユーザ情報
     this.SELECTOR.INFO = {};
@@ -151,12 +153,13 @@ class UserModel extends CommonModel {
     this.SELECTOR.INFO.SETTING = '#user-info-setting';
     this.SELECTOR.INFO.UPDATE_SUBMIT = '#user-info-update-submit';
 
-    // ログアウト
-    this.SELECTOR.LOGOUT = {};
-    this.SELECTOR.LOGOUT.SUBMIT = '#logout-submit';
-
-    // オフセット
-    this.COMMON.OFFSET = -8;
+    // ユーザ設定
+    this.SELECTOR.SETTING = {};
+    this.SELECTOR.SETTING.THEME = 'user-setting-theme';
+    this.SELECTOR.SETTING.OWNER_PUBLISH = 'user-setting-owner-publish';
+    this.SELECTOR.SETTING.CLIP_MODE = 'user-setting-clip-mode';
+    this.SELECTOR.SETTING.INFO = '#user-setting-info';
+    this.SELECTOR.SETTING.UPDATE_SUBMIT = '#user-setting-update-submit';
 
   }
 }
@@ -739,15 +742,15 @@ class UserController extends CommonController {
 
   }
 
+  submitLogout () {
+
+  }
+
   submitInfo () {
 
   }
 
   submitSetting () {
-
-  }
-
-  submitLogout () {
 
   }
 
@@ -804,9 +807,6 @@ class UserController extends CommonController {
         this.clearHash();
       }
 
-    } else if (type == this.MODEL.TYPE.SETTING) {
-      // SETTING
-
     } else if (type == this.MODEL.TYPE.INFO) {
       // INFO
       if (timing == this.MODEL.TIMING.BEFORE) {
@@ -819,6 +819,13 @@ class UserController extends CommonController {
         );
         this.MODEL.HASH.GRAVATAR = MD5.getHash(this.MODEL.EMAIL.toLowerCase().trim());
       }
+    } else if (type == this.MODEL.TYPE.SETTING) {
+      // SETTING
+
+    } else {
+      super.logGenerate(this.updateHash, arguments);
+      super.logError('unknown type.');
+      return;
     }
   }
 
@@ -880,15 +887,6 @@ class UserController extends CommonController {
       _model['email_address'] = this.MODEL.EMAIL;
       _model['password_hash'] = this.MODEL.HASH.PASSWORD;
 
-    } else if (type == this.MODEL.TYPE.SETTING) {
-      // SETTING
-      _method = 'POST';
-      _model['hash'] = this.MODEL.HASH.USER;
-      _model['password_hash'] = this.MODEL.HASH.PASSWORD;
-      _model['theme'] = this.MODEL.THEME;
-      _model['default_owner_publish'] = this.MODEL.OWNER_PUBLISH;
-      _model['default_clip_mode'] = this.MODEL.CLIP_MODE;
-
     } else if (type == this.MODEL.TYPE.INFO) {
       // INFO
       _method = 'POST';
@@ -898,6 +896,19 @@ class UserController extends CommonController {
       _model['password_hash'] = this.MODEL.HASH.PASSWORD;
       _model['password_hash_new'] = this.MODEL.HASH.PASSWORD_NEW;
 
+    } else if (type == this.MODEL.TYPE.SETTING) {
+      // SETTING
+      _method = 'POST';
+      _model['hash'] = this.MODEL.HASH.USER;
+      _model['password_hash'] = this.MODEL.HASH.PASSWORD;
+      _model['theme'] = this.MODEL.THEME;
+      _model['default_owner_publish'] = this.MODEL.OWNER_PUBLISH;
+      _model['default_clip_mode'] = this.MODEL.CLIP_MODE;
+
+    } else {
+      super.logGenerate(this.post, arguments);
+      super.logError('unknown type.');
+      return;
     }
 
     $.ajax({
@@ -952,6 +963,10 @@ class UserController extends CommonController {
       } else {
         passwordRe[0].setCustomValidity('');
       }
+    } else {
+      super.logGenerate(this.validPassword, arguments);
+      super.logError('selector is null');
+      return;
     }
   }
 
@@ -959,15 +974,14 @@ class UserController extends CommonController {
     inputElement = null
   ) {
     if (inputElement == null) {
+      super.logGenerate(this.updateValidMessage, arguments);
+      super.logError('selector is null');
       return;
     }
-    inputElement = $(inputElement);
-    const _VALID_MESSAGE = inputElement[0].validationMessage;
-    const _VALID_ELEMENT = inputElement
+
+    $(inputElement)
       .parent('.content-input')
-      .children('.content-input-valid-message');
-
-    _VALID_ELEMENT.text(_VALID_MESSAGE);
-
+      .children('.content-input-valid-message')
+      .text(inputElement[0].validationMessage);
   }
 }
