@@ -87,7 +87,13 @@ EX.Object.assignType = function (
   }
   for (let key of Object.getOwnPropertyNames(source.__proto__)) {
     if (type.includes(Object.getType(source[key])) && key != 'constructor') {
-      target.__proto__[key] = source[key];
+      Object.defineProperty(
+        target.__proto__,
+        key,
+        {
+          value: source[key]
+        }
+      );
     }
   }
   return target;
