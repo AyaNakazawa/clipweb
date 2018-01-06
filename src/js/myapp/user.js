@@ -155,9 +155,9 @@ class UserModel extends CommonModel {
 
     // ユーザ設定
     this.SELECTOR.SETTING = {};
-    this.SELECTOR.SETTING.THEME = 'user-setting-theme';
-    this.SELECTOR.SETTING.OWNER_PUBLISH = 'user-setting-owner-publish';
-    this.SELECTOR.SETTING.CLIP_MODE = 'user-setting-clip-mode';
+    this.SELECTOR.SETTING.THEME = '#user-setting-theme';
+    this.SELECTOR.SETTING.OWNER_PUBLISH = '#user-setting-owner-publish';
+    this.SELECTOR.SETTING.CLIP_MODE = '#user-setting-clip-mode';
     this.SELECTOR.SETTING.INFO = '#user-setting-info';
     this.SELECTOR.SETTING.UPDATE_SUBMIT = '#user-setting-update-submit';
 
@@ -573,6 +573,7 @@ class UserEvent extends CommonEvent {
       trigger: this.MODEL.TRIGGER.POST.SUCCESS,
       func: () => {
         super.log(successOpenType.capitalize(), 'Open');
+        this.CONTROLLER.updateHash(type, this.MODEL.TIMING.AFTER);
         this.CONTROLLER.open({
           type: successOpenType,
           model: successModel
@@ -889,7 +890,7 @@ class UserController extends CommonController {
     let _cache = false;
     let _dateType = 'json';
 
-    _model['type'] = `${this.MODEL.KEY}.${type}`;
+    _model['type'] = `${this.MODEL.KEY}.${type.toLowerCase()}`;
 
     this.updateHash(type, this.MODEL.TIMING.BEFORE);
 
@@ -974,7 +975,6 @@ class UserController extends CommonController {
         this.EVENT.trigger({ trigger: this.MODEL.TRIGGER.POST.ERROR });
       },
       complete: (jqXHR, textStatus) => {
-        this.updateHash(type, this.MODEL.TIMING.AFTER);
         this.EVENT.trigger({ trigger: this.MODEL.TRIGGER.POST.COMPLETE });
       }
     });
