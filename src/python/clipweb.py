@@ -43,15 +43,15 @@ class Clipweb:
     def check_type(cls, _type=None):
         # print(cls._type)
         _type = _type.split(".")
-        if _type[0] == "USER":
+        if _type[0] == "user":
             # print("user")
             cls.check_user(_type[1])
 
-        elif _type[0] == "CLIP":
+        elif _type[0] == "clip":
             # print("clip")
             cls.check_clip(_type[1])
 
-        elif _type[0] == "SHARE":
+        elif _type[0] == "share":
             # print("share")
             cls.check_share(_type[1])
 
@@ -62,23 +62,23 @@ class Clipweb:
     def check_user(cls, _type=None):
         USER = user.User()
         # print("check user")
-        if _type == "REGISTER":
+        if _type == "register":
             # print("register")
             USER.register()
 
-        elif _type == "LOGIN":
+        elif _type == "login":
             # print("login")
             USER.login()
 
-        elif _type == "SETTING":
+        elif _type == "setting":
             # print("setting")
             USER.setting()
 
-        elif _type == "INFO":
+        elif _type == "info":
             # print("info")
             USER.info()
 
-        elif _type == "LEAVE":
+        elif _type == "leave":
             # print("leave")
             USER.leave()
 
@@ -89,15 +89,15 @@ class Clipweb:
     def check_clip(cls, _type=None):
         CLIP = clip.Clip()
         # print("check clip")
-        if _type == "NEW":
+        if _type == "new":
             # print("new")
             CLIP.new()
 
-        elif _type == "SAVE":
+        elif _type == "save":
             # print("save")
             CLIP.save()
 
-        elif _type == "DELETE":
+        elif _type == "delete":
             # print("delete")
             CLIP.delete()
 
@@ -108,19 +108,19 @@ class Clipweb:
     def check_share(cls, _type=None):
         SHARE = share.Share()
         # print("check share")
-        if _type == "ALIVE":
+        if _type == "alive":
             # print("alive")
             SHARE.alive()
 
-        elif _type == "READ":
+        elif _type == "read":
             # print("read")
             SHARE.read()
 
-        elif _type == "WRITE":
+        elif _type == "write":
             # print("write")
             SHARE.write()
 
-        elif _type == "LEAVE":
+        elif _type == "leave":
             # print("leave")
             SHARE.leave()
 

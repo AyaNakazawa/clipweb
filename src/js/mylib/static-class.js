@@ -332,7 +332,7 @@ class LocalStorage {
 
   // Build key
   static buildKey(_key) {
-    return `${Project.NAME_KEY}.${_key}`;
+    return `${Project.KEY}.${_key}`;
   }
 
   // All clear localStorage

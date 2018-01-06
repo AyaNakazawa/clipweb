@@ -8,7 +8,7 @@ class Project {
   }
 
   static get KEY() {
-    return 'CLPW';
+    return 'cw';
   }
 
   static get ABBREVIATION() {

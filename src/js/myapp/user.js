@@ -15,7 +15,7 @@ class UserModel extends CommonModel {
 
     // ----------------------------------------------------------------
     // 識別子
-    this.KEY = 'USER';
+    this.KEY = 'user';
 
     this.TYPE = {};
     this.TYPE.REGISTER = 'REGISTER';
