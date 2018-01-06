@@ -35,6 +35,11 @@ class ScrollView extends CommonView {
 
   scroll() {
     Log.logClass(this.NAME, 'Scroll');
+    if (this.MODEL.selector == null) {
+      super.logGenerate(this.scroll, arguments);
+      super.logCaution('selector is null');
+      return;
+    }
     $(this.MODEL.COMMON.BODY).animate(
       {
         scrollTop: $(this.MODEL.selector).offset().top + this.MODEL.offset
@@ -88,6 +93,15 @@ class ScrollController extends CommonController {
   ) {
     super(_model, _initSetting);
 
+    this.initScrollView();
+  }
+
+  initScrollView () {
+    if (this.MODEL.selector == null) {
+      super.logGenerate(this.initScrollView, arguments);
+      super.logCaution('scroll selector is null');
+      return;
+    }
     this.EVENT.setOnScroll();
   }
 }

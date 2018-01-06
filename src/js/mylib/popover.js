@@ -58,11 +58,8 @@ class PopoverView extends CommonView {
 
   setView(view = null) {
     if (view === null) {
-      Log.logCautionCommon({
-        obj: this,
-        func: this.setView,
-        args: arguments
-      });
+      super.logGenerate(this.setView, arguments);
+      super.logCaution();
       return null;
     }
 
@@ -71,12 +68,8 @@ class PopoverView extends CommonView {
     } else if (!view) {
       return this.hide();
     } else {
-      Log.logCautionCommon({
-        obj: this,
-        func: this.setView,
-        args: arguments,
-        message: 'unknown view.'
-      });
+      super.logGenerate(this.setView, arguments);
+      super.logCaution('unknown view.');
       return null;
     }
   }

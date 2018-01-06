@@ -49,11 +49,8 @@ class NavView extends CommonView {
     fa = null
   } = {}) {
     if (id == null || name == null) {
-      Log.logCautionCommon({
-        obj: this,
-        func: this.addNavItem,
-        args: arguments
-      });
+      super.logGenerate(this.addNavItem, arguments);
+      super.logCaution();
       return;
     }
 
@@ -81,11 +78,8 @@ class NavView extends CommonView {
     id = null
   }) {
     if (id == null) {
-      Log.logCautionCommon({
-        obj: this,
-        func: this.addNavItem,
-        args: arguments
-      });
+      super.logGenerate(this.removeNavItem, arguments);
+      super.logCaution();
       return;
     }
 

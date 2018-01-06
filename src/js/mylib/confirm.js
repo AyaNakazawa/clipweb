@@ -9,9 +9,9 @@ class ConfirmModel extends CommonModel {
   constructor(
     _initSetting = {
       NAME: 'Confirm Object',
-      id: '',
+      id: null,
       title: '',
-      content: '',
+      content: null,
       type: Confirm.TYPE_YES_NO,
       show: true,
       backdrop: true,
@@ -41,7 +41,8 @@ class ConfirmModel extends CommonModel {
   }
 
   updateSelector() {
-    if (this.id == '') {
+    if (this.id == null) {
+      Log.logClassKey(this.NAME, 'ID', 'Generate', Log.ARROW_INPUT);
       this.id = SHA256.getHash(new Date().formatString()).substr(0, 7);
     }
     this.id = `confirm-${this.id}`;
@@ -232,6 +233,11 @@ class ConfirmController extends CommonController {
   }
 
   initConfirm() {
+    if (this.MODEL.content == null) {
+      super.logGenerate(this.initConfirm, arguments);
+      super.logCaution('content is null');
+      return;
+    }
     this.MODEL.updateSelector();
     this.VIEW.generateModal();
     this.EVENT.setEvent(true);

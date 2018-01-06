@@ -190,11 +190,8 @@ class CommonView extends CommonClass {
     selector = null
   ) {
     if (selector == null) {
-      Log.logCautionCommon({
-        obj: this,
-        func: this.skip,
-        args: arguments
-      });
+      super.logGenerate(this.skip, arguments);
+      super.logCaution();
       return null;
     }
 
@@ -210,11 +207,8 @@ class CommonView extends CommonClass {
     easing = this.MODEL.COMMON.EASING.CLEAR
   } = {}) {
     if (selector == null) {
-      Log.logCautionCommon({
-        obj: this,
-        func: this.clear,
-        args: arguments
-      });
+      super.logGenerate(this.clear, arguments);
+      super.logCaution();
       return null;
     }
     Log.logClassKey(this.NAME, 'View', 'Clear', Log.ARROW_INPUT);
@@ -242,11 +236,8 @@ class CommonView extends CommonClass {
     easing = this.MODEL.COMMON.EASING.SHOW
   } = {}) {
     if (selector == null) {
-      Log.logCautionCommon({
-        obj: this,
-        func: this.show,
-        args: arguments
-      });
+      super.logGenerate(this.show, arguments);
+      super.logCaution();
       return null;
     }
 
@@ -268,11 +259,8 @@ class CommonView extends CommonClass {
     easing = this.MODEL.COMMON.EASING.HIDE
   } = {}) {
     if (selector == null) {
-      Log.logCautionCommon({
-        obj: this,
-        func: this.hide,
-        args: arguments
-      });
+      super.logGenerate(this.hide, arguments);
+      super.logCaution();
       return null;
     }
 
@@ -296,11 +284,8 @@ class CommonView extends CommonClass {
     callback = null
   }) {
     if (view == null) {
-      Log.logCautionCommon({
-        obj: this,
-        func: this.setView,
-        args: arguments
-      });
+      super.logGenerate(this.setView, arguments);
+      super.logCaution();
       return null;
     }
     Log.logClassKey(this.NAME, 'View', view, Log.ARROW_INPUT);
@@ -413,12 +398,8 @@ class CommonView extends CommonClass {
         }
 
       } else {
-        Log.logCautionCommon({
-          obj: this,
-          func: this.setView,
-          args: arguments,
-          message: 'unknown type.'
-        });
+        super.logGenerate(this.setView, arguments);
+        super.logCaution('unknown type.');
         return null;
       }
     } else if (!view) {
@@ -487,12 +468,8 @@ class CommonView extends CommonClass {
         }
 
       } else {
-        Log.logCautionCommon({
-          obj: this,
-          func: this.setView,
-          args: arguments,
-          message: 'unknown type.'
-        });
+        super.logGenerate(this.setView, arguments);
+        super.logCaution('unknown type.');
         return null;
       }
     }
@@ -503,14 +480,11 @@ class CommonView extends CommonClass {
   getView() {
     const result = this.MODEL.COMMON.VIEW;
     if (result != true && result != false) {
-      Log.logCautionCommon({
-        obj: this,
-        func: this.getView,
-        message: [
-          'unknown current view.',
-          `this.MODEL.COMMON.VIEW: ${this.MODEL.COMMON.VIEW}`
-        ]
-      });
+      super.logGenerate(this.getView, arguments);
+      super.logCaution([
+        'unknown current view.',
+        `this.MODEL.COMMON.VIEW: ${this.MODEL.COMMON.VIEW}`
+      ]);
     }
     return result;
   }
@@ -528,11 +502,8 @@ class CommonView extends CommonClass {
     callback = null
   } = {}) {
     if (selector == null || speed == null || easing == null) {
-      Log.logCautionCommon({
-        obj: this,
-        func: this.scroll,
-        args: arguments
-      });
+      super.logGenerate(this.scroll, arguments);
+      super.logCaution();
       return null;
     }
     Log.logClassKey(this.NAME, 'View', 'Scroll');
@@ -591,11 +562,8 @@ class CommonView extends CommonClass {
     close = true
   } = {}) {
     if (selector == null) {
-      Log.logCautionCommon({
-        obj: this,
-        func: this.generateAlert,
-        args: arguments
-      });
+      super.logGenerate(this.generateAlert, arguments);
+      super.logCaution();
       return;
     }
 
@@ -612,11 +580,8 @@ class CommonView extends CommonClass {
     header = 'Loading'
   } = {}) {
     if (selector == null) {
-      Log.logCautionCommon({
-        obj: this,
-        func: this.generateLoading,
-        args: arguments
-      });
+      super.logGenerate(this.generateLoading, arguments);
+      super.logCaution();
       return;
     }
 
@@ -666,11 +631,8 @@ class CommonEvent extends CommonClass {
     selector = this.MODEL.COMMON.SELECTOR.ROOT
   } = {}) {
     if (trigger == null) {
-      Log.logCautionCommon({
-        obj: this,
-        func: this.trigger,
-        args: arguments
-      });
+      super.logGenerate(this.trigger, arguments);
+      super.logCaution();
       return;
     }
 

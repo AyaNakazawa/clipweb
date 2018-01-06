@@ -550,11 +550,8 @@ class UserEvent extends CommonEvent {
     errorModel = {}
   }) {
     if (type == null || successOpenType == null) {
-      Log.logCautionCommon({
-        obj: this,
-        func: this.setOnLoading,
-        args: arguments
-      });
+      super.logGenerate(this.setOnLoading, arguments);
+      super.logCaution();
       return;
     }
     Log.logClassKey(this.NAME, type.capitalize(), 'Loading');
@@ -628,11 +625,8 @@ class UserController extends CommonController {
     model = {}
   }) {
     if (type == null) {
-      Log.logErrorCommon({
-        obj: this,
-        func: this.open,
-        args: arguments
-      });
+      super.logGenerate(this.open, arguments);
+      super.logError();
       return;
     }
     model['type'] = type;
@@ -673,11 +667,8 @@ class UserController extends CommonController {
     type = null
   ) {
     if (type == null) {
-      Log.logCautionCommon({
-        obj: this,
-        func: this.openLoading,
-        args: arguments
-      });
+      super.logGenerate(this.openLoading, arguments);
+      super.logCaution();
       return;
     }
     let _loadingHeader = null;
@@ -701,12 +692,8 @@ class UserController extends CommonController {
       _loadingHeader = 'Save your Info';
 
     } else {
-      Log.logCautionCommon({
-        obj: this,
-        func: this.openLoading,
-        args: arguments,
-        message: 'unknown type.'
-      });
+      super.logGenerate(this.openLoading, arguments);
+      super.logCaution('unknown type.');
       return;
     }
 

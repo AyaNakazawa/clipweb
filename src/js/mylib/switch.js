@@ -62,10 +62,23 @@ class SwitchView extends CommonView {
     super(_initSetting);
   }
 
+  switchView() {
+    Log.logClassKey(this.NAME, 'View', 'Switch', Log.ARROW_INPUT);
+    this.setView(!this.MODEL.view);
+  }
+
+  getView() {
+    return this.MODEL.view;
+  }
+
   setView(_view = null, _speed = this.MODEL.speed) {
     Log.logClassKey(this.NAME, 'View', _view, Log.ARROW_INPUT);
 
-    if (_view != null) {
+    if (_view == null) {
+      super.logGenerate(this.setView, arguments);
+      super.logCaution('view is null');
+      return;
+    } else if (_view != null) {
       if (_view) {
         if (eventSelector != null) {
           $(this.MODEL.eventSelector).addClass(this.MODEL.ACTIVE);
@@ -131,16 +144,12 @@ class SwitchController extends CommonController {
   }
 
   initSwitchView() {
+    this.MODEL.compile();
     if (this.MODEL.selector == null) {
-      Log.logCaution({
-        obj: this,
-        func: this.initSwitchView,
-        args: arguments,
-        message: 'Null selector'
-      });
+      super.logGenerate(this.initSwitchView, arguments);
+      super.logCaution('switch selector is null');
       return;
     }
-    this.MODEL.compile();
     this.initView();
     this.VIEW.setView(this.MODEL.view, 0);
     this.EVENT.setOnSwitch();
@@ -161,14 +170,5 @@ class SwitchController extends CommonController {
         }
       }
     }
-  }
-
-  getCurrentView() {
-    return this.MODEL.view;
-  }
-
-  switchView() {
-    Log.logClass(this.NAME, 'Switch');
-    this.VIEW.setView(!this.MODEL.view);
   }
 }

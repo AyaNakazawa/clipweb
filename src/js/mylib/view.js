@@ -97,11 +97,8 @@ class View {
   } = {}) {
     message = message || text;
     if (message == null) {
-      Log.logCautionCommon({
-        obj: this,
-        func: this.getAlert,
-        args: arguments
-      });
+      super.logGenerate(this.getAlert, arguments);
+      super.logCaution();
       return;
     }
 
@@ -122,11 +119,8 @@ class View {
     header = 'LOADING'
   } = {}) {
     if (header == null) {
-      Log.logCautionCommon({
-        obj: this,
-        func: this.getLoading,
-        args: arguments
-      });
+      super.logGenerate(this.getLoading, arguments);
+      super.logCaution();
       return;
     }
 
