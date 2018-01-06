@@ -667,7 +667,8 @@ class UserController extends CommonController {
       return;
     }
 
-    this.VIEW.generateArea({
+    this.open({
+      type: type,
       loadingHeader: _loadingHeader
     });
   }
@@ -749,6 +750,7 @@ class UserController extends CommonController {
   submitLogout () {
 
   }
+
   // ----------------------------------------------------------------
   // update
 
