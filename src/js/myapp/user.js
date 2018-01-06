@@ -7,11 +7,11 @@
 
 class UserModel extends CommonModel {
   constructor(
-    _initSetting = {
+    initSetting = {
       NAME: 'User Object'
     }
   ) {
-    super(_initSetting);
+    super(initSetting);
 
     this.KEY = 'USER';
 
@@ -155,11 +155,11 @@ class UserModel extends CommonModel {
 
 class UserView extends CommonView {
   constructor(
-    _initSetting = {
+    initSetting = {
       NAME: 'User View'
     }
   ) {
-    super(_initSetting);
+    super(initSetting);
   }
 
   generateArea({
@@ -328,11 +328,11 @@ class UserView extends CommonView {
 
 class UserEvent extends CommonEvent {
   constructor(
-    _initSetting = {
+    initSetting = {
       NAME: 'User Event'
     }
   ) {
-    super(_initSetting);
+    super(initSetting);
   }
 
   setEvent() {
@@ -606,15 +606,15 @@ class UserEvent extends CommonEvent {
 
 class UserController extends CommonController {
   constructor(
-    _model = {},
-    _initSetting = {
+    model = {},
+    initSetting = {
       NAME: 'User Controller',
       MODEL: new UserModel(),
       VIEW: new UserView(),
       EVENT: new UserEvent()
     }
   ) {
-    super(_model, _initSetting);
+    super(model, initSetting);
 
     this.EVENT.setEvent();
     this.open({type: this.MODEL.TYPE.REGISTER});
@@ -642,35 +642,30 @@ class UserController extends CommonController {
   openLogin(
     model = {}
   ) {
-    model['view'] = true;
     this.open({type: this.MODEL.TYPE.LOGIN, model: model});
   }
 
   openSetting(
     model = {}
   ) {
-    model['view'] = true;
     this.open({type: this.MODEL.TYPE.SETTING, model: model});
   }
 
   openInfo(
     model = {}
   ) {
-    model['view'] = true;
     this.open({type: this.MODEL.TYPE.INFO, model: model});
   }
 
   openLogout(
     model = {}
   ) {
-    model['view'] = true;
     this.open({type: this.MODEL.TYPE.LOGOUT, model: model});
   }
 
   openRegister(
     model = {}
   ) {
-    model['view'] = true;
     this.open({type: this.MODEL.TYPE.REGISTER, model: model});
   }
 
@@ -726,48 +721,32 @@ class UserController extends CommonController {
   submitRegister() {
     const _TYPE = this.MODEL.TYPE.REGISTER;
 
-    let _isRegister = false;
-    let _isCorrectUsername = true;
-    let _isCorrectEmail = true;
-    let _isCorrectPassword = true;
-    let _isCorrectPasswordRe = true;
+    let _validUsername = true;
+    let _validEmail = true;
+    let _validPassword = true;
+    let _validPasswordRe = true;
 
     const _USERNAME = $(this.MODEL.SELECTOR.REGISTER.USERNAME);
     const _EMAIL = $(this.MODEL.SELECTOR.REGISTER.EMAIL);
     const _PASSWORD = $(this.MODEL.SELECTOR.REGISTER.PASSWORD);
     const _PASSWORD_RE = $(this.MODEL.SELECTOR.REGISTER.PASSWORD_RE);
 
-    if (!_USERNAME[0].validity.valid) {
-      _isCorrectUsername = false;
-    }
+    _validUsername = _USERNAME[0].validity.valid;
+    _validEmail = _EMAIL[0].validity.valid;
+    _validPassword = _PASSWORD[0].validity.valid;
+    _validPasswordRe = _PASSWORD_RE[0].validity.valid;
 
-    if (!_EMAIL[0].validity.valid) {
-      _isCorrectEmail = false;
-    }
-
-    if (!_PASSWORD[0].validity.valid) {
-      _isCorrectPassword = false;
-    }
-
-    if (!_PASSWORD_RE[0].validity.valid) {
-      _isCorrectPasswordRe = false;
-    }
-
-    if (_isCorrectUsername) {
+    if (_validUsername) {
       this.MODEL.USERNAME = _USERNAME.val().trim();
     }
-    if (_isCorrectEmail) {
+    if (_validEmail) {
       this.MODEL.EMAIL = _EMAIL.val().trim();
     }
-    if (_isCorrectPassword) {
+    if (_validPassword && _validPasswordRe) {
       this.MODEL.PASSWORD = _PASSWORD.val();
     }
 
-    if (_isCorrectUsername && _isCorrectEmail && _isCorrectPassword && _isCorrectPasswordRe) {
-      _isRegister = true;
-    }
-
-    if (_isRegister) {
+    if (_validUsername && _validEmail && _validPassword && _validPasswordRe) {
       this.EVENT.setOnLoading({
         type: _TYPE,
         successOpenType: this.MODEL.TYPE.LOGIN,
@@ -790,7 +769,9 @@ class UserController extends CommonController {
 
     } else {
       this.openRegister({
-        alertMessage: 'すべての項目を正しく入力してください。',
+        alertMessage: (
+          View.div({content: 'すべての項目を正しく入力してください。'})
+        ),
         alertType: View.ALERT_WARNING
       });
     }
@@ -849,7 +830,6 @@ class UserController extends CommonController {
       // LOGOUT
       if (timing == this.MODEL.TIMING.BEFORE) {
         // BEFORE
-        this.clearHash();
       } else if (timing == this.MODEL.TIMING.AFTER) {
         // AFTER
         this.clearHash();

@@ -4,14 +4,14 @@
 
 class CommonClass {
   constructor(
-    _initSetting = {},
-    _common = {
+    initSetting = {},
+    common = {
       NAME: 'Common Class',
       VIEW_NAME: false,
       VIEW_OBJECT: false
     }
   ) {
-    Object.assign(this, _common, _initSetting);
+    Object.assign(this, common, initSetting);
 
     if (this.VIEW_OBJECT) {
       this.showNameModel();
@@ -57,12 +57,12 @@ class CommonClass {
 
 class CommonModel extends CommonClass {
   constructor(
-    _initSetting = {},
-    _common = {
+    initSetting = {},
+    common = {
       NAME: 'Common Object'
     }
   ) {
-    super(_initSetting, _common);
+    super(initSetting, common);
 
     this.COMMON = {};
     this.COMMON.BODY = 'html, body';
@@ -146,12 +146,12 @@ class CommonModel extends CommonClass {
 
 class CommonView extends CommonClass {
   constructor(
-    _initSetting = {},
-    _common = {
+    initSetting = {},
+    common = {
       NAME: 'Common View'
     }
   ) {
-    super(_initSetting, _common);
+    super(initSetting, common);
   }
 
   skip(
@@ -600,12 +600,12 @@ class CommonView extends CommonClass {
 
 class CommonEvent extends CommonClass {
   constructor(
-    _initSetting = {},
-    _common = {
+    initSetting = {},
+    common = {
       NAME: 'Common Event'
     }
   ) {
-    super(_initSetting, _common);
+    super(initSetting, common);
   }
 
   setOn({
@@ -651,9 +651,9 @@ class CommonEvent extends CommonClass {
 
 class CommonController extends CommonClass {
   constructor(
-    _model = {},
-    _initSetting = {},
-    _common = {
+    model = {},
+    initSetting = {},
+    common = {
       NAME: 'Common Controller',
       VIEW_OBJECT: true,
       MODEL: new CommonModel(),
@@ -661,8 +661,8 @@ class CommonController extends CommonClass {
       EVENT: new CommonEvent()
     }
   ) {
-    super(_initSetting, _common);
-    Object.assign(this.MODEL, _model);
+    super(initSetting, common);
+    Object.assign(this.MODEL, model);
     Object.assignType(this, this.EVENT, 'Function');
     Object.assignType(this, this.VIEW, 'Function');
     Object.assignType(this, this.MODEL, 'Function');
@@ -691,12 +691,12 @@ class CommonController extends CommonClass {
 
 class CommonProcess extends CommonClass {
   constructor(
-    _initSetting = {},
-    _common = {
+    initSetting = {},
+    common = {
       NAME: 'Common Process',
       VIEW_OBJECT: true
     }
   ) {
-    super(_initSetting, _common);
+    super(initSetting, common);
   }
 }

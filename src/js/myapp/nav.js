@@ -7,11 +7,11 @@
 
 class NavModel extends CommonModel {
   constructor(
-    _initSetting = {
+    initSetting = {
       NAME: 'Nav Object',
     }
   ) {
-    super(_initSetting);
+    super(initSetting);
 
     this.SELECTOR_AREA = '#navbar';
     this.SELECTOR_NAV = '.navbar-nav';
@@ -30,11 +30,11 @@ class NavModel extends CommonModel {
 
 class NavView extends CommonView {
   constructor(
-    _initSetting = {
+    initSetting = {
       NAME: 'Nav View'
     }
   ) {
-    super(_initSetting);
+    super(initSetting);
   }
 
   clearNavItem() {
@@ -139,11 +139,11 @@ class NavView extends CommonView {
 
 class NavEvent extends CommonEvent {
   constructor(
-    _initSetting = {
+    initSetting = {
       NAME: 'Nav Event'
     }
   ) {
-    super(_initSetting);
+    super(initSetting);
   }
 
   setEvent() {
@@ -210,15 +210,15 @@ class NavEvent extends CommonEvent {
 
 class NavController extends CommonController {
   constructor(
-    _model = {},
-    _initSetting = {
+    model = {},
+    initSetting = {
       NAME: 'Nav Controller',
       MODEL: new NavModel(),
       VIEW: new NavView(),
       EVENT: new NavEvent()
     }
   ) {
-    super(_model, _initSetting);
+    super(model, initSetting);
 
     this.EVENT.setEvent();
     this.VIEW.generateNotLogin();
