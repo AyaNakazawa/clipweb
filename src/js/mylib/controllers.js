@@ -100,7 +100,7 @@ class Popover extends PopoverController {
  * Scroll
  * Doc: https://getbootstrap.com/docs/4.0/components/popovers/#options
  * @param  {String} NAME           NAME of Object
- * @param  {Number} selector       Selector of Scroll
+ * @param  {String} selector       Selector of Scroll
  * @param  {Number} speed          Speed of Scroll
  * @param  {String} easing         Easing of Scroll
  * @param  {Number} offset         Offset of Scroll
