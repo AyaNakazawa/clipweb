@@ -982,6 +982,6 @@ class UserController extends CommonController {
     $(inputElement)
       .parent('.content-input')
       .children('.content-input-valid-message')
-      .text(inputElement[0].validationMessage);
+      .text($(inputElement)[0].validationMessage);
   }
 }
