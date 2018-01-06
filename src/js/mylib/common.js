@@ -13,6 +13,8 @@ class CommonClass {
   ) {
     Object.assign(this, common, initSetting);
 
+    this.OBJECT = {};
+
     if (this.VIEW_OBJECT) {
       this.showNameModel();
 
@@ -49,6 +51,36 @@ class CommonClass {
     this.showName(name);
     // Write model
     this.showModel(model);
+  }
+
+  logGenerate(func = null, args = null) {
+    this.OBJECT.LOG['obj'] = this;
+    if (func != null) {
+      this.OBJECT.LOG['func'] = func;
+    }
+    if (args != null) {
+      this.OBJECT.LOG['args'] = args;
+    }
+    return true;
+  }
+
+  logError(message = null) {
+    Log.logError(this.logWithMessage(message));
+  }
+
+  logCaution(message = null) {
+    Log.logCaution(this.logWithMessage(message));
+  }
+
+  logWithMessage(message = null) {
+    let model = this.OBJECT.LOG;
+    if (message == null) {
+      return model;
+    } else if (message.length > 0) {
+      model['message'] = message;
+      return model;
+    }
+    return model;
   }
 }
 
