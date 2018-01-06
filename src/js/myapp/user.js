@@ -462,9 +462,9 @@ class UserEvent extends CommonEvent {
   // ----------------------------------------------------------------
   // change & key
 
-  setValidate ({
+  setValidate (
     selector = null
-  } = {}) {
+  ) {
     if (selector == null) {
       super.logGenerate(this.setValidate, arguments);
       super.logError();
@@ -481,10 +481,10 @@ class UserEvent extends CommonEvent {
     });
   }
 
-  setValidatePassword ({
+  setValidatePassword (
     selector = null,
     selectorRe = null
-  } = {}) {
+  ) {
     if (selector == null || selectorRe == null) {
       super.logGenerate(this.setValidatePassword, arguments);
       super.logError();
