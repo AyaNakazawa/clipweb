@@ -6,16 +6,17 @@
 // Model
 
 class UserModel extends CommonModel {
-  constructor(
+  constructor (
     initSetting = {
       NAME: 'User Object'
     }
   ) {
     super(initSetting);
 
+    // ----------------------------------------------------------------
+    // 識別子
     this.KEY = 'USER';
 
-    // 識別子
     this.TYPE = {};
     this.TYPE.REGISTER = 'REGISTER';
     this.TYPE.LOGIN = 'LOGIN';
@@ -28,17 +29,12 @@ class UserModel extends CommonModel {
     this.TIMING.AFTER = 'AFTER';
     this.TIMING.BEFORE = 'BEFORE';
 
-    // トリガー
-    this.TRIGGER = {};
-    this.TRIGGER.POST = {};
-    this.TRIGGER.POST.SUCCESS = 'cw.user.post.success';
-    this.TRIGGER.POST.ERROR = 'cw.user.post.error';
-    this.TRIGGER.POST.COMPLETE = 'cw.user.post.complete';
-
+    // ----------------------------------------------------------------
     // ログインステータス
     this.STATUS = {};
     this.STATUS.LOGIN = false;
 
+    // ----------------------------------------------------------------
     // ユーザ名
     this.USERNAME = 'test';
     // メールアドレス
@@ -82,6 +78,7 @@ class UserModel extends CommonModel {
     this.OWNER_PUBLISH = 'public';
     this.CLIP_MODE = 'private';
 
+    // ----------------------------------------------------------------
     // テンプレート
     this.TEMPLATE = {};
     this.TEMPLATE.LOGIN = '#login-template';
@@ -90,6 +87,7 @@ class UserModel extends CommonModel {
     this.TEMPLATE.INFO = '#user-info-template';
     this.TEMPLATE.LOGOUT = '#logout-template';
 
+    // ----------------------------------------------------------------
     // バリデーション
     this.VALIDATE = {};
     this.VALIDATE.LENGTH = {};
@@ -101,6 +99,19 @@ class UserModel extends CommonModel {
     this.VALIDATE.PATTERN = {};
     this.VALIDATE.PATTERN.PASSWORD = '^[a-zA-Z0-9]*(?:[a-zA-Z][0-9]|[0-9][a-zA-Z])[a-zA-Z0-9]*$';
 
+    // ----------------------------------------------------------------
+    // トリガー
+    this.TRIGGER = {};
+
+    this.TRIGGER.VIEW = {};
+    this.TRIGGER.VIEW.CLOSE = 'cw.user.view.close';
+
+    this.TRIGGER.POST = {};
+    this.TRIGGER.POST.SUCCESS = 'cw.user.post.success';
+    this.TRIGGER.POST.ERROR = 'cw.user.post.error';
+    this.TRIGGER.POST.COMPLETE = 'cw.user.post.complete';
+
+    // ----------------------------------------------------------------
     // セレクタ
     this.SELECTOR = {};
 
@@ -154,7 +165,7 @@ class UserModel extends CommonModel {
 // View
 
 class UserView extends CommonView {
-  constructor(
+  constructor (
     initSetting = {
       NAME: 'User View'
     }
@@ -162,7 +173,7 @@ class UserView extends CommonView {
     super(initSetting);
   }
 
-  generateArea({
+  generateArea ({
     type = null,
     view = false,
     header = null,
@@ -327,7 +338,7 @@ class UserView extends CommonView {
 // Event
 
 class UserEvent extends CommonEvent {
-  constructor(
+  constructor (
     initSetting = {
       NAME: 'User Event'
     }
@@ -335,29 +346,28 @@ class UserEvent extends CommonEvent {
     super(initSetting);
   }
 
-  setEvent() {
-    this.setClickClose();
-    this.setClickLogin();
-    this.setClickLoginRegister();
-    this.setKeyupRegisterPasswordRe();
-    this.setChangeRegisterUsername();
-    this.setChangeRegisterEmail();
-    this.setChangeRegisterPassword();
-    this.setChangeRegisterPasswordRe();
-    this.setClickSetting();
-    this.setClickSettingUpdate();
-    this.setClickInfo();
-    this.setClickInfoUpdate();
-    this.setClickRegister();
-    this.setClickLogout();
+  setEvent () {
+    this.setClose();
+    this.setRegister();
+    this.setLogin();
+    this.setLogout();
+    this.setInfo();
+    this.setSetting();
   }
 
   // ----------------------------------------------------------------
-  // general
+  // close
 
-  setClickClose() {
+  setClose () {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} .content-header-button`,
+      func: () => {
+        this.trigger({trigger: this.MODEL.TRIGGER.VIEW.CLOSE});
+      }
+    });
+
+    super.setOn({
+      trigger: this.MODEL.TRIGGER.VIEW.CLOSE,
       func: () => {
         Log.logClassKey(this.NAME, 'Close', 'Submit');
         this.VIEW.hide();
@@ -366,9 +376,20 @@ class UserEvent extends CommonEvent {
   }
 
   // ----------------------------------------------------------------
-  // login
+  // type
 
-  setClickLogin() {
+  setRegister () {
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.REGISTER.SUBMIT}`,
+      func: () => {
+        Log.logClassKey(this.NAME, 'Register', 'Submit');
+        this.VIEW.hide();
+        this.CONTROLLER.submitRegister();
+      }
+    });
+  }
+
+  setLogin () {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.LOGIN.SUBMIT}`,
       func: () => {
@@ -378,9 +399,7 @@ class UserEvent extends CommonEvent {
         this.CONTROLLER.submitLogin();
       }
     });
-  }
 
-  setClickLoginRegister() {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.LOGIN.REGISTER}`,
       func: () => {
@@ -390,97 +409,19 @@ class UserEvent extends CommonEvent {
     });
   }
 
-  // ----------------------------------------------------------------
-  // register
-
-  setClickRegister() {
+  setLogout () {
     super.setOn({
-      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.REGISTER.SUBMIT}`,
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.LOGOUT.SUBMIT}`,
       func: () => {
-        Log.logClassKey(this.NAME, 'Register', 'Submit');
-        this.CONTROLLER.submitRegister();
+        Log.logClassKey(this.NAME, 'Logout', 'Submit');
+        PS.NAV.VIEW.generateNotLogin();
+        this.VIEW.hide();
+        this.CONTROLLER.submitLogout();
       }
     });
   }
 
-  setChangeRegisterUsername() {
-    super.setOn({
-      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.REGISTER.USERNAME}`,
-      trigger: 'keyup',
-      func: () => {
-        this.CONTROLLER.updateValidMessage(
-          this.MODEL.SELECTOR.REGISTER.USERNAME
-        );
-      }
-    });
-  }
-
-  setChangeRegisterEmail() {
-    super.setOn({
-      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.REGISTER.EMAIL}`,
-      trigger: 'keyup',
-      func: () => {
-        this.CONTROLLER.updateValidMessage(
-          this.MODEL.SELECTOR.REGISTER.EMAIL
-        );
-      }
-    });
-  }
-
-  setChangeRegisterPassword() {
-    super.setOn({
-      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.REGISTER.PASSWORD}`,
-      trigger: 'keyup',
-      func: () => {
-        this.CONTROLLER.updateValidMessage(
-          this.MODEL.SELECTOR.REGISTER.PASSWORD
-        );
-        this.CONTROLLER.updateValidMessage(
-          this.MODEL.SELECTOR.REGISTER.PASSWORD_RE
-        );
-      }
-    });
-  }
-
-  setChangeRegisterPasswordRe() {
-    super.setOn({
-      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.REGISTER.PASSWORD_RE}`,
-      trigger: 'keyup',
-      func: () => {
-        this.CONTROLLER.updateValidMessage(
-          this.MODEL.SELECTOR.REGISTER.PASSWORD_RE
-        );
-      }
-    });
-  }
-
-  setKeyupRegisterPasswordRe() {
-    super.setOn({
-      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.REGISTER.PASSWORD}`,
-      trigger: 'keyup',
-      func: () => {
-        this.CONTROLLER.validPassword(
-          this.MODEL.SELECTOR.REGISTER.PASSWORD,
-          this.MODEL.SELECTOR.REGISTER.PASSWORD_RE
-        );
-      }
-    });
-    super.setOn({
-      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.REGISTER.PASSWORD_RE}`,
-      trigger: 'keyup',
-      func: () => {
-        this.CONTROLLER.validPassword(
-          this.MODEL.SELECTOR.REGISTER.PASSWORD,
-          this.MODEL.SELECTOR.REGISTER.PASSWORD_RE
-        );
-      }
-    });
-  }
-
-  // ----------------------------------------------------------------
-  // info
-
-  setClickSetting() {
+  setInfo () {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.INFO.SETTING}`,
       func: () => {
@@ -488,34 +429,18 @@ class UserEvent extends CommonEvent {
         this.CONTROLLER.openSetting();
       }
     });
-  }
 
-  setClickInfoUpdate() {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.INFO.UPDATE_SUBMIT}`,
       func: () => {
         Log.logClassKey(this.NAME, 'User Info', 'Submit');
-        // Update User Info
+        this.VIEW.hide();
         this.CONTROLLER.submitInfo();
       }
     });
   }
 
-  // ----------------------------------------------------------------
-  // setting
-
-  setClickSettingUpdate() {
-    super.setOn({
-      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.UPDATE_SUBMIT}`,
-      func: () => {
-        Log.logClassKey(this.NAME, 'User Setting', 'Submit');
-        // Update User Setting
-        this.CONTROLLER.submitSetting();
-      }
-    });
-  }
-
-  setClickInfo() {
+  setSetting () {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.INFO}`,
       func: () => {
@@ -523,18 +448,67 @@ class UserEvent extends CommonEvent {
         this.CONTROLLER.openInfo();
       }
     });
+
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.UPDATE_SUBMIT}`,
+      func: () => {
+        Log.logClassKey(this.NAME, 'User Setting', 'Submit');
+        this.VIEW.hide();
+        this.CONTROLLER.submitSetting();
+      }
+    });
   }
 
   // ----------------------------------------------------------------
-  // logout
+  // change & key
 
-  setClickLogout() {
+  setValidate ({
+    selector = null
+  } = {}) {
+    if (selector == null) {
+      super.logGenerate(this.setValidate, arguments);
+      super.logError();
+      return;
+    }
+    selector = `${this.MODEL.SELECTOR.AREA} ${selector}`;
+
     super.setOn({
-      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.LOGOUT.SUBMIT}`,
+      selector: selector,
+      trigger: 'keyup',
       func: () => {
-        Log.logClassKey(this.NAME, 'Logout', 'Submit');
-        PS.NAV.VIEW.generateNotLogin();
-        this.CONTROLLER.submitLogout();
+        this.CONTROLLER.updateValidMessage(selector);
+      }
+    });
+  }
+
+  setValidatePassword ({
+    selector = null,
+    selectorRe = null
+  } = {}) {
+    if (selector == null || selectorRe == null) {
+      super.logGenerate(this.setValidatePassword, arguments);
+      super.logError();
+      return;
+    }
+    selector = `${this.MODEL.SELECTOR.AREA} ${selector}`;
+    selectorRe = `${this.MODEL.SELECTOR.AREA} ${selectorRe}`;
+
+    super.setOn({
+      selector: selector,
+      trigger: 'keyup',
+      func: () => {
+        this.CONTROLLER.validPassword(selector, selectorRe);
+        this.CONTROLLER.updateValidMessage(selector);
+        this.CONTROLLER.updateValidMessage(selectorRe);
+      }
+    });
+
+    super.setOn({
+      selector: selectorRe,
+      trigger: 'keyup',
+      func: () => {
+        this.CONTROLLER.validPassword(selector, selectorRe);
+        this.CONTROLLER.updateValidMessage(selectorRe);
       }
     });
   }
@@ -542,7 +516,7 @@ class UserEvent extends CommonEvent {
   // ----------------------------------------------------------------
   // set on with loading
 
-  setOnLoading({
+  setOnLoading ({
     type = null,
     successOpenType = null,
     successModel = {},
@@ -586,15 +560,11 @@ class UserEvent extends CommonEvent {
       trigger: this.MODEL.TRIGGER.POST.COMPLETE,
       func: () => {
         Log.logClassKey(this.NAME, type.capitalize(), 'Complete');
-        this.setOffPost();
+        super.setOff({trigger: this.MODEL.TRIGGER.POST.SUCCESS});
+        super.setOff({trigger: this.MODEL.TRIGGER.POST.ERROR});
+        super.setOff({trigger: this.MODEL.TRIGGER.POST.COMPLETE});
       }
     });
-  }
-
-  setOffPost() {
-    super.setOff({trigger: this.MODEL.TRIGGER.POST.SUCCESS});
-    super.setOff({trigger: this.MODEL.TRIGGER.POST.ERROR});
-    super.setOff({trigger: this.MODEL.TRIGGER.POST.COMPLETE});
   }
 }
 
@@ -602,7 +572,7 @@ class UserEvent extends CommonEvent {
 // Controller
 
 class UserController extends CommonController {
-  constructor(
+  constructor (
     model = {},
     initSetting = {
       NAME: 'User Controller',
@@ -620,7 +590,7 @@ class UserController extends CommonController {
   // ----------------------------------------------------------------
   // open
 
-  open({
+  open ({
     type = null,
     model = {}
   } = {}) {
@@ -633,37 +603,37 @@ class UserController extends CommonController {
     this.VIEW.generateArea(model);
   }
 
-  openLogin(
+  openLogin (
     model = {}
   ) {
     this.open({type: this.MODEL.TYPE.LOGIN, model: model});
   }
 
-  openSetting(
+  openSetting (
     model = {}
   ) {
     this.open({type: this.MODEL.TYPE.SETTING, model: model});
   }
 
-  openInfo(
+  openInfo (
     model = {}
   ) {
     this.open({type: this.MODEL.TYPE.INFO, model: model});
   }
 
-  openLogout(
+  openLogout (
     model = {}
   ) {
     this.open({type: this.MODEL.TYPE.LOGOUT, model: model});
   }
 
-  openRegister(
+  openRegister (
     model = {}
   ) {
     this.open({type: this.MODEL.TYPE.REGISTER, model: model});
   }
 
-  openLoading(
+  openLoading (
     type = null
   ) {
     if (type == null) {
@@ -705,7 +675,7 @@ class UserController extends CommonController {
   // ----------------------------------------------------------------
   // submit
 
-  submitRegister() {
+  submitRegister () {
     const _TYPE = this.MODEL.TYPE.REGISTER;
 
     let _validUsername = true;
@@ -764,19 +734,19 @@ class UserController extends CommonController {
     }
   }
 
-  submitLogin() {
+  submitLogin () {
 
   }
 
-  submitInfo() {
+  submitInfo () {
 
   }
 
-  submitSetting() {
+  submitSetting () {
 
   }
 
-  submitLogout() {
+  submitLogout () {
 
   }
   // ----------------------------------------------------------------
