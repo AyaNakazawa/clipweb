@@ -76,7 +76,7 @@ class NavView extends CommonView {
 
   removeNavItem({
     id = null
-  }) {
+  } = {}) {
     if (id == null) {
       super.logGenerate(this.removeNavItem, arguments);
       super.logCaution();

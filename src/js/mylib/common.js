@@ -282,7 +282,7 @@ class CommonView extends CommonClass {
     easing = null,
     view = null,
     callback = null
-  }) {
+  } = {}) {
     if (view == null) {
       super.logGenerate(this.setView, arguments);
       super.logCaution();

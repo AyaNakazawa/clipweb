@@ -548,7 +548,7 @@ class UserEvent extends CommonEvent {
     successModel = {},
     errorOpenType = null,
     errorModel = {}
-  }) {
+  } = {}) {
     if (type == null || successOpenType == null) {
       super.logGenerate(this.setOnLoading, arguments);
       super.logCaution();
@@ -623,7 +623,7 @@ class UserController extends CommonController {
   open({
     type = null,
     model = {}
-  }) {
+  } = {}) {
     if (type == null) {
       super.logGenerate(this.open, arguments);
       super.logError();
