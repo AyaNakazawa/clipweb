@@ -50,7 +50,7 @@ class NavView extends CommonView {
   } = {}) {
     if (id == null || name == null) {
       super.logGenerate(this.addNavItem, arguments);
-      super.logCaution();
+      super.logError();
       return;
     }
 
@@ -79,7 +79,7 @@ class NavView extends CommonView {
   } = {}) {
     if (id == null) {
       super.logGenerate(this.removeNavItem, arguments);
-      super.logCaution();
+      super.logError();
       return;
     }
 

@@ -96,6 +96,7 @@ class Log {
     func = null,
     args = null,
     message = '',
+    type = 'Log',
     view = null,
     styleLine = null,
     styleHeader = null,
@@ -106,7 +107,7 @@ class Log {
       // Draw line
       this.log(null, null, styleLine);
       // Write title
-      this.log('Caution', this.ALIGN_CENTER, styleHeader);
+      this.log(type, this.ALIGN_CENTER, styleHeader);
 
       // Write info
       if (obj !== null) {
@@ -171,6 +172,7 @@ class Log {
       func: func,
       args: args,
       message: message,
+      type: 'Error',
       view: this.LOG_VIEW_ERROR,
       styleLine: this.STYLE_ERROR_LINE,
       styleHeader: this.STYLE_ERROR_HEADER,
@@ -189,6 +191,7 @@ class Log {
       func: func,
       args: args,
       message: message,
+      type: 'Caution',
       view: this.LOG_VIEW_CAUTION,
       styleLine: this.STYLE_CAUTION_LINE,
       styleHeader: this.STYLE_CAUTION_HEADER,

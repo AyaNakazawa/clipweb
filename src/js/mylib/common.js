@@ -14,6 +14,7 @@ class CommonClass {
     Object.assign(this, common, initSetting);
 
     this.OBJECT = {};
+    this.OBJECT.LOG = {};
 
     if (this.VIEW_OBJECT) {
       this.showNameModel();
@@ -65,11 +66,11 @@ class CommonClass {
   }
 
   logError(message = null) {
-    Log.logError(this.logWithMessage(message));
+    Log.logErrorCommon(this.logWithMessage(message));
   }
 
   logCaution(message = null) {
-    Log.logCaution(this.logWithMessage(message));
+    Log.logCautionCommon(this.logWithMessage(message));
   }
 
   logWithMessage(message = null) {
@@ -187,12 +188,12 @@ class CommonView extends CommonClass {
   }
 
   skip(
-    selector = null
+    selector = this.MODEL.SELECTOR.AREA
   ) {
     if (selector == null) {
       super.logGenerate(this.skip, arguments);
-      super.logCaution();
-      return null;
+      super.logError();
+      return;
     }
 
     $(selector).finish();
@@ -208,8 +209,8 @@ class CommonView extends CommonClass {
   } = {}) {
     if (selector == null) {
       super.logGenerate(this.clear, arguments);
-      super.logCaution();
-      return null;
+      super.logError();
+      return;
     }
     Log.logClassKey(this.NAME, 'View', 'Clear', Log.ARROW_INPUT);
 
@@ -237,8 +238,8 @@ class CommonView extends CommonClass {
   } = {}) {
     if (selector == null) {
       super.logGenerate(this.show, arguments);
-      super.logCaution();
-      return null;
+      super.logError();
+      return;
     }
 
     return this.setView({
@@ -260,8 +261,8 @@ class CommonView extends CommonClass {
   } = {}) {
     if (selector == null) {
       super.logGenerate(this.hide, arguments);
-      super.logCaution();
-      return null;
+      super.logError();
+      return;
     }
 
     return this.setView({
@@ -285,8 +286,8 @@ class CommonView extends CommonClass {
   } = {}) {
     if (view == null) {
       super.logGenerate(this.setView, arguments);
-      super.logCaution();
-      return null;
+      super.logError();
+      return;
     }
     Log.logClassKey(this.NAME, 'View', view, Log.ARROW_INPUT);
 
@@ -399,8 +400,8 @@ class CommonView extends CommonClass {
 
       } else {
         super.logGenerate(this.setView, arguments);
-        super.logCaution('unknown type.');
-        return null;
+        super.logError('unknown type.');
+        return;
       }
     } else if (!view) {
       // hide
@@ -469,8 +470,8 @@ class CommonView extends CommonClass {
 
       } else {
         super.logGenerate(this.setView, arguments);
-        super.logCaution('unknown type.');
-        return null;
+        super.logError('unknown type.');
+        return;
       }
     }
 
@@ -503,8 +504,8 @@ class CommonView extends CommonClass {
   } = {}) {
     if (selector == null || speed == null || easing == null) {
       super.logGenerate(this.scroll, arguments);
-      super.logCaution();
-      return null;
+      super.logError();
+      return;
     }
     Log.logClassKey(this.NAME, 'View', 'Scroll');
 
@@ -563,7 +564,7 @@ class CommonView extends CommonClass {
   } = {}) {
     if (selector == null) {
       super.logGenerate(this.generateAlert, arguments);
-      super.logCaution();
+      super.logError();
       return;
     }
 
@@ -581,7 +582,7 @@ class CommonView extends CommonClass {
   } = {}) {
     if (selector == null) {
       super.logGenerate(this.generateLoading, arguments);
-      super.logCaution();
+      super.logError();
       return;
     }
 
@@ -632,7 +633,7 @@ class CommonEvent extends CommonClass {
   } = {}) {
     if (trigger == null) {
       super.logGenerate(this.trigger, arguments);
-      super.logCaution();
+      super.logError();
       return;
     }
 

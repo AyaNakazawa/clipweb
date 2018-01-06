@@ -59,7 +59,7 @@ class PopoverView extends CommonView {
   setView(view = null) {
     if (view === null) {
       super.logGenerate(this.setView, arguments);
-      super.logCaution();
+      super.logError();
       return null;
     }
 
@@ -69,7 +69,7 @@ class PopoverView extends CommonView {
       return this.hide();
     } else {
       super.logGenerate(this.setView, arguments);
-      super.logCaution('unknown view.');
+      super.logError('unknown view.');
       return null;
     }
   }

@@ -236,7 +236,6 @@ class ConfirmController extends CommonController {
     if (this.MODEL.content == null) {
       super.logGenerate(this.initConfirm, arguments);
       super.logCaution('content is null');
-      return;
     }
     this.MODEL.updateSelector();
     this.VIEW.generateModal();

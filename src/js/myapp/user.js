@@ -551,7 +551,7 @@ class UserEvent extends CommonEvent {
   } = {}) {
     if (type == null || successOpenType == null) {
       super.logGenerate(this.setOnLoading, arguments);
-      super.logCaution();
+      super.logError();
       return;
     }
     Log.logClassKey(this.NAME, type.capitalize(), 'Loading');
@@ -668,7 +668,7 @@ class UserController extends CommonController {
   ) {
     if (type == null) {
       super.logGenerate(this.openLoading, arguments);
-      super.logCaution();
+      super.logError();
       return;
     }
     let _loadingHeader = null;
@@ -693,7 +693,7 @@ class UserController extends CommonController {
 
     } else {
       super.logGenerate(this.openLoading, arguments);
-      super.logCaution('unknown type.');
+      super.logError('unknown type.');
       return;
     }
 

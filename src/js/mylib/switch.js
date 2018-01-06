@@ -76,27 +76,31 @@ class SwitchView extends CommonView {
 
     if (_view == null) {
       super.logGenerate(this.setView, arguments);
-      super.logCaution('view is null');
+      super.logError('view is null');
       return;
-    } else if (_view != null) {
-      if (_view) {
-        if (eventSelector != null) {
-          $(this.MODEL.eventSelector).addClass(this.MODEL.ACTIVE);
-        }
-        $(this.MODEL.selector).show(_speed);
-      } else {
-        if (eventSelector != null) {
-          $(this.MODEL.eventSelector).removeClass(this.MODEL.ACTIVE);
-        }
-        $(this.MODEL.selector).hide(_speed);
-      }
-
-      // save
-      if (this.MODEL.localStorageKey != null) {
-        LocalStorage.setItem(this.MODEL.localStorageKey, _view);
-      }
-      this.MODEL.view = _view;
     }
+
+    if (_view) {
+      if (eventSelector != null) {
+        $(this.MODEL.eventSelector).addClass(this.MODEL.ACTIVE);
+      }
+      $(this.MODEL.selector).show(_speed);
+    } else if (_view) {
+      if (eventSelector != null) {
+        $(this.MODEL.eventSelector).removeClass(this.MODEL.ACTIVE);
+      }
+      $(this.MODEL.selector).hide(_speed);
+    } else {
+      super.logGenerate(this.setView, arguments);
+      super.logError('unknown view.');
+      return null;
+    }
+
+    // save
+    if (this.MODEL.localStorageKey != null) {
+      LocalStorage.setItem(this.MODEL.localStorageKey, _view);
+    }
+    this.MODEL.view = _view;
   }
 }
 
@@ -147,7 +151,7 @@ class SwitchController extends CommonController {
     this.MODEL.compile();
     if (this.MODEL.selector == null) {
       super.logGenerate(this.initSwitchView, arguments);
-      super.logCaution('switch selector is null');
+      super.logError('switch selector is null');
       return;
     }
     this.initView();
