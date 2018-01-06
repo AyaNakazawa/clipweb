@@ -237,8 +237,9 @@ main {
       position: relative; }
       main .content .content-header .content-header-button {
         position: absolute;
-        right: 1rem;
-        top: 0.65rem;
+        padding: 0.55rem;
+        right: 0.25rem;
+        top: 0rem;
         cursor: pointer; }
     main .content .content-split {
       display: flex; }
