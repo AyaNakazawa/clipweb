@@ -12,6 +12,7 @@ $(() => {
   TIME.START = new Date();
 
   Log.log();
+  Log.log('Time', Log.ALIGN_CENTER);
   Log.logClassKey(
     'Load',
     new Date(TIME.LOAD - TIME.INIT).formatString('%S.%MSs'),
