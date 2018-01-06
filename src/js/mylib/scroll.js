@@ -34,7 +34,7 @@ class ScrollView extends CommonView {
   }
 
   scroll () {
-    Log.logClass(this.NAME, 'Scroll');
+    super.log('Scroll');
     if (this.MODEL.selector == null) {
       super.logGenerate(this.scroll, arguments);
       super.logError('selector is null');

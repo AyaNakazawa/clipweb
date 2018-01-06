@@ -1,8 +1,8 @@
 
 やること
-  他のlog系もCommonに導入する
 
 
 やったこと
+  他のlog系もCommonに導入する
   logCautionとかにthisを渡して自動でいろいろ出してもらう
   avatarのスタイル

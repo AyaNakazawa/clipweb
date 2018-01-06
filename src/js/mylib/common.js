@@ -54,6 +54,24 @@ class CommonClass {
     this.showModel(model);
   }
 
+  log (...args) {
+    if (args.length == 0) {
+      super.logGenerate(this.log, arguments);
+      super.logError();
+      return;
+    } else if (args.length == 1) {
+      Log.logClass(this.NAME, args[0]);
+    } else if (args.length == 2) {
+      Log.logClassKey(this.NAME, args[0], args[1]);
+    } else if (args.length == 3) {
+      Log.logClassKey(this.NAME, args[0], args[1], args[2]);
+    } else {
+      super.logGenerate(this.log, arguments);
+      super.logError('many unknown arguments');
+      return;
+    }
+  }
+
   logGenerate (func = null, args = null) {
     this.OBJECT.LOG['obj'] = this;
     if (func != null) {
@@ -212,7 +230,7 @@ class CommonView extends CommonClass {
       super.logError();
       return;
     }
-    Log.logClassKey(this.NAME, 'View', 'Clear', Log.ARROW_INPUT);
+    super.log('View', 'Clear', Log.ARROW_INPUT);
 
     if (speed > 0 || this.getView()) {
       this.setView({
@@ -289,7 +307,7 @@ class CommonView extends CommonClass {
       super.logError();
       return;
     }
-    Log.logClassKey(this.NAME, 'View', view, Log.ARROW_INPUT);
+    super.log('View', view, Log.ARROW_INPUT);
 
     // skip
     this.skip(selector);
@@ -507,7 +525,7 @@ class CommonView extends CommonClass {
       super.logError();
       return;
     }
-    Log.logClassKey(this.NAME, 'View', 'Scroll');
+    super.log('View', 'Scroll');
 
     const _TOP = $(selector).offset().top + offset;
 

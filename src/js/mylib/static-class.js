@@ -373,7 +373,7 @@ class LocalStorage {
     _key = this.buildKey(_key);
     // Check support
     if (this.SUPPORT) {
-      Log.logClassKey('Local Storage', _key, 'null', Log.ARROW_INPUT);
+      Log.logClassKey('Local Storage', _key, 'remove', Log.ARROW_INPUT);
       // Remove
       localStorage.removeItem(_key);
     }

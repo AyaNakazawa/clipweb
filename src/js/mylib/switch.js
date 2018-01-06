@@ -63,7 +63,7 @@ class SwitchView extends CommonView {
   }
 
   switchView () {
-    Log.logClassKey(this.NAME, 'View', 'Switch', Log.ARROW_INPUT);
+    super.log('View', 'Switch', Log.ARROW_INPUT);
     this.setView(!this.MODEL.view);
   }
 
@@ -72,7 +72,7 @@ class SwitchView extends CommonView {
   }
 
   setView (_view = null, _speed = this.MODEL.speed) {
-    Log.logClassKey(this.NAME, 'View', _view, Log.ARROW_INPUT);
+    super.log('View', _view, Log.ARROW_INPUT);
 
     if (_view == null) {
       super.logGenerate(this.setView, arguments);
