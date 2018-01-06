@@ -1,6 +1,6 @@
 
 class Process extends CommonProcess {
-  constructor(
+  constructor (
     _initSetting = {
       NAME: `${Project.NAME} Process`
     }
@@ -18,32 +18,32 @@ class Process extends CommonProcess {
     this.run();
   }
 
-  run() {
+  run () {
     this.generateContent();
     this.setViewContent();
     this.initController();
     this.show();
   }
 
-  generateContent() {
+  generateContent () {
     $(this.SELECTOR.MAIN).empty();
     $.each(this.SELECTOR.CONTENT, (index, selector) => {
       $(this.SELECTOR.MAIN).append(Content.getContent(selector));
     });
   }
 
-  setViewContent() {
+  setViewContent () {
     $.each(this.SELECTOR.CONTENT, (index, selector) => {
       $(`#${selector}`).hide();
     });
   }
 
-  initController() {
+  initController () {
     this.USER = new UserController();
     this.NAV = new NavController();
   }
 
-  show() {
+  show () {
     $(this.SELECTOR.BODY).show();
     $(this.SELECTOR.MAIN).show();
   }

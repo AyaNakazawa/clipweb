@@ -6,7 +6,7 @@
 // Model
 
 class ConfirmModel extends CommonModel {
-  constructor(
+  constructor (
     _initSetting = {
       NAME: 'Confirm Object',
       id: null,
@@ -40,7 +40,7 @@ class ConfirmModel extends CommonModel {
     this.TRIGGER.HIDDEN = 'hidden.bs.modal';
   }
 
-  updateSelector() {
+  updateSelector () {
     if (this.id == null) {
       Log.logClassKey(this.NAME, 'ID', 'Generate', Log.ARROW_INPUT);
       this.id = SHA256.getHash(new Date().formatString()).substr(0, 7);
@@ -56,7 +56,7 @@ class ConfirmModel extends CommonModel {
 // View
 
 class ConfirmView extends CommonView {
-  constructor(
+  constructor (
     _initSetting = {
       NAME: 'Confirm View'
     }
@@ -64,7 +64,7 @@ class ConfirmView extends CommonView {
     super(_initSetting);
   }
 
-  generateModal() {
+  generateModal () {
     $(this.MODEL.SELECTOR.AREA).html(View.getTemplate({
       template: $(this.MODEL.SELECTOR.TEMPLATE),
       model: {
@@ -87,7 +87,7 @@ class ConfirmView extends CommonView {
 // Event
 
 class ConfirmEvent extends CommonEvent {
-  constructor(
+  constructor (
     _initSetting = {
       NAME: 'Confirm Event'
     }
@@ -98,7 +98,7 @@ class ConfirmEvent extends CommonEvent {
   // ----------------------------------------------------------------
   // Set Event
 
-  setEvent(_set = null) {
+  setEvent (_set = null) {
     if (_set != null) {
       if (_set) {
         this.setOnHide();
@@ -117,7 +117,7 @@ class ConfirmEvent extends CommonEvent {
   // ----------------------------------------------------------------
   // Set Hide
 
-  setOnHide() {
+  setOnHide () {
     super.setOn({
       trigger: this.MODEL.TRIGGER.HIDE,
       func: () => {
@@ -126,7 +126,7 @@ class ConfirmEvent extends CommonEvent {
     });
   }
 
-  setOffHide() {
+  setOffHide () {
     super.setOff({
       trigger: this.MODEL.TRIGGER.HIDE
     });
@@ -135,7 +135,7 @@ class ConfirmEvent extends CommonEvent {
   // ----------------------------------------------------------------
   // Set Hidden
 
-  setOnHidden() {
+  setOnHidden () {
     super.setOn({
       trigger: this.MODEL.TRIGGER.HIDDEN,
       func: () => {
@@ -144,7 +144,7 @@ class ConfirmEvent extends CommonEvent {
     });
   }
 
-  setOffHidden() {
+  setOffHidden () {
     super.setOff({
       trigger: this.MODEL.TRIGGER.HIDDEN
     });
@@ -153,7 +153,7 @@ class ConfirmEvent extends CommonEvent {
   // ----------------------------------------------------------------
   // Set On
 
-  setOnOpen() {
+  setOnOpen () {
     if (this.MODEL.show) {
       this.CONTROLLER.openConfirm();
     } else {
@@ -167,7 +167,7 @@ class ConfirmEvent extends CommonEvent {
     }
   }
 
-  setOnYesClick() {
+  setOnYesClick () {
     super.setOn({
       trigger: 'click',
       selector: this.MODEL.SELECTOR.YES,
@@ -177,7 +177,7 @@ class ConfirmEvent extends CommonEvent {
     });
   }
 
-  setOnNoClick() {
+  setOnNoClick () {
     super.setOn({
       trigger: 'click',
       selector: this.MODEL.SELECTOR.NO,
@@ -190,7 +190,7 @@ class ConfirmEvent extends CommonEvent {
   // ----------------------------------------------------------------
   // Set Off
 
-  setOffOpen() {
+  setOffOpen () {
     if (!this.MODEL.show) {
       super.setOff({
         trigger: this.MODEL.trigger,
@@ -199,14 +199,14 @@ class ConfirmEvent extends CommonEvent {
     }
   }
 
-  setOffYesClick() {
+  setOffYesClick () {
     super.setOff({
       trigger: 'click',
       selector: this.MODEL.SELECTOR.YES
     });
   }
 
-  setOffNoClick() {
+  setOffNoClick () {
     super.setOff({
       trigger: 'click',
       selector: this.MODEL.SELECTOR.NO
@@ -218,7 +218,7 @@ class ConfirmEvent extends CommonEvent {
 // Controller
 
 class ConfirmController extends CommonController {
-  constructor(
+  constructor (
     _model = {},
     _initSetting = {
       NAME: 'Confirm Controller',
@@ -232,7 +232,7 @@ class ConfirmController extends CommonController {
     this.initConfirm();
   }
 
-  initConfirm() {
+  initConfirm () {
     if (this.MODEL.content == null) {
       super.logGenerate(this.initConfirm, arguments);
       super.logCaution('content is null');
@@ -242,12 +242,12 @@ class ConfirmController extends CommonController {
     this.EVENT.setEvent(true);
   }
 
-  openConfirm() {
+  openConfirm () {
     Log.logClassKey(this.NAME, this.MODEL.id, 'Open', Log.ARROW_INPUT);
     $(this.MODEL.SELECTOR.ID).modal();
   }
 
-  selectYes() {
+  selectYes () {
     Log.logClassKey(this.NAME, this.MODEL.id, 'Yes', Log.ARROW_INPUT);
     if (Object.getType(this.MODEL.functionYes) == 'Function') {
       Log.logClassKey(this.NAME, 'Yes', 'Exec', Log.ARROW_INPUT);
@@ -255,7 +255,7 @@ class ConfirmController extends CommonController {
     }
   }
 
-  selectNo() {
+  selectNo () {
     Log.logClassKey(this.NAME, this.MODEL.id, 'No', Log.ARROW_INPUT);
     if (Object.getType(this.MODEL.functionNo) == 'Function') {
       Log.logClassKey(this.NAME, 'No', 'Exec', Log.ARROW_INPUT);
@@ -263,7 +263,7 @@ class ConfirmController extends CommonController {
     }
   }
 
-  destroy() {
+  destroy () {
     setTimeout(() => {
       Log.logClassKey(this.NAME, this.MODEL.id, 'Close', Log.ARROW_INPUT);
       if (Object.getType(this.MODEL.functionClose) == 'Function') {
@@ -278,7 +278,7 @@ class ConfirmController extends CommonController {
     });
   }
 
-  remove() {
+  remove () {
     Log.logClassKey(this.NAME, this.MODEL.id, 'Remove', Log.ARROW_INPUT);
     $(this.MODEL.SELECTOR.ID).remove();
     this.EVENT.setOffHidden();

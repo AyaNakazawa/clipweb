@@ -6,7 +6,7 @@
 // Model
 
 class SwitchModel extends CommonModel {
-  constructor(
+  constructor (
     _initSetting = {
       NAME: 'Switch Object',
       selector: null,
@@ -23,7 +23,7 @@ class SwitchModel extends CommonModel {
     this.INIT_VIEW = true;
   }
 
-  compile() {
+  compile () {
     if (this.template != null) {
       if (this.NAME == 'Common Switch') {
         this.NAME = `${this.template.capitalize()} Switch`;
@@ -54,7 +54,7 @@ class SwitchModel extends CommonModel {
 // View
 
 class SwitchView extends CommonView {
-  constructor(
+  constructor (
     _initSetting = {
       NAME: 'Switch View'
     }
@@ -62,16 +62,16 @@ class SwitchView extends CommonView {
     super(_initSetting);
   }
 
-  switchView() {
+  switchView () {
     Log.logClassKey(this.NAME, 'View', 'Switch', Log.ARROW_INPUT);
     this.setView(!this.MODEL.view);
   }
 
-  getView() {
+  getView () {
     return this.MODEL.view;
   }
 
-  setView(_view = null, _speed = this.MODEL.speed) {
+  setView (_view = null, _speed = this.MODEL.speed) {
     Log.logClassKey(this.NAME, 'View', _view, Log.ARROW_INPUT);
 
     if (_view == null) {
@@ -108,7 +108,7 @@ class SwitchView extends CommonView {
 // Event
 
 class SwitchEvent extends CommonEvent {
-  constructor(
+  constructor (
     _initSetting = {
       NAME: 'Switch Event'
     }
@@ -116,7 +116,7 @@ class SwitchEvent extends CommonEvent {
     super(_initSetting);
   }
 
-  setOnSwitch() {
+  setOnSwitch () {
     if (this.MODEL.eventSelector != null) {
       super.setOn({
         trigger: this.MODEL.eventTrigger,
@@ -133,7 +133,7 @@ class SwitchEvent extends CommonEvent {
 // Controller
 
 class SwitchController extends CommonController {
-  constructor(
+  constructor (
     _model = {},
     _initSetting = {
       NAME: 'Switch Controller',
@@ -147,7 +147,7 @@ class SwitchController extends CommonController {
     this.initSwitchView();
   }
 
-  initSwitchView() {
+  initSwitchView () {
     this.MODEL.compile();
     if (this.MODEL.selector == null) {
       super.logGenerate(this.initSwitchView, arguments);
@@ -159,7 +159,7 @@ class SwitchController extends CommonController {
     this.EVENT.setOnSwitch();
   }
 
-  initView() {
+  initView () {
     if (this.MODEL.view == null) {
       if (this.MODEL.localStorageKey == null) {
         this.MODEL.view = this.MODEL.INIT_VIEW;

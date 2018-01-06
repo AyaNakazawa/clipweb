@@ -3,7 +3,7 @@
 // Common Class
 
 class CommonClass {
-  constructor(
+  constructor (
     initSetting = {},
     common = {
       NAME: 'Common Class',
@@ -25,7 +25,7 @@ class CommonClass {
     }
   }
 
-  showName(name = null) {
+  showName (name = null) {
     // Draw line
     Log.log();
     // Write name
@@ -37,7 +37,7 @@ class CommonClass {
     }
   }
 
-  showModel(model = null) {
+  showModel (model = null) {
     // Write name
     if (model != null) {
       Log.logObj(model);
@@ -47,14 +47,14 @@ class CommonClass {
     }
   }
 
-  showNameModel(name = null, model = null) {
+  showNameModel (name = null, model = null) {
     // Write name
     this.showName(name);
     // Write model
     this.showModel(model);
   }
 
-  logGenerate(func = null, args = null) {
+  logGenerate (func = null, args = null) {
     this.OBJECT.LOG['obj'] = this;
     if (func != null) {
       this.OBJECT.LOG['func'] = func;
@@ -65,15 +65,15 @@ class CommonClass {
     return true;
   }
 
-  logError(message = null) {
+  logError (message = null) {
     Log.logErrorCommon(this.logWithMessage(message));
   }
 
-  logCaution(message = null) {
+  logCaution (message = null) {
     Log.logCautionCommon(this.logWithMessage(message));
   }
 
-  logWithMessage(message = null) {
+  logWithMessage (message = null) {
     let model = this.OBJECT.LOG;
     if (message == null) {
       return model;
@@ -89,7 +89,7 @@ class CommonClass {
 // Model
 
 class CommonModel extends CommonClass {
-  constructor(
+  constructor (
     initSetting = {},
     common = {
       NAME: 'Common Object'
@@ -152,7 +152,7 @@ class CommonModel extends CommonClass {
   }
 
   // Add var to Instance
-  setKey(
+  setKey (
     _key = 'KEY',
     _val = 'VALUE'
   ) {
@@ -160,14 +160,14 @@ class CommonModel extends CommonClass {
   }
 
   // Get var from Instance
-  getKey(
+  getKey (
     _key = 'KEY'
   ) {
     return this[_key];
   }
 
   // Remove var from Instance
-  removeKey(
+  removeKey (
     _key = 'KEY'
   ) {
     this[_key] = undefined;
@@ -178,7 +178,7 @@ class CommonModel extends CommonClass {
 // View
 
 class CommonView extends CommonClass {
-  constructor(
+  constructor (
     initSetting = {},
     common = {
       NAME: 'Common View'
@@ -187,7 +187,7 @@ class CommonView extends CommonClass {
     super(initSetting, common);
   }
 
-  skip(
+  skip (
     selector = this.MODEL.SELECTOR.AREA
   ) {
     if (selector == null) {
@@ -200,7 +200,7 @@ class CommonView extends CommonClass {
     return true;
   }
 
-  clear({
+  clear ({
     selector = this.MODEL.SELECTOR.AREA,
     type = this.MODEL.COMMON.EFFECT.DEFAULT.HIDE,
     speed = this.MODEL.COMMON.SPEED.CLEAR,
@@ -229,7 +229,7 @@ class CommonView extends CommonClass {
     return true;
   }
 
-  show({
+  show ({
     selector = this.MODEL.SELECTOR.AREA,
     type = this.MODEL.COMMON.EFFECT.DEFAULT.SHOW,
     speed = this.MODEL.COMMON.SPEED.SHOW,
@@ -252,7 +252,7 @@ class CommonView extends CommonClass {
     });
   }
 
-  hide({
+  hide ({
     selector = this.MODEL.SELECTOR.AREA,
     type = this.MODEL.COMMON.EFFECT.DEFAULT.HIDE,
     speed = this.MODEL.COMMON.SPEED.HIDE,
@@ -275,7 +275,7 @@ class CommonView extends CommonClass {
     });
   }
 
-  setView({
+  setView ({
     selector = this.MODEL.SELECTOR.AREA,
     speed = null,
     delay = null,
@@ -478,7 +478,7 @@ class CommonView extends CommonClass {
     return this.MODEL.COMMON.VIEW;
   }
 
-  getView() {
+  getView () {
     const result = this.MODEL.COMMON.VIEW;
     if (result != true && result != false) {
       super.logGenerate(this.getView, arguments);
@@ -490,11 +490,11 @@ class CommonView extends CommonClass {
     return result;
   }
 
-  initView() {
+  initView () {
     this.MODEL.COMMON.VIEW = $(this.MODEL.SELECTOR.AREA).is(':visible');
   }
 
-  scroll({
+  scroll ({
     selector = this.MODEL.SELECTOR.AREA,
     speed = this.MODEL.COMMON.SPEED.SCROLL,
     delay = this.MODEL.COMMON.DELAY.SCROLL,
@@ -556,7 +556,7 @@ class CommonView extends CommonClass {
     }
   }
 
-  generateAlert({
+  generateAlert ({
     selector = this.MODEL.SELECTOR.AREA,
     type = View.ALERT_SUCCESS,
     message = null,
@@ -576,7 +576,7 @@ class CommonView extends CommonClass {
     return true;
   }
 
-  generateLoading({
+  generateLoading ({
     selector = this.MODEL.SELECTOR.AREA,
     header = 'Loading'
   } = {}) {
@@ -597,7 +597,7 @@ class CommonView extends CommonClass {
 // Event
 
 class CommonEvent extends CommonClass {
-  constructor(
+  constructor (
     initSetting = {},
     common = {
       NAME: 'Common Event'
@@ -606,7 +606,7 @@ class CommonEvent extends CommonClass {
     super(initSetting, common);
   }
 
-  setOn({
+  setOn ({
     trigger = 'click',
     selector = null,
     func = () => {}
@@ -617,7 +617,7 @@ class CommonEvent extends CommonClass {
     return $(this.MODEL.COMMON.SELECTOR.ROOT).on(trigger, func);
   }
 
-  setOff({
+  setOff ({
     trigger = 'click',
     selector = null
   } = {}) {
@@ -627,7 +627,7 @@ class CommonEvent extends CommonClass {
     return $(this.MODEL.COMMON.SELECTOR.ROOT).off(trigger);
   }
 
-  trigger({
+  trigger ({
     trigger = null,
     selector = this.MODEL.COMMON.SELECTOR.ROOT
   } = {}) {
@@ -645,7 +645,7 @@ class CommonEvent extends CommonClass {
 // Controller
 
 class CommonController extends CommonClass {
-  constructor(
+  constructor (
     model = {},
     initSetting = {},
     common = {
@@ -666,7 +666,7 @@ class CommonController extends CommonClass {
     this.VIEW.initView();
   }
 
-  applyObject() {
+  applyObject () {
     this.CONTROLLER = this;
 
     this.VIEW.MODEL = this.MODEL;
@@ -685,7 +685,7 @@ class CommonController extends CommonClass {
 // Process
 
 class CommonProcess extends CommonClass {
-  constructor(
+  constructor (
     initSetting = {},
     common = {
       NAME: 'Common Process',

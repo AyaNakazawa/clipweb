@@ -6,7 +6,7 @@
 // Model
 
 class PopoverModel extends CommonModel {
-  constructor(
+  constructor (
     _setting = {},
     _initSetting = {
       NAME: 'Popover Object',
@@ -31,7 +31,7 @@ class PopoverModel extends CommonModel {
 // View
 
 class PopoverView extends CommonView {
-  constructor(
+  constructor (
     _setting = {},
     _initSetting = {
       NAME: 'Popover View'
@@ -40,23 +40,23 @@ class PopoverView extends CommonView {
     super(_setting, _initSetting);
   }
 
-  show() {
+  show () {
     return $(this.MODEL.selector).popover('show');
   }
 
-  hide() {
+  hide () {
     return $(this.MODEL.selector).popover('hide');
   }
 
-  toggle() {
+  toggle () {
     return $(this.MODEL.selector).popover('toggle');
   }
 
-  update() {
+  update () {
     return $(this.MODEL.selector).popover('update');
   }
 
-  setView(view = null) {
+  setView (view = null) {
     if (view === null) {
       super.logGenerate(this.setView, arguments);
       super.logError();
@@ -79,7 +79,7 @@ class PopoverView extends CommonView {
 // Event
 
 class PopoverEvent extends CommonEvent {
-  constructor(
+  constructor (
     _setting = {},
     _initSetting = {
       NAME: 'Popover Event'
@@ -88,7 +88,7 @@ class PopoverEvent extends CommonEvent {
     super(_setting, _initSetting);
   }
 
-  setPopover() {
+  setPopover () {
     if (this.MODEL.selector === null) {
       Log.log('test');
     } else {
@@ -116,7 +116,7 @@ class PopoverEvent extends CommonEvent {
 // Controller
 
 class PopoverController extends CommonController {
-  constructor(
+  constructor (
     _model = {},
     _initSetting = {
       NAME: 'Popover Controller',
@@ -131,23 +131,23 @@ class PopoverController extends CommonController {
     this.EVENT.setPopover();
   }
 
-  dispose() {
+  dispose () {
     return $(this.MODEL.selector).popover('dispose');
   }
 
-  destroy() {
+  destroy () {
     return this.dispose();
   }
 
-  enable() {
+  enable () {
     return $(this.MODEL.selector).popover('enable');
   }
 
-  disable() {
+  disable () {
     return $(this.MODEL.selector).popover('disable');
   }
 
-  toggleEnabled() {
+  toggleEnabled () {
     return $(this.MODEL.selector).popover('toggleEnabled');
   }
 }

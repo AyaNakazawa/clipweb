@@ -30,7 +30,7 @@ class Confirm extends ConfirmController {
   static get TYPE_EMPTY () { return 0; }
   static get TYPE_YES () { return 1; }
   static get TYPE_YES_NO () { return 2; }
-  constructor(
+  constructor (
     _model = {
       // NAME: 'Confirm Object',
       // id: '',
@@ -75,7 +75,7 @@ class Confirm extends ConfirmController {
 **/
 
 class Popover extends PopoverController {
-  constructor(
+  constructor (
     _model = {
       // NAME: 'Popover Object',
       // selector: null,
@@ -110,7 +110,7 @@ class Popover extends PopoverController {
 **/
 
 class Scroll extends ScrollController {
-  constructor(
+  constructor (
     _model = {
       // NAME: 'Scroll Object',
       // selector: null,
@@ -141,7 +141,7 @@ class Scroll extends ScrollController {
 **/
 
 class Switch extends SwitchController {
-  constructor(
+  constructor (
     _model = {
       // NAME: 'Switch Object',
       // selector: null,

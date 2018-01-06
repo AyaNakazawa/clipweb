@@ -6,7 +6,7 @@
 // Model
 
 class ScrollModel extends CommonModel {
-  constructor(
+  constructor (
     _initSetting = {
       NAME: 'Scroll Object',
       selector: null,
@@ -25,7 +25,7 @@ class ScrollModel extends CommonModel {
 // View
 
 class ScrollView extends CommonView {
-  constructor(
+  constructor (
     _initSetting = {
       NAME: 'Scroll View'
     }
@@ -33,7 +33,7 @@ class ScrollView extends CommonView {
     super(_initSetting);
   }
 
-  scroll() {
+  scroll () {
     Log.logClass(this.NAME, 'Scroll');
     if (this.MODEL.selector == null) {
       super.logGenerate(this.scroll, arguments);
@@ -56,7 +56,7 @@ class ScrollView extends CommonView {
 // Event
 
 class ScrollEvent extends CommonEvent {
-  constructor(
+  constructor (
     _initSetting = {
       NAME: 'Scroll Event'
     }
@@ -64,7 +64,7 @@ class ScrollEvent extends CommonEvent {
     super(_initSetting);
   }
 
-  setOnScroll() {
+  setOnScroll () {
     if (this.MODEL.eventSelector != null) {
       super.setOn({
         trigger: this.MODEL.eventTrigger,
@@ -81,7 +81,7 @@ class ScrollEvent extends CommonEvent {
 // Controller
 
 class ScrollController extends CommonController {
-  constructor(
+  constructor (
     _model = {},
     _initSetting = {
       NAME: 'Scroll Controller',

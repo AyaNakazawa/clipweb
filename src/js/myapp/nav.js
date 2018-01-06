@@ -6,7 +6,7 @@
 // Model
 
 class NavModel extends CommonModel {
-  constructor(
+  constructor (
     initSetting = {
       NAME: 'Nav Object',
     }
@@ -29,7 +29,7 @@ class NavModel extends CommonModel {
 // View
 
 class NavView extends CommonView {
-  constructor(
+  constructor (
     initSetting = {
       NAME: 'Nav View'
     }
@@ -37,12 +37,12 @@ class NavView extends CommonView {
     super(initSetting);
   }
 
-  clearNavItem() {
+  clearNavItem () {
     $(this.MODEL.SELECTOR_AREA).empty();
     $(this.MODEL.SELECTOR_AREA).append('<ul class="navbar-nav col-md-8"></ul>');
   }
 
-  addNavItem({
+  addNavItem ({
     id = null,
     name = null,
     type = 'append',
@@ -74,7 +74,7 @@ class NavView extends CommonView {
     }
   }
 
-  removeNavItem({
+  removeNavItem ({
     id = null
   } = {}) {
     if (id == null) {
@@ -88,11 +88,11 @@ class NavView extends CommonView {
     });
   }
 
-  addNavSearch() {
+  addNavSearch () {
     $(this.MODEL.SELECTOR_AREA).append('<div class="col-md-4 nav-seacrh"><div class="input-group"><input class="form-control" id="nav-seacrh-text" placeholder="Search"><span class="input-group-btn"><button class="btn btn-outline-info" id="nav-seacrh-button"><i class="fas fa-search"></i></button></span></div></div>');
   }
 
-  generateNotLogin() {
+  generateNotLogin () {
     this.clearNavItem();
 
     this.addNavItem({
@@ -109,7 +109,7 @@ class NavView extends CommonView {
     });
   }
 
-  generateLogined() {
+  generateLogined () {
     this.clearNavItem();
     this.addNavSearch();
 
@@ -132,7 +132,7 @@ class NavView extends CommonView {
 // Event
 
 class NavEvent extends CommonEvent {
-  constructor(
+  constructor (
     initSetting = {
       NAME: 'Nav Event'
     }
@@ -140,7 +140,7 @@ class NavEvent extends CommonEvent {
     super(initSetting);
   }
 
-  setEvent() {
+  setEvent () {
     this.setOpenLogin();
     this.setOpenSetting();
     this.setOpenLogout();
@@ -148,7 +148,7 @@ class NavEvent extends CommonEvent {
     this.setOpenHelp();
   }
 
-  setOpenLogin() {
+  setOpenLogin () {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR_NAV_LOGIN}`,
       func: () => {
@@ -158,7 +158,7 @@ class NavEvent extends CommonEvent {
     });
   }
 
-  setOpenSetting() {
+  setOpenSetting () {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR_NAV_SETTING}`,
       func: () => {
@@ -168,7 +168,7 @@ class NavEvent extends CommonEvent {
     });
   }
 
-  setOpenLogout() {
+  setOpenLogout () {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR_NAV_LOGOUT}`,
       func: () => {
@@ -178,7 +178,7 @@ class NavEvent extends CommonEvent {
     });
   }
 
-  setOpenRegister() {
+  setOpenRegister () {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR_NAV_REGISTER}`,
       func: () => {
@@ -188,7 +188,7 @@ class NavEvent extends CommonEvent {
     });
   }
 
-  setOpenHelp() {
+  setOpenHelp () {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR_NAV_HELP}`,
       func: () => {
@@ -203,7 +203,7 @@ class NavEvent extends CommonEvent {
 // Controller
 
 class NavController extends CommonController {
-  constructor(
+  constructor (
     model = {},
     initSetting = {
       NAME: 'Nav Controller',
