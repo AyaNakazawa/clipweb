@@ -50,7 +50,7 @@ class NavView extends CommonView {
   } = {}) {
     if (id == null || name == null) {
       super.logGenerate(this.addNavItem, arguments);
-      super.logError();
+      super.logError()();
       return;
     }
 
@@ -79,7 +79,7 @@ class NavView extends CommonView {
   } = {}) {
     if (id == null) {
       super.logGenerate(this.removeNavItem, arguments);
-      super.logError();
+      super.logError()();
       return;
     }
 
@@ -152,7 +152,7 @@ class NavEvent extends CommonEvent {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR_NAV_LOGIN}`,
       func: () => {
-        super.log('Login', 'Open');
+        super.log('Login', 'Open')();
         PS.USER.openLogin();
       }
     });
@@ -162,7 +162,7 @@ class NavEvent extends CommonEvent {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR_NAV_SETTING}`,
       func: () => {
-        super.log('User Setting', 'Open');
+        super.log('User Setting', 'Open')();
         PS.USER.openSetting();
       }
     });
@@ -172,7 +172,7 @@ class NavEvent extends CommonEvent {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR_NAV_LOGOUT}`,
       func: () => {
-        super.log('Logout', 'Open');
+        super.log('Logout', 'Open')();
         PS.USER.openLogout();
       }
     });
@@ -182,7 +182,7 @@ class NavEvent extends CommonEvent {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR_NAV_REGISTER}`,
       func: () => {
-        super.log('Register', 'Open');
+        super.log('Register', 'Open')();
         PS.USER.openRegister();
       }
     });
@@ -192,7 +192,7 @@ class NavEvent extends CommonEvent {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR_NAV_HELP}`,
       func: () => {
-        super.log('Help', 'Open');
+        super.log('Help', 'Open')();
         PS.HELP.openHelp();
       }
     });

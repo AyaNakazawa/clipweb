@@ -4,66 +4,66 @@
 // ----------------------------------------------------------------
 
 class Content {
-  static get TYPE_NAME_KEY() {
+  static get TYPE_NAME_KEY () {
     return 0;
   }
 
-  static get TYPE_BUTTON() {
+  static get TYPE_BUTTON () {
     return 'BUTTON';
   }
 
-  static get TYPE_TEXT() {
+  static get TYPE_TEXT () {
     return 'TEXT';
   }
 
-  static get TYPE_INPUT() {
+  static get TYPE_INPUT () {
     return 'INPUT';
   }
 
-  static get CONTENT() {
+  static get CONTENT () {
     return 'content';
   }
 
-  static get ITEM() {
+  static get ITEM () {
     return 'content-item';
   }
 
-  static get HEADER() {
+  static get HEADER () {
     return 'content-header';
   }
 
-  static get HEADER_BUTTON() {
+  static get HEADER_BUTTON () {
     return 'content-header-button';
   }
 
-  static get NAV() {
+  static get NAV () {
     return 'content-nav';
   }
 
-  static get NAV_ITEM() {
+  static get NAV_ITEM () {
     return 'content-nav-item';
   }
 
-  static get ITEM_NAME() {
+  static get ITEM_NAME () {
     return 'content-item-name';
   }
 
-  static get ITEM_KEYS() {
+  static get ITEM_KEYS () {
     return 'content-item-keys';
   }
 
-  static get ITEM_KEY() {
+  static get ITEM_KEY () {
     return 'content-item-key';
   }
 
-  static getContent(_id = null) {
+  static getContent (_id = null) {
     if (_id != null) {
       return `<div class='${Content.CONTENT}' id='${_id}'></div>`;
     }
     return '';
   }
 
-  static getHeader(
+  static getHeader (
     _header = null,
     _button = null,
     _id = null
@@ -83,11 +83,11 @@ class Content {
     return '';
   }
 
-  static getNav() {
+  static getNav () {
     return `<div class='${Content.NAV}'></div>`;
   }
 
-  static getNavItem({
+  static getNavItem ({
     name = null,
     type = Content.TYPE_BUTTON,
     buttonType = 'secondary',
@@ -108,14 +108,14 @@ class Content {
     return '';
   }
 
-  static getItemName(_name = null) {
+  static getItemName (_name = null) {
     if (_name != null) {
       return `<div class='${Content.ITEM_NAME}'>${_name}</div>`;
     }
     return '';
   }
 
-  static getItemKey(..._keys) {
+  static getItemKey (..._keys) {
     let result = '';
     if (_keys.length > 0 && (_keys.length == 1 && _keys[0] != null)) {
       result += `<div class='${Content.ITEM_KEYS}'>`;
@@ -128,7 +128,7 @@ class Content {
     return result;
   }
 
-  static getItem({
+  static getItem ({
     type = Content.TYPE_NAME_KEY,
     contentId = null,
     header = null,

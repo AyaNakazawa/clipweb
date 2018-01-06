@@ -59,7 +59,7 @@ class PopoverView extends CommonView {
   setView (view = null) {
     if (view === null) {
       super.logGenerate(this.setView, arguments);
-      super.logError();
+      super.logError()();
       return null;
     }
 
@@ -69,7 +69,7 @@ class PopoverView extends CommonView {
       return this.hide();
     } else {
       super.logGenerate(this.setView, arguments);
-      super.logError('unknown view.');
+      super.logError('unknown view.')();
       return null;
     }
   }
@@ -90,7 +90,7 @@ class PopoverEvent extends CommonEvent {
 
   setPopover () {
     if (this.MODEL.selector === null) {
-      Log.log('test');
+      Log.log('test')();
     } else {
       if (this.MODEL.content != null || this.MODEL.title != null) {
         if (this.MODEL.container == true) {

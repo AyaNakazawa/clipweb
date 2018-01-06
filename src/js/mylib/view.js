@@ -3,47 +3,47 @@
 // View
 
 class View {
-  static get NAME() {
+  static get NAME () {
     return 'View Class';
   }
 
-  static get SPEED_REMOVE() {
+  static get SPEED_REMOVE () {
     return 350;
   }
 
-  static get NAV() {
+  static get NAV () {
     return 'nav .navbar-nav';
   }
 
-  static get ALERT_SUCCESS() {
+  static get ALERT_SUCCESS () {
     return 'success';
   }
 
-  static get ALERT_INFO() {
+  static get ALERT_INFO () {
     return 'info';
   }
 
-  static get ALERT_WARNING() {
+  static get ALERT_WARNING () {
     return 'warning';
   }
 
-  static get ALERT_DANGER() {
+  static get ALERT_DANGER () {
     return 'danger';
   }
 
-  static get TEMPLATE_LOADING() {
+  static get TEMPLATE_LOADING () {
     return '#loading-template';
   }
 
-  static get TEMPLATE_ALERT() {
+  static get TEMPLATE_ALERT () {
     return '#alert-template';
   }
 
-  static get TEMPLATE_RUBY() {
+  static get TEMPLATE_RUBY () {
     return '#ruby-template';
   }
 
-  static div({
+  static div ({
     id = null,
     cls = null,
     content = null
@@ -67,7 +67,7 @@ class View {
     return result;
   }
 
-  static addNav({
+  static addNav ({
     id = 'nav-new'
   } = {}) {
     if (_id != null) {
@@ -76,7 +76,7 @@ class View {
     return '';
   }
 
-  static getTemplate({
+  static getTemplate ({
     template = null,
     model = {}
   } = {}) {
@@ -89,7 +89,7 @@ class View {
     return _compiled(model);
   }
 
-  static getAlert({
+  static getAlert ({
     type = View.ALERT_SUCCESS,
     message = null,
     text = 'ALERT',
@@ -98,7 +98,7 @@ class View {
     message = message || text;
     if (message == null) {
       super.logGenerate(this.getAlert, arguments);
-      super.logCaution();
+      super.logCaution()();
       return;
     }
 
@@ -115,12 +115,12 @@ class View {
     return result;
   }
 
-  static getLoading({
+  static getLoading ({
     header = 'LOADING'
   } = {}) {
     if (header == null) {
       super.logGenerate(this.getLoading, arguments);
-      super.logCaution();
+      super.logCaution()();
       return;
     }
 
@@ -135,7 +135,7 @@ class View {
     return result;
   }
 
-  static removeHTML({
+  static removeHTML ({
     selector = null,
     speed = View.SPEED_REMOVE
   } = {}) {

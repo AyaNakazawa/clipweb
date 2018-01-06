@@ -63,7 +63,7 @@ class SwitchView extends CommonView {
   }
 
   switchView () {
-    super.log('View', 'Switch', Log.ARROW_INPUT);
+    super.log('View', 'Switch', Log.ARROW_INPUT)();
     this.setView(!this.MODEL.view);
   }
 
@@ -72,11 +72,11 @@ class SwitchView extends CommonView {
   }
 
   setView (_view = null, _speed = this.MODEL.speed) {
-    super.log('View', _view, Log.ARROW_INPUT);
+    super.log('View', _view, Log.ARROW_INPUT)();
 
     if (_view == null) {
       super.logGenerate(this.setView, arguments);
-      super.logError('view is null');
+      super.logError('view is null')();
       return;
     }
 
@@ -92,7 +92,7 @@ class SwitchView extends CommonView {
       $(this.MODEL.selector).hide(_speed);
     } else {
       super.logGenerate(this.setView, arguments);
-      super.logError('unknown view.');
+      super.logError('unknown view.')();
       return null;
     }
 
@@ -151,7 +151,7 @@ class SwitchController extends CommonController {
     this.MODEL.compile();
     if (this.MODEL.selector == null) {
       super.logGenerate(this.initSwitchView, arguments);
-      super.logError('switch selector is null');
+      super.logError('switch selector is null')();
       return;
     }
     this.initView();

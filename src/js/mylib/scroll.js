@@ -34,10 +34,10 @@ class ScrollView extends CommonView {
   }
 
   scroll () {
-    super.log('Scroll');
+    super.log('Scroll')();
     if (this.MODEL.selector == null) {
       super.logGenerate(this.scroll, arguments);
-      super.logError('selector is null');
+      super.logError('selector is null')();
       return;
     }
     $(this.MODEL.COMMON.BODY).animate(
@@ -99,7 +99,7 @@ class ScrollController extends CommonController {
   initScrollView () {
     if (this.MODEL.selector == null) {
       super.logGenerate(this.initScrollView, arguments);
-      super.logError('scroll selector is null');
+      super.logError('scroll selector is null')();
       return;
     }
     this.EVENT.setOnScroll();

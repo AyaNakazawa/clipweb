@@ -42,7 +42,7 @@ class ConfirmModel extends CommonModel {
 
   updateSelector () {
     if (this.id == null) {
-      super.log('ID', 'Generate', Log.ARROW_INPUT);
+      super.log('ID', 'Generate', Log.ARROW_INPUT)();
       this.id = SHA256.getHash(new Date().formatString()).substr(0, 7);
     }
     this.id = `confirm-${this.id}`;
@@ -235,7 +235,7 @@ class ConfirmController extends CommonController {
   initConfirm () {
     if (this.MODEL.content == null) {
       super.logGenerate(this.initConfirm, arguments);
-      super.logCaution('content is null');
+      super.logCaution('content is null')();
     }
     this.MODEL.updateSelector();
     this.VIEW.generateModal();
@@ -243,43 +243,43 @@ class ConfirmController extends CommonController {
   }
 
   openConfirm () {
-    super.log(this.MODEL.id, 'Open', Log.ARROW_INPUT);
+    super.log(this.MODEL.id, 'Open', Log.ARROW_INPUT)();
     $(this.MODEL.SELECTOR.ID).modal();
   }
 
   selectYes () {
-    super.log(this.MODEL.id, 'Yes', Log.ARROW_INPUT);
+    super.log(this.MODEL.id, 'Yes', Log.ARROW_INPUT)();
     if (Object.getType(this.MODEL.functionYes) == 'Function') {
-      super.log('Yes', 'Exec', Log.ARROW_INPUT);
+      super.log('Yes', 'Exec', Log.ARROW_INPUT)();
       this.MODEL.functionYes();
     }
   }
 
   selectNo () {
-    super.log(this.MODEL.id, 'No', Log.ARROW_INPUT);
+    super.log(this.MODEL.id, 'No', Log.ARROW_INPUT)();
     if (Object.getType(this.MODEL.functionNo) == 'Function') {
-      super.log('No', 'Exec', Log.ARROW_INPUT);
+      super.log('No', 'Exec', Log.ARROW_INPUT)();
       this.MODEL.functionNo();
     }
   }
 
   destroy () {
     setTimeout(() => {
-      super.log(this.MODEL.id, 'Close', Log.ARROW_INPUT);
+      super.log(this.MODEL.id, 'Close', Log.ARROW_INPUT)();
       if (Object.getType(this.MODEL.functionClose) == 'Function') {
-        super.log('Close', 'Exec', Log.ARROW_INPUT);
+        super.log('Close', 'Exec', Log.ARROW_INPUT)();
         this.MODEL.functionClose();
       }
     });
     setTimeout(() => {
-      super.log(this.MODEL.id, 'Destroy', Log.ARROW_INPUT);
+      super.log(this.MODEL.id, 'Destroy', Log.ARROW_INPUT)();
       this.EVENT.setEvent(false);
       this.EVENT.setOnHidden();
     });
   }
 
   remove () {
-    super.log(this.MODEL.id, 'Remove', Log.ARROW_INPUT);
+    super.log(this.MODEL.id, 'Remove', Log.ARROW_INPUT)();
     $(this.MODEL.SELECTOR.ID).remove();
     this.EVENT.setOffHidden();
   }
