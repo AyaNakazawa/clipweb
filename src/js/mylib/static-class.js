@@ -531,7 +531,7 @@ class Crypto {
 
   static getOption (iv = null, mode = Crypto.MODE, padding = Crypto.PADDING) {
     if (iv != null) {
-      return {iv: iv, mode: mode, padding: padding};
+      return { iv: iv, mode: mode, padding: padding };
     }
     return null;
   }

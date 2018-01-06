@@ -327,7 +327,7 @@ class UserView extends CommonView {
     $(this.MODEL.SELECTOR.AREA).append(_AREA);
 
     // View
-    this.setView({view: view});
+    this.setView({ view: view });
     if (view) {
       this.scroll();
     }
@@ -362,7 +362,7 @@ class UserEvent extends CommonEvent {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} .content-header-button`,
       func: () => {
-        this.trigger({trigger: this.MODEL.TRIGGER.VIEW.CLOSE});
+        this.trigger({ trigger: this.MODEL.TRIGGER.VIEW.CLOSE });
       }
     });
 
@@ -560,9 +560,9 @@ class UserEvent extends CommonEvent {
       trigger: this.MODEL.TRIGGER.POST.COMPLETE,
       func: () => {
         Log.logClassKey(this.NAME, type.capitalize(), 'Complete');
-        super.setOff({trigger: this.MODEL.TRIGGER.POST.SUCCESS});
-        super.setOff({trigger: this.MODEL.TRIGGER.POST.ERROR});
-        super.setOff({trigger: this.MODEL.TRIGGER.POST.COMPLETE});
+        super.setOff({ trigger: this.MODEL.TRIGGER.POST.SUCCESS });
+        super.setOff({ trigger: this.MODEL.TRIGGER.POST.ERROR });
+        super.setOff({ trigger: this.MODEL.TRIGGER.POST.COMPLETE });
       }
     });
   }
@@ -584,7 +584,7 @@ class UserController extends CommonController {
     super(model, initSetting);
 
     this.EVENT.setEvent();
-    this.open({type: this.MODEL.TYPE.REGISTER});
+    this.open({ type: this.MODEL.TYPE.REGISTER });
   }
 
   // ----------------------------------------------------------------
@@ -606,31 +606,31 @@ class UserController extends CommonController {
   openLogin (
     model = {}
   ) {
-    this.open({type: this.MODEL.TYPE.LOGIN, model: model});
+    this.open({ type: this.MODEL.TYPE.LOGIN, model: model });
   }
 
   openSetting (
     model = {}
   ) {
-    this.open({type: this.MODEL.TYPE.SETTING, model: model});
+    this.open({ type: this.MODEL.TYPE.SETTING, model: model });
   }
 
   openInfo (
     model = {}
   ) {
-    this.open({type: this.MODEL.TYPE.INFO, model: model});
+    this.open({ type: this.MODEL.TYPE.INFO, model: model });
   }
 
   openLogout (
     model = {}
   ) {
-    this.open({type: this.MODEL.TYPE.LOGOUT, model: model});
+    this.open({ type: this.MODEL.TYPE.LOGOUT, model: model });
   }
 
   openRegister (
     model = {}
   ) {
-    this.open({type: this.MODEL.TYPE.REGISTER, model: model});
+    this.open({ type: this.MODEL.TYPE.REGISTER, model: model });
   }
 
   openLoading (
@@ -709,14 +709,14 @@ class UserController extends CommonController {
         successOpenType: this.MODEL.TYPE.LOGIN,
         successModel: {
           alertMessage:
-            View.div({content: 'ユーザーを登録しました。'}) +
-            View.div({content: 'メール認証をしてください。'})
+            View.div({ content: 'ユーザーを登録しました。' }) +
+            View.div({ content: 'メール認証をしてください。' })
         },
         errorOpenType: _TYPE,
         errorModel: {
           alertMessage: (
-            View.div({content: 'ユーザー登録に失敗しました。'}) +
-            View.div({content: 'もう一度登録してください。'})
+            View.div({ content: 'ユーザー登録に失敗しました。' }) +
+            View.div({ content: 'もう一度登録してください。' })
           ),
           alertType: View.ALERT_DANGER
         }
@@ -727,7 +727,7 @@ class UserController extends CommonController {
     } else {
       this.openRegister({
         alertMessage: (
-          View.div({content: 'すべての項目を正しく入力してください。'})
+          View.div({ content: 'すべての項目を正しく入力してください。' })
         ),
         alertType: View.ALERT_WARNING
       });
@@ -918,7 +918,7 @@ class UserController extends CommonController {
         Log.logObj(data);
         Log.logClass(this.NAME, 'jqXHR');
         Log.logObj(jqXHR);
-        this.EVENT.trigger({trigger: this.MODEL.TRIGGER.POST.SUCCESS});
+        this.EVENT.trigger({ trigger: this.MODEL.TRIGGER.POST.SUCCESS });
       },
       error: (jqXHR, textStatus, errorThrown) => {
         Log.logClassKey(this.NAME, 'post', 'Error');
@@ -926,11 +926,11 @@ class UserController extends CommonController {
         Log.logClassKey(this.NAME, 'errorThrown', errorThrown);
         Log.logClass(this.NAME, 'jqXHR');
         Log.logObj(jqXHR);
-        this.EVENT.trigger({trigger: this.MODEL.TRIGGER.POST.ERROR});
+        this.EVENT.trigger({ trigger: this.MODEL.TRIGGER.POST.ERROR });
       },
       complete: (jqXHR, textStatus) => {
         this.updateHash(type, this.MODEL.TIMING.AFTER);
-        this.EVENT.trigger({trigger: this.MODEL.TRIGGER.POST.COMPLETE});
+        this.EVENT.trigger({ trigger: this.MODEL.TRIGGER.POST.COMPLETE });
       }
     });
   }
