@@ -33,6 +33,10 @@ EX.String.getRows = function () {
   return this.length - this.replace(/\n/g, '').length + 1;
 };
 
+EX.String.count = function (target) {
+  return this.split(target).length - 1;
+};
+
 /**
  * Object.prototype.getType
  * @param  {Object} obj  Inspect Object
