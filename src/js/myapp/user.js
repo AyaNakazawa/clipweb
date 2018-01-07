@@ -1188,7 +1188,7 @@ class UserController extends CommonController {
     type = this.MODEL.KEY,
     key = null
   } = {}) {
-    if (key == null || input == null) {
+    if (key == null) {
       super.logGenerate(this.getAjaxData, arguments);
       super.logError()();
       return;
@@ -1200,7 +1200,11 @@ class UserController extends CommonController {
       return;
     }
     if (typeof this.MODEL.OBJECT.AJAX[type][key] != 'undefined') {
-      input = this.MODEL.OBJECT.AJAX[type][key];
+      if (input == null) {
+        return this.MODEL.OBJECT.AJAX[type][key];
+      } else {
+        input = this.MODEL.OBJECT.AJAX[type][key];
+      }
     }
   }
 
