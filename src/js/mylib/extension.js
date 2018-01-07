@@ -11,7 +11,7 @@ EX.Object = {};
 // Define
 
 EX.Date.formatString = function (
-  _format = '%Y/%m/%d(%W) %H:%M:%S.%MS'
+  _format = '%Y/%m/%d %H:%M:%S'
 ) {
   _format = _format.replace('%Y', ('000' + this.getFullYear()).slice(-4));
   _format = _format.replace('%y', ('0' + this.getFullYear()).slice(-2));
