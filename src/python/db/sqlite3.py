@@ -4,8 +4,8 @@
 """
 ----------------------------------------------------------------
 SQLite3
-  Author: Aya Nakazawa
-  GitHub: https://github.com/AyaNakazawa
+  Author: ayaya (ayatec)
+  GitHub: https://github.com/ayatec
 ----------------------------------------------------------------
 """
 
