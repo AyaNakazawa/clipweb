@@ -553,12 +553,14 @@ class UserEvent extends CommonEvent {
 
   setOnLoading ({
     type = null,
+    successOpenMode = this.MODEL.KEY,
     successOpenType = null,
     successModel = {},
+    errorOpenMode = this.MODEL.KEY,
     errorOpenType = null,
     errorModel = {}
   } = {}) {
-    if (type == null || successOpenType == null) {
+    if (type == null) {
       super.logGenerate(this.setOnLoading, arguments);
       super.logError()();
       return;
@@ -574,6 +576,7 @@ class UserEvent extends CommonEvent {
       func: () => {
         this.CONTROLLER.updateHash(type, this.MODEL.TIMING.AFTER);
         this.CONTROLLER.open({
+          mode: successOpenMode,
           type: successOpenType,
           model: successModel
         });
@@ -584,12 +587,13 @@ class UserEvent extends CommonEvent {
       trigger: this.MODEL.TRIGGER.POST.ERROR,
       func: () => {
         this.CONTROLLER.open({
+          mode: errorOpenMode,
           type: errorOpenType,
           model: errorModel
         });
       }
     });
-    // Error
+    // Complete
     super.setOn({
       trigger: this.MODEL.TRIGGER.POST.COMPLETE,
       func: () => {
@@ -625,16 +629,25 @@ class UserController extends CommonController {
   // open
 
   open ({
+    mode = this.MODEL.KEY,
     type = null,
     model = {}
   } = {}) {
-    if (type == null) {
+    if (type != null) {
+      model['type'] = type;
+    }
+
+    if (mode == this.MODEL.KEY) {
+      this.VIEW.generateArea(model);
+    } else if (mode == ClipListModel.MODEL.KEY) {
+      CLIPLIST.VIEW.generateArea(model);
+    } else if (mode == ClipModel.MODEL.KEY) {
+      CLIP.VIEW.generateArea(model);
+    } else {
       super.logGenerate(this.open, arguments);
-      super.logError()();
+      super.logError('unknown mode')();
       return;
     }
-    model['type'] = type;
-    this.VIEW.generateArea(model);
   }
 
   openLogin (
@@ -760,11 +773,14 @@ class UserController extends CommonController {
       this.post(_TYPE);
 
     } else {
-      this.openRegister({
-        alertMessage: (
-          View.div({ content: 'すべての項目を正しく入力してください。' })
-        ),
-        alertType: View.ALERT_WARNING
+      this.open({
+        type: _TYPE,
+        model: {
+          alertMessage: (
+            View.div({ content: 'すべての項目を正しく入力してください。' })
+          ),
+          alertType: View.ALERT_WARNING
+        }
       });
     }
   }
@@ -943,6 +959,9 @@ class UserController extends CommonController {
       super.logError('unknown type.')();
       return;
     }
+
+    super.log('post', 'Commit', Log.ARROW_INPUT)();
+    Log.obj(_model)();
 
     $.ajax({
       url: _path,
