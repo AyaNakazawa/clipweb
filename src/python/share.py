@@ -33,9 +33,24 @@ class Share:
     # ----------------------------------------------------------------
 
     def __init__(cls):
-        print("[INIT]")
-        print("clipweb Share")
+        cls.result = {}
 
     # ----------------------------------------------------------------
     # Function
     # ----------------------------------------------------------------
+
+    def alive(cls):
+        cls.result["type"] = "alive"
+        return cls.result
+
+    def read(cls):
+        cls.result["type"] = "read"
+        return cls.result
+
+    def write(cls):
+        cls.result["type"] = "write"
+        return cls.result
+
+    def leave(cls):
+        cls.result["type"] = "leave"
+        return cls.result

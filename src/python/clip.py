@@ -33,9 +33,20 @@ class Clip:
     # ----------------------------------------------------------------
 
     def __init__(cls):
-        print("[INIT]")
-        print("clipweb Clip")
+        cls.result = {}
 
     # ----------------------------------------------------------------
     # Function
     # ----------------------------------------------------------------
+
+    def new(cls):
+        cls.result["type"] = "new"
+        return cls.result
+
+    def save(cls):
+        cls.result["type"] = "save"
+        return cls.result
+
+    def delete(cls):
+        cls.result["type"] = "delete"
+        return cls.result

@@ -22,12 +22,12 @@ import json
 
 class SQLite3:
 
-    DB_PATH = "clipweb.db"
+    DB_PATH = "db/clipweb.db"
 
     def __init__(cls):
-        print("[INIT]")
-        print("SQLite3")
-        # conn = sqlite3.connect(cls.DB_PATH)
+        # print("[INIT]")
+        # print("SQLite3")
+        conn = sqlite3.connect(cls.DB_PATH)
         # c = conn.cursor()
         #
         # insert = "insert into users(hash, name) values(?,?)"
@@ -40,4 +40,4 @@ class SQLite3:
         # for row in c.execute(select):
         #     print(row)
         #
-        # conn.close()
+        conn.close()

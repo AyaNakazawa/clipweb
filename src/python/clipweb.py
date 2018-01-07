@@ -13,11 +13,17 @@ clipweb
 # Import
 # ----------------------------------------------------------------
 
+import json
+import datetime
+import time
+
 from web import cgi
 import user
 import clip
 import share
 
+TIME = {}
+TIME["init"] = datetime.datetime.now()
 AUTO_GENERATE = None
 
 # ----------------------------------------------------------------
@@ -28,17 +34,24 @@ class Clipweb:
     # ----------------------------------------------------------------
     # Define
 
+    result = {}
+
     # ----------------------------------------------------------------
     # Constructor
     # ----------------------------------------------------------------
 
     def __init__(cls):
-        print("[INIT]")
-        print("clipweb")
+        # print("[INIT]")
+        # print("clipweb")
         _type = cgi.CGI.get("type")
 
         if _type is not None:
             cls.check_type(_type)
+        else:
+            cls.result["error"] = {}
+            cls.result["error"]["message"] = "type is null"
+
+        cls.exit()
 
     def check_type(cls, _type=None):
         # print(cls._type)
@@ -56,90 +69,105 @@ class Clipweb:
             cls.check_share(_type[1])
 
         else:
-            print("[ERROR]")
-            print("check_type: {0}".format(_type))
+            cls.result["error"] = {}
+            cls.result["error"]["message"] = "check_type: {0}".format(_type)
+            # print("[ERROR]")
+            # print("check_type: {0}".format(_type))
 
     def check_user(cls, _type=None):
         USER = user.User()
         # print("check user")
         if _type == "register":
             # print("register")
-            USER.register()
+            cls.result["user"] = USER.register()
 
         elif _type == "login":
             # print("login")
-            USER.login()
+            cls.result["user"] = USER.login()
 
         elif _type == "setting":
             # print("setting")
-            USER.setting()
+            cls.result["user"] = USER.setting()
 
         elif _type == "info":
             # print("info")
-            USER.info()
+            cls.result["user"] = USER.info()
 
         elif _type == "leave":
             # print("leave")
-            USER.leave()
+            cls.result["user"] = USER.leave()
 
         else:
-            print("[ERROR]")
-            print("check_user: {0}".format(_type))
+            cls.result["error"] = {}
+            cls.result["error"]["message"] = "check_user: {0}".format(_type)
+            # print("[ERROR]")
+            # print("check_user: {0}".format(_type))
 
     def check_clip(cls, _type=None):
         CLIP = clip.Clip()
         # print("check clip")
         if _type == "new":
             # print("new")
-            CLIP.new()
+            cls.result["clip"] = CLIP.new()
 
         elif _type == "save":
             # print("save")
-            CLIP.save()
+            cls.result["clip"] = CLIP.save()
 
         elif _type == "delete":
             # print("delete")
-            CLIP.delete()
+            cls.result["clip"] = CLIP.delete()
 
         else:
-            print("[ERROR]")
-            print("check_clip: {0}".format(_type))
+            cls.result["error"] = {}
+            cls.result["error"]["message"] = "check_clip: {0}".format(_type)
+            # print("[ERROR]")
+            # print("check_clip: {0}".format(_type))
 
     def check_share(cls, _type=None):
         SHARE = share.Share()
         # print("check share")
         if _type == "alive":
             # print("alive")
-            SHARE.alive()
+            cls.result["share"] = SHARE.alive()
 
         elif _type == "read":
             # print("read")
-            SHARE.read()
+            cls.result["share"] = SHARE.read()
 
         elif _type == "write":
             # print("write")
-            SHARE.write()
+            cls.result["share"] = SHARE.write()
 
         elif _type == "leave":
             # print("leave")
-            SHARE.leave()
+            cls.result["share"] = SHARE.leave()
 
         else:
-            print("[ERROR]")
-            print("check_share: {0}".format(_type))
+            cls.result["error"] = {}
+            cls.result["error"]["message"] = "check_share: {0}".format(_type)
+            # print("[ERROR]")
+            # print("check_share: {0}".format(_type))
 
     # ----------------------------------------------------------------
     # Function
     # ----------------------------------------------------------------
 
+    def exit(cls):
+        global TIME
+        TIME["app"] = datetime.datetime.now()
+        cls.result["exec_time"] = (TIME["app"] - TIME["init"]).total_seconds()
+
 # ----------------------------------------------------------------
 # Ready
 # ----------------------------------------------------------------
 
-print("[RUN]")
-print("clipweb")
+# print("[RUN]")
+# print("clipweb")
 
-Clipweb()
+app = Clipweb()
 
-print("[EXIT]")
-print("clipweb")
+print(json.dumps(app.result))
+
+# print("[EXIT]")
+# print("clipweb")

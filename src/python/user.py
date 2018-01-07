@@ -33,29 +33,28 @@ class User:
     # ----------------------------------------------------------------
 
     def __init__(cls):
-        print("[INIT]")
-        print("clipweb User")
+        cls.result = {}
 
     # ----------------------------------------------------------------
     # Function
     # ----------------------------------------------------------------
 
     def register(cls):
-        print("[FUNC]")
-        print("User.register()")
+        cls.result["type"] = "register"
+        return cls.result
 
     def login(cls):
-        print("[FUNC]")
-        print("User.login()")
+        cls.result["type"] = "login"
+        return cls.result
 
     def setting(cls):
-        print("[FUNC]")
-        print("User.setting()")
+        cls.result["type"] = "setting"
+        return cls.result
 
     def info(cls):
-        print("[FUNC]")
-        print("User.info()")
+        cls.result["type"] = "info"
+        return cls.result
 
     def leave(cls):
-        print("[FUNC]")
-        print("User.leave()")
+        cls.result["type"] = "leave"
+        return cls.result
