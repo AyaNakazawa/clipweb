@@ -302,12 +302,6 @@ class UserView extends CommonView {
       };
     }
 
-    // Set Template
-    const _AREA = View.getTemplate({
-      template: _mainTemplate,
-      model: _mainModel
-    });
-
     // Clear
     this.clear();
 
@@ -338,7 +332,14 @@ class UserView extends CommonView {
     }
 
     // Generate Content
-    $(this.MODEL.SELECTOR.AREA).append(_AREA);
+    if (_mainTemplate != null && _mainModel != null) {
+      $(this.MODEL.SELECTOR.AREA).append(
+        View.getTemplate({
+          template: _mainTemplate,
+          model: _mainModel
+        })
+      );
+    }
 
     // View
     this.setView({ view: view });
@@ -397,7 +398,6 @@ class UserEvent extends CommonEvent {
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.REGISTER.SUBMIT}`,
       func: () => {
         super.log('Register', 'Submit')();
-        this.VIEW.hide();
         this.CONTROLLER.submitRegister();
       }
     });
@@ -419,8 +419,6 @@ class UserEvent extends CommonEvent {
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.LOGIN.SUBMIT}`,
       func: () => {
         super.log('Login', 'Submit')();
-        PS.NAV.VIEW.generateLogined();
-        this.VIEW.hide();
         this.CONTROLLER.submitLogin();
       }
     });
@@ -446,8 +444,6 @@ class UserEvent extends CommonEvent {
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.LOGOUT.SUBMIT}`,
       func: () => {
         super.log('Logout', 'Submit')();
-        PS.NAV.VIEW.generateNotLogin();
-        this.VIEW.hide();
         this.CONTROLLER.submitLogout();
       }
     });
@@ -466,7 +462,6 @@ class UserEvent extends CommonEvent {
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.INFO.UPDATE_SUBMIT}`,
       func: () => {
         super.log('User Info', 'Submit')();
-        this.VIEW.hide();
         this.CONTROLLER.submitInfo();
       }
     });
@@ -499,7 +494,6 @@ class UserEvent extends CommonEvent {
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.UPDATE_SUBMIT}`,
       func: () => {
         super.log('User Setting', 'Submit')();
-        this.VIEW.hide();
         this.CONTROLLER.submitSetting();
       }
     });
@@ -567,9 +561,11 @@ class UserEvent extends CommonEvent {
     successOpenMode = this.MODEL.KEY,
     successOpenType = null,
     successModel = {},
+    successFunction = () => {},
     errorOpenMode = this.MODEL.KEY,
     errorOpenType = null,
-    errorModel = {}
+    errorModel = {},
+    errorFunction = () => {}
   } = {}) {
     if (type == null) {
       super.logGenerate(this.setOnLoading, arguments);
@@ -592,6 +588,7 @@ class UserEvent extends CommonEvent {
           type: successOpenType,
           model: successModel
         });
+        successFunction();
       }
     });
     // Error
@@ -603,6 +600,7 @@ class UserEvent extends CommonEvent {
           type: errorOpenType,
           model: errorModel
         });
+        errorFunction();
       }
     });
     // Complete
@@ -727,8 +725,9 @@ class UserController extends CommonController {
     }
 
     this.open({
-      type: type,
-      loadingHeader: _loadingHeader
+      model: {
+        loadingHeader: _loadingHeader
+      }
     });
   }
 
@@ -819,6 +818,9 @@ class UserController extends CommonController {
     if ( _validEmail && _validPassword) {
       this.EVENT.setOnLoading({
         type: _TYPE,
+        successFunction: () => {
+          PS.NAV.VIEW.generateLogined();
+        },
         errorOpenType: _TYPE,
         errorModel: {
           alertMessage: (
@@ -1045,6 +1047,7 @@ class UserController extends CommonController {
       super.logGenerate(this.getAjaxData, arguments);
       super.logError('type undefined')();
       Log.obj(this.MODEL.OBJECT.AJAX)();
+      return;
     }
     if (typeof this.MODEL.OBJECT.AJAX[type][key] != 'undefined') {
       input = this.MODEL.OBJECT.AJAX[type][key];
