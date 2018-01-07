@@ -922,11 +922,13 @@ class UserController extends CommonController {
       if (timing == this.MODEL.TIMING.BEFORE) {
         // BEFORE
         this.MODEL.HASH.PASSWORD = SHA256.getHash(this.MODEL.PASSWORD);
-        this.MODEL.HASH.PASSWORD_NEW = SHA256.getHash(this.MODEL.PASSWORD_NEW);
-        this.MODEL.ENCRYPT.CRYPTO = Crypto.encrypt(
-          this.MODEL.HASH.CRYPTO,
-          this.MODEL.PASSWORD_NEW
-        );
+        if (this.MODEL.PASSWORD_NEW != '') {
+          this.MODEL.HASH.PASSWORD_NEW = SHA256.getHash(this.MODEL.PASSWORD_NEW);
+          this.MODEL.ENCRYPT.CRYPTO = Crypto.encrypt(
+            this.MODEL.HASH.CRYPTO,
+            this.MODEL.PASSWORD_NEW
+          );
+        }
       } else if (timing == this.MODEL.TIMING.AFTER) {
         // AFTER
         this.MODEL.HASH.CRYPTO = Crypto.decrypt(
@@ -1105,7 +1107,9 @@ class UserController extends CommonController {
       _model['username'] = this.MODEL.USERNAME;
       _model['email_address'] = this.MODEL.EMAIL;
       _model['password_hash'] = this.MODEL.HASH.PASSWORD;
-      _model['password_hash_new'] = this.MODEL.HASH.PASSWORD_NEW;
+      if (this.MODEL.HASH.PASSWORD_NEW != '') {
+        _model['password_hash_new'] = this.MODEL.HASH.PASSWORD_NEW;
+      }
       _model['encrypted_crypto_hash'] = this.MODEL.ENCRYPT.CRYPTO;
 
     } else if (type == this.MODEL.TYPE.SETTING) {
