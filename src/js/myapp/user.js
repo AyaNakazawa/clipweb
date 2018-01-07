@@ -851,7 +851,69 @@ class UserController extends CommonController {
   }
 
   submitInfo () {
+    const _TYPE = this.MODEL.TYPE.INFO;
 
+    let _validUsername = true;
+    let _validEmail = true;
+    let _validPassword = true;
+    let _validNewPassword = true;
+    let _validNewPasswordRe = true;
+
+    const _USERNAME = $(this.MODEL.SELECTOR.INFO.USERNAME);
+    const _EMAIL = $(this.MODEL.SELECTOR.INFO.EMAIL);
+    const _PASSWORD = $(this.MODEL.SELECTOR.INFO.OLD_PASSWORD);
+    const _NEW_PASSWORD = $(this.MODEL.SELECTOR.INFO.NEW_PASSWORD);
+    const _NEW_PASSWORD_RE = $(this.MODEL.SELECTOR.INFO.NEW_PASSWORD_RE);
+
+    _validUsername = _USERNAME[0].validity.valid;
+    _validEmail = _EMAIL[0].validity.valid;
+    _validPassword = _PASSWORD[0].validity.valid;
+    _validNewPassword = _NEW_PASSWORD[0].validity.valid;
+    _validNewPasswordRe = _NEW_PASSWORD_RE[0].validity.valid;
+
+    if (_validUsername) {
+      this.MODEL.USERNAME = _USERNAME.val().trim();
+    }
+    if (_validEmail) {
+      this.MODEL.EMAIL = _EMAIL.val().trim();
+    }
+    if (_validPassword) {
+      this.MODEL.PASSWORD = _PASSWORD.val();
+    }
+    if (_validNewPassword && _validNewPasswordRe) {
+      this.MODEL.PASSWORD_NEW = _NEW_PASSWORD.val();
+    }
+
+    if (_validUsername && _validEmail && _validPassword) {
+      this.EVENT.setOnLoading({
+        type: _TYPE,
+        successOpenType: _TYPE,
+        successModel: {
+          alertMessage:
+            View.div({ content: 'ユーザー情報を更新しました。' })
+        },
+        errorOpenType: _TYPE,
+        errorModel: {
+          alertMessage: (
+            View.div({ content: 'ユーザー情報の更新に失敗しました。' })
+          ),
+          alertType: View.ALERT_DANGER
+        }
+      });
+
+      this.post(_TYPE);
+
+    } else {
+      this.open({
+        type: _TYPE,
+        model: {
+          alertMessage: (
+            View.div({ content: '正しく入力してください。' })
+          ),
+          alertType: View.ALERT_WARNING
+        }
+      });
+    }
   }
 
   submitSetting () {
