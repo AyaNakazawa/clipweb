@@ -1342,15 +1342,21 @@ class UserController extends CommonController {
         super.log('post', 'Complete')();
         // super.log('textStatus', textStatus)();
         // super.log('jqXHR')(jqXHR);
-        Log.class('', 'Post Time')();
+        const _EXEC_TIME = parseInt(this.getAjaxData({ type: 'exec_time' }) * 1000);
+        Log.log('Post Time', Log.ALIGN_CENTER)();
         Log.classKey(
           'Before Send',
           new Date(this.MODEL.TIME.BEFORE_SEND - this.MODEL.TIME.POST).formatString('%S.%MSs'),
           new Date(this.MODEL.TIME.BEFORE_SEND - this.MODEL.TIME.POST).formatString('%S.%MSs')
         )();
         Log.classKey(
-          'Server Reply',
-          new Date(this.MODEL.TIME.RETURN - this.MODEL.TIME.BEFORE_SEND).formatString('%S.%MSs'),
+          'CGI Exec',
+          new Date(_EXEC_TIME).formatString('%S.%MSs'),
+          new Date(_EXEC_TIME + (this.MODEL.TIME.BEFORE_SEND - this.MODEL.TIME.POST)).formatString('%S.%MSs')
+        )();
+        Log.classKey(
+          'Network Delay',
+          new Date((this.MODEL.TIME.RETURN - this.MODEL.TIME.BEFORE_SEND) - _EXEC_TIME).formatString('%S.%MSs'),
           new Date(this.MODEL.TIME.RETURN - this.MODEL.TIME.POST).formatString('%S.%MSs')
         )();
         Log.classKey(
