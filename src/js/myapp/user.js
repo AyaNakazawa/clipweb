@@ -958,10 +958,6 @@ class UserController extends CommonController {
     const _OWNER_PUBLISH = this.MODEL.SELECTOR.SETTING.OWNER_PUBLISH;
     const _CLIP_MODE = this.MODEL.SELECTOR.SETTING.CLIP_MODE;
 
-    Log.obj($(_THEME))();
-    Log.obj($(_OWNER_PUBLISH))();
-    Log.obj($(_CLIP_MODE))();
-
     _validTheme = $(_THEME)[0].validity.valid;
     _validOwnerPublish = $(_OWNER_PUBLISH)[0].validity.valid;
     _validClipMode = $(_CLIP_MODE)[0].validity.valid;
@@ -1118,6 +1114,11 @@ class UserController extends CommonController {
       super.logError();
       return;
     }
+    if (type != this.getAjaxData({ key: 'type' })) {
+      super.logGenerate(this.applyModel, arguments);
+      super.logError('type mismatch');
+      return;
+    }
 
     if (type == this.MODEL.TYPE.REGISTER) {
       // REGISTER
@@ -1218,6 +1219,8 @@ class UserController extends CommonController {
       return;
     }
 
+    super.log()();
+    Log.log('Post', Log.ALIGN_CENTER)();
     super.log('post', type.capitalize())();
 
     let _path = 'python/clipweb.py';
@@ -1284,41 +1287,71 @@ class UserController extends CommonController {
       return;
     }
 
-    super.log('post', 'Commit', Log.ARROW_INPUT)();
-    Log.obj(_model)();
+    super.log('data')(_model);
+
+    this.MODEL.TIME.POST = new Date();
 
     $.ajax({
       url: _path,
       data: _model,
       method: _method,
       cache: _cache,
-      dateType: _dateType,
       beforeSend: (jqXHR, settings) => {
+        this.MODEL.TIME.BEFORE_SEND = new Date();
+        super.log()();
+        Log.log('Post Before Send', Log.ALIGN_CENTER)();
         super.log('post', 'Send')();
-        super.log('settings')();
-        Log.obj(settings)();
-        super.log('jqXHR')();
-        Log.obj(jqXHR)();
+        super.log('settings')(settings);
+        // super.log('jqXHR')(jqXHR);
       },
       success: (data, textStatus, jqXHR) => {
+        this.MODEL.TIME.RETURN = new Date();
+        data = JSON.parse(data);
+        super.log()();
+        Log.log('Post Success', Log.ALIGN_CENTER)();
         super.log('post', 'Success')();
-        super.log('textStatus', textStatus)();
-        super.log('data')();
-        Log.obj(data)();
-        super.log('jqXHR')();
-        Log.obj(jqXHR)();
+        // super.log('textStatus', textStatus)();
+        super.log('data')(data);
+        // super.log('jqXHR')(jqXHR);
+        super.log()();
         this.MODEL.OBJECT.AJAX = data;
         this.EVENT.trigger({ trigger: this.MODEL.TRIGGER.POST.SUCCESS });
       },
       error: (jqXHR, textStatus, errorThrown) => {
+        this.MODEL.TIME.RETURN = new Date();
+        super.log()();
+        Log.log('Post Error', Log.ALIGN_CENTER)();
         super.log('post', 'Error')();
         super.log('textStatus', textStatus)();
         super.log('errorThrown', errorThrown)();
-        super.log('jqXHR')();
-        Log.obj(jqXHR)();
+        super.log('jqXHR')(jqXHR);
+        super.log()();
         this.EVENT.trigger({ trigger: this.MODEL.TRIGGER.POST.ERROR });
       },
       complete: (jqXHR, textStatus) => {
+        this.MODEL.TIME.COMPLETE = new Date();
+        super.log()();
+        Log.log('Post Complete', Log.ALIGN_CENTER)();
+        super.log('post', 'Complete')();
+        // super.log('textStatus', textStatus)();
+        // super.log('jqXHR')(jqXHR);
+        Log.class('', 'Post Time')();
+        Log.classKey(
+          'Before Send',
+          new Date(this.MODEL.TIME.BEFORE_SEND - this.MODEL.TIME.POST).formatString('%S.%MSs'),
+          new Date(this.MODEL.TIME.BEFORE_SEND - this.MODEL.TIME.POST).formatString('%S.%MSs')
+        )();
+        Log.classKey(
+          'Server Reply',
+          new Date(this.MODEL.TIME.RETURN - this.MODEL.TIME.BEFORE_SEND).formatString('%S.%MSs'),
+          new Date(this.MODEL.TIME.RETURN - this.MODEL.TIME.POST).formatString('%S.%MSs')
+        )();
+        Log.classKey(
+          'Post Complete',
+          new Date(this.MODEL.TIME.COMPLETE - this.MODEL.TIME.RETURN).formatString('%S.%MSs'),
+          new Date(this.MODEL.TIME.COMPLETE - this.MODEL.TIME.POST).formatString('%S.%MSs')
+        )();
+        super.log()();
         this.EVENT.trigger({ trigger: this.MODEL.TRIGGER.POST.COMPLETE });
       }
     });
