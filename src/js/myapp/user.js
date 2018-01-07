@@ -798,7 +798,50 @@ class UserController extends CommonController {
   }
 
   submitLogin () {
+    const _TYPE = this.MODEL.TYPE.LOGIN;
 
+    let _validEmail = true;
+    let _validPassword = true;
+
+    const _EMAIL = $(this.MODEL.SELECTOR.LOGIN.EMAIL);
+    const _PASSWORD = $(this.MODEL.SELECTOR.LOGIN.PASSWORD);
+
+    _validEmail = _EMAIL[0].validity.valid;
+    _validPassword = _PASSWORD[0].validity.valid;
+
+    if (_validEmail) {
+      this.MODEL.EMAIL = _EMAIL.val().trim();
+    }
+    if (_validPassword) {
+      this.MODEL.PASSWORD = _PASSWORD.val();
+    }
+
+    if ( _validEmail && _validPassword) {
+      this.EVENT.setOnLoading({
+        type: _TYPE,
+        errorOpenType: _TYPE,
+        errorModel: {
+          alertMessage: (
+            View.div({ content: 'ログインに失敗しました。' }) +
+            View.div({ content: 'メールアドレスとパスワードの組み合わせが間違っています。' })
+          ),
+          alertType: View.ALERT_WARNING
+        }
+      });
+
+      this.post(_TYPE);
+
+    } else {
+      this.open({
+        type: _TYPE,
+        model: {
+          alertMessage: (
+            View.div({ content: 'すべての項目を正しく入力してください。' })
+          ),
+          alertType: View.ALERT_WARNING
+        }
+      });
+    }
   }
 
   submitLogout () {
