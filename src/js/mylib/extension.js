@@ -19,7 +19,7 @@ EX.Date.formatString = function (
   _format = _format.replace('%d', ('0' + this.getDate()).slice(-2));
   _format = _format.replace('%W', (this.toLocaleString(window.navigator.language, { weekday: 'short' })));
   _format = _format.replace('%H', ('0' + this.getHours()).slice(-2));
-  _format = _format.replace('%MS', ('000' + this.getMilliseconds()).slice(-4));
+  _format = _format.replace('%MS', ('00' + this.getMilliseconds()).slice(-3));
   _format = _format.replace('%M', ('0' + this.getMinutes()).slice(-2));
   _format = _format.replace('%S', ('0' + this.getSeconds()).slice(-2));
   return _format;
