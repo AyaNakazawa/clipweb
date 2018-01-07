@@ -289,17 +289,17 @@ class Log {
       for (let i = 0; i < this.CLASS_LENGTH - clas.length; i++) {
         result += Log.SPACE;
       }
+
       result += '%c:';
       result += Log.SPACE;
       result += '%c';
       result += key;
+      for (let i = 0; i < this.KEY_LENGTH - key.length; i++) {
+        result += Log.SPACE;
+      }
 
       if (value != null) {
         // and Value
-
-        for (let i = 0; i < this.KEY_LENGTH - key.length; i++) {
-          result += Log.SPACE;
-        }
         result += '%c';
         result += arrow;
         result += '%c';
