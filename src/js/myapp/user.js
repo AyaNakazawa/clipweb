@@ -971,15 +971,15 @@ class UserController extends CommonController {
     } else if (type == this.MODEL.TYPE.LOGIN) {
       // LOGIN
       this.MODEL.STATUS.LOGIN = true;
-      this.MODEL.USERNAME = this.MODEL.OBJECT.AJAX.USER['username'];
-      this.MODEL.HASH.USER = this.MODEL.OBJECT.AJAX.USER['hash'];
-      this.MODEL.ENCRYPT.CRYPTO = this.MODEL.OBJECT.AJAX.USER['encrypted_crypto_hash'];
-      this.MODEL.EMAIL_AUTH = this.MODEL.OBJECT.AJAX.USER['email_authentication'];
-      this.MODEL.THEME = this.MODEL.OBJECT.AJAX.USER['theme'];
-      this.MODEL.OWNER_PUBLISH = this.MODEL.OBJECT.AJAX.USER['default_owner_publish'];
-      this.MODEL.CLIP_MODE = this.MODEL.OBJECT.AJAX.USER['default_clip_mode'];
-      this.MODEL.CREATED_AT = this.MODEL.OBJECT.AJAX.USER['created_at'];
-      this.MODEL.UPDATED_AT = this.MODEL.OBJECT.AJAX.USER['updated_at'];
+      this.getAjaxData({ input: this.MODEL.USERNAME, key: 'username' });
+      this.getAjaxData({ input: this.MODEL.HASH.USER, key: 'hash' });
+      this.getAjaxData({ input: this.MODEL.ENCRYPT.CRYPTO, key: 'encrypted_crypto_hash' });
+      this.getAjaxData({ input: this.MODEL.EMAIL_AUTH, key: 'email_authentication' });
+      this.getAjaxData({ input: this.MODEL.THEME, key: 'theme' });
+      this.getAjaxData({ input: this.MODEL.OWNER_PUBLISH, key: 'default_owner_publish' });
+      this.getAjaxData({ input: this.MODEL.CLIP_MODE, key: 'default_clip_mode' });
+      this.getAjaxData({ input: this.MODEL.CREATED_AT, key: 'created_at' });
+      this.getAjaxData({ input: this.MODEL.UPDATED_AT, key: 'updated_at' });
 
     } else if (type == this.MODEL.TYPE.LOGOUT) {
       // LOGOUT
@@ -993,23 +993,23 @@ class UserController extends CommonController {
 
     } else if (type == this.MODEL.TYPE.INFO) {
       // INFO
-      this.MODEL.USERNAME = this.MODEL.OBJECT.AJAX.USER['username'];
-      this.MODEL.HASH.USER = this.MODEL.OBJECT.AJAX.USER['hash'];
-      this.MODEL.ENCRYPT.CRYPTO = this.MODEL.OBJECT.AJAX.USER['encrypted_crypto_hash'];
-      this.MODEL.EMAIL_AUTH = this.MODEL.OBJECT.AJAX.USER['email_authentication'];
-      this.MODEL.CREATED_AT = this.MODEL.OBJECT.AJAX.USER['created_at'];
-      this.MODEL.UPDATED_AT = this.MODEL.OBJECT.AJAX.USER['updated_at'];
+      this.getAjaxData({ input: this.MODEL.USERNAME, key: 'username' });
+      this.getAjaxData({ input: this.MODEL.HASH.USER, key: 'hash' });
+      this.getAjaxData({ input: this.MODEL.ENCRYPT.CRYPTO, key: 'encrypted_crypto_hash' });
+      this.getAjaxData({ input: this.MODEL.EMAIL_AUTH, key: 'email_authentication' });
+      this.getAjaxData({ input: this.MODEL.CREATED_AT, key: 'created_at' });
+      this.getAjaxData({ input: this.MODEL.UPDATED_AT, key: 'updated_at' });
       if (this.MODEL.PASSWORD_NEW != '') {
         this.MODEL.PASSWORD = this.MODEL.PASSWORD_NEW;
       }
 
     } else if (type == this.MODEL.TYPE.SETTING) {
       // SETTING
-      this.MODEL.THEME = this.MODEL.OBJECT.AJAX.USER['theme'];
-      this.MODEL.OWNER_PUBLISH = this.MODEL.OBJECT.AJAX.USER['default_owner_publish'];
-      this.MODEL.CLIP_MODE = this.MODEL.OBJECT.AJAX.USER['default_clip_mode'];
-      this.MODEL.CREATED_AT = this.MODEL.OBJECT.AJAX.USER['created_at'];
-      this.MODEL.UPDATED_AT = this.MODEL.OBJECT.AJAX.USER['updated_at'];
+      this.getAjaxData({ input: this.MODEL.THEME, key: 'theme' });
+      this.getAjaxData({ input: this.MODEL.OWNER_PUBLISH, key: 'default_owner_publish' });
+      this.getAjaxData({ input: this.MODEL.CLIP_MODE, key: 'default_clip_mode' });
+      this.getAjaxData({ input: this.MODEL.CREATED_AT, key: 'created_at' });
+      this.getAjaxData({ input: this.MODEL.UPDATED_AT, key: 'updated_at' });
 
     } else {
       super.logGenerate(this.post, arguments);
@@ -1026,6 +1026,26 @@ class UserController extends CommonController {
     this.MODEL.CREATED_AT = new Date().formatString();
     this.MODEL.UPDATED_AT = new Date().formatString();
     this.HASH = {};
+  }
+
+  getAjaxData ({
+    input = null,
+    type = this.MODEL.KEY,
+    key = null
+  } = {}) {
+    if (key == null || input == null) {
+      super.logGenerate(this.getAjaxData, arguments);
+      super.logError()();
+      return;
+    }
+    if (typeof this.MODEL.OBJECT.AJAX[type] == 'undefined') {
+      super.logGenerate(this.getAjaxData, arguments);
+      super.logError('type undefined')();
+      Log.obj(this.MODEL.OBJECT.AJAX)();
+    }
+    if (typeof this.MODEL.OBJECT.AJAX[type][key] != 'undefined') {
+      input = this.MODEL.OBJECT.AJAX[type][key];
+    }
   }
 
   // ----------------------------------------------------------------
