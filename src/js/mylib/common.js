@@ -56,8 +56,7 @@ class CommonClass {
 
   log (...args) {
     if (args.length == 0) {
-      this.logGenerate(this.log, arguments);
-      this.logError()();
+      return Log.log();
     } else if (args.length == 1) {
       return Log.class(this.NAME, args[0]);
     } else if (args.length == 2) {
