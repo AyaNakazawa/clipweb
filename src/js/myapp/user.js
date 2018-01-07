@@ -1001,6 +1001,7 @@ class UserController extends CommonController {
       this.getAjaxData({ input: this.MODEL.UPDATED_AT, key: 'updated_at' });
       if (this.MODEL.PASSWORD_NEW != '') {
         this.MODEL.PASSWORD = this.MODEL.PASSWORD_NEW;
+        this.MODEL.PASSWORD_NEW = '';
       }
 
     } else if (type == this.MODEL.TYPE.SETTING) {
