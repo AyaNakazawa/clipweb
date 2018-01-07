@@ -1,5 +1,11 @@
 
 やること
+  ユーザー系が完成したら、
+    USERNAME
+    PASSWORD
+    HTMLのパスワードのvalue
+    UserControllerのコンストラクタのopen種別
+  を直す
 
 
 やったこと
