@@ -43,11 +43,16 @@ class UserModel extends CommonModel {
     this.EMAIL = 'test@test';
     // パスワード
     this.PASSWORD = '';
+    this.PASSWORD_NEW = '';
     // メール認証フラグ
     // 認証していない場合は
     //  - クリップ数を制限
     //  - 公開クリップしか作れない
     this.EMAIL_AUTH = false;
+    // 作成日時
+    this.CREATED_AT = new Date().formatString();
+    // 更新日時
+    this.UPDATED_AT = new Date().formatString();
 
     // ハッシュ
     this.HASH = {};
@@ -574,6 +579,7 @@ class UserEvent extends CommonEvent {
     super.setOn({
       trigger: this.MODEL.TRIGGER.POST.SUCCESS,
       func: () => {
+        this.CONTROLLER.applyModel(type);
         this.CONTROLLER.updateHash(type, this.MODEL.TIMING.AFTER);
         this.CONTROLLER.open({
           mode: successOpenMode,
@@ -861,6 +867,7 @@ class UserController extends CommonController {
       if (timing == this.MODEL.TIMING.BEFORE) {
         // BEFORE
         this.MODEL.HASH.PASSWORD = SHA256.getHash(this.MODEL.PASSWORD);
+        this.MODEL.HASH.PASSWORD_NEW = SHA256.getHash(this.MODEL.PASSWORD_NEW);
       } else if (timing == this.MODEL.TIMING.AFTER) {
         // AFTER
         this.MODEL.HASH.CRYPTO = SHA256.getHash(
@@ -886,6 +893,77 @@ class UserController extends CommonController {
     this.MODEL.HASH.PASSWORD = '';
     this.MODEL.HASH.CRYPTO = '';
     this.MODEL.HASH.GRAVATAR = '';
+  }
+
+  applyModel (
+    type = null
+  ) {
+    super.log(type.capitalize(), 'Apply')();
+    if (type == null) {
+      super.logGenerate(this.applyModel, arguments);
+      super.logError();
+      return;
+    }
+
+    if (type == this.MODEL.TYPE.REGISTER) {
+      // REGISTER
+
+    } else if (type == this.MODEL.TYPE.LOGIN) {
+      // LOGIN
+      this.MODEL.STATUS.LOGIN = true;
+      this.MODEL.USERNAME = this.MODEL.OBJECT.AJAX.USER['username'];
+      this.MODEL.HASH.USER = this.MODEL.OBJECT.AJAX.USER['hash'];
+      this.MODEL.EMAIL_AUTH = this.MODEL.OBJECT.AJAX.USER['email_authentication'];
+      this.MODEL.THEME = this.MODEL.OBJECT.AJAX.USER['theme'];
+      this.MODEL.OWNER_PUBLISH = this.MODEL.OBJECT.AJAX.USER['default_owner_publish'];
+      this.MODEL.CLIP_MODE = this.MODEL.OBJECT.AJAX.USER['default_clip_mode'];
+      this.MODEL.CREATED_AT = this.MODEL.OBJECT.AJAX.USER['created_at'];
+      this.MODEL.UPDATED_AT = this.MODEL.OBJECT.AJAX.USER['updated_at'];
+
+    } else if (type == this.MODEL.TYPE.LOGOUT) {
+      // LOGOUT
+      this.MODEL.STATUS.LOGIN = false;
+      this.clearModel();
+
+    } else if (type == this.MODEL.TYPE.LEAVE) {
+      // LEAVE
+      this.MODEL.STATUS.LOGIN = false;
+      this.clearModel();
+
+    } else if (type == this.MODEL.TYPE.INFO) {
+      // INFO
+      this.MODEL.USERNAME = this.MODEL.OBJECT.AJAX.USER['username'];
+      this.MODEL.HASH.USER = this.MODEL.OBJECT.AJAX.USER['hash'];
+      this.MODEL.EMAIL_AUTH = this.MODEL.OBJECT.AJAX.USER['email_authentication'];
+      this.MODEL.CREATED_AT = this.MODEL.OBJECT.AJAX.USER['created_at'];
+      this.MODEL.UPDATED_AT = this.MODEL.OBJECT.AJAX.USER['updated_at'];
+      if (this.MODEL.PASSWORD_NEW != '') {
+        this.MODEL.PASSWORD = this.MODEL.PASSWORD_NEW;
+      }
+
+    } else if (type == this.MODEL.TYPE.SETTING) {
+      // SETTING
+      this.MODEL.THEME = this.MODEL.OBJECT.AJAX.USER['theme'];
+      this.MODEL.OWNER_PUBLISH = this.MODEL.OBJECT.AJAX.USER['default_owner_publish'];
+      this.MODEL.CLIP_MODE = this.MODEL.OBJECT.AJAX.USER['default_clip_mode'];
+      this.MODEL.CREATED_AT = this.MODEL.OBJECT.AJAX.USER['created_at'];
+      this.MODEL.UPDATED_AT = this.MODEL.OBJECT.AJAX.USER['updated_at'];
+
+    } else {
+      super.logGenerate(this.post, arguments);
+      super.logError('unknown type.');
+      return;
+    }
+  }
+
+  clearModel () {
+    this.MODEL.USERNAME = '';
+    this.MODEL.EMAIL = '';
+    this.MODEL.PASSWORD = '';
+    this.MODEL.EMAIL_AUTH = false;
+    this.MODEL.CREATED_AT = new Date().formatString();
+    this.MODEL.UPDATED_AT = new Date().formatString();
+    this.HASH = {};
   }
 
   // ----------------------------------------------------------------
