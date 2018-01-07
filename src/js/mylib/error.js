@@ -1,4 +1,6 @@
 
+TIME.ANALYSIS = new Date();
+
 class Error {
   static hide () {
     document.getElementsByTagName('main')[0].style.display = 'none';

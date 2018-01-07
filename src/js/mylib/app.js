@@ -15,17 +15,22 @@ $(() => {
   Log.log('Time', Log.ALIGN_CENTER)();
   Log.time()();
   Log.classKey(
-    'Load',
-    new Date(TIME.LOAD - TIME.INIT).formatString('%S.%MSs'),
+    'HTML Analysis',
+    new Date(TIME.ANALYSIS - TIME.INIT).formatString('%S.%MSs'),
+    new Date(TIME.ANALYSIS - TIME.INIT).formatString('%S.%MSs')
+  )();
+  Log.classKey(
+    'JavaScript Load',
+    new Date(TIME.LOAD - TIME.ANALYSIS).formatString('%S.%MSs'),
     new Date(TIME.LOAD - TIME.INIT).formatString('%S.%MSs')
   )();
   Log.classKey(
-    'Ready',
+    'Element Ready',
     new Date(TIME.READY - TIME.LOAD).formatString('%S.%MSs'),
     new Date(TIME.READY - TIME.INIT).formatString('%S.%MSs')
   )();
   Log.classKey(
-    'Start',
+    `${Project.NAME} Start`,
     new Date(TIME.START - TIME.READY).formatString('%S.%MSs'),
     new Date(TIME.START - TIME.INIT).formatString('%S.%MSs')
   )();
