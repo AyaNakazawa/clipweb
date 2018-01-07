@@ -80,6 +80,12 @@ class UserModel extends CommonModel {
     // メールアドレスのMD5ハッシュ
     this.HASH.GRAVATAR = null;
 
+    // 暗号
+    this.ENCRYPT = {};
+    // 暗号ハッシュ
+    // 暗号ハッシュをパスワードで暗号化したもの
+    this.ENCRYPT.CRYPTO = null;
+
     // ユーザ設定
     this.THEME = 'light';
     this.OWNER_PUBLISH = 'public';
@@ -825,6 +831,11 @@ class UserController extends CommonController {
       if (timing == this.MODEL.TIMING.BEFORE) {
         // BEFORE
         this.MODEL.HASH.USER = SHA256.getHash(this.MODEL.USERNAME + new Date().toString());
+        this.MODEL.HASH.CRYPTO = SHA256.getHash(this.MODEL.HASH.USER + this.MODEL.PASSWORD);
+        this.MODEL.ENCRYPT.CRYPTO = Crypto.encrypt(
+          this.MODEL.HASH.CRYPTO,
+          this.MODEL.PASSWORD
+        );
         this.MODEL.HASH.PASSWORD = SHA256.getHash(this.MODEL.PASSWORD);
       } else if (timing == this.MODEL.TIMING.AFTER) {
         // AFTER
@@ -837,8 +848,9 @@ class UserController extends CommonController {
         this.MODEL.HASH.PASSWORD = SHA256.getHash(this.MODEL.PASSWORD);
       } else if (timing == this.MODEL.TIMING.AFTER) {
         // AFTER
-        this.MODEL.HASH.CRYPTO = SHA256.getHash(
-          this.MODEL.HASH.USER + this.MODEL.PASSWORD
+        this.MODEL.HASH.CRYPTO = Crypto.decrypt(
+          this.MODEL.ENCRYPT.CRYPTO,
+          this.MODEL.PASSWORD
         );
         this.MODEL.HASH.GRAVATAR = MD5.getHash(this.MODEL.EMAIL.toLowerCase().trim());
       }
@@ -868,10 +880,15 @@ class UserController extends CommonController {
         // BEFORE
         this.MODEL.HASH.PASSWORD = SHA256.getHash(this.MODEL.PASSWORD);
         this.MODEL.HASH.PASSWORD_NEW = SHA256.getHash(this.MODEL.PASSWORD_NEW);
+        this.MODEL.ENCRYPT.CRYPTO = Crypto.encrypt(
+          this.MODEL.HASH.CRYPTO,
+          this.MODEL.PASSWORD_NEW
+        );
       } else if (timing == this.MODEL.TIMING.AFTER) {
         // AFTER
-        this.MODEL.HASH.CRYPTO = SHA256.getHash(
-          this.MODEL.HASH.USER + this.MODEL.PASSWORD
+        this.MODEL.HASH.CRYPTO = Crypto.decrypt(
+          this.MODEL.ENCRYPT.CRYPTO,
+          this.MODEL.PASSWORD
         );
         this.MODEL.HASH.GRAVATAR = MD5.getHash(this.MODEL.EMAIL.toLowerCase().trim());
       }
@@ -913,6 +930,7 @@ class UserController extends CommonController {
       this.MODEL.STATUS.LOGIN = true;
       this.MODEL.USERNAME = this.MODEL.OBJECT.AJAX.USER['username'];
       this.MODEL.HASH.USER = this.MODEL.OBJECT.AJAX.USER['hash'];
+      this.MODEL.ENCRYPT.CRYPTO = this.MODEL.OBJECT.AJAX.USER['encrypted_crypto_hash'];
       this.MODEL.EMAIL_AUTH = this.MODEL.OBJECT.AJAX.USER['email_authentication'];
       this.MODEL.THEME = this.MODEL.OBJECT.AJAX.USER['theme'];
       this.MODEL.OWNER_PUBLISH = this.MODEL.OBJECT.AJAX.USER['default_owner_publish'];
@@ -934,6 +952,7 @@ class UserController extends CommonController {
       // INFO
       this.MODEL.USERNAME = this.MODEL.OBJECT.AJAX.USER['username'];
       this.MODEL.HASH.USER = this.MODEL.OBJECT.AJAX.USER['hash'];
+      this.MODEL.ENCRYPT.CRYPTO = this.MODEL.OBJECT.AJAX.USER['encrypted_crypto_hash'];
       this.MODEL.EMAIL_AUTH = this.MODEL.OBJECT.AJAX.USER['email_authentication'];
       this.MODEL.CREATED_AT = this.MODEL.OBJECT.AJAX.USER['created_at'];
       this.MODEL.UPDATED_AT = this.MODEL.OBJECT.AJAX.USER['updated_at'];
@@ -995,6 +1014,7 @@ class UserController extends CommonController {
       _model['username'] = this.MODEL.USERNAME;
       _model['email_address'] = this.MODEL.EMAIL;
       _model['password_hash'] = this.MODEL.HASH.PASSWORD;
+      _model['encrypted_crypto_hash'] = this.MODEL.ENCRYPT.CRYPTO;
 
     } else if (type == this.MODEL.TYPE.LOGIN) {
       // LOGIN
@@ -1022,6 +1042,7 @@ class UserController extends CommonController {
       _model['email_address'] = this.MODEL.EMAIL;
       _model['password_hash'] = this.MODEL.HASH.PASSWORD;
       _model['password_hash_new'] = this.MODEL.HASH.PASSWORD_NEW;
+      _model['encrypted_crypto_hash'] = this.MODEL.ENCRYPT.CRYPTO;
 
     } else if (type == this.MODEL.TYPE.SETTING) {
       // SETTING
