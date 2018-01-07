@@ -18,16 +18,24 @@ class UserModel extends CommonModel {
     this.KEY = 'user';
 
     this.TYPE = {};
-    this.TYPE.REGISTER = 'REGISTER';
-    this.TYPE.LOGIN = 'LOGIN';
-    this.TYPE.LOGOUT = 'LOGOUT';
-    this.TYPE.LEAVE = 'LEAVE';
-    this.TYPE.INFO = 'INFO';
-    this.TYPE.SETTING = 'SETTING';
+    this.TYPE.REGISTER = 'register';
+    this.TYPE.LOGIN = 'login';
+    this.TYPE.LOGOUT = 'logout';
+    this.TYPE.LEAVE = 'leave';
+    this.TYPE.INFO = 'info';
+    this.TYPE.SETTING = 'setting';
 
     this.TIMING = {};
-    this.TIMING.AFTER = 'AFTER';
-    this.TIMING.BEFORE = 'BEFORE';
+    this.TIMING.AFTER = 'after';
+    this.TIMING.BEFORE = 'before';
+
+    // ----------------------------------------------------------------
+    // 時間
+    this.TIME = {};
+    this.TIME.POST = new Date();
+    this.TIME.BEFORE_SEND = new Date();
+    this.TIME.RETURN = new Date();
+    this.TIME.COMPLETE = new Date();
 
     // ----------------------------------------------------------------
     // ステータス
