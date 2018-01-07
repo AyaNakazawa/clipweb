@@ -163,10 +163,11 @@ class Log {
       return console.log.bind(
         console,
         this.format({
-          text: `${type} from --->`,
+          text: `%c${type} from %c--->`,
           align: this.ALIGN_RIGHT
         }),
-        this.STYLE_LOG
+        this.STYLE_LOG,
+        this.STYLE_OPRATION
       );
     }
   }
@@ -305,12 +306,12 @@ class Log {
         result += value;
       }
     } else {
+      // Text
       if (text == null) {
         text = message;
       }
 
       if (text == null) {
-        // Draw line
         for (let i = 0; i < this.LENGTH; i++) {
           result += this.CHARACTER;
         }
@@ -319,14 +320,14 @@ class Log {
           result = text;
 
         } else if (align == this.ALIGN_CENTER) {
-          const strLength = text.length;
+          const strLength = text.length - (2 * text.count('%c'));
           for (let i = 0; i < (this.LENGTH / 2) - (strLength / 2); i++) {
             result += Log.SPACE;
           }
           result += text;
 
         } else if (align == this.ALIGN_RIGHT) {
-          const strLength = text.length;
+          const strLength = text.length - (2 * text.count('%c'));
           for (let i = 0; i < this.LENGTH - strLength; i++) {
             result += Log.SPACE;
           }
