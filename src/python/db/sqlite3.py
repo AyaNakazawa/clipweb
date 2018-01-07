@@ -5,7 +5,7 @@
 ----------------------------------------------------------------
 SQLite3
   Author: ayaya (ayatec)
-  GitHub: https://github.com/ayatec
+  GitHub: https://github.com/ayatec/clipweb
 ----------------------------------------------------------------
 """
 

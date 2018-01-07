@@ -5,7 +5,7 @@
 ----------------------------------------------------------------
 CGI init
   Author: ayaya (ayatec)
-  GitHub: https://github.com/ayatec
+  GitHub: https://github.com/ayatec/clipweb
 ----------------------------------------------------------------
 """
 
