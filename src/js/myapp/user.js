@@ -847,6 +847,29 @@ class UserController extends CommonController {
   }
 
   submitLogout () {
+    const _TYPE = this.MODEL.TYPE.LOGOUT;
+
+    this.EVENT.setOnLoading({
+      type: _TYPE,
+      successOpenType: this.MODEL.TYPE.LOGIN,
+      successModel: {
+        alertMessage:
+          View.div({ content: 'ログアウトしました。' })
+      },
+      successFunction: () => {
+        PS.NAV.VIEW.generateNotLogin();
+      },
+      errorOpenType: _TYPE,
+      errorModel: {
+        alertMessage: (
+          View.div({ content: 'ログアウトに失敗しました。' }) +
+          View.div({ content: 'サーバーに障害が発生しています。' })
+        ),
+        alertType: View.ALERT_WARNING
+      }
+    });
+
+    this.post(_TYPE);
 
   }
 
