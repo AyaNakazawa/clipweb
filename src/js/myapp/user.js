@@ -917,7 +917,64 @@ class UserController extends CommonController {
   }
 
   submitSetting () {
+    const _TYPE = this.MODEL.TYPE.SETTING;
 
+    let _validTheme = true;
+    let _validOwnerPublish = true;
+    let _validClipMode = true;
+
+    const _THEME = this.MODEL.SELECTOR.SETTING.THEME;
+    const _OWNER_PUBLISH = this.MODEL.SELECTOR.SETTING.OWNER_PUBLISH;
+    const _CLIP_MODE = this.MODEL.SELECTOR.SETTING.CLIP_MODE;
+
+    Log.obj($(_THEME))();
+    Log.obj($(_OWNER_PUBLISH))();
+    Log.obj($(_CLIP_MODE))();
+
+    _validTheme = $(_THEME)[0].validity.valid;
+    _validOwnerPublish = $(_OWNER_PUBLISH)[0].validity.valid;
+    _validClipMode = $(_CLIP_MODE)[0].validity.valid;
+
+    if (_validTheme) {
+      this.MODEL.THEME = $(`${_THEME} option:selected`).val();
+    }
+    if (_validOwnerPublish) {
+      this.MODEL.OWNER_PUBLISH = $(`${_OWNER_PUBLISH} option:selected`).val();
+    }
+    if (_validClipMode) {
+      this.MODEL.CLIP_MODE = $(`${_CLIP_MODE} option:selected`).val();
+    }
+
+    if (_validTheme && _validOwnerPublish && _validClipMode) {
+      this.EVENT.setOnLoading({
+        type: _TYPE,
+        successOpenType: _TYPE,
+        successModel: {
+          alertMessage:
+            View.div({ content: 'ユーザー設定を更新しました。' })
+        },
+        errorOpenType: _TYPE,
+        errorModel: {
+          alertMessage: (
+            View.div({ content: 'ユーザー設定の更新に失敗しました。' })
+          ),
+          alertType: View.ALERT_DANGER
+        }
+      });
+
+      this.post(_TYPE);
+
+    } else {
+      this.open({
+        type: _TYPE,
+        model: {
+          alertMessage: (
+            View.div({ content: '正しく選択してください。' })
+          ),
+          alertType: View.ALERT_WARNING
+        }
+      });
+    }
   }
 
   // ----------------------------------------------------------------
