@@ -1190,9 +1190,11 @@ class UserController extends CommonController {
     key = null
   } = {}) {
     if (key == null) {
-      super.logGenerate(this.getAjaxData, arguments);
-      super.logError()();
-      return;
+      if (input == null) {
+        return this.MODEL.OBJECT.AJAX[type];
+      } else {
+        input = this.MODEL.OBJECT.AJAX[type];
+      }
     }
     if (typeof this.MODEL.OBJECT.AJAX[type] == 'undefined') {
       super.logGenerate(this.getAjaxData, arguments);
@@ -1206,6 +1208,11 @@ class UserController extends CommonController {
       } else {
         input = this.MODEL.OBJECT.AJAX[type][key];
       }
+    } else {
+      super.logGenerate(this.getAjaxData, arguments);
+      super.logError('key undefined')();
+      Log.obj(this.MODEL.OBJECT.AJAX)();
+      return;
     }
   }
 
