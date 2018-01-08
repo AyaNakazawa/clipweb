@@ -5,17 +5,33 @@
 class Log {
   // Common line setting
   static get LENGTH () { return 96; }
-  static get CHARACTER () { return '─'; }
+  static get LINE () { return '─'; }
   static get SPACE () { return ' '; }
+  static get CHAR_STYLE () { return '%c'; }
+  static get MARGIN () { return 2; }
+  static get FILL () { return false; }
+
+  // Group character setting
+  static get GROUP_NONE () { return ['', '']; }
+  static get GROUP_START () { return ['┌', '┐']; }
+  static get GROUP_MIDDLE () { return ['├', '┤']; }
+  static get GROUP_IN () { return ['│', '│']; }
+  static get GROUP_END () { return ['└', '┘']; }
+
+  // Number of backtracking in Message
+  static get MESSAGE_FUNCTION_TRACE () { return 3; }
 
   // View permission
   static get VIEW () { return true; }
+  static get VIEW_LINE () { return true; }
   static get VIEW_OBJECT () { return true; }
   static get VIEW_TIME () { return true; }
   static get VIEW_CLASS () { return true; }
   static get VIEW_CLASS_KEY () { return true; }
   static get VIEW_ERROR () { return true; }
+  static get VIEW_WARNING () { return true; }
   static get VIEW_CAUTION () { return true; }
+  static get VIEW_INFO () { return true; }
 
   // Align definition
   static get ALIGN_LEFT () { return 0; }
@@ -23,12 +39,13 @@ class Log {
   static get ALIGN_RIGHT () { return 2; }
 
   // Arrow definition
+  static get COLON () { return ':'; }
   static get ARROW_OUTPUT () { return ' ---> '; }
   static get ARROW_INPUT () { return ' <--- '; }
 
   // Length definition
-  static get CLASS_LENGTH () { return 24; }
-  static get KEY_LENGTH () { return 24; }
+  static get CLASS_LENGTH () { return 28; }
+  static get KEY_LENGTH () { return 28; }
 
   // Style definition
   static get STYLE_COLOR_RED () { return 'color:#f00;'; }
@@ -39,7 +56,10 @@ class Log {
   static get STYLE_COLOR_CYAN () { return 'color:#0ff;'; }
 
   static get STYLE_LOG () { return 'color:#333'; }
-  static get STYLE_OPRATION () { return 'color:#888'; }
+  static get STYLE_LINE () { return 'color:#aaa'; }
+  static get STYLE_COLON () { return 'color:#858'; }
+  static get STYLE_ARROW () { return 'color:#145'; }
+  static get STYLE_GROUP () { return 'color:#888'; }
 
   static get STYLE_TIME () { return 'color:#333;font-weight:bold;'; }
 
@@ -47,57 +67,87 @@ class Log {
   static get STYLE_KEY () { return 'color:#c2c;'; }
   static get STYLE_VALUE () { return 'color:#22c;'; }
 
-  static get STYLE_ERROR_LINE () { return 'color:#f00;'; }
+  static get STYLE_ERROR_LINE () { return 'color:#a00;'; }
   static get STYLE_ERROR_HEADER () { return 'color:#a00;'; }
-  static get STYLE_ERROR_CONTENT () { return 'color:#411;'; }
+  static get STYLE_ERROR_CONTENT () { return 'color:#611;'; }
+
+  static get STYLE_WARNING_LINE () { return 'color:#a80;'; }
+  static get STYLE_WARNING_HEADER () { return 'color:#850;'; }
+  static get STYLE_WARNING_CONTENT () { return 'color:#651;'; }
 
   static get STYLE_CAUTION_LINE () { return 'color:#aa0;'; }
   static get STYLE_CAUTION_HEADER () { return 'color:#880;'; }
-  static get STYLE_CAUTION_CONTENT () { return 'color:#441;'; }
+  static get STYLE_CAUTION_CONTENT () { return 'color:#661;'; }
+
+  static get STYLE_INFO_LINE () { return 'color:#08a;'; }
+  static get STYLE_INFO_HEADER () { return 'color:#058;'; }
+  static get STYLE_INFO_CONTENT () { return 'color:#156;'; }
 
   static error (...array) {
-    // View permission
-    if (this.VIEW_ERROR) {
-      // Draw line
-      this.log(null, null, this.STYLE_ERROR_LINE)();
-      // Write title
-      this.log('Error', this.ALIGN_CENTER, this.STYLE_ERROR_HEADER)();
-
-      // Write array
-      for (let i = 0; i < array.length; i++) {
-        this.log(array[i], this.ALIGN_LEFT, this.STYLE_ERROR_CONTENT)();
-      }
-
-      // Write exit
-      this.log('Exit', this.ALIGN_CENTER, this.STYLE_ERROR_HEADER)();
-      // Draw line
-      this.log(null, null, this.STYLE_ERROR_LINE)();
+    let _args = null;
+    if (Object.getType(array[0]) == 'Arguments') {
+      _args = array.shift();
     }
+    return this.message({
+      message: array,
+      args: _args,
+      type: 'Error',
+      view: this.VIEW_ERROR,
+      styleLine: this.STYLE_ERROR_LINE,
+      styleHeader: this.STYLE_ERROR_HEADER,
+      styleContent: this.STYLE_ERROR_CONTENT
+    });
+  }
+
+  static warning (...array) {
+    let _args = null;
+    if (Object.getType(array[0]) == 'Arguments') {
+      _args = array.shift();
+    }
+    return this.message({
+      message: array,
+      args: _args,
+      type: 'Warning',
+      view: this.VIEW_WARNING,
+      styleLine: this.STYLE_WARNING_LINE,
+      styleHeader: this.STYLE_WARNING_HEADER,
+      styleContent: this.STYLE_WARNING_CONTENT
+    });
   }
 
   static caution (...array) {
-    // View permission
-    if (this.VIEW_CAUTION) {
-      // Draw line
-      this.log(null, null, this.STYLE_CAUTION_LINE)();
-      // Write title
-      this.log('Caution', this.ALIGN_CENTER, this.STYLE_CAUTION_HEADER)();
-
-      // Write array
-      for (let i = 0; i < array.length; i++) {
-        this.log(array[i], this.ALIGN_LEFT, this.STYLE_CAUTION_CONTENT)();
-      }
-
-      // Write exit
-      this.log('Exit', this.ALIGN_CENTER, this.STYLE_CAUTION_HEADER)();
-      // Draw line
-      this.log(null, null, this.STYLE_CAUTION_LINE)();
+    let _args = null;
+    if (Object.getType(array[0]) == 'Arguments') {
+      _args = array.shift();
     }
+    return this.message({
+      message: array,
+      args: _args,
+      type: 'Caution',
+      view: this.VIEW_CAUTION,
+      styleLine: this.STYLE_CAUTION_LINE,
+      styleHeader: this.STYLE_CAUTION_HEADER,
+      styleContent: this.STYLE_CAUTION_CONTENT
+    });
+  }
+
+  static info (...array) {
+    let _args = null;
+    if (Object.getType(array[0]) == 'Arguments') {
+      _args = array.shift();
+    }
+    return this.message({
+      message: array,
+      args: _args,
+      type: 'Info',
+      view: this.VIEW_INFO,
+      styleLine: this.STYLE_INFO_LINE,
+      styleHeader: this.STYLE_INFO_HEADER,
+      styleContent: this.STYLE_INFO_CONTENT
+    });
   }
 
   static message ({
-    obj = null,
-    func = null,
     args = null,
     message = '',
     type = 'Log',
@@ -108,27 +158,60 @@ class Log {
   } = {}) {
     // View permission
     if (view) {
-      // Draw line
-      this.log(null, null, styleLine)();
-      // Write title
-      this.log(type, this.ALIGN_CENTER, styleHeader)();
+      const _ERROR = new Error().stack.split('\n');
+      _ERROR.shift();
+      _ERROR.shift();
+      _ERROR.shift();
+      let _stack = [];
+      for (let error of _ERROR) {
+        let _temp = error.trim().substr(3);
+        let _temp2 = _temp.split(' (');
+        _temp2[1] = _temp2[1].slice(0, -1);
+        let _temp3 = {
+          name: _temp2[0],
+          path: _temp2[1]
+        };
+        _stack.push(_temp3);
+      }
 
-      // Write info
-      if (obj !== null) {
-        this.obj(obj)();
-        this.class('Class Name', obj.constructor.name, styleContent)();
+      // Draw line
+      this.line({ style: styleLine, group: this.GROUP_START })();
+      // Write title
+      this.log({
+        text: type,
+        align: this.ALIGN_CENTER,
+        style: styleHeader,
+        group: this.GROUP_IN,
+        groupStyle: styleLine
+      })();
+
+      for (let i = 0; i < _stack.length && i < this.MESSAGE_FUNCTION_TRACE; i++) {
+        this.class({
+          clas: _stack[i]['name'],
+          key: _stack[i]['path'],
+          group: this.GROUP_IN,
+          groupStyle: styleLine
+        })();
       }
-      if (func !== null) {
-        this.class('Function Name', func.name, styleContent)();
-      }
+      this.obj({
+        obj: _stack,
+        group: this.GROUP_IN,
+        groupStyle: styleLine
+      })();
 
       // Write args
       if (args !== null) {
         if (args.length > 0) {
           // Draw line
-          this.log(null, null, styleLine)();
+          this.line({ style: styleLine, group: this.GROUP_MIDDLE })();
           // Write title
-          this.log('Arguments', this.ALIGN_CENTER, styleHeader)();
+          this.log({
+            text: 'Arguments',
+            align: this.ALIGN_CENTER,
+            style: styleHeader,
+            group: this.GROUP_IN,
+            groupStyle: styleLine
+          })();
 
           // Write args
           for (let i = 0; i < args.length; i++) {
@@ -136,7 +219,12 @@ class Log {
               args[i] = [args[i]];
             }
             for (let key of Object.keys(args[i])) {
-              this.class(`arguments ${i} ${key}`, args[i][key], styleContent)();
+              this.class({
+                clas: `arguments[${i}][${key}]`,
+                key: args[i][key],
+                group: this.GROUP_IN,
+                groupStyle: styleLine
+              })();
             }
           }
         }
@@ -145,196 +233,356 @@ class Log {
       // Write message
       if (message.length > 0) {
         // Draw line
-        this.log(null, null, styleLine)();
+        this.line({ style: styleLine, group: this.GROUP_MIDDLE })();
         // Write title
-        this.log('Message', this.ALIGN_CENTER, styleHeader)();
+        this.log({
+          text: 'Message',
+          align: this.ALIGN_CENTER,
+          style: styleHeader,
+          group: this.GROUP_IN,
+          groupStyle: styleLine
+        })();
 
         // Write message
         if (!Object.typeIs('Array', message)) {
           message = [message];
         }
         for (let i = 0; i < message.length; i++) {
-          this.log(message[i], this.ALIGN_LEFT, styleContent)();
+          this.log({
+            text: message[i],
+            align: this.ALIGN_LEFT,
+            style: styleContent,
+            group: this.GROUP_IN,
+            groupStyle: styleLine
+          })();
         }
       }
 
-      // Write exit
-      this.log('Exit', this.ALIGN_CENTER, styleHeader)();
+      this.line({ style: styleLine, group: this.GROUP_END })();
       return console.log.bind(
         console,
         this.format({
-          text: `%c${type} from %c--->`,
+          text: `${this.CHAR_STYLE}${type} from${this.CHAR_STYLE}${this.ARROW_OUTPUT}`,
           align: this.ALIGN_RIGHT
         }),
-        this.STYLE_LOG,
-        this.STYLE_OPRATION
+        styleContent,
+        styleContent,
+        styleContent,
+        this.STYLE_ARROW,
+        styleContent
       );
     }
   }
 
-  static errorCommon ({
-    obj = null,
-    func = null,
+  static _checkArgs (
+    init = null,
     args = null,
-    message = ''
-  } = {}) {
-    return this.message({
-      obj: obj,
-      func: func,
-      args: args,
-      message: message,
-      type: 'Error',
-      view: this.VIEW_ERROR,
-      styleLine: this.STYLE_ERROR_LINE,
-      styleHeader: this.STYLE_ERROR_HEADER,
-      styleContent: this.STYLE_ERROR_CONTENT
-    });
+    index = null
+  ) {
+    if (args == null || index == null) {
+      return init;
+    }
+    if (args.length > index) {
+      return args[index];
+    }
+    return init;
   }
 
-  static cautionCommon ({
+  static obj ({
     obj = null,
-    func = null,
-    args = null,
-    message = ''
+    group = this.GROUP_NONE,
+    groupStyle = this.STYLE_GROUP
   } = {}) {
-    return this.message({
-      obj: obj,
-      func: func,
-      args: args,
-      message: message,
-      type: 'Caution',
-      view: this.VIEW_CAUTION,
-      styleLine: this.STYLE_CAUTION_LINE,
-      styleHeader: this.STYLE_CAUTION_HEADER,
-      styleContent: this.STYLE_CAUTION_CONTENT
-    });
-  }
-
-  static obj (_obj) {
     // View permission
     if (this.VIEW_OBJECT) {
-      // Write object
-      return console.log.bind(console, _obj);
+      if (Object.getType(arguments[0]) == 'Object') {
+        if (typeof arguments[0]['obj'] == 'undefined') {
+          obj = this._checkArgs(obj, arguments, 0);
+        }
+        if (typeof arguments[0]['group'] == 'undefined') {
+          group = this._checkArgs(group, arguments, 1);
+        }
+        if (typeof arguments[0]['groupStyle'] == 'undefined') {
+          groupStyle = this._checkArgs(groupStyle, arguments, 2);
+        }
+      } else {
+        obj = this._checkArgs(obj, arguments, 0);
+        group = this._checkArgs(group, arguments, 1);
+        groupStyle = this._checkArgs(groupStyle, arguments, 2);
+      }
+
+      let result = this.CHAR_STYLE;
+      result += group[0];
+      for (let i = 0; i < this.MARGIN; i++) {
+        result += this.SPACE;
+      }
+      return console.log.bind(console, result, groupStyle, obj);
     }
   }
 
-  static time (_format = '%Y/%m/%d %H:%M:%S.%MS') {
+  static time ({
+    format = '%Y/%m/%d %H:%M:%S.%MS',
+    align = this.ALIGN_LEFT,
+    style = this.STYLE_TIME,
+    group = this.GROUP_NONE,
+    groupStyle = this.STYLE_GROUP
+  } = {}) {
     // View permission
     if (this.VIEW_TIME) {
-      // Write object
-      return console.log.bind(console, this.format({
-        text: new Date().formatString(_format),
-        align: this.ALIGN_CENTER
-      }));
+      if (Object.getType(arguments[0]) != 'Object') {
+        format = this._checkArgs(format, arguments, 0);
+        align = this._checkArgs(align, arguments, 1);
+        style = this._checkArgs(style, arguments, 2);
+        group = this._checkArgs(group, arguments, 3);
+        groupStyle = this._checkArgs(groupStyle, arguments, 4);
+      }
+
+      return this.log({
+        text: new Date().formatString(format),
+        align: align,
+        group: group,
+        style: style,
+        groupStyle: groupStyle
+      });
     }
   }
 
-  static class (clas = 'Class', key = 'value', style1 = this.STYLE_CLASS, style2 = this.STYLE_VALUE) {
+  static class ({
+    clas = 'Class',
+    key = 'Key',
+    classStyle = this.STYLE_CLASS,
+    keyStyle = this.STYLE_VALUE,
+    group = this.GROUP_NONE,
+    groupStyle = this.STYLE_GROUP
+  } = {}) {
     // View permission
     if (this.VIEW_CLASS) {
-      let result = this.format({
+      if (Object.getType(arguments[0]) != 'Object') {
+        clas = this._checkArgs(clas, arguments, 0);
+        key = this._checkArgs(key, arguments, 1);
+        classStyle = this._checkArgs(classStyle, arguments, 2);
+        keyStyle = this._checkArgs(keyStyle, arguments, 3);
+        group = this._checkArgs(group, arguments, 4);
+        groupStyle = this._checkArgs(groupStyle, arguments, 5);
+      }
+
+      return this.log({
         clas: clas,
-        key: key
+        key: key,
+        classStyle: classStyle,
+        keyStyle: keyStyle,
+        group: group,
+        groupStyle: groupStyle
       });
-      // Write result
-      return console.log.bind(console, result, style1, this.STYLE_OPRATION, style2);
     }
   }
 
-  static classKey (clas = 'Class', key = 'key', value = 'value', arrow = Log.ARROW_OUTPUT, style1 = this.STYLE_CLASS, style2 = this.STYLE_KEY, style3 = this.STYLE_VALUE) {
+  static classKey ({
+    clas = 'Class',
+    key = 'Key',
+    value = 'Value',
+    arrow = this.ARROW_OUTPUT,
+    classStyle = this.STYLE_CLASS,
+    keyStyle = this.STYLE_KEY,
+    valueStyle = this.STYLE_VALUE,
+    group = this.GROUP_NONE,
+    groupStyle = this.STYLE_GROUP
+  } = {}) {
     // View permission
     if (this.VIEW_CLASS_KEY) {
-      let result = this.format({
+      if (Object.getType(arguments[0]) != 'Object') {
+        clas = this._checkArgs(clas, arguments, 0);
+        key = this._checkArgs(key, arguments, 1);
+        value = this._checkArgs(value, arguments, 2);
+        arrow = this._checkArgs(arrow, arguments, 3);
+        classStyle = this._checkArgs(classStyle, arguments, 4);
+        keyStyle = this._checkArgs(keyStyle, arguments, 5);
+        valueStyle = this._checkArgs(valueStyle, arguments, 6);
+        group = this._checkArgs(group, arguments, 7);
+        groupStyle = this._checkArgs(groupStyle, arguments, 8);
+      }
+
+      return this.log({
         clas: clas,
         key: key,
         value: value,
         arrow: arrow,
+        classStyle: classStyle,
+        keyStyle: keyStyle,
+        valueStyle: valueStyle,
+        group: group,
+        groupStyle: groupStyle
       });
-      // Write result
-      return console.log.bind(console, result, style1, this.STYLE_OPRATION, style2, this.STYLE_OPRATION, style3);
     }
   }
 
-  static log (string = null, align = this.ALIGN_LEFT, style = this.STYLE_LOG) {
+  static log ({
+    text = '',
+    align = this.ALIGN_LEFT,
+    style = this.STYLE_LOG,
+    group = this.GROUP_NONE,
+    groupStyle = this.STYLE_GROUP,
+    fill = this.FILL,
+    clas = null,
+    key = null,
+    value = null,
+    arrow = this.ARROW_OUTPUT,
+    classStyle = this.STYLE_CLASS,
+    keyStyle = this.STYLE_KEY,
+    valueStyle = this.STYLE_VALUE,
+  } = {}) {
     // View permission
     if (this.VIEW) {
-      if (string == null) {
-        style = this.STYLE_OPRATION;
+      if (Object.getType(arguments[0]) != 'Object') {
+        text = this._checkArgs(text, arguments, 0);
+        align = this._checkArgs(align, arguments, 1);
+        style = this._checkArgs(style, arguments, 2);
+        group = this._checkArgs(group, arguments, 3);
+        groupStyle = this._checkArgs(groupStyle, arguments, 4);
       }
       let result = this.format({
-        text: string,
-        align: align
+        text: text,
+        align: align,
+        group: group,
+        clas: clas,
+        key: key,
+        value: value,
+        arrow: arrow,
+        fill: fill
       });
-      return console.log.bind(console, `%c${result}`, style);
+      if (clas != null) {
+        if (key != null) {
+          if (value != null) {
+            // class + key + value
+            return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, keyStyle, this.STYLE_ARROW, valueStyle, groupStyle);
+          } else {
+            // class + key
+            return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, keyStyle, groupStyle);
+          }
+        } else {
+          if (value != null) {
+            // class + value
+            return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, valueStyle, groupStyle);
+          } else {
+            // class
+            return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, groupStyle);
+          }
+        }
+      } else {
+        return console.log.bind(console, result, groupStyle, style, groupStyle);
+      }
+    }
+  }
+
+  static line ({
+    style = this.STYLE_LINE,
+    group = this.GROUP_NONE
+  } = {}) {
+    // View permission
+    if (this.VIEW_LINE) {
+      if (Object.getType(arguments[0]) != 'Object') {
+        style = this._checkArgs(style, arguments, 0);
+        group = this._checkArgs(group, arguments, 1);
+      }
+
+      return this.log({
+        text: '',
+        style: style,
+        group: group,
+        groupStyle: style
+      });
     }
   }
 
   static format ({
-    text = null,
-    message = null,
-    align = Log.ALIGN_LEFT,
-    arrow = Log.ARROW_OUTPUT,
+    text = '',
+    message = '',
+    align = this.ALIGN_LEFT,
     clas = null,
     key = null,
     value = null,
-  }) {
+    arrow = this.ARROW_OUTPUT,
+    fill = this.FILL,
+    group = this.GROUP_NONE
+  } = {}) {
 
-    let result = '';
+    let result = this.CHAR_STYLE;
+    result += group[0];
 
-    if (clas != null && key != null) {
+    if (clas != null) {
       // Class Key
 
-      result = '%c';
+      for (let i = 0; i < this.MARGIN; i++) {
+        result += this.SPACE;
+      }
+
+      result += this.CHAR_STYLE;
       result += clas;
       for (let i = 0; i < this.CLASS_LENGTH - clas.length; i++) {
-        result += Log.SPACE;
+        result += this.SPACE;
       }
 
-      result += '%c:';
-      result += Log.SPACE;
-      result += '%c';
-      result += key;
-      for (let i = 0; i < this.KEY_LENGTH - key.length; i++) {
-        result += Log.SPACE;
-      }
+      if (key != null) {
+        // and Key
+        result += this.CHAR_STYLE;
+        result += this.COLON;
+        result += this.SPACE;
+        result += this.CHAR_STYLE;
+        result += key;
+        for (let i = 0; i < this.KEY_LENGTH - key.length; i++) {
+          result += this.SPACE;
+        }
 
-      if (value != null) {
-        // and Value
-        result += '%c';
-        result += arrow;
-        result += '%c';
-        result += value;
+        if (value != null) {
+          // and Value
+          result += this.CHAR_STYLE;
+          result += arrow;
+          result += this.CHAR_STYLE;
+          result += value;
+        }
       }
     } else {
       // Text
-      if (text == null) {
+      if (text == '') {
         text = message;
       }
+      result += this.CHAR_STYLE;
 
-      if (text == null) {
-        for (let i = 0; i < this.LENGTH; i++) {
-          result += this.CHARACTER;
+      if (text == '') {
+        for (let i = 0; i < (this.LENGTH - group[0].length - group[1].length); i++) {
+          result += this.LINE;
         }
       } else {
+        const strLength = text.length - (2 * text.count(this.CHAR_STYLE));
         if (align == this.ALIGN_LEFT) {
-          result = text;
+          for (let i = 0; i < this.MARGIN - group[0].length; i++) {
+            result += this.SPACE;
+          }
+          result += text;
 
         } else if (align == this.ALIGN_CENTER) {
-          const strLength = text.length - (2 * text.count('%c'));
-          for (let i = 0; i < (this.LENGTH / 2) - (strLength / 2); i++) {
-            result += Log.SPACE;
+          for (let i = 0; i < ((this.LENGTH) / 2) - (strLength / 2) - group[0].length; i++) {
+            result += this.SPACE;
           }
           result += text;
 
         } else if (align == this.ALIGN_RIGHT) {
-          const strLength = text.length - (2 * text.count('%c'));
-          for (let i = 0; i < this.LENGTH - strLength; i++) {
-            result += Log.SPACE;
+          for (let i = 0; i < (this.LENGTH) - strLength - this.MARGIN - (group[0].length); i++) {
+            result += this.SPACE;
           }
           result += text;
         }
       }
-
+    }
+    if (fill || group[1].length > 0) {
+      const _FILL_COUNT = this.LENGTH - result.length - group[0].length + (2 * result.count(this.CHAR_STYLE));
+      for (let i = 0; i < _FILL_COUNT; i++) {
+        result += this.SPACE;
+      }
+    }
+    result += this.CHAR_STYLE;
+    if ((result.length - 2 * result.count(this.CHAR_STYLE)) < this.LENGTH) {
+      result += group[1];
     }
     return result;
   }
