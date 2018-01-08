@@ -7,10 +7,10 @@
     UserControllerのコンストラクタのopen種別
   を直す
   メッセージ系LogでErrorから行数とか関数とか表示するやつ
-  メソッドチェーン実装
 
 
 やったこと
+  メソッドチェーン実装
   他のlog系もCommonに導入する
   logCautionとかにthisを渡して自動でいろいろ出してもらう
   avatarのスタイル

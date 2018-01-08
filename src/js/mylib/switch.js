@@ -64,7 +64,8 @@ class SwitchView extends CommonView {
 
   switchView () {
     super.log('View', 'Switch', Log.ARROW_INPUT)();
-    this.setView(!this.MODEL.view);
+    // Method chain
+    return this.setView(!this.MODEL.view);
   }
 
   getView () {
@@ -93,7 +94,7 @@ class SwitchView extends CommonView {
     } else {
       super.logGenerate(this.setView, arguments);
       super.logError('unknown view.')();
-      return null;
+      return;
     }
 
     // save
@@ -101,6 +102,9 @@ class SwitchView extends CommonView {
       LocalStorage.setItem(this.MODEL.localStorageKey, _view);
     }
     this.MODEL.view = _view;
+
+    // Method chain
+    return this;
   }
 }
 

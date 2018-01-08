@@ -41,36 +41,46 @@ class PopoverView extends CommonView {
   }
 
   show () {
-    return $(this.MODEL.selector).popover('show');
+    $(this.MODEL.selector).popover('show');
+    // Method chain
+    return this;
   }
 
   hide () {
-    return $(this.MODEL.selector).popover('hide');
+    $(this.MODEL.selector).popover('hide');
+    // Method chain
+    return this;
   }
 
   toggle () {
-    return $(this.MODEL.selector).popover('toggle');
+    $(this.MODEL.selector).popover('toggle');
+    // Method chain
+    return this;
   }
 
   update () {
-    return $(this.MODEL.selector).popover('update');
+    $(this.MODEL.selector).popover('update');
+    // Method chain
+    return this;
   }
 
   setView (view = null) {
     if (view === null) {
       super.logGenerate(this.setView, arguments);
       super.logError()();
-      return null;
+      return;
     }
 
     if (view) {
+      // Method chain
       return this.show();
     } else if (!view) {
+      // Method chain
       return this.hide();
     } else {
       super.logGenerate(this.setView, arguments);
       super.logError('unknown view.')();
-      return null;
+      return;
     }
   }
 }
@@ -132,22 +142,32 @@ class PopoverController extends CommonController {
   }
 
   dispose () {
-    return $(this.MODEL.selector).popover('dispose');
+    $(this.MODEL.selector).popover('dispose');
+    // Method chain
+    return this;
   }
 
   destroy () {
-    return this.dispose();
+    this.dispose();
+    // Method chain
+    return this;
   }
 
   enable () {
-    return $(this.MODEL.selector).popover('enable');
+    $(this.MODEL.selector).popover('enable');
+    // Method chain
+    return this;
   }
 
   disable () {
-    return $(this.MODEL.selector).popover('disable');
+    $(this.MODEL.selector).popover('disable');
+    // Method chain
+    return this;
   }
 
   toggleEnabled () {
-    return $(this.MODEL.selector).popover('toggleEnabled');
+    $(this.MODEL.selector).popover('toggleEnabled');
+    // Method chain
+    return this;
   }
 }

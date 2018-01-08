@@ -17,41 +17,40 @@ class CommonClass {
     this.OBJECT.LOG = {};
 
     if (this.VIEW_OBJECT) {
-      this.showNameModel();
+      this.logNameModel();
 
     } else if (this.VIEW_NAME) {
-      this.showName();
+      this.logName();
 
     }
   }
 
-  showName (name = null) {
-    // Draw line
+  logName (name = null) {
     Log.log()();
-    // Write name
     if (name != null) {
       Log.log(name, Log.ALIGN_CENTER)();
-      return;
     } else {
       Log.log(this.NAME, Log.ALIGN_CENTER)();
     }
+    // Method chain
+    return this;
   }
 
-  showModel (model = null) {
-    // Write name
+  logModel (model = null) {
     if (model != null) {
       Log.obj(model)();
-      return;
     } else {
       Log.obj(this)();
     }
+    // Method chain
+    return this;
   }
 
-  showNameModel (name = null, model = null) {
-    // Write name
-    this.showName(name);
-    // Write model
-    this.showModel(model);
+  logNameModel (name = null, model = null) {
+    this.logName(name);
+    this.logModel(model);
+    // Method chain
+    return this;
   }
 
   log (...args) {
@@ -77,18 +76,19 @@ class CommonClass {
     if (args != null) {
       this.OBJECT.LOG['args'] = args;
     }
-    return true;
+    // Method chain
+    return this;
   }
 
   logError (message = null) {
-    return Log.errorCommon(this.logWithMessage(message));
+    return Log.errorCommon(this._logWithMessage(message));
   }
 
   logCaution (message = null) {
-    return Log.cautionCommon(this.logWithMessage(message));
+    return Log.cautionCommon(this._logWithMessage(message));
   }
 
-  logWithMessage (message = null) {
+  _logWithMessage (message = null) {
     let model = this.OBJECT.LOG;
     if (message == null) {
       return model;
@@ -172,6 +172,8 @@ class CommonModel extends CommonClass {
     _val = 'VALUE'
   ) {
     this[_key] = _val;
+    // Method chain
+    return this;
   }
 
   // Get var from Instance
@@ -186,6 +188,8 @@ class CommonModel extends CommonClass {
     _key = 'KEY'
   ) {
     this[_key] = undefined;
+    // Method chain
+    return this;
   }
 }
 
@@ -212,7 +216,8 @@ class CommonView extends CommonClass {
     }
 
     $(selector).finish();
-    return true;
+    // Method chain
+    return this;
   }
 
   clear ({
@@ -240,8 +245,8 @@ class CommonView extends CommonClass {
       });
     }
     $(selector).empty();
-
-    return true;
+    // Method chain
+    return this;
   }
 
   show ({
@@ -257,6 +262,7 @@ class CommonView extends CommonClass {
       return;
     }
 
+    // Method chain
     return this.setView({
       view: true,
       selector: selector,
@@ -280,6 +286,7 @@ class CommonView extends CommonClass {
       return;
     }
 
+    // Method chain
     return this.setView({
       view: false,
       selector: selector,
@@ -489,8 +496,8 @@ class CommonView extends CommonClass {
         return;
       }
     }
-
-    return this.MODEL.COMMON.VIEW;
+    // Method chain
+    return this;
   }
 
   getView () {
@@ -507,6 +514,8 @@ class CommonView extends CommonClass {
 
   initView () {
     this.MODEL.COMMON.VIEW = $(this.MODEL.SELECTOR.AREA).is(':visible');
+    // Method chain
+    return this;
   }
 
   scroll ({
@@ -569,6 +578,8 @@ class CommonView extends CommonClass {
         );
       }
     }
+    // Method chain
+    return this;
   }
 
   generateAlert ({
@@ -588,7 +599,8 @@ class CommonView extends CommonClass {
       message: message,
       close: close
     }));
-    return true;
+    // Method chain
+    return this;
   }
 
   generateLoading ({
@@ -604,7 +616,8 @@ class CommonView extends CommonClass {
     $(selector).append(View.getLoading({
       header: header
     }));
-    return true;
+    // Method chain
+    return this;
   }
 }
 
@@ -627,9 +640,12 @@ class CommonEvent extends CommonClass {
     func = () => {}
   } = {}) {
     if (selector != null) {
-      return $(this.MODEL.COMMON.SELECTOR.ROOT).on(trigger, selector, func);
+      $(this.MODEL.COMMON.SELECTOR.ROOT).on(trigger, selector, func);
+    } else {
+      $(this.MODEL.COMMON.SELECTOR.ROOT).on(trigger, func);
     }
-    return $(this.MODEL.COMMON.SELECTOR.ROOT).on(trigger, func);
+    // Method chain
+    return this;
   }
 
   setOff ({
@@ -637,9 +653,12 @@ class CommonEvent extends CommonClass {
     selector = null
   } = {}) {
     if (selector != null) {
-      return $(this.MODEL.COMMON.SELECTOR.ROOT).off(trigger, selector);
+      $(this.MODEL.COMMON.SELECTOR.ROOT).off(trigger, selector);
+    } else {
+      $(this.MODEL.COMMON.SELECTOR.ROOT).off(trigger);
     }
-    return $(this.MODEL.COMMON.SELECTOR.ROOT).off(trigger);
+    // Method chain
+    return this;
   }
 
   trigger ({
@@ -651,8 +670,9 @@ class CommonEvent extends CommonClass {
       super.logError()();
       return;
     }
-
-    return $(selector).trigger(trigger);
+    $(selector).trigger(trigger);
+    // Method chain
+    return this;
   }
 }
 
@@ -693,6 +713,9 @@ class CommonController extends CommonClass {
     this.EVENT.VIEW = this.VIEW;
     this.EVENT.EVENT = this.EVENT;
     this.EVENT.CONTROLLER = this;
+
+    // Method chain
+    return this;
   }
 }
 
