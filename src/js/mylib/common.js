@@ -122,6 +122,12 @@ class CommonModel extends CommonClass {
 
     this.COMMON.VIEW = null;
 
+    this.COMMON.TYPE = {};
+    this.COMMON.TYPE.APPEND = 'append';
+    this.COMMON.TYPE.PREPEND = 'prepend';
+    this.COMMON.TYPE.AFTER = 'after';
+    this.COMMON.TYPE.BEFORE = 'before';
+
     this.COMMON.SPEED = {};
     this.COMMON.SPEED.CLEAR = 0;
     this.COMMON.SPEED.SHOW = 500;
@@ -133,6 +139,10 @@ class CommonModel extends CommonClass {
     this.COMMON.DELAY.SHOW = 0;
     this.COMMON.DELAY.HIDE = 0;
     this.COMMON.DELAY.SCROLL = 0;
+    this.COMMON.DELAY.ADD = 0;
+    this.COMMON.DELAY.APPEND = 0;
+    this.COMMON.DELAY.PREPEND = 0;
+    this.COMMON.DELAY.REMOVE = 0;
 
     this.COMMON.EFFECT = {};
     this.COMMON.EFFECT.SHOW = 'show';
@@ -204,6 +214,103 @@ class CommonView extends CommonClass {
     }
   ) {
     super(initSetting, common);
+  }
+
+  add ({
+    mode = this.COMMON.TYPE.APPEND,
+    selector = this.MODEL.SELECTOR.AREA,
+    element = null,
+    delay = this.MODEL.COMMON.DELAY.ADD
+  } = {}) {
+    if (Object.getType(arguments[0]) == 'String') {
+      element = arguments[0];
+    }
+    if (selector == null || element == null) {
+      super.logGenerate(this.add, arguments);
+      super.logError()();
+      return;
+    }
+
+    if (mode == this.COMMON.TYPE.APPEND || mode == this.COMMON.TYPE.AFTER) {
+      this.append({ selector: selector, element: element, delay: delay });
+    } else if (mode == this.COMMON.TYPE.APPEND || mode == this.COMMON.TYPE.AFTER) {
+      this.prepend({ selector: selector, element: element, delay: delay });
+    } else {
+      super.logGenerate(this.add, arguments);
+      super.logError('unknown mode')();
+      return;
+    }
+    // Method chain
+    return this;
+  }
+
+  append ({
+    selector = this.MODEL.SELECTOR.AREA,
+    element = null,
+    delay = this.MODEL.COMMON.DELAY.APPEND
+  } = {}) {
+    if (Object.getType(arguments[0]) == 'String') {
+      element = arguments[0];
+    }
+    if (selector == null || element == null) {
+      super.logGenerate(this.append, arguments);
+      super.logError()();
+      return;
+    }
+
+    if (delay > 0) {
+      $(selector).delay(delay).append(element);
+    } else {
+      $(selector).append(element);
+    }
+    // Method chain
+    return this;
+  }
+
+  prepend ({
+    selector = this.MODEL.SELECTOR.AREA,
+    element = null,
+    delay = this.MODEL.COMMON.DELAY.PREPEND
+  } = {}) {
+    if (Object.getType(arguments[0]) == 'String') {
+      element = arguments[0];
+    }
+    if (selector == null || element == null) {
+      super.logGenerate(this.prepend, arguments);
+      super.logError()();
+      return;
+    }
+
+    if (delay > 0) {
+      $(selector).delay(delay).prepend(element);
+    } else {
+      $(selector).prepend(element);
+    }
+    // Method chain
+    return this;
+  }
+
+  remove ({
+    parentSelector = this.MODEL.SELECTOR.AREA,
+    selector = null,
+    delay = this.MODEL.COMMON.DELAY.REMOVE
+  } = {}) {
+    if (Object.getType(arguments[0]) == 'String') {
+      selector = arguments[0];
+    }
+    if (selector == null) {
+      super.logGenerate(this.remove, arguments);
+      super.logError()();
+      return;
+    }
+
+    if (delay > 0) {
+      $(`${parentSelector} ${selector}`).delay(delay).remove();
+    } else {
+      $(`${parentSelector} ${selector}`).remove();
+    }
+    // Method chain
+    return this;
   }
 
   skip (
@@ -693,9 +800,9 @@ class CommonController extends CommonClass {
   ) {
     super(initSetting, common);
     Object.assign(this.MODEL, model);
-    Object.assignType(this, this.EVENT, 'Function');
-    Object.assignType(this, this.VIEW, 'Function');
-    Object.assignType(this, this.MODEL, 'Function');
+    this.assignType(this.EVENT, 'Function');
+    this.assignType(this.VIEW, 'Function');
+    this.assignType(this.MODEL, 'Function');
 
     this.applyObject();
     this.VIEW.initView();
