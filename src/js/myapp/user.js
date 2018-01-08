@@ -1116,15 +1116,15 @@ class UserController extends CommonController {
     } else if (type == this.MODEL.TYPE.LOGIN) {
       // LOGIN
       this.MODEL.STATUS.LOGIN = true;
-      this.getAjaxData({ input: this.MODEL.USERNAME, key: 'username' });
-      this.getAjaxData({ input: this.MODEL.HASH.USER, key: 'hash' });
-      this.getAjaxData({ input: this.MODEL.ENCRYPT.CRYPTO, key: 'encrypted_crypto_hash' });
-      this.getAjaxData({ input: this.MODEL.EMAIL_AUTH, key: 'email_authentication' });
-      this.getAjaxData({ input: this.MODEL.THEME, key: 'theme' });
-      this.getAjaxData({ input: this.MODEL.OWNER_PUBLISH, key: 'default_owner_publish' });
-      this.getAjaxData({ input: this.MODEL.CLIP_MODE, key: 'default_clip_mode' });
-      this.getAjaxData({ input: this.MODEL.CREATED_AT, key: 'created_at' });
-      this.getAjaxData({ input: this.MODEL.UPDATED_AT, key: 'updated_at' });
+      this.MODEL.USERNAME = this.getAjaxData({ key: 'username' });
+      this.MODEL.HASH.USER = this.getAjaxData({ key: 'hash' });
+      this.MODEL.ENCRYPT.CRYPTO = this.getAjaxData({ key: 'encrypted_crypto_hash' });
+      this.MODEL.EMAIL_AUTH = this.getAjaxData({ key: 'email_authentication' });
+      this.MODEL.THEME = this.getAjaxData({ key: 'theme' });
+      this.MODEL.OWNER_PUBLISH = this.getAjaxData({ key: 'default_owner_publish' });
+      this.MODEL.CLIP_MODE = this.getAjaxData({ key: 'default_clip_mode' });
+      this.MODEL.CREATED_AT = this.getAjaxData({ key: 'created_at' });
+      this.MODEL.UPDATED_AT = this.getAjaxData({ key: 'updated_at' });
 
     } else if (type == this.MODEL.TYPE.LOGOUT) {
       // LOGOUT
@@ -1138,12 +1138,12 @@ class UserController extends CommonController {
 
     } else if (type == this.MODEL.TYPE.INFO) {
       // INFO
-      this.getAjaxData({ input: this.MODEL.USERNAME, key: 'username' });
-      this.getAjaxData({ input: this.MODEL.HASH.USER, key: 'hash' });
-      this.getAjaxData({ input: this.MODEL.ENCRYPT.CRYPTO, key: 'encrypted_crypto_hash' });
-      this.getAjaxData({ input: this.MODEL.EMAIL_AUTH, key: 'email_authentication' });
-      this.getAjaxData({ input: this.MODEL.CREATED_AT, key: 'created_at' });
-      this.getAjaxData({ input: this.MODEL.UPDATED_AT, key: 'updated_at' });
+      this.MODEL.USERNAME = this.getAjaxData({ key: 'username' });
+      this.MODEL.HASH.USER = this.getAjaxData({ key: 'hash' });
+      this.MODEL.ENCRYPT.CRYPTO = this.getAjaxData({ key: 'encrypted_crypto_hash' });
+      this.MODEL.EMAIL_AUTH = this.getAjaxData({ key: 'email_authentication' });
+      this.MODEL.CREATED_AT = this.getAjaxData({ key: 'created_at' });
+      this.MODEL.UPDATED_AT = this.getAjaxData({ key: 'updated_at' });
       if (this.MODEL.PASSWORD_NEW != '') {
         this.MODEL.PASSWORD = this.MODEL.PASSWORD_NEW;
         this.MODEL.PASSWORD_NEW = '';
@@ -1151,11 +1151,11 @@ class UserController extends CommonController {
 
     } else if (type == this.MODEL.TYPE.SETTING) {
       // SETTING
-      this.getAjaxData({ input: this.MODEL.THEME, key: 'theme' });
-      this.getAjaxData({ input: this.MODEL.OWNER_PUBLISH, key: 'default_owner_publish' });
-      this.getAjaxData({ input: this.MODEL.CLIP_MODE, key: 'default_clip_mode' });
-      this.getAjaxData({ input: this.MODEL.CREATED_AT, key: 'created_at' });
-      this.getAjaxData({ input: this.MODEL.UPDATED_AT, key: 'updated_at' });
+      this.MODEL.THEME = this.getAjaxData({ key: 'theme' });
+      this.MODEL.OWNER_PUBLISH = this.getAjaxData({ key: 'default_owner_publish' });
+      this.MODEL.CLIP_MODE = this.getAjaxData({ key: 'default_clip_mode' });
+      this.MODEL.CREATED_AT = this.getAjaxData({ key: 'created_at' });
+      this.MODEL.UPDATED_AT = this.getAjaxData({ key: 'updated_at' });
 
     } else {
       Log.error(arguments, 'unknown type.');
@@ -1174,31 +1174,20 @@ class UserController extends CommonController {
   }
 
   getAjaxData ({
-    input = null,
     type = this.MODEL.KEY,
     key = null
   } = {}) {
     if (key == null) {
-      if (input == null) {
-        return this.MODEL.OBJECT.AJAX[type];
-      } else {
-        input = this.MODEL.OBJECT.AJAX[type];
-      }
+      return this.MODEL.OBJECT.AJAX[type];
     }
     if (typeof this.MODEL.OBJECT.AJAX[type] == 'undefined') {
-      Log.error(arguments, 'type undefined')();
-      Log.obj(this.MODEL.OBJECT.AJAX)();
+      Log.error(arguments, 'type undefined', this.MODEL.OBJECT.AJAX)();
       return;
     }
     if (typeof this.MODEL.OBJECT.AJAX[type][key] != 'undefined') {
-      if (input == null) {
-        return this.MODEL.OBJECT.AJAX[type][key];
-      } else {
-        input = this.MODEL.OBJECT.AJAX[type][key];
-      }
+      return this.MODEL.OBJECT.AJAX[type][key];
     } else {
-      Log.error(arguments, 'key undefined')();
-      Log.obj(this.MODEL.OBJECT.AJAX)();
+      Log.error(arguments, 'key undefined', this.MODEL.OBJECT.AJAX)();
       return;
     }
   }
