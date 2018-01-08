@@ -514,8 +514,7 @@ class UserEvent extends CommonEvent {
     selector = null
   ) {
     if (selector == null) {
-      super.logGenerate(this.setValidate, arguments);
-      super.logError()();
+      Log.error(arguments)();
       return;
     }
     selector = `${this.MODEL.SELECTOR.AREA} ${selector}`;
@@ -534,8 +533,7 @@ class UserEvent extends CommonEvent {
     selectorRe = null
   ) {
     if (selector == null || selectorRe == null) {
-      super.logGenerate(this.setValidatePassword, arguments);
-      super.logError()();
+      Log.error(arguments)();
       return;
     }
     selector = `${this.MODEL.SELECTOR.AREA} ${selector}`;
@@ -576,8 +574,7 @@ class UserEvent extends CommonEvent {
     errorFunction = () => {}
   } = {}) {
     if (type == null) {
-      super.logGenerate(this.setOnLoading, arguments);
-      super.logError()();
+      Log.error(arguments)();
       return;
     }
     super.log(type.capitalize(), 'Loading')();
@@ -662,8 +659,7 @@ class UserController extends CommonController {
     } else if (mode == ClipModel.MODEL.KEY) {
       CLIP.VIEW.generateArea(model);
     } else {
-      super.logGenerate(this.open, arguments);
-      super.logError('unknown mode')();
+      Log.error(arguments, 'unknown mode')();
       return;
     }
   }
@@ -702,8 +698,7 @@ class UserController extends CommonController {
     type = null
   ) {
     if (type == null) {
-      super.logGenerate(this.openLoading, arguments);
-      super.logError()();
+      Log.error(arguments)();
       return;
     }
     let _loadingHeader = null;
@@ -727,8 +722,7 @@ class UserController extends CommonController {
       _loadingHeader = 'Save your Info';
 
     } else {
-      super.logGenerate(this.openLoading, arguments);
-      super.logError('unknown type.')();
+      Log.error(arguments, 'unknown type.')();
       return;
     }
 
@@ -1012,8 +1006,7 @@ class UserController extends CommonController {
     timing = null
   ) {
     if (type == null || timing == null) {
-      super.logGenerate(this.updateHash, arguments);
-      super.logError()();
+      Log.error(arguments)();
       return;
     }
 
@@ -1089,8 +1082,7 @@ class UserController extends CommonController {
       // SETTING
 
     } else {
-      super.logGenerate(this.updateHash, arguments);
-      super.logError('unknown type.')();
+      Log.error(arguments, 'unknown type.')();
       return;
     }
   }
@@ -1110,13 +1102,11 @@ class UserController extends CommonController {
   ) {
     super.log(type.capitalize(), 'Apply')();
     if (type == null) {
-      super.logGenerate(this.applyModel, arguments);
-      super.logError();
+      Log.error(arguments);
       return;
     }
     if (type != this.getAjaxData({ key: 'type' })) {
-      super.logGenerate(this.applyModel, arguments);
-      super.logError('type mismatch');
+      Log.error(arguments, 'type mismatch');
       return;
     }
 
@@ -1168,8 +1158,7 @@ class UserController extends CommonController {
       this.getAjaxData({ input: this.MODEL.UPDATED_AT, key: 'updated_at' });
 
     } else {
-      super.logGenerate(this.post, arguments);
-      super.logError('unknown type.');
+      Log.error(arguments, 'unknown type.');
       return;
     }
   }
@@ -1197,8 +1186,7 @@ class UserController extends CommonController {
       }
     }
     if (typeof this.MODEL.OBJECT.AJAX[type] == 'undefined') {
-      super.logGenerate(this.getAjaxData, arguments);
-      super.logError('type undefined')();
+      Log.error(arguments, 'type undefined')();
       Log.obj(this.MODEL.OBJECT.AJAX)();
       return;
     }
@@ -1209,8 +1197,7 @@ class UserController extends CommonController {
         input = this.MODEL.OBJECT.AJAX[type][key];
       }
     } else {
-      super.logGenerate(this.getAjaxData, arguments);
-      super.logError('key undefined')();
+      Log.error(arguments, 'key undefined')();
       Log.obj(this.MODEL.OBJECT.AJAX)();
       return;
     }
@@ -1289,8 +1276,7 @@ class UserController extends CommonController {
       _model['default_clip_mode'] = this.MODEL.CLIP_MODE;
 
     } else {
-      super.logGenerate(this.post, arguments);
-      super.logError('unknown type.')();
+      Log.error(arguments, 'unknown type.')();
       return;
     }
 
@@ -1386,8 +1372,7 @@ class UserController extends CommonController {
         passwordRe[0].setCustomValidity('');
       }
     } else {
-      super.logGenerate(this.validPassword, arguments);
-      super.logError('selector is null')();
+      Log.error(arguments, 'selector is null')();
       return;
     }
   }
@@ -1396,8 +1381,7 @@ class UserController extends CommonController {
     inputElement = null
   ) {
     if (inputElement == null) {
-      super.logGenerate(this.updateValidMessage, arguments);
-      super.logError('selector is null')();
+      Log.error(arguments, 'selector is null')();
       return;
     }
 

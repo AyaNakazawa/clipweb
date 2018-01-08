@@ -4,14 +4,14 @@ TIME.LOAD = new Date();
 $(() => {
   TIME.READY = new Date();
 
-  Log.log()();
+  Log.line()();
   Log.class(`${Project.NAME} (${Project.KEY})`, 'Init')();
 
   PS = new Process();
 
   TIME.START = new Date();
 
-  Log.log()();
+  Log.line()();
   Log.log('Time', Log.ALIGN_CENTER)();
   Log.time()();
   Log.classKey(
@@ -34,6 +34,6 @@ $(() => {
     new Date(TIME.START - TIME.READY).formatString('%S.%MSs'),
     new Date(TIME.START - TIME.INIT).formatString('%S.%MSs')
   )();
-  Log.log()();
+  Log.line()();
   Log.class(`${Project.NAME} (${Project.KEY})`, 'Start')();
 });
