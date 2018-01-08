@@ -321,7 +321,7 @@ class Log {
 
       let result = this.CHAR_STYLE;
       result += group[0];
-      for (let i = 0; i < this.MARGIN; i++) {
+      for (let i = 0; i < this.MARGIN - group[0].length - 1; i++) {
         result += this.SPACE;
       }
       return console.log.bind(console, result, groupStyle, obj);
@@ -520,7 +520,7 @@ class Log {
     if (clas != null) {
       // Class Key
 
-      for (let i = 0; i < this.MARGIN; i++) {
+      for (let i = 0; i < this.MARGIN - group[0].length; i++) {
         result += this.SPACE;
       }
 
@@ -583,7 +583,7 @@ class Log {
       }
     }
     if (fill || group[1].length > 0) {
-      const _FILL_COUNT = this.LENGTH - result.length - group[0].length + (2 * result.count(this.CHAR_STYLE));
+      const _FILL_COUNT = this.LENGTH - result.length - group[1].length + (2 * result.count(this.CHAR_STYLE));
       for (let i = 0; i < _FILL_COUNT; i++) {
         result += this.SPACE;
       }
