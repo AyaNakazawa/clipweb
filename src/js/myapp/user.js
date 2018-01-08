@@ -319,7 +319,7 @@ class UserView extends CommonView {
     }
 
     // Header
-    $(this.MODEL.SELECTOR.AREA).append(
+    super.append(
       Content.getHeader(header, headerButton)
     );
 
@@ -341,7 +341,7 @@ class UserView extends CommonView {
 
     // Generate Content
     if (_mainTemplate != null && _mainModel != null) {
-      $(this.MODEL.SELECTOR.AREA).append(
+      super.append(
         View.getTemplate({
           template: _mainTemplate,
           model: _mainModel
