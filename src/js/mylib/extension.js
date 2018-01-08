@@ -39,29 +39,35 @@ EX.String.count = function (target) {
 
 /**
  * Object.prototype.getType
- * @param  {Object} obj  Inspect Object
+ * @param  {Object} obj  Inspect Object or Optional (using this)
  * @return {String}      Result
 **/
 
-EX.Object.getType = function(obj) {
+EX.Object.getType = function(obj = null) {
+  if (obj === null) {
+    obj = this;
+  }
   return Object.prototype.toString.call(obj).slice(8, -1);
 };
 
 /**
  * Object.prototype.typeIs
  * @param  {String}  type Object type
- * @param  {Object}  obj  Object to check
+ * @param  {Object}  obj  Check Object or Optional (using this)
  * @return {Boolean}      Check result
 **/
 
-EX.Object.typeIs = function(type, obj) {
-  const _CLAS = Object.prototype.toString.call(obj).slice(8, -1);
-  return obj !== undefined && obj !== null && _CLAS === type;
+EX.Object.typeIs = function(type = null, obj = null) {
+  if (obj === null) {
+    obj = this;
+  }
+  const _TYPE = Object.getType(obj);
+  return obj !== undefined && obj !== null && _TYPE === type;
 };
 
 /**
  * Object.prototype.assignType
- * @param  {Object}          target Target Object
+ * @param  {Object}          target Target Object or Optional (using this)
  * @param  {Object}          source Source Object
  * @param  {String|String[]} type   Assign target array of type
  * @return {Object}                 Result Object
@@ -79,7 +85,16 @@ EX.Object.assignType = function (
     return;
   }
   if (type === null) {
-    return Object.assign(target, source);
+    if (Object.getType(source) == 'Object') {
+      return Object.assign(target, source);
+
+    } else if (Object.getType(source) == 'String' || Object.getType(source) == 'Array') {
+      if (Object.getType(this) == 'Object') {
+        type = source;
+        source = target;
+        target = this;
+      }
+    }
   }
   if (!Array.isArray(type)) {
     type = [type];
