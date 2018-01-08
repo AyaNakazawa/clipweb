@@ -30,7 +30,7 @@ $(() => {
     new Date(TIME.READY - TIME.INIT).formatString('%S.%MSs')
   )();
   Log.classKey(
-    `${Project.NAME} Start`,
+    `${Project.NAME} Initialization`,
     new Date(TIME.START - TIME.READY).formatString('%S.%MSs'),
     new Date(TIME.START - TIME.INIT).formatString('%S.%MSs')
   )();
