@@ -248,13 +248,21 @@ class Log {
           message = [message];
         }
         for (let i = 0; i < message.length; i++) {
-          this.log({
-            text: message[i],
-            align: this.ALIGN_LEFT,
-            style: styleContent,
-            group: this.GROUP_IN,
-            groupStyle: styleLine
-          })();
+          if (Object.typeIs('Object', message[i])) {
+            this.obj({
+              obj: message[i],
+              group: this.GROUP_IN,
+              groupStyle: styleLine
+            })();
+          } else {
+            this.log({
+              text: message[i],
+              align: this.ALIGN_LEFT,
+              style: styleContent,
+              group: this.GROUP_IN,
+              groupStyle: styleLine
+            })();
+          }
         }
       }
 
