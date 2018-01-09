@@ -26,7 +26,8 @@ class Clip:
     # ----------------------------------------------------------------
     # Define
 
-    DB = sqlite3.SQLite3()
+    DB_PATH = "db/clipweb.db"
+    DB = sqlite3.SQLite3(DB_PATH)
 
     # ----------------------------------------------------------------
     # Constructor

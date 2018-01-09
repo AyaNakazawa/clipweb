@@ -26,14 +26,14 @@ class User:
     # ----------------------------------------------------------------
     # Define
 
-    DB = sqlite3.SQLite3()
-
     # ----------------------------------------------------------------
     # Constructor
     # ----------------------------------------------------------------
 
     def __init__(cls):
         cls.result = {}
+        cls.DB_PATH = "db/clipweb.db"
+        cls.DB = sqlite3.SQLite3(cls.DB_PATH)
 
     # ----------------------------------------------------------------
     # Function
@@ -41,20 +41,25 @@ class User:
 
     def register(cls):
         cls.result["type"] = "register"
+        cls.result["result"] = True
         return cls.result
 
     def login(cls):
         cls.result["type"] = "login"
+        cls.result["result"] = True
         return cls.result
 
     def setting(cls):
         cls.result["type"] = "setting"
+        cls.result["result"] = True
         return cls.result
 
     def info(cls):
         cls.result["type"] = "info"
+        cls.result["result"] = True
         return cls.result
 
     def leave(cls):
         cls.result["type"] = "leave"
+        cls.result["result"] = True
         return cls.result
