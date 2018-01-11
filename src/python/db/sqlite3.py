@@ -39,9 +39,10 @@ class SQLite3:
 
     def execute(cls, query="", args=None):
         try:
-            if args is not None:
+            if args is None:
+                cls.cursor.execute(query)
+            else:
                 cls.cursor.execute(query, args)
-            cls.cursor.execute(query)
             cls.connect.commit()
 
         except Exception as e:
@@ -51,9 +52,10 @@ class SQLite3:
 
     def select(cls, query="", args=None):
         try:
-            if args is not None:
+            if args is None:
+                cls.cursor.execute(query)
+            else:
                 cls.cursor.execute(query, args)
-            cls.cursor.execute(query)
             ncols = len(cls.cursor.description)
             colnames = [cls.cursor.description[i][0] for i in range(ncols)]
             results = []

@@ -36,14 +36,23 @@ class Test:
 
         cls.result = {}
         # cls.result["create"] = cls.create()
-        cls.result["insert"] = cls.insert({"id": 100, "name": "test"})
-        # cls.result["insert2"] = cls.insert(200, "test22")
-        # cls.result["insert3"] = cls.insert(300, "test333")
-        # cls.result["select"] = cls.select()
-        # cls.result["update"] = cls.update(200, "22test")
-        # cls.result["select2"] = cls.select()
-        # cls.result["delete"] = cls.delete(100)
+        cls.result["insert"] = cls.insert(
+            "insert into tests(id, name) values(:id, :name);",
+            {"id": 100, "name": "test"}
+        )
+        cls.result["insert"] = cls.insert(
+            "insert into tests(id, name) values(:id, :name);",
+            {"id": 200, "name": "test22"}
+        )
+        cls.result["insert"] = cls.insert(
+            "insert into tests(id, name) values(:id, :name);",
+            {"id": 300, "name": "test333"}
+        )
         cls.result["select"] = cls.select()
+        cls.result["update"] = cls.update(200, "22test")
+        cls.result["select2"] = cls.select()
+        cls.result["delete"] = cls.delete("id", 100)
+        cls.result["select3"] = cls.select()
 
     # ----------------------------------------------------------------
     # Function
@@ -52,23 +61,32 @@ class Test:
     def create(cls):
         return cls.DB.execute("create table tests(id integer, name text);")
 
-    def insert(cls, args=None):
-        select = cls.select(args)
+    def insert(cls, query, model=None):
+        if cls.exists(model, "id"):
+            return cls.DB.execute(query, model)
+        else:
+            return False
+
+    def update(cls, model=None):
+        return cls.DB.execute("update tests set name=:name where id = :id;", model)
+
+    def delete(cls, model=None):
+        return cls.DB.execute("delete from tests where id = :id;", model)
+
+    def select(cls, model=None):
+        if id is None:
+            return cls.DB.select("select * from tests where id = :id;", model)
+        else:
+            return cls.DB.select("select * from tests;")
+
+    def exists(cls, model, key=None):
+        select = cls.select(model)
         for record in select:
-            if record["id"] == id:
+            if record[key] == model[key]:
                 return False
-        return cls.DB.execute("insert into tests(id, name) values(:id, ':name');", args)
 
-    def update(cls, args=None):
-        return cls.DB.execute("update tests set name=':name' where id = ':id';", args)
+        return True
 
-    def delete(cls, args=None):
-        return cls.DB.execute("delete from tests where id = ':id';", args)
-
-    def select(cls, args=None):
-        if id is not None:
-            return cls.DB.select("select * from tests where id = ':id';", args)
-        return cls.DB.select("select * from tests;")
 
 test = Test()
 print(json.dumps(test.result))
