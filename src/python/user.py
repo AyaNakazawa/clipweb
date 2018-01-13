@@ -13,6 +13,10 @@ clipweb User
 # Import
 # ----------------------------------------------------------------
 
+import sys
+import hashlib
+import binascii
+import datetime
 from db import flex_sqlite3
 
 AUTO_GENERATE = None
@@ -45,6 +49,110 @@ class User:
     def register(cls):
         cls.result["type"] = sys._getframe().f_code.co_name
         cls.result["result"] = False
+
+        # ----------------------------------------------------------------
+        # cgi get
+
+        user_hash = cls.cgi.get("hash")
+        user_username = cls.cgi.get("username")
+        user_email_address = cls.cgi.get("email_address")
+        user_encrypted_crypto_hash = cls.cgi.get("encrypted_crypto_hash")
+        user_password_hash = cls.cgi.get("password_hash")
+
+        # ----------------------------------------------------------------
+        # cgi get strings check
+
+        if cls._check_str(
+            model=user_hash,
+            not_defined_error="hash_not_defined",
+            unknown_class_error="hash_unknown_class"
+        ) is False:
+            return cls.result
+
+        if cls._check_str(
+            model=user_username,
+            not_defined_error="username_not_defined",
+            unknown_class_error="username_unknown_class"
+        ) is False:
+            return cls.result
+
+        if cls._check_str(
+            model=user_email_address,
+            not_defined_error="email_address_not_defined",
+            unknown_class_error="email_address_unknown_class"
+        ) is False:
+            return cls.result
+
+        if cls._check_str(
+            model=user_encrypted_crypto_hash,
+            not_defined_error="encrypted_crypto_hash_not_defined",
+            unknown_class_error="encrypted_crypto_hash_unknown_class"
+        ) is False:
+            return cls.result
+
+        if cls._check_str(
+            model=user_password_hash,
+            not_defined_error="password_hash_not_defined",
+            unknown_class_error="password_hash_unknown_class"
+        ) is False:
+            return cls.result
+
+        # ----------------------------------------------------------------
+        # check overlap user info
+
+        num_username_overlap = cls.DB.count_records(table="owners", where={
+            "username": user_username
+        })
+        num_email_address_overlap = cls.DB.count_records(table="owners", where={
+            "email_address": user_email_address
+        })
+        num_hash_overlap = cls.DB.count_records(table="owners", where={
+            "hash": user_hash
+        })
+
+        if num_username_overlap > 0:
+            cls.result["error"] = cls._error("username_overlap")
+            return cls.result
+        if num_email_address_overlap > 0:
+            cls.result["error"] = cls._error("email_address_overlap")
+            return cls.result
+        if num_hash_overlap > 0:
+            cls.result["error"] = cls._error("hash_overlap")
+            return cls.result
+
+        # ----------------------------------------------------------------
+        # generate email auth
+
+        salt = "clipweb_user_register_email_salt"
+        dk = hashlib.pbkdf2_hmac("sha256", user_username.encode(), salt.encode(), 100000)
+        user_email_authentication_hash = binascii.hexlify(dk).decode()
+
+        # ----------------------------------------------------------------
+        # generate datetime
+
+        now = datetime.datetime.now()
+        now = now.strftime("%Y/%m/%d %H:%M:%S")
+
+        # ----------------------------------------------------------------
+        # insert new user
+
+        cls.result["new_user"] = cls.DB.insert(
+            table="owners",
+            value={
+                "hash": user_hash,
+                "username": user_username,
+                "email_address": user_email_address,
+                "encrypted_crypto_hash": user_encrypted_crypto_hash,
+                "email_authentication_hash": user_email_authentication_hash,
+                "password_hash": user_password_hash,
+                "created_at": now,
+                "updated_at": now
+            }
+        )
+
+        # ----------------------------------------------------------------
+        # return
+
         cls.result["result"] = True
         return cls.result
 
