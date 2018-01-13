@@ -14,7 +14,7 @@ clipweb Share
 # ----------------------------------------------------------------
 
 from web import cgi
-from db import sqlite3
+from db import flex_sqlite3
 
 AUTO_GENERATE = None
 
@@ -26,15 +26,10 @@ class Share:
     # ----------------------------------------------------------------
     # Define
 
-    DB_PATH = "db/clipweb.db"
-    DB = sqlite3.SQLite3(DB_PATH)
-
-    # ----------------------------------------------------------------
-    # Constructor
-    # ----------------------------------------------------------------
-
     def __init__(cls):
         cls.result = {}
+        cls.DB_PATH = "db/clipweb.db"
+        cls.DB = flex_sqlite3.FlexSQLite3(cls.DB_PATH)
 
     # ----------------------------------------------------------------
     # Function

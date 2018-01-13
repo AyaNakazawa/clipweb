@@ -14,7 +14,7 @@ clipweb User
 # ----------------------------------------------------------------
 
 from web import cgi
-from db import sqlite3
+from db import flex_sqlite3
 
 AUTO_GENERATE = None
 
@@ -26,14 +26,10 @@ class User:
     # ----------------------------------------------------------------
     # Define
 
-    # ----------------------------------------------------------------
-    # Constructor
-    # ----------------------------------------------------------------
-
     def __init__(cls):
         cls.result = {}
         cls.DB_PATH = "db/clipweb.db"
-        cls.DB = sqlite3.SQLite3(cls.DB_PATH)
+        cls.DB = flex_sqlite3.FlexSQLite3(cls.DB_PATH)
 
     # ----------------------------------------------------------------
     # Function
