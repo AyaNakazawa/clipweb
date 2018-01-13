@@ -792,7 +792,7 @@ class UserController extends CommonController {
                 model: {
                   alertMessage:
                     View.div({ content: '登録できませんでした。' }) +
-                    View.div({ content: `${Project.NAME} ${this.MODEL.KEY.capitalize()} エラーコード: ${_ERROR['code']}` }) +
+                    View.div({ content: `${Project.NAME} ${this.MODEL.KEY.capitalize()} Error Code: ${_ERROR['code']}` }) +
                     View.div({ content: _ERROR['message'] }),
                   alertType: View.ALERT_WARNING
                 }
