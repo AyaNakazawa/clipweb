@@ -13,4 +13,4 @@ SQLite3 init
 # Import
 # ----------------------------------------------------------------
 
-from . import sqlite3
+from . import flex_sqlite3
