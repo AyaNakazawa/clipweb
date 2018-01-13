@@ -21,28 +21,20 @@ import cgi
 
 class CGI:
 
+    def __init__(cls):
+        cls.FORM = cgi.FieldStorage()
+        print("Content-type: text/html; charset=UTF-8")
+        print()
+
     # ----------------------------------------------------------------
     # Function
     # ----------------------------------------------------------------
 
-    # ----------------------------------------------------------------
-    # Get CGI form value
-    @staticmethod
-    def get(_label):
-        FORM = cgi.FieldStorage()
-        if _label not in FORM:
+    def get(cls, _label):
+        if _label not in cls.FORM:
             return None
-        return FORM.getvalue(_label, "")
-
-    # ----------------------------------------------------------------
-    # CGI Init
-    @staticmethod
-    def init():
-        print("Content-type: text/html; charset=UTF-8")
-        print()
+        return cls.FORM.getvalue(_label, "")
 
 # ----------------------------------------------------------------
 # Ready
 # ----------------------------------------------------------------
-
-CGI.init()

@@ -41,7 +41,8 @@ class Clipweb:
     # ----------------------------------------------------------------
 
     def __init__(cls):
-        _type = cgi.CGI.get("type")
+        cls.cgi = cgi.CGI()
+        _type = cls.cgi.get("type")
 
         if _type is not None:
             cls.check_type(_type)
@@ -68,6 +69,7 @@ class Clipweb:
 
     def check_user(cls, _type=None):
         USER = user.User()
+        USER.set_cgi(cls.cgi)
         if _type == "register":
             cls.result["user"] = USER.register()
 
@@ -89,6 +91,7 @@ class Clipweb:
 
     def check_clip(cls, _type=None):
         CLIP = clip.Clip()
+        CLIP.set_cgi(cls.cgi)
         if _type == "new":
             cls.result["clip"] = CLIP.new()
 
@@ -104,6 +107,7 @@ class Clipweb:
 
     def check_share(cls, _type=None):
         SHARE = share.Share()
+        SHARE.set_cgi(cls.cgi)
         if _type == "alive":
             cls.result["share"] = SHARE.alive()
 
