@@ -776,8 +776,7 @@ class UserController extends CommonController {
         errorOpenType: _TYPE,
         errorModel: {
           alertMessage: (
-            View.div({ content: 'ユーザー登録に失敗しました。' }) +
-            View.div({ content: 'もう一度登録してください。' })
+            View.div({ content: 'サーバとの通信に失敗しました。' })
           ),
           alertType: View.ALERT_DANGER
         }
@@ -1106,7 +1105,7 @@ class UserController extends CommonController {
       return;
     }
     if (type != this.getAjaxData({ key: 'type' })) {
-      Log.error(arguments, 'type mismatch');
+      Log.error(arguments, 'type mismatch')();
       return;
     }
 
@@ -1325,7 +1324,7 @@ class UserController extends CommonController {
           new Date(this.MODEL.TIME.BEFORE_SEND - this.MODEL.TIME.POST).formatString('%S.%MSs')
         )();
         Log.classKey(
-          'CGI Exec',
+          'Server Exec',
           new Date(_EXEC_TIME).formatString('%S.%MSs'),
           new Date(_EXEC_TIME + (this.MODEL.TIME.BEFORE_SEND - this.MODEL.TIME.POST)).formatString('%S.%MSs')
         )();
