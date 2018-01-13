@@ -43,27 +43,32 @@ class User:
     # ----------------------------------------------------------------
 
     def register(cls):
-        cls.result["type"] = "register"
+        cls.result["type"] = sys._getframe().f_code.co_name
+        cls.result["result"] = False
         cls.result["result"] = True
         return cls.result
 
     def login(cls):
-        cls.result["type"] = "login"
+        cls.result["type"] = sys._getframe().f_code.co_name
+        cls.result["result"] = False
         cls.result["result"] = True
         return cls.result
 
     def setting(cls):
-        cls.result["type"] = "setting"
+        cls.result["type"] = sys._getframe().f_code.co_name
+        cls.result["result"] = False
         cls.result["result"] = True
         return cls.result
 
     def info(cls):
-        cls.result["type"] = "info"
+        cls.result["type"] = sys._getframe().f_code.co_name
+        cls.result["result"] = False
         cls.result["result"] = True
         return cls.result
 
     def leave(cls):
-        cls.result["type"] = "leave"
+        cls.result["type"] = sys._getframe().f_code.co_name
+        cls.result["result"] = False
         cls.result["result"] = True
         return cls.result
 

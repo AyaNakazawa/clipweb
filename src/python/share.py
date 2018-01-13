@@ -42,17 +42,25 @@ class Share:
     # ----------------------------------------------------------------
 
     def alive(cls):
-        cls.result["type"] = "alive"
+        cls.result["type"] = sys._getframe().f_code.co_name
+        cls.result["result"] = False
+        cls.result["result"] = True
         return cls.result
 
     def read(cls):
-        cls.result["type"] = "read"
+        cls.result["type"] = sys._getframe().f_code.co_name
+        cls.result["result"] = False
+        cls.result["result"] = True
         return cls.result
 
     def write(cls):
-        cls.result["type"] = "write"
+        cls.result["type"] = sys._getframe().f_code.co_name
+        cls.result["result"] = False
+        cls.result["result"] = True
         return cls.result
 
     def leave(cls):
-        cls.result["type"] = "leave"
+        cls.result["type"] = sys._getframe().f_code.co_name
+        cls.result["result"] = False
+        cls.result["result"] = True
         return cls.result

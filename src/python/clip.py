@@ -42,13 +42,19 @@ class Clip:
     # ----------------------------------------------------------------
 
     def new(cls):
-        cls.result["type"] = "new"
+        cls.result["type"] = sys._getframe().f_code.co_name
+        cls.result["result"] = False
+        cls.result["result"] = True
         return cls.result
 
     def save(cls):
-        cls.result["type"] = "save"
+        cls.result["type"] = sys._getframe().f_code.co_name
+        cls.result["result"] = False
+        cls.result["result"] = True
         return cls.result
 
     def delete(cls):
-        cls.result["type"] = "delete"
+        cls.result["type"] = sys._getframe().f_code.co_name
+        cls.result["result"] = False
+        cls.result["result"] = True
         return cls.result
