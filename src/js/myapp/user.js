@@ -773,6 +773,48 @@ class UserController extends CommonController {
             View.div({ content: 'ユーザーを登録しました。' }) +
             View.div({ content: 'メール認証をしてください。' })
         },
+        successFunction: () => {
+          if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
+            // resultが取得できない
+            this.open({
+              type: this.MODEL.TYPE.REGISTER,
+              model: {
+                alertMessage: View.div({ content: 'サーバが正常に動作していません。' }),
+                alertType: View.ALERT_DANGER
+              }
+            });
+          } else {
+            if (this.getAjaxData({ key: 'result' }) == false) {
+              // 新規登録できていない(clipweb user error)
+              const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
+              this.open({
+                type: this.MODEL.TYPE.REGISTER,
+                model: {
+                  alertMessage:
+                    View.div({ content: '登録できませんでした。' }) +
+                    View.div({ content: `${Project.NAME} ${this.MODEL.KEY.capitalize()} エラーコード: ${_ERROR['code']}` }) +
+                    View.div({ content: _ERROR['message'] }),
+                  alertType: View.ALERT_WARNING
+                }
+              });
+            } else {
+              if (this.getAjaxData({ key: 'new_user' }) != true) {
+                // 新規登録できていない(flex sqlite3 error)
+                const _ERROR = this.getAjaxData({ key: 'new_user' })['flex sqlite3 error'];
+                this.open({
+                  type: this.MODEL.TYPE.REGISTER,
+                  model: {
+                    alertMessage:
+                      View.div({ content: `flex sqlite3 Error Code: ${_ERROR['code']}` }) +
+                      View.div({ content: `Mode: ${_ERROR['mode']}` }) +
+                      View.div({ content: _ERROR['message'] }),
+                    alertType: View.ALERT_WARNING
+                  }
+                });
+              }
+            }
+          }
+        },
         errorOpenType: _TYPE,
         errorModel: {
           alertMessage: (
