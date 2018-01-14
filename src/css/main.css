@@ -236,8 +236,9 @@ main {
       border-radius: 4px 4px 0 0;
       position: relative; }
       main .content .content-header .content-header-button {
+        font-size: 1.25rem;
         position: absolute;
-        padding: 0.55rem;
+        padding: 0.5rem;
         right: 0.25rem;
         top: 0rem;
         cursor: pointer; }
