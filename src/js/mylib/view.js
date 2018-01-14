@@ -43,27 +43,41 @@ class View {
     return '#ruby-template';
   }
 
-  static div ({
+  static element ({
+    element = 'div',
     id = null,
-    cls = null,
-    content = null
+    clas = null,
+    content = null,
+    attr = null
   } = {}) {
+    if (element == null) {
+      Log.error(arguments)();
+      return;
+    }
     let result = '';
     let _id = '';
-    let _cls = '';
+    let _clas = '';
     let _content = '';
+    let _attr = '';
 
     if (id != null) {
-      _id = ` id=${id}`;
+      _id = ` id="${id}"`;
     }
-    if (cls != null) {
-      _cls = ` class=${cls}`;
+    if (clas != null) {
+      _clas = ` class="${clas}"`;
     }
     if (content != null) {
       _content = content;
     }
+    if (attr != null) {
+      if (Object.getType(attr) == 'Object') {
+        for (let key of Object.keys(attr)) {
+          _attr += ` ${key}="${attr[key]}"`;
+        }
+      }
+    }
 
-    result = `<div${_id}${_cls}>${content}</div>`;
+    result = `<${element}${_id}${_clas}${_attr}>${_content}</${element}>`;
     return result;
   }
 
