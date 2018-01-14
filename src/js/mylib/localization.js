@@ -9,7 +9,13 @@ class Localization {
 
     this.langs = new Language();
     this._setSelect();
-    this.setLanguage(window.navigator.language);
+
+    const _LS_LANG = LocalStorage.getItem('l10n');
+    if (_LS_LANG == null) {
+      this.setLanguage(window.navigator.language);
+    } else {
+      this.setLanguage(_LS_LANG);
+    }
   }
 
   setLanguage (lang = null) {
@@ -18,6 +24,7 @@ class Localization {
       return;
     }
     Log.classKey('Localization', this.LANG, lang, Log.ARROW_INPUT)();
+    LocalStorage.setItem('l10n', lang);
     $(`${this.SELECTOR} option[value="${lang}"]`).prop('selected', true);
     this.LANG = lang;
   }
