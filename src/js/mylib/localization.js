@@ -19,21 +19,15 @@ class Localization {
   getLanguageList (existLimit = true) {
     let result = {};
     for (let key of Object.keys(this.langs)) {
-      if (existLimit && Object.keys(this.langs[key]).length > 1) {
-        // 言語名以外にも言語が定義されているものに限定する
+      if (!existLimit || Object.keys(this.langs[key]).length > 1) {
         if (typeof this.langs[key]['name'] == 'undefined') {
           // 言語名が定義されていないのでエラー
           Log.error(arguments, `lang name is not defined: ${key}`, this.langs[key])();
           return;
         }
-        result[key] = this.langs[key]['name'];
-      } else {
-        if (typeof this.langs[key]['name'] == 'undefined') {
-          // 言語名が定義されていないのでエラー
-          Log.error(arguments, `lang name is not defined: ${key}`, this.langs[key])();
-          return;
+        if (key == 'default' || key != 'default' && this.langs[key]['name'] != this.langs.default['name']) {
+          result[key] = this.langs[key]['name'];
         }
-        result[key] = this.langs[key]['name'];
       }
     }
     return result;
