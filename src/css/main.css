@@ -59,6 +59,11 @@ a:hover {
 textarea {
   resize: vertical; }
 
+.localization {
+  color: #666 !important; }
+  .localization option {
+    color: #666 !important; }
+
 .header-area {
   margin: 0;
   padding: 0;

@@ -77,6 +77,13 @@ textarea {
   resize: vertical;
 }
 
+.localization {
+  color: $main-color !important;
+  option {
+    color: $main-color !important;
+  }
+}
+
 // header
 
 .header-area {
