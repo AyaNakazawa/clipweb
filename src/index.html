@@ -92,7 +92,7 @@
               <% if (title.length > 0) { %>
                 <div class="modal-title"><%- title %></div>
               <% } %>
-              <button class="close modal-close" data-dismiss="modal" id="<%- id %>-close">
+              <button class="close modal-close" data-dismiss="modal" id="<%- id %>-close" tabindex="220">
                 <i class="fal fa-times"></i>
               </button>
             </div>
@@ -109,9 +109,9 @@
             <% if (type >= 1) { %>
               <div class="modal-footer">
                 <% if (type >= 2) { %>
-                  <button class="modal-button btn btn-secondary" data-dismiss="modal" id="<%- id %>-no"><%- no %></button>
+                  <button class="modal-button btn btn-secondary" data-dismiss="modal" id="<%- id %>-no" tabindex="210"><%- no %></button>
                 <% } %>
-                <button class="modal-button btn btn-primary" data-dismiss="modal" id="<%- id %>-yes"><%- yes %></button>
+                <button class="modal-button btn btn-primary" data-dismiss="modal" id="<%- id %>-yes" tabindex="200"><%- yes %></button>
               </div>
             <% } %>
           </div>
@@ -152,7 +152,7 @@
         <div class="content-item">
           <label for="login-email">Email address</label>
           <div class="content-input">
-            <input id="login-email" type="email" required class="form-control" value="<%- email %>">
+            <input id="login-email" type="email" required class="form-control" value="<%- email %>" tabindex="200">
             <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-envelope"></i>
             <span class="content-input-valid-message"></span>
@@ -161,15 +161,15 @@
         <div class="content-item">
           <label for="login-password">Password</label>
           <div class="content-input">
-            <input id="login-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" placeholder="">
+            <input id="login-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" placeholder="" tabindex="200">
             <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-lock"></i>
             <span class="content-input-valid-message"></span>
           </div>
         </div>
         <div class="content-item d-flex justify-content-between">
-          <button id="login-register" class="btn btn-link">Register <i class="fal fa-user-plus"></i></button>
-          <button id="login-submit" class="btn btn-primary">Login <i class="fal fa-sign-in-alt"></i></button>
+          <button id="login-register" class="btn btn-link" tabindex="210">Register <i class="fal fa-user-plus"></i></button>
+          <button id="login-submit" class="btn btn-primary" tabindex="200">Login <i class="fal fa-sign-in-alt"></i></button>
         </div>
       </div>
     </script>
@@ -179,7 +179,7 @@
         <div class="content-item">
           <label for="register-username">Username</label>
           <div class="content-input">
-            <input id="register-username" type="text" minLength="<%- length.min.username %>" maxLength="<%- length.max.username %>" required class="form-control" value="<%- username %>">
+            <input id="register-username" type="text" minLength="<%- length.min.username %>" maxLength="<%- length.max.username %>" required class="form-control" value="<%- username %>" tabindex="200">
             <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-user"></i>
             <span class="content-input-valid-message"></span>
@@ -188,7 +188,7 @@
         <div class="content-item">
           <label for="register-email">Email address</label>
           <div class="content-input">
-            <input id="register-email" type="email" required class="form-control" value="<%- email %>">
+            <input id="register-email" type="email" required class="form-control" value="<%- email %>" tabindex="200">
             <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-envelope"></i>
             <span class="content-input-valid-message"></span>
@@ -198,7 +198,7 @@
           <div class="content-split-item">
             <label for="register-password">Password</label>
             <div class="content-input">
-              <input id="register-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" placeholder="" value="test1234">
+              <input id="register-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" placeholder="" value="test1234" tabindex="200">
               <span class="content-input-valid"></span>
               <i class="content-input-icon fas fa-lock"></i>
               <span class="content-input-valid-message"></span>
@@ -207,7 +207,7 @@
           <div class="content-split-item">
             <label for="register-password-re">Confirm Password</label>
             <div class="content-input">
-              <input id="register-password-re" type="password" required class="form-control" placeholder="" value="test1234">
+              <input id="register-password-re" type="password" required class="form-control" placeholder="" value="test1234" tabindex="200">
               <span class="content-input-valid"></span>
               <i class="content-input-icon fas fa-lock"></i>
               <span class="content-input-valid-message"></span>
@@ -215,8 +215,8 @@
           </div>
         </div>
         <div class="content-item d-flex justify-content-between">
-          <button id="register-login" class="btn btn-link">Login <i class="fal fa-sign-in-alt"></i></button>
-          <button id="register-submit" class="btn btn-primary">Register <i class="fal fa-user-plus"></i></button>
+          <button id="register-login" class="btn btn-link" tabindex="210">Login <i class="fal fa-sign-in-alt"></i></button>
+          <button id="register-submit" class="btn btn-primary" tabindex="200">Register <i class="fal fa-user-plus"></i></button>
         </div>
       </div>
     </script>
@@ -240,7 +240,7 @@
         <div class="content-item">
           <label for="user-info-username">Username</label>
           <div class="content-input">
-            <input id="user-info-username" type="text" minLength="<%- length.min.username %>" maxLength="<%- length.max.username %>" required class="form-control" value="<%- username %>">
+            <input id="user-info-username" type="text" minLength="<%- length.min.username %>" maxLength="<%- length.max.username %>" required class="form-control" value="<%- username %>" tabindex="200">
             <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-user"></i>
             <span class="content-input-valid-message"></span>
@@ -250,7 +250,7 @@
         <div class="content-item">
           <label for="user-info-email">Email address</label>
           <div class="content-input">
-            <input id="user-info-email" type="email" required class="form-control" value="<%- email %>">
+            <input id="user-info-email" type="email" required class="form-control" value="<%- email %>" tabindex="200">
             <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-envelope"></i>
             <span class="content-input-valid-message"></span>
@@ -262,7 +262,7 @@
         <div class="content-item">
           <label for="user-info-old-password">Password</label>
           <div class="content-input">
-            <input id="user-info-old-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" value="">
+            <input id="user-info-old-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" value="" tabindex="200">
             <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-lock"></i>
             <span class="content-input-valid-message"></span>
@@ -272,7 +272,7 @@
           <div class="content-split-item">
             <label for="user-info-new-password">New Password</label>
             <div class="content-input">
-              <input id="user-info-new-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" value="">
+              <input id="user-info-new-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" value="" tabindex="200">
               <span class="content-input-valid"></span>
               <i class="content-input-icon fas fa-lock"></i>
               <span class="content-input-valid-message"></span>
@@ -281,7 +281,7 @@
           <div class="content-split-item">
             <label for="user-info-new-password-re">Confirm Password</label>
             <div class="content-input">
-              <input id="user-info-new-password-re" type="password" required class="form-control" value="">
+              <input id="user-info-new-password-re" type="password" required class="form-control" value="" tabindex="200">
               <span class="content-input-valid"></span>
               <i class="content-input-icon fas fa-lock"></i>
               <span class="content-input-valid-message"></span>
@@ -292,8 +292,8 @@
       <!-- Action -->
       <div class="content-item-area">
         <div class="content-item d-flex justify-content-between">
-          <button id="user-info-setting" class="btn btn-primary">Setting <i class="fal fa-exchange-alt"></i></button>
-          <button id="user-info-update-submit" class="btn btn-primary">Save <i class="fal fa-cloud"></i></button>
+          <button id="user-info-setting" class="btn btn-primary" tabindex="210">Setting <i class="fal fa-exchange-alt"></i></button>
+          <button id="user-info-update-submit" class="btn btn-primary" tabindex="200">Save <i class="fal fa-cloud"></i></button>
         </div>
       </div>
     </script>
@@ -304,7 +304,7 @@
         <div class="content-item">
           <label for="user-setting-theme">Theme</label>
           <div class="content-input">
-            <select id="user-setting-theme" class="form-control" required>
+            <select id="user-setting-theme" class="form-control" required tabindex="200">
               <% if (theme == 'light') { %>
                 <option value="light" selected>Light</option>
               <% } else { %>
@@ -325,7 +325,7 @@
         <div class="content-item">
           <label for="user-setting-owner-publish">Default Owner Publish</label>
           <div class="content-input">
-            <select id="user-setting-owner-publish" class="form-control" required>
+            <select id="user-setting-owner-publish" class="form-control" required tabindex="200">
               <% if (ownerPublish == 'private') { %>
                 <option value="private" selected>Private</option>
               <% } else { %>
@@ -346,7 +346,7 @@
         <div class="content-item">
           <label for="user-setting-clip-mode">Default Clip mode</label>
           <div class="content-input">
-            <select id="user-setting-clip-mode" class="form-control" required>
+            <select id="user-setting-clip-mode" class="form-control" required tabindex="200">
               <% if (clipMode == 'private') { %>
                 <option value="private" selected>Private</option>
               <% } else { %>
@@ -370,8 +370,8 @@
       <!-- Action -->
       <div class="content-item-area">
         <div class="content-item d-flex justify-content-between">
-          <button id="user-setting-info" class="btn btn-primary">Info <i class="fal fa-exchange-alt"></i></button>
-          <button id="user-setting-update-submit" class="btn btn-primary">Save <i class="fal fa-cloud"></i></button>
+          <button id="user-setting-info" class="btn btn-primary" tabindex="210">Info <i class="fal fa-exchange-alt"></i></button>
+          <button id="user-setting-update-submit" class="btn btn-primary" tabindex="200">Save <i class="fal fa-cloud"></i></button>
         </div>
       </div>
     </script>
