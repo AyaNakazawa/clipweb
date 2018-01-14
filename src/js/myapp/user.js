@@ -14,6 +14,11 @@ class UserModel extends CommonModel {
     super(initSetting);
 
     // ----------------------------------------------------------------
+    // エラーコード
+    super.addMessage(401, 'email_password_incorrect');
+    super.addMessage(801, 'corrupt_userdata');
+
+    // ----------------------------------------------------------------
     // 識別子
     this.KEY = 'user';
 
@@ -543,8 +548,6 @@ class UserEvent extends CommonEvent {
     super.setOn({
       trigger: this.MODEL.TRIGGER.POST.SUCCESS,
       func: () => {
-        this.CONTROLLER.applyModel(type);
-        this.CONTROLLER.updateHash(type, this.MODEL.TIMING.AFTER);
         this.CONTROLLER.open({
           mode: successOpenMode,
           type: successOpenType,
@@ -732,7 +735,7 @@ class UserController extends CommonController {
           if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
             // resultが取得できない
             this.open({
-              type: this.MODEL.TYPE.REGISTER,
+              type: _TYPE,
               model: {
                 alertMessage: View.div({ content: LN.get('server_not_working') }),
                 alertType: View.ALERT_DANGER
@@ -741,35 +744,42 @@ class UserController extends CommonController {
           } else {
             if (this.getAjaxData({ key: 'result' }) == false) {
               // 新規登録できていない(clipweb user error)
-              const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
-              this.open({
-                type: this.MODEL.TYPE.REGISTER,
-                model: {
-                  alertMessage:
-                    View.div({ content: LN.get('failed_to_register') }) +
-                    View.div({ content: LN.get('clipweb_user_error_code', {
-                      project: Project.NAME,
-                      code: _ERROR['code']
-                    }) }) +
-                    View.div({ content: LN.get('clipweb_user_error_message', { message: _ERROR['message'] }) }),
-                  alertType: View.ALERT_WARNING
-                }
-              });
-            } else {
-              if (this.getAjaxData({ key: 'new_user' }) != true) {
-                // 新規登録できていない(flex sqlite3 error)
-                const _ERROR = this.getAjaxData({ key: 'new_user' })['flex sqlite3 error'];
+              if (typeof this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`] != 'undefined') {
+                const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
                 this.open({
-                  type: this.MODEL.TYPE.REGISTER,
+                  type: _TYPE,
                   model: {
                     alertMessage:
                       View.div({ content: LN.get('failed_to_register') }) +
-                      View.div({ content: LN.get('flex_sqlite3_error_code', { code: _ERROR['code'] }) }) +
-                      View.div({ content: LN.get('flex_sqlite3_error_mode', { mode: _ERROR['mode'] }) }) +
-                      View.div({ content: LN.get('flex_sqlite3_error_message', { message: _ERROR['message'] }) }),
+                      View.div({ content: LN.get('clipweb_user_error_code', {
+                        project: Project.NAME,
+                        code: _ERROR['code']
+                      }) }) +
+                      View.div({ content: LN.get('clipweb_user_error_message', { message: _ERROR['message'] }) }),
                     alertType: View.ALERT_WARNING
                   }
                 });
+              }
+            } else {
+              if (this.getAjaxData({ key: 'new_user' }) != true) {
+                // 新規登録できていない(flex sqlite3 error)
+                if (typeof this.getAjaxData({ key: 'new_user' })['flex sqlite3 error'] != 'undefined') {
+                  const _ERROR = this.getAjaxData({ key: 'new_user' })['flex sqlite3 error'];
+                  this.open({
+                    type: _TYPE,
+                    model: {
+                      alertMessage:
+                        View.div({ content: LN.get('failed_to_register') }) +
+                        View.div({ content: LN.get('flex_sqlite3_error_code', { code: _ERROR['code'] }) }) +
+                        View.div({ content: LN.get('flex_sqlite3_error_mode', { mode: _ERROR['mode'] }) }) +
+                        View.div({ content: LN.get('flex_sqlite3_error_message', { message: _ERROR['message'] }) }),
+                      alertType: View.ALERT_WARNING
+                    }
+                  });
+                }
+              } else {
+                this.CONTROLLER.applyModel(_TYPE);
+                this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
               }
             }
           }
@@ -822,7 +832,73 @@ class UserController extends CommonController {
       this.EVENT.setOnLoading({
         type: _TYPE,
         successFunction: () => {
-          PS.NAV.VIEW.generateLogined();
+          if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
+            // resultが取得できない
+            this.open({
+              type: _TYPE,
+              model: {
+                alertMessage: View.div({ content: LN.get('server_not_working') }),
+                alertType: View.ALERT_DANGER
+              }
+            });
+          } else {
+            if (this.getAjaxData({ key: 'result' }) == false) {
+              // 新規登録できていない(clipweb user error)
+              if (typeof this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`] != 'undefined') {
+                const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
+                let message = this.MODEL.getMessage(_ERROR['code'], _ERROR['message'], true);
+                this.open({
+                  type: _TYPE,
+                  model: {
+                    alertMessage:
+                      View.div({ content: LN.get('failed_to_login') }) +
+                      View.div({ content: LN.get('clipweb_user_error_code', {
+                        project: Project.NAME,
+                        code: _ERROR['code']
+                      }) }) +
+                      View.div({ content: LN.get('clipweb_user_error_message', { message: message }) }),
+                    alertType: View.ALERT_WARNING
+                  }
+                });
+              }
+            } else {
+              const _INFO = [
+                'hash',
+                'username',
+                'encrypted_crypto_hash',
+                'email_authentication',
+                'theme',
+                'default_owner_publish',
+                'default_clip_mode',
+                'created_at',
+                'updated_at',
+              ];
+              for (let i_info = 0; i_info < _INFO.length; i_info++) {
+                if (Object.getType(this.getAjaxData({ key: _INFO[i_info] })) != 'String') {
+                  // ログイン情報を取得できていない(flex sqlite3 error)
+                  if (typeof this.getAjaxData({ key: _INFO[i_info] }) != 'undefined') {
+                    const _ERROR = this.getAjaxData({ key: _INFO[i_info] })['flex sqlite3 error'];
+                    this.open({
+                      type: _TYPE,
+                      model: {
+                        alertMessage:
+                        View.div({ content: LN.get('failed_to_login') }) +
+                        View.div({ content: LN.get('flex_sqlite3_error_code', { code: _ERROR['code'] }) }) +
+                        View.div({ content: LN.get('flex_sqlite3_error_mode', { mode: _ERROR['mode'] }) }) +
+                        View.div({ content: LN.get('flex_sqlite3_error_message', { message: _ERROR['message'] }) }),
+                        alertType: View.ALERT_WARNING
+                      }
+                    });
+                    return;
+                  }
+                }
+              }
+              NAV.login();
+              this.MODEL.STATUS.LOGIN = true;
+              this.CONTROLLER.applyModel(_TYPE);
+              this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
+            }
+          }
         },
         errorOpenType: _TYPE,
         errorModel: {
@@ -1118,9 +1194,8 @@ class UserController extends CommonController {
 
     } else if (type == this.MODEL.TYPE.LOGIN) {
       // LOGIN
-      this.MODEL.STATUS.LOGIN = true;
-      this.MODEL.USERNAME = this.getAjaxData({ key: 'username' });
       this.MODEL.HASH.USER = this.getAjaxData({ key: 'hash' });
+      this.MODEL.USERNAME = this.getAjaxData({ key: 'username' });
       this.MODEL.ENCRYPT.CRYPTO = this.getAjaxData({ key: 'encrypted_crypto_hash' });
       this.MODEL.EMAIL_AUTH = this.getAjaxData({ key: 'email_authentication' });
       this.MODEL.THEME = this.getAjaxData({ key: 'theme' });
@@ -1131,12 +1206,10 @@ class UserController extends CommonController {
 
     } else if (type == this.MODEL.TYPE.LOGOUT) {
       // LOGOUT
-      this.MODEL.STATUS.LOGIN = false;
       this.clearModel();
 
     } else if (type == this.MODEL.TYPE.LEAVE) {
       // LEAVE
-      this.MODEL.STATUS.LOGIN = false;
       this.clearModel();
 
     } else if (type == this.MODEL.TYPE.INFO) {

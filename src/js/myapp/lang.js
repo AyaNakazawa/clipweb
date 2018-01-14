@@ -60,6 +60,7 @@ class Language {
       please_inputs_correctly: '正しく入力してください。',
       please_selects_correctly: '正しく選択してください。',
       email_password_incorrect: 'メールアドレスとパスワードの組み合わせが間違っています。',
+      corrupt_userdata: 'ユーザーデータが破損しています。管理者までご確認ください。',
       password_dont_match: 'パスワードが一致しません。',
 
       failed_to_register: '登録できませんでした。',
@@ -130,6 +131,7 @@ class Language {
       please_inputs_correctly: 'Please enter items correctly.',
       please_selects_correctly: 'Please select items correctly.',
       email_password_incorrect: 'The combination of the e-mail address and the password is incorrect.',
+      corrupt_userdata: 'User data is corrupted. Please contact the administrator.',
       password_dont_match: 'Password don\'t match.',
 
       failed_to_register: 'Failed to register.',
