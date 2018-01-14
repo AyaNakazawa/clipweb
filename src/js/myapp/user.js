@@ -55,6 +55,8 @@ class UserModel extends CommonModel {
     // ----------------------------------------------------------------
     // LocalStorageキー
     this.LS = {};
+    this.LS.LOGIN = 'login';
+
     this.LS.AUTO = {};
     this.LS.AUTO.LOGIN = 'auto.login';
     this.LS.AUTO.EMAIL = 'auto.em';
@@ -632,12 +634,18 @@ class UserController extends CommonController {
   init () {
     this.EVENT.setEvent();
     if (LocalStorage.getItem(this.MODEL.LS.AUTO.LOGIN) == 'true') {
+      // データを取得
       this.MODEL.EMAIL = LocalStorage.getItem(this.MODEL.LS.AUTO.EMAIL);
       this.MODEL.HASH.PASSWORD = LocalStorage.getItem(this.MODEL.LS.AUTO.HASH.PASSWORD);
       this.MODEL.STATUS.AUTO = true;
-      if (this.MODEL.EMAIL != null || this.MODEL.HASH.PASSWORD != null) {
-        this.MODEL.STATUS.LS_LOAD = true;
-        this.submitLogin(true);
+      if (LocalStorage.getItem(this.MODEL.LS.LOGIN) == 'true') {
+        // 前回ログインしていたとき
+        if (this.MODEL.EMAIL != null || this.MODEL.HASH.PASSWORD != null) {
+          // データがあるとき
+          this.MODEL.STATUS.LS_LOAD = true;
+          this.submitLogin(true);
+          return;
+        }
       }
     }
     this.open({ type: this.MODEL.TYPE.LOGIN });
@@ -949,6 +957,7 @@ class UserController extends CommonController {
                 LocalStorage.setItem(this.MODEL.LS.AUTO.HASH.PASSWORD, this.MODEL.HASH.PASSWORD);
                 LocalStorage.setItem(this.MODEL.LS.AUTO.EMAIL, this.MODEL.EMAIL);
               }
+              LocalStorage.setItem(this.MODEL.LS.LOGIN, 'true');
               this.MODEL.STATUS.LOGIN = true;
               this.CONTROLLER.applyModel(_TYPE);
               this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
@@ -992,6 +1001,7 @@ class UserController extends CommonController {
       },
       successFunction: () => {
         NAV.logout();
+        LocalStorage.setItem(this.MODEL.LS.LOGIN, 'false');
       },
       errorOpenType: _TYPE,
       errorModel: {
