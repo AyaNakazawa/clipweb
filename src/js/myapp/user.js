@@ -15,6 +15,9 @@ class UserModel extends CommonModel {
 
     // ----------------------------------------------------------------
     // エラーコード
+    super.addMessage(301, 'username_alreay_exist');
+    super.addMessage(302, 'email_address_alreay_exist');
+    super.addMessage(303, 'hash_alreay_exist');
     super.addMessage(401, 'email_password_incorrect');
     super.addMessage(801, 'corrupt_userdata');
 
@@ -728,8 +731,8 @@ class UserController extends CommonController {
         successOpenType: this.MODEL.TYPE.LOGIN,
         successModel: {
           alertMessage:
-            View.div({ content: LN.get('user_registered') }) +
-            View.div({ content: LN.get('please_email_auth') })
+            View.element({ content: LN.get('user_registered') }) +
+            View.element({ content: LN.get('please_email_auth') })
         },
         successFunction: () => {
           if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
@@ -737,7 +740,7 @@ class UserController extends CommonController {
             this.open({
               type: _TYPE,
               model: {
-                alertMessage: View.div({ content: LN.get('server_not_working') }),
+                alertMessage: View.element({ content: LN.get('server_not_working') }),
                 alertType: View.ALERT_DANGER
               }
             });
@@ -746,16 +749,18 @@ class UserController extends CommonController {
               // 新規登録できていない(clipweb user error)
               if (typeof this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`] != 'undefined') {
                 const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
+                let message = this.MODEL.getMessage(_ERROR['code'], _ERROR['message'], true);
                 this.open({
                   type: _TYPE,
                   model: {
                     alertMessage:
-                      View.div({ content: LN.get('failed_to_register') }) +
-                      View.div({ content: LN.get('clipweb_user_error_code', {
+                      View.element({ element: 'h5', content: LN.get('failed_to_register') }) +
+                      View.element({ element: 'hr' }) +
+                      View.element({ content: LN.get('clipweb_user_error_code', {
                         project: Project.NAME,
                         code: _ERROR['code']
                       }) }) +
-                      View.div({ content: LN.get('clipweb_user_error_message', { message: _ERROR['message'] }) }),
+                      View.element({ content: LN.get('clipweb_user_error_message', { message: message }) }),
                     alertType: View.ALERT_WARNING
                   }
                 });
@@ -769,10 +774,11 @@ class UserController extends CommonController {
                     type: _TYPE,
                     model: {
                       alertMessage:
-                        View.div({ content: LN.get('failed_to_register') }) +
-                        View.div({ content: LN.get('flex_sqlite3_error_code', { code: _ERROR['code'] }) }) +
-                        View.div({ content: LN.get('flex_sqlite3_error_mode', { mode: _ERROR['mode'] }) }) +
-                        View.div({ content: LN.get('flex_sqlite3_error_message', { message: _ERROR['message'] }) }),
+                        View.element({ element: 'h5', content: LN.get('failed_to_register') }) +
+                        View.element({ element: 'hr' }) +
+                        View.element({ content: LN.get('flex_sqlite3_error_code', { code: _ERROR['code'] }) }) +
+                        View.element({ content: LN.get('flex_sqlite3_error_mode', { mode: _ERROR['mode'] }) }) +
+                        View.element({ content: LN.get('flex_sqlite3_error_message', { message: _ERROR['message'] }) }),
                       alertType: View.ALERT_WARNING
                     }
                   });
@@ -787,8 +793,8 @@ class UserController extends CommonController {
         errorOpenType: _TYPE,
         errorModel: {
           alertMessage: (
-            View.div({ content: LN.get('failed_connect_to_server') }) +
-            View.div({ content: LN.get('failed_to_register') })
+            View.element({ content: LN.get('failed_connect_to_server') }) +
+            View.element({ content: LN.get('failed_to_register') })
           ),
           alertType: View.ALERT_DANGER
         }
@@ -801,7 +807,7 @@ class UserController extends CommonController {
         type: _TYPE,
         model: {
           alertMessage: (
-            View.div({ content: LN.get('please_all_inputs_correctly') })
+            View.element({ content: LN.get('please_all_inputs_correctly') })
           ),
           alertType: View.ALERT_WARNING
         }
@@ -837,7 +843,7 @@ class UserController extends CommonController {
             this.open({
               type: _TYPE,
               model: {
-                alertMessage: View.div({ content: LN.get('server_not_working') }),
+                alertMessage: View.element({ content: LN.get('server_not_working') }),
                 alertType: View.ALERT_DANGER
               }
             });
@@ -851,12 +857,13 @@ class UserController extends CommonController {
                   type: _TYPE,
                   model: {
                     alertMessage:
-                      View.div({ content: LN.get('failed_to_login') }) +
-                      View.div({ content: LN.get('clipweb_user_error_code', {
+                      View.element({ element: 'h5', content: LN.get('failed_to_login') }) +
+                      View.element({ element: 'hr' }) +
+                      View.element({ content: LN.get('clipweb_user_error_code', {
                         project: Project.NAME,
                         code: _ERROR['code']
                       }) }) +
-                      View.div({ content: LN.get('clipweb_user_error_message', { message: message }) }),
+                      View.element({ content: LN.get('clipweb_user_error_message', { message: message }) }),
                     alertType: View.ALERT_WARNING
                   }
                 });
@@ -882,10 +889,11 @@ class UserController extends CommonController {
                       type: _TYPE,
                       model: {
                         alertMessage:
-                        View.div({ content: LN.get('failed_to_login') }) +
-                        View.div({ content: LN.get('flex_sqlite3_error_code', { code: _ERROR['code'] }) }) +
-                        View.div({ content: LN.get('flex_sqlite3_error_mode', { mode: _ERROR['mode'] }) }) +
-                        View.div({ content: LN.get('flex_sqlite3_error_message', { message: _ERROR['message'] }) }),
+                        View.element({ element: 'h5', content: LN.get('failed_to_login') }) +
+                        View.element({ element: 'hr' }) +
+                        View.element({ content: LN.get('flex_sqlite3_error_code', { code: _ERROR['code'] }) }) +
+                        View.element({ content: LN.get('flex_sqlite3_error_mode', { mode: _ERROR['mode'] }) }) +
+                        View.element({ content: LN.get('flex_sqlite3_error_message', { message: _ERROR['message'] }) }),
                         alertType: View.ALERT_WARNING
                       }
                     });
@@ -903,8 +911,8 @@ class UserController extends CommonController {
         errorOpenType: _TYPE,
         errorModel: {
           alertMessage: (
-            View.div({ content: LN.get('failed_connect_to_server') }) +
-            View.div({ content: LN.get('failed_to_login') })
+            View.element({ content: LN.get('failed_connect_to_server') }) +
+            View.element({ content: LN.get('failed_to_login') })
           ),
           alertType: View.ALERT_WARNING
         }
@@ -917,7 +925,7 @@ class UserController extends CommonController {
         type: _TYPE,
         model: {
           alertMessage: (
-            View.div({ content: LN.get('please_all_inputs_correctly') })
+            View.element({ content: LN.get('please_all_inputs_correctly') })
           ),
           alertType: View.ALERT_WARNING
         }
@@ -933,7 +941,7 @@ class UserController extends CommonController {
       successOpenType: this.MODEL.TYPE.LOGIN,
       successModel: {
         alertMessage:
-          View.div({ content: LN.get('user_logouted') })
+          View.element({ content: LN.get('user_logouted') })
       },
       successFunction: () => {
         NAV.logout();
@@ -941,8 +949,8 @@ class UserController extends CommonController {
       errorOpenType: _TYPE,
       errorModel: {
         alertMessage: (
-          View.div({ content: LN.get('failed_connect_to_server') }) +
-          View.div({ content: LN.get('failed_to_logout') })
+          View.element({ content: LN.get('failed_connect_to_server') }) +
+          View.element({ content: LN.get('failed_to_logout') })
         ),
         alertType: View.ALERT_WARNING
       }
@@ -992,13 +1000,13 @@ class UserController extends CommonController {
         successOpenType: _TYPE,
         successModel: {
           alertMessage:
-            View.div({ content: LN.get('user_update_info') })
+            View.element({ content: LN.get('user_update_info') })
         },
         errorOpenType: _TYPE,
         errorModel: {
           alertMessage: (
-            View.div({ content: LN.get('failed_connect_to_server') }) +
-            View.div({ content: LN.get('failed_to_update_info') })
+            View.element({ content: LN.get('failed_connect_to_server') }) +
+            View.element({ content: LN.get('failed_to_update_info') })
           ),
           alertType: View.ALERT_DANGER
         }
@@ -1011,7 +1019,7 @@ class UserController extends CommonController {
         type: _TYPE,
         model: {
           alertMessage: (
-            View.div({ content: LN.get('please_inputs_correctly') })
+            View.element({ content: LN.get('please_inputs_correctly') })
           ),
           alertType: View.ALERT_WARNING
         }
@@ -1050,13 +1058,13 @@ class UserController extends CommonController {
         successOpenType: _TYPE,
         successModel: {
           alertMessage:
-            View.div({ content: LN.get('user_update_setting') })
+            View.element({ content: LN.get('user_update_setting') })
         },
         errorOpenType: _TYPE,
         errorModel: {
           alertMessage: (
-            View.div({ content: LN.get('failed_connect_to_server') }) +
-            View.div({ content: LN.get('failed_to_update_setting') })
+            View.element({ content: LN.get('failed_connect_to_server') }) +
+            View.element({ content: LN.get('failed_to_update_setting') })
           ),
           alertType: View.ALERT_DANGER
         }
@@ -1069,7 +1077,7 @@ class UserController extends CommonController {
         type: _TYPE,
         model: {
           alertMessage: (
-            View.div({ content: LN.get('please_selects_correctly') })
+            View.element({ content: LN.get('please_selects_correctly') })
           ),
           alertType: View.ALERT_WARNING
         }
