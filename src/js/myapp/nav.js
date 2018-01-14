@@ -89,7 +89,7 @@ class NavView extends CommonView {
   }
 
   addNavSearch () {
-    $(this.MODEL.SELECTOR_AREA).append('<div class="col-md-4 nav-seacrh"><div class="input-group"><input class="form-control" id="nav-seacrh-text" placeholder="Search"><span class="input-group-btn"><button class="btn btn-outline-info" id="nav-seacrh-button"><i class="fas fa-search"></i></button></span></div></div>');
+    $(this.MODEL.SELECTOR_AREA).append(`<div class="col-md-4 nav-seacrh"><div class="input-group"><input class="form-control" id="nav-seacrh-text" placeholder="${LN.get('search')}"><span class="input-group-btn"><button class="btn btn-outline-info" id="nav-seacrh-button"><i class="fas fa-search"></i></button></span></div></div>`);
   }
 
   generateNotLogin () {
@@ -97,15 +97,15 @@ class NavView extends CommonView {
 
     this.addNavItem({
       id: this.MODEL.SELECTOR_NAV_LOGIN,
-      name: 'Login'
+      name: LN.get('login')
     });
     this.addNavItem({
       id: this.MODEL.SELECTOR_NAV_REGISTER,
-      name: 'Register'
+      name: LN.get('register')
     });
     this.addNavItem({
       id: this.MODEL.SELECTOR_NAV_HELP,
-      name: 'Help'
+      name: LN.get('help')
     });
   }
 
@@ -115,15 +115,15 @@ class NavView extends CommonView {
 
     this.addNavItem({
       id: this.MODEL.SELECTOR_NAV_SETTING,
-      name: 'Setting'
+      name: LN.get('setting')
     });
     this.addNavItem({
       id: this.MODEL.SELECTOR_NAV_HELP,
-      name: 'Help'
+      name: LN.get('help')
     });
     this.addNavItem({
       id: this.MODEL.SELECTOR_NAV_LOGOUT,
-      name: 'Logout'
+      name: LN.get('logout')
     });
   }
 }

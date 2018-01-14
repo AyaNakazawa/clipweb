@@ -150,7 +150,7 @@
     <script type="text/template" id="login-template">
       <div class="content-item-area">
         <div class="content-item">
-          <label for="login-email">Email address</label>
+          <label for="login-email"><%= LN.get('email_address') %></label>
           <div class="content-input">
             <input id="login-email" type="email" required class="form-control" value="<%- email %>" tabindex="200">
             <span class="content-input-valid"></span>
@@ -159,7 +159,7 @@
           </div>
         </div>
         <div class="content-item">
-          <label for="login-password">Password</label>
+          <label for="login-password"><%= LN.get('password') %></label>
           <div class="content-input">
             <input id="login-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" placeholder="" tabindex="200">
             <span class="content-input-valid"></span>
@@ -168,8 +168,8 @@
           </div>
         </div>
         <div class="content-item d-flex justify-content-between">
-          <button id="login-register" class="btn btn-link" tabindex="210">Register <i class="fal fa-user-plus"></i></button>
-          <button id="login-submit" class="btn btn-primary" tabindex="200">Login <i class="fal fa-sign-in-alt"></i></button>
+          <button id="login-register" class="btn btn-link" tabindex="210"><%= LN.get('register') %> <i class="fal fa-user-plus"></i></button>
+          <button id="login-submit" class="btn btn-primary" tabindex="200"><%= LN.get('login') %> <i class="fal fa-sign-in-alt"></i></button>
         </div>
       </div>
     </script>
@@ -177,7 +177,7 @@
     <script type="text/template" id="register-template">
       <div class="content-item-area">
         <div class="content-item">
-          <label for="register-username">Username</label>
+          <label for="register-username"><%= LN.get('username') %></label>
           <div class="content-input">
             <input id="register-username" type="text" minLength="<%- length.min.username %>" maxLength="<%- length.max.username %>" required class="form-control" value="<%- username %>" tabindex="200">
             <span class="content-input-valid"></span>
@@ -186,7 +186,7 @@
           </div>
         </div>
         <div class="content-item">
-          <label for="register-email">Email address</label>
+          <label for="register-email"><%= LN.get('email_address') %></label>
           <div class="content-input">
             <input id="register-email" type="email" required class="form-control" value="<%- email %>" tabindex="200">
             <span class="content-input-valid"></span>
@@ -196,7 +196,7 @@
         </div>
         <div class="content-item content-split">
           <div class="content-split-item">
-            <label for="register-password">Password</label>
+            <label for="register-password"><%= LN.get('password') %></label>
             <div class="content-input">
               <input id="register-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" placeholder="" value="test1234" tabindex="200">
               <span class="content-input-valid"></span>
@@ -205,7 +205,7 @@
             </div>
           </div>
           <div class="content-split-item">
-            <label for="register-password-re">Confirm Password</label>
+            <label for="register-password-re"><%= LN.get('password_confirm') %></label>
             <div class="content-input">
               <input id="register-password-re" type="password" required class="form-control" placeholder="" value="test1234" tabindex="200">
               <span class="content-input-valid"></span>
@@ -215,8 +215,8 @@
           </div>
         </div>
         <div class="content-item d-flex justify-content-between">
-          <button id="register-login" class="btn btn-link" tabindex="210">Login <i class="fal fa-sign-in-alt"></i></button>
-          <button id="register-submit" class="btn btn-primary" tabindex="200">Register <i class="fal fa-user-plus"></i></button>
+          <button id="register-login" class="btn btn-link" tabindex="210"><%= LN.get('login') %> <i class="fal fa-sign-in-alt"></i></button>
+          <button id="register-submit" class="btn btn-primary" tabindex="200"><%= LN.get('register') %> <i class="fal fa-user-plus"></i></button>
         </div>
       </div>
     </script>
@@ -226,10 +226,9 @@
       <div class="content-item-area">
         <div class="content-item">
           <div class="d-flex justify-content-between">
-            <span>Avatar</span>
+            <span><%= LN.get('avatar') %></span>
             <span>
-              Using
-              <a href="https://ja.gravatar.com/">Gravatar</a>
+              <%= LN.get('using_gravatar', { gravatar: '<a href="https://gravatar.com/" target="blank">Gravatar</a>' }) %>
             </span>
           </div>
           <div class="content-image">
@@ -238,7 +237,7 @@
         </div>
         <!-- Username -->
         <div class="content-item">
-          <label for="user-info-username">Username</label>
+          <label for="user-info-username"><%= LN.get('username') %></label>
           <div class="content-input">
             <input id="user-info-username" type="text" minLength="<%- length.min.username %>" maxLength="<%- length.max.username %>" required class="form-control" value="<%- username %>" tabindex="200">
             <span class="content-input-valid"></span>
@@ -248,7 +247,7 @@
         </div>
         <!-- Email address -->
         <div class="content-item">
-          <label for="user-info-email">Email address</label>
+          <label for="user-info-email"><%= LN.get('email_address') %></label>
           <div class="content-input">
             <input id="user-info-email" type="email" required class="form-control" value="<%- email %>" tabindex="200">
             <span class="content-input-valid"></span>
@@ -260,7 +259,7 @@
       <!-- Password -->
       <div class="content-item-area">
         <div class="content-item">
-          <label for="user-info-old-password">Password</label>
+          <label for="user-info-old-password"><%= LN.get('password') %></label>
           <div class="content-input">
             <input id="user-info-old-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" value="" tabindex="200">
             <span class="content-input-valid"></span>
@@ -270,7 +269,7 @@
         </div>
         <div class="content-item content-split">
           <div class="content-split-item">
-            <label for="user-info-new-password">New Password</label>
+            <label for="user-info-new-password"><%= LN.get('new_password') %></label>
             <div class="content-input">
               <input id="user-info-new-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" value="" tabindex="200">
               <span class="content-input-valid"></span>
@@ -279,7 +278,7 @@
             </div>
           </div>
           <div class="content-split-item">
-            <label for="user-info-new-password-re">Confirm Password</label>
+            <label for="user-info-new-password-re"><%= LN.get('password_confirm') %></label>
             <div class="content-input">
               <input id="user-info-new-password-re" type="password" required class="form-control" value="" tabindex="200">
               <span class="content-input-valid"></span>
@@ -292,8 +291,8 @@
       <!-- Action -->
       <div class="content-item-area">
         <div class="content-item d-flex justify-content-between">
-          <button id="user-info-setting" class="btn btn-primary" tabindex="210">Setting <i class="fal fa-exchange-alt"></i></button>
-          <button id="user-info-update-submit" class="btn btn-primary" tabindex="200">Save <i class="fal fa-cloud"></i></button>
+          <button id="user-info-setting" class="btn btn-primary" tabindex="210"><%= LN.get('setting') %> <i class="fal fa-exchange-alt"></i></button>
+          <button id="user-info-update-submit" class="btn btn-primary" tabindex="200"><%= LN.get('save') %> <i class="fal fa-cloud"></i></button>
         </div>
       </div>
     </script>
@@ -302,18 +301,18 @@
       <!-- Theme -->
       <div class="content-item-area">
         <div class="content-item">
-          <label for="user-setting-theme">Theme</label>
+          <label for="user-setting-theme"><%= LN.get('theme') %></label>
           <div class="content-input">
             <select id="user-setting-theme" class="form-control" required tabindex="200">
               <% if (theme == 'light') { %>
-                <option value="light" selected>Light</option>
+                <option value="light" selected><%= LN.get('light') %></option>
               <% } else { %>
-                <option value="light">Light</option>
+                <option value="light"><%= LN.get('light') %></option>
               <% } %>
               <% if (theme == 'dark') { %>
-                <option value="dark" selected>Dark</option>
+                <option value="dark" selected><%= LN.get('dark') %></option>
               <% } else { %>
-                <option value="dark">Dark</option>
+                <option value="dark"><%= LN.get('dark') %></option>
               <% } %>
             </select>
             <i class="content-input-icon content-select-icon fas fa-th-list"></i>
@@ -323,18 +322,18 @@
       <!-- Owner Publish Mode -->
       <div class="content-item-area">
         <div class="content-item">
-          <label for="user-setting-owner-publish">Default Owner Publish</label>
+          <label for="user-setting-owner-publish"><%= LN.get('default_owner_publish') %></label>
           <div class="content-input">
             <select id="user-setting-owner-publish" class="form-control" required tabindex="200">
               <% if (ownerPublish == 'private') { %>
-                <option value="private" selected>Private</option>
+                <option value="private" selected><%= LN.get('private') %></option>
               <% } else { %>
-                <option value="private">Private</option>
+                <option value="private"><%= LN.get('private') %></option>
               <% } %>
               <% if (ownerPublish == 'public') { %>
-                <option value="public" selected>Public</option>
+                <option value="public" selected><%= LN.get('public') %></option>
               <% } else { %>
-                <option value="public">Public</option>
+                <option value="public"><%= LN.get('public') %></option>
               <% } %>
             </select>
             <i class="content-input-icon content-select-icon fas fa-user-circle"></i>
@@ -344,23 +343,23 @@
       <!-- Clip Mode -->
       <div class="content-item-area">
         <div class="content-item">
-          <label for="user-setting-clip-mode">Default Clip mode</label>
+          <label for="user-setting-clip-mode"><%= LN.get('default_clip_mode') %></label>
           <div class="content-input">
             <select id="user-setting-clip-mode" class="form-control" required tabindex="200">
               <% if (clipMode == 'private') { %>
-                <option value="private" selected>Private</option>
+                <option value="private" selected><%= LN.get('private') %></option>
               <% } else { %>
-                <option value="private">Private</option>
+                <option value="private"><%= LN.get('private') %></option>
               <% } %>
               <% if (clipMode == 'public') { %>
-                <option value="public" selected>Public</option>
+                <option value="public" selected><%= LN.get('public') %></option>
               <% } else { %>
-                <option value="public">Public</option>
+                <option value="public"><%= LN.get('public') %></option>
               <% } %>
               <% if (clipMode == 'share') { %>
-                <option value="share" selected>Share</option>
+                <option value="share" selected><%= LN.get('share') %></option>
               <% } else { %>
-                <option value="share">Share</option>
+                <option value="share"><%= LN.get('share') %></option>
               <% } %>
             </select>
             <i class="content-input-icon content-select-icon fas fa-share-alt"></i>
@@ -370,8 +369,8 @@
       <!-- Action -->
       <div class="content-item-area">
         <div class="content-item d-flex justify-content-between">
-          <button id="user-setting-info" class="btn btn-primary" tabindex="210">Info <i class="fal fa-exchange-alt"></i></button>
-          <button id="user-setting-update-submit" class="btn btn-primary" tabindex="200">Save <i class="fal fa-cloud"></i></button>
+          <button id="user-setting-info" class="btn btn-primary" tabindex="210"><%= LN.get('info') %> <i class="fal fa-exchange-alt"></i></button>
+          <button id="user-setting-update-submit" class="btn btn-primary" tabindex="200"><%= LN.get('save') %> <i class="fal fa-cloud"></i></button>
         </div>
       </div>
     </script>
@@ -379,7 +378,7 @@
     <script type="text/template" id="logout-template">
       <div class="content-item-area">
         <div class="content-item">
-          <label for="logout-username">Username</label>
+          <label for="logout-username"><%= LN.get('username') %></label>
           <div class="content-input">
             <input id="logout-username" type="text" class="form-control" value="<%- username %>" readonly>
             <span class="content-input-valid"></span>

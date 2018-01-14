@@ -7,6 +7,33 @@ class Language {
     this.default = {
       name: '日本語 (Japanese)',
 
+      username: 'ユーザー名',
+      email_address: 'メールアドレス',
+      password: 'パスワード',
+      password_confirm: 'パスワードの確認',
+      new_password: '新しいパスワード',
+      avatar: 'アバター',
+      theme: 'テーマ',
+      default_owner_publish: 'オーナー公開設定',
+      default_clip_mode: 'クリップボード',
+      using_gravatar: '{gravatar} を利用しています。',
+
+      help: 'ヘルプ',
+
+      register: '登録',
+      login: 'ログイン',
+      logout: 'ログアウト',
+      setting: '設定',
+      info: '情報',
+
+      save: '保存',
+      search: '検索',
+      private: '非公開',
+      public: '公開',
+      share: '共有',
+      light: 'ライト',
+      dark: 'ダーク',
+
       header_register: 'ユーザー登録',
       header_login: 'ログイン',
       header_logout: 'ログアウト',
@@ -49,6 +76,33 @@ class Language {
     };
     this.en = {
       name: 'English',
+
+      username: 'Username',
+      email_address: 'Email address',
+      password: 'Password',
+      password_confirm: 'Confirm Password',
+      new_password: 'New Password',
+      avatar: 'Avatar',
+      theme: 'Theme',
+      default_owner_publish: 'Default Owner Publish',
+      default_clip_mode: 'Default Clip mode',
+      using_gravatar: 'Using {gravatar}',
+
+      help: 'Help',
+
+      register: 'Register',
+      login: 'Login',
+      logout: 'Logout',
+      setting: 'Setting',
+      info: 'Info',
+
+      save: 'Save',
+      search: 'Search',
+      private: 'Private',
+      public: 'Public',
+      share: 'Share',
+      light: 'Light',
+      dark: 'Dark',
 
       header_register: 'Join clipweb',
       header_login: 'Login',
