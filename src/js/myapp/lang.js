@@ -115,19 +115,19 @@ class Language {
       name: 'Español (Spanish)',
     };
     this.ar = {
-      name: 'アラビア語 (Spanish)',
+      name: 'عربى (Arabic)',
     };
     this.eo = {
-      name: 'エスペラント語 (Spanish)',
+      name: 'Esperanto (Esperanto)',
     };
     this.la = {
-      name: 'ラテン語 (Spanish)',
+      name: 'Latine (Latin)',
     };
     this.ms = {
-      name: 'マレー語 (Spanish)',
+      name: 'Melayu (Malay)',
     };
     this.el = {
-      name: 'ギリシャ語 (Spanish)',
+      name: 'Ελληνικά (Greek)',
     };
   }
 }
