@@ -95,17 +95,30 @@ main {
           font-weight: 600;
         }
 
-        // checkbox
+        // content-check
 
-        .checkbox {
-          display: inline-table;
-        }
+        .content-check {
+          display: none;
 
-        // item-list
-        .item-list {
-          & > * {
-            margin-top: 4px;
-            padding-top: 4px;
+          &:checked {
+            & + .content-check-icon:before {
+              content: "\f14a";
+              color: #6cf;
+            }
+          }
+
+          & + .content-check-icon {
+            position: relative;
+            vertical-align: middle;
+            margin-left: .25rem;
+            margin-right: .5rem;
+
+            &:before {
+              content: "\f0c8";
+              font-family: $font-fas;
+              color: #ddd;
+              font-size: 1.25rem;
+            }
           }
         }
       }

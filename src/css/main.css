@@ -224,11 +224,21 @@ main {
               margin-bottom: 0; }
         main .content .content-item-area .content-item label {
           font-weight: 600; }
-        main .content .content-item-area .content-item .checkbox {
-          display: inline-table; }
-        main .content .content-item-area .content-item .item-list > * {
-          margin-top: 4px;
-          padding-top: 4px; }
+        main .content .content-item-area .content-item .content-check {
+          display: none; }
+          main .content .content-item-area .content-item .content-check:checked + .content-check-icon:before {
+            content: "\f14a";
+            color: #6cf; }
+          main .content .content-item-area .content-item .content-check + .content-check-icon {
+            position: relative;
+            vertical-align: middle;
+            margin-left: .25rem;
+            margin-right: .5rem; }
+            main .content .content-item-area .content-item .content-check + .content-check-icon:before {
+              content: "\f0c8";
+              font-family: "Font Awesome 5 Pro Solid";
+              color: #ddd;
+              font-size: 1.25rem; }
     main .content .content-header {
       width: 100%;
       margin: 0;
