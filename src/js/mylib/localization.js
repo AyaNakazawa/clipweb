@@ -4,7 +4,11 @@
 
 class Localization {
   constructor () {
+    this.LANG = 'default';
+    this.SELECTOR = 'select.localization';
+
     this.langs = new Language();
+    this._setSelect();
     this.setLanguage(window.navigator.language);
   }
 
@@ -13,7 +17,23 @@ class Localization {
       Log.error(arguments, 'language is null')();
       return;
     }
+    Log.classKey('Localization', this.LANG, lang, Log.ARROW_INPUT)();
+    $(`${this.SELECTOR} option[value="${lang}"]`).prop('selected', true);
     this.LANG = lang;
+  }
+
+  _setSelect () {
+    let langList = this.getLanguageList();
+    for (let lang in langList) {
+      $(this.SELECTOR).append(
+        `<option value="${lang}">${langList[lang]}</option>`
+      );
+    }
+    $(document).on('change', this.SELECTOR, function () {
+      if ($(this)[0].validity.valid) {
+        LN.setLanguage($(this).val());
+      }
+    });
   }
 
   getLanguageList (existLimit = true) {
