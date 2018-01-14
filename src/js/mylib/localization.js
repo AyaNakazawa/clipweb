@@ -33,7 +33,7 @@ class Localization {
     let langList = this.getLanguageList();
     for (let lang in langList) {
       $(this.SELECTOR).append(
-        `<option value="${lang}">${langList[lang]}</option>`
+        `<option value="${lang}">${langList[lang]} (${lang})</option>`
       );
     }
     $(document).on('change', this.SELECTOR, function () {
