@@ -150,6 +150,7 @@ class UserModel extends CommonModel {
     this.SELECTOR.REGISTER.PASSWORD = '#register-password';
     this.SELECTOR.REGISTER.PASSWORD_RE = '#register-password-re';
     this.SELECTOR.REGISTER.SUBMIT = '#register-submit';
+    this.SELECTOR.REGISTER.LOGIN = '#register-login';
 
     // ログイン
     this.SELECTOR.LOGIN = {};
@@ -407,6 +408,14 @@ class UserEvent extends CommonEvent {
       func: () => {
         super.log('Register', 'Submit')();
         this.CONTROLLER.submitRegister();
+      }
+    });
+
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.REGISTER.LOGIN}`,
+      func: () => {
+        super.log('Login', 'Open')();
+        this.CONTROLLER.open({ type: this.MODEL.TYPE.LOGIN });
       }
     });
 
