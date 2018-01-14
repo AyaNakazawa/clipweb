@@ -26,7 +26,11 @@ class Language {
       setting: '設定',
       info: '情報',
 
+      yes: 'はい',
+      no: 'いいえ',
       save: '保存',
+      accept: '確認',
+      close: '閉じる',
       search: '検索',
       private: '非公開',
       public: '公開',
@@ -55,10 +59,16 @@ class Language {
       user_update_setting: 'ユーザー設定を更新しました。',
 
       please_email_auth: 'メール認証をしてください。',
+      userdata_clear: 'ユーザデータの削除',
+      userdata_clear_confirm: 'ブラウザに保存されている、ログイン情報などのユーザーデータを削除しますか？',
 
       please_all_inputs_correctly: 'すべての項目を正しく入力してください。',
       please_inputs_correctly: '正しく入力してください。',
       please_selects_correctly: '正しく選択してください。',
+
+      username_alreay_exist: 'すでに存在するユーザー名です。',
+      email_address_alreay_exist: 'すでに存在するメールアドレスです。',
+      hash_alreay_exist: 'ユーザー情報が構築できません。もう一度お試しください。',
       email_password_incorrect: 'メールアドレスとパスワードの組み合わせが間違っています。',
       corrupt_userdata: 'ユーザーデータが破損しています。管理者までご確認ください。',
       password_dont_match: 'パスワードが一致しません。',
@@ -97,7 +107,11 @@ class Language {
       setting: 'Setting',
       info: 'Info',
 
+      yes: 'Yes',
+      no: 'No',
       save: 'Save',
+      accept: 'Accept',
+      close: 'Close',
       search: 'Search',
       private: 'Private',
       public: 'Public',
@@ -126,10 +140,16 @@ class Language {
       user_update_setting: 'Update your setting.',
 
       please_email_auth: 'Please Email authentication.',
+      userdata_clear: 'Delete your data',
+      userdata_clear_confirm: 'Delete user data such as login information saved in the browser?',
 
       please_all_inputs_correctly: 'Please enter all items correctly.',
       please_inputs_correctly: 'Please enter items correctly.',
       please_selects_correctly: 'Please select items correctly.',
+
+      username_alreay_exist: 'Username already exists.',
+      email_address_alreay_exist: 'Email address already exists.',
+      hash_alreay_exist: 'User information can not be constructed. please try again.',
       email_password_incorrect: 'The combination of the e-mail address and the password is incorrect.',
       corrupt_userdata: 'User data is corrupted. Please contact the administrator.',
       password_dont_match: 'Password don\'t match.',
