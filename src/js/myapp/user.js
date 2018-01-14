@@ -635,11 +635,11 @@ class UserController extends CommonController {
     this.EVENT.setEvent();
     if (LocalStorage.getItem(this.MODEL.LS.AUTO.LOGIN) == 'true') {
       // データを取得
-      this.MODEL.EMAIL = LocalStorage.getItem(this.MODEL.LS.AUTO.EMAIL);
-      this.MODEL.HASH.PASSWORD = LocalStorage.getItem(this.MODEL.LS.AUTO.HASH.PASSWORD);
       this.MODEL.STATUS.AUTO = true;
       if (LocalStorage.getItem(this.MODEL.LS.LOGIN) == 'true') {
         // 前回ログインしていたとき
+        this.MODEL.EMAIL = LocalStorage.getItem(this.MODEL.LS.AUTO.EMAIL);
+        this.MODEL.HASH.PASSWORD = LocalStorage.getItem(this.MODEL.LS.AUTO.HASH.PASSWORD);
         if (this.MODEL.EMAIL != null || this.MODEL.HASH.PASSWORD != null) {
           // データがあるとき
           this.MODEL.STATUS.LS_LOAD = true;
