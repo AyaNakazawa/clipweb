@@ -68,6 +68,13 @@ class Localization {
     return result;
   }
 
+  check (id = null) {
+    if (typeof this.langs.default[id] == 'undefined') {
+      return false;
+    }
+    return true;
+  }
+
   get (id = null, model = null) {
     if (typeof this.langs[this.LANG] == 'undefined') {
       // 現在の言語がない
