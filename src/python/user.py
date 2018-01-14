@@ -159,6 +159,66 @@ class User:
     def login(cls):
         cls.result["type"] = sys._getframe().f_code.co_name
         cls.result["result"] = False
+
+        # ----------------------------------------------------------------
+        # cgi get
+
+        user_email_address = cls.cgi.get("email_address")
+        user_password_hash = cls.cgi.get("password_hash")
+
+        # ----------------------------------------------------------------
+        # cgi get strings check
+
+        if cls._check_str(
+            model=user_email_address,
+            not_defined_error="email_address_not_defined",
+            unknown_class_error="email_address_unknown_class"
+        ) is False:
+            return cls.result
+
+        if cls._check_str(
+            model=user_password_hash,
+            not_defined_error="password_hash_not_defined",
+            unknown_class_error="password_hash_unknown_class"
+        ) is False:
+            return cls.result
+
+        # ----------------------------------------------------------------
+        # select user data
+
+        user_data = cls.DB.select(
+            table="owners",
+            column=[
+                "hash",
+                "username",
+                "encrypted_crypto_hash",
+                "email_authentication",
+                "theme",
+                "default_owner_publish",
+                "default_clip_mode",
+                "created_at",
+                "updated_at"
+            ],
+            where={
+                "email_address": user_email_address,
+                "password_hash": user_password_hash
+            }
+        )
+
+        if len(user_data) > 1:
+            cls.result["error"] = cls._error("corrupt_userdata")
+            return cls.result
+
+        if len(user_data) < 1:
+            cls.result["error"] = cls._error("email_password_incorrect")
+            return cls.result
+
+        for key in user_data[0].keys():
+            cls.result[key] = user_data[0][key]
+
+        # ----------------------------------------------------------------
+        # return
+
         cls.result["result"] = True
         return cls.result
 
@@ -241,6 +301,18 @@ class User:
                     "message": "[default_clip_mode] does not defined."
                 }
             },
+            "created_at_not_defined": {
+                "{} error".format(cls.NAME): {
+                    "code": 109,
+                    "message": "[created_at] does not defined."
+                }
+            },
+            "updated_at_not_defined": {
+                "{} error".format(cls.NAME): {
+                    "code": 110,
+                    "message": "[updated_at] does not defined."
+                }
+            },
             "hash_unknown_class": {
                 "{} error".format(cls.NAME): {
                     "code": 201,
@@ -289,6 +361,18 @@ class User:
                     "message": "[default_clip_mode] is unknown class"
                 }
             },
+            "created_at_unknown_class": {
+                "{} error".format(cls.NAME): {
+                    "code": 209,
+                    "message": "[created_at] is unknown class"
+                }
+            },
+            "updated_at_unknown_class": {
+                "{} error".format(cls.NAME): {
+                    "code": 210,
+                    "message": "[updated_at] is unknown class"
+                }
+            },
             "username_overlap": {
                 "{} error".format(cls.NAME): {
                     "code": 301,
@@ -305,6 +389,18 @@ class User:
                 "{} error".format(cls.NAME): {
                     "code": 303,
                     "message": "User hash already exists."
+                }
+            },
+            "email_password_incorrect": {
+                "{} error".format(cls.NAME): {
+                    "code": 401,
+                    "message": "The combination of the e-mail address and the password is incorrect."
+                }
+            },
+            "corrupt_userdata": {
+                "{} error".format(cls.NAME): {
+                    "code": 801,
+                    "message": "User data is corrupted. Please contact the administrator."
                 }
             }
         }
