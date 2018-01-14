@@ -594,7 +594,7 @@ class UserController extends CommonController {
     super(model, initSetting);
 
     this.EVENT.setEvent();
-    this.open({ type: this.MODEL.TYPE.REGISTER });
+    this.open({ type: this.MODEL.TYPE.LOGIN });
   }
 
   // ----------------------------------------------------------------
