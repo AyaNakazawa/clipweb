@@ -599,16 +599,10 @@ class Log {
 class LocalStorage {
   // Check localStorage support
   static get SUPPORT () {
-    let result = true;
     if (!localStorage) {
-      result = false;
+      return false;
     }
-    return result;
-  }
-
-  // Build key
-  static buildKey (key) {
-    return `${Project.KEY}.${key}`;
+    return true;
   }
 
   // All clear localStorage
@@ -623,7 +617,7 @@ class LocalStorage {
 
   // getItem from localStorage
   static getItem (key = 'key') {
-    key = this.buildKey(key);
+    key = this._buildKey(key);
     // Check support
     if (this.SUPPORT) {
       const value = localStorage.getItem(key);
@@ -635,7 +629,7 @@ class LocalStorage {
 
   // setItem from localStorage
   static setItem (key = 'key', value = 'value') {
-    key = this.buildKey(key);
+    key = this._buildKey(key);
     // Check support
     if (this.SUPPORT) {
       Log.classKey('Local Storage', key, value, Log.ARROW_INPUT)();
@@ -646,13 +640,18 @@ class LocalStorage {
 
   // removeItem from localStorage
   static removeItem (key = 'key') {
-    key = this.buildKey(key);
+    key = this._buildKey(key);
     // Check support
     if (this.SUPPORT) {
       Log.classKey('Local Storage', key, 'remove', Log.ARROW_INPUT)();
       // Remove
       localStorage.removeItem(key);
     }
+  }
+
+  // Build key
+  static _buildKey (key) {
+    return `${Project.KEY}.${key}`;
   }
 }
 
