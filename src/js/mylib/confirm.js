@@ -20,8 +20,8 @@ class ConfirmModel extends CommonModel {
       selector: null,
       trigger: 'click',
       image: '',
-      yes: 'Accept',
-      no: 'Close',
+      yes: LN.get('accept'),
+      no: LN.get('close'),
       functionYes: null,
       functionNo: null,
       functionClose: null
@@ -42,8 +42,8 @@ class ConfirmModel extends CommonModel {
 
   updateSelector () {
     if (this.id == null) {
-      super.log('ID', 'Generate', Log.ARROW_INPUT)();
       this.id = SHA256.getHash(new Date().formatString()).substr(0, 7);
+      super.log(this.id, 'Generate', Log.ARROW_INPUT)();
     }
     this.id = `confirm-${this.id}`;
     this.SELECTOR.ID = `#${this.id}`;
@@ -248,7 +248,7 @@ class ConfirmController extends CommonController {
 
   selectYes () {
     super.log(this.MODEL.id, 'Yes', Log.ARROW_INPUT)();
-    if (Object.getType(this.MODEL.functionYes) == 'Function') {
+    if (Object.getType(this.MODEL.functionYes) == 'Function' && this.MODEL.functionYes != null) {
       super.log('Yes', 'Exec', Log.ARROW_INPUT)();
       this.MODEL.functionYes();
     }
@@ -256,7 +256,7 @@ class ConfirmController extends CommonController {
 
   selectNo () {
     super.log(this.MODEL.id, 'No', Log.ARROW_INPUT)();
-    if (Object.getType(this.MODEL.functionNo) == 'Function') {
+    if (Object.getType(this.MODEL.functionNo) == 'Function' && this.MODEL.functionNo != null) {
       super.log('No', 'Exec', Log.ARROW_INPUT)();
       this.MODEL.functionNo();
     }
@@ -265,7 +265,7 @@ class ConfirmController extends CommonController {
   destroy () {
     setTimeout(() => {
       super.log(this.MODEL.id, 'Close', Log.ARROW_INPUT)();
-      if (Object.getType(this.MODEL.functionClose) == 'Function') {
+      if (Object.getType(this.MODEL.functionClose) == 'Function' && this.MODEL.functionClose != null) {
         super.log('Close', 'Exec', Log.ARROW_INPUT)();
         this.MODEL.functionClose();
       }
