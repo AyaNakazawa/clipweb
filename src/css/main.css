@@ -36,7 +36,7 @@ body {
   background: #fff;
   font-family: "ProximaSoft-Regular", メイリオ, Meiryo, "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", Quicksand, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
   font-size: 16px;
-  font-weight: 600; }
+  font-weight: 500; }
 
 * {
   -webkit-transition-property: all;
@@ -63,6 +63,9 @@ textarea {
   color: #666 !important; }
   .localization option {
     color: #666 !important; }
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+  font-weight: 700; }
 
 .header-area {
   margin: 0;
@@ -217,11 +220,8 @@ main {
             margin-bottom: 8px; }
             main .content .content-item-area .content-item .content-item-keys .content-item-key:last-child {
               margin-bottom: 0; }
-        main .content .content-item-area .content-item .content-label {
-          display: inline-table; }
-          main .content .content-item-area .content-item .content-label label {
-            margin: 0;
-            margin-bottom: 8px; }
+        main .content .content-item-area .content-item label {
+          font-weight: 600; }
         main .content .content-item-area .content-item .checkbox {
           display: inline-table; }
         main .content .content-item-area .content-item .item-list > * {

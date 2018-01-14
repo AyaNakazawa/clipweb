@@ -91,13 +91,8 @@ main {
 
         // label
 
-        .content-label {
-          display: inline-table;
-
-          label {
-            margin: 0;
-            margin-bottom: 8px;
-          }
+        label {
+          font-weight: 600;
         }
 
         // checkbox
