@@ -1,2 +1,3 @@
 
-let PS = {};
+let PS = null;
+let LN = null;

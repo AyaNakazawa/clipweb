@@ -7,6 +7,7 @@ $(() => {
   Log.line()();
   Log.class(`${Project.NAME} (${Project.KEY})`, 'Init')();
 
+  LN = new Localization();
   PS = new Process();
 
   TIME.START = new Date();
