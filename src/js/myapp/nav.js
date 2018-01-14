@@ -153,7 +153,7 @@ class NavEvent extends CommonEvent {
       selector: `#${this.MODEL.SELECTOR_NAV_LOGIN}`,
       func: () => {
         super.log('Login', 'Open')();
-        PS.USER.openLogin();
+        USER.openLogin();
       }
     });
   }
@@ -163,7 +163,7 @@ class NavEvent extends CommonEvent {
       selector: `#${this.MODEL.SELECTOR_NAV_SETTING}`,
       func: () => {
         super.log('User Setting', 'Open')();
-        PS.USER.openSetting();
+        USER.openSetting();
       }
     });
   }
@@ -173,7 +173,7 @@ class NavEvent extends CommonEvent {
       selector: `#${this.MODEL.SELECTOR_NAV_LOGOUT}`,
       func: () => {
         super.log('Logout', 'Open')();
-        PS.USER.openLogout();
+        USER.openLogout();
       }
     });
   }
@@ -183,7 +183,7 @@ class NavEvent extends CommonEvent {
       selector: `#${this.MODEL.SELECTOR_NAV_REGISTER}`,
       func: () => {
         super.log('Register', 'Open')();
-        PS.USER.openRegister();
+        USER.openRegister();
       }
     });
   }
@@ -193,7 +193,7 @@ class NavEvent extends CommonEvent {
       selector: `#${this.MODEL.SELECTOR_NAV_HELP}`,
       func: () => {
         super.log('Help', 'Open')();
-        PS.HELP.openHelp();
+        HELP.openHelp();
       }
     });
   }
@@ -215,6 +215,14 @@ class NavController extends CommonController {
     super(model, initSetting);
 
     this.EVENT.setEvent();
+    this.logout();
+  }
+
+  login () {
+    this.VIEW.generateLogined();
+  }
+
+  logout () {
     this.VIEW.generateNotLogin();
   }
 }

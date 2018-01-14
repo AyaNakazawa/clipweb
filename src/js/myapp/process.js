@@ -39,8 +39,10 @@ class Process extends CommonProcess {
   }
 
   initController () {
-    this.USER = new UserController();
-    this.NAV = new NavController();
+    // HELP = new HelpController();
+    USER = new UserController();
+    NAV = new NavController();
+    // CLIPLIST = new ClipListController();
   }
 
   show () {

@@ -612,9 +612,7 @@ class UserController extends CommonController {
     if (mode == this.MODEL.KEY) {
       this.VIEW.generateArea(model);
     } else if (mode == ClipListModel.MODEL.KEY) {
-      CLIPLIST.VIEW.generateArea(model);
-    } else if (mode == ClipModel.MODEL.KEY) {
-      CLIP.VIEW.generateArea(model);
+      CLIPLIST.open(type, model);
     } else {
       Log.error(arguments, 'unknown mode')();
       return;
@@ -862,7 +860,7 @@ class UserController extends CommonController {
           View.div({ content: LN.get('user_logouted') })
       },
       successFunction: () => {
-        PS.NAV.VIEW.generateNotLogin();
+        NAV.logout();
       },
       errorOpenType: _TYPE,
       errorModel: {
