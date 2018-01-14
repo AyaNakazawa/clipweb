@@ -13,14 +13,19 @@ class NavModel extends CommonModel {
   ) {
     super(initSetting);
 
-    this.SELECTOR_AREA = '#navbar';
-    this.SELECTOR_NAV = '.navbar-nav';
+    this.SELECTOR = {};
+    this.SELECTOR.AREA = '#navbar';
 
-    this.SELECTOR_NAV_LOGIN = 'nav-login';
-    this.SELECTOR_NAV_REGISTER = 'nav-register';
-    this.SELECTOR_NAV_SETTING = 'nav-setting';
-    this.SELECTOR_NAV_LOGOUT = 'nav-logout';
-    this.SELECTOR_NAV_HELP = 'nav-help';
+    this.SELECTOR.NAV = {};
+    this.SELECTOR.NAV.BAR = '.navbar-nav';
+    this.SELECTOR.NAV.LOGIN = 'nav-login';
+    this.SELECTOR.NAV.REGISTER = 'nav-register';
+    this.SELECTOR.NAV.SETTING = 'nav-setting';
+    this.SELECTOR.NAV.LOGOUT = 'nav-logout';
+    this.SELECTOR.NAV.HELP = 'nav-help';
+
+    this.SELECTOR.HEADER = {};
+    this.SELECTOR.HEADER.CLEAR = '#header-clear';
 
   }
 }
@@ -38,8 +43,8 @@ class NavView extends CommonView {
   }
 
   clearNavItem () {
-    $(this.MODEL.SELECTOR_AREA).empty();
-    $(this.MODEL.SELECTOR_AREA).append('<ul class="navbar-nav col-md-8"></ul>');
+    $(this.MODEL.SELECTOR.AREA).empty();
+    $(this.MODEL.SELECTOR.AREA).append('<ul class="navbar-nav col-md-8"></ul>');
   }
 
   addNavItem ({
@@ -53,9 +58,9 @@ class NavView extends CommonView {
       return;
     }
 
-    if ($(`${this.MODEL.SELECTOR_NAV} #${id}`).length > 0) {
+    if ($(`${this.MODEL.SELECTOR.NAV.BAR} #${id}`).length > 0) {
       this.removeNavItem({
-        id: this.MODEL.SELECTOR_NAV_LOGIN
+        id: this.MODEL.SELECTOR.NAV.LOGIN
       });
     }
 
@@ -67,9 +72,9 @@ class NavView extends CommonView {
     const _element = `<li class="nav-item"><a class="nav-link"id="${id}">${name}${_icon}</a></li>`;
 
     if (type == 'prepend') {
-      $(this.MODEL.SELECTOR_NAV).prepend(_element);
+      $(this.MODEL.SELECTOR.NAV.BAR).prepend(_element);
     } else {
-      $(this.MODEL.SELECTOR_NAV).append(_element);
+      $(this.MODEL.SELECTOR.NAV.BAR).append(_element);
     }
   }
 
@@ -81,28 +86,28 @@ class NavView extends CommonView {
       return;
     }
 
-    $(`${this.MODEL.SELECTOR_NAV} #${id}`).each((_index, _element) => {
+    $(`${this.MODEL.SELECTOR.NAV.BAR} #${id}`).each((_index, _element) => {
       $(_element).parent().remove();
     });
   }
 
   addNavSearch () {
-    $(this.MODEL.SELECTOR_AREA).append(`<div class="col-md-4 nav-seacrh"><div class="input-group"><input class="form-control" id="nav-seacrh-text" placeholder="${LN.get('search')}"><span class="input-group-btn"><button class="btn btn-outline-info" id="nav-seacrh-button"><i class="fas fa-search"></i></button></span></div></div>`);
+    $(this.MODEL.SELECTOR.AREA).append(`<div class="col-md-4 nav-seacrh"><div class="input-group"><input class="form-control" id="nav-seacrh-text" placeholder="${LN.get('search')}"><span class="input-group-btn"><button class="btn btn-outline-info" id="nav-seacrh-button"><i class="fas fa-search"></i></button></span></div></div>`);
   }
 
   generateNotLogin () {
     this.clearNavItem();
 
     this.addNavItem({
-      id: this.MODEL.SELECTOR_NAV_LOGIN,
+      id: this.MODEL.SELECTOR.NAV.LOGIN,
       name: LN.get('login')
     });
     this.addNavItem({
-      id: this.MODEL.SELECTOR_NAV_REGISTER,
+      id: this.MODEL.SELECTOR.NAV.REGISTER,
       name: LN.get('register')
     });
     this.addNavItem({
-      id: this.MODEL.SELECTOR_NAV_HELP,
+      id: this.MODEL.SELECTOR.NAV.HELP,
       name: LN.get('help')
     });
   }
@@ -112,15 +117,15 @@ class NavView extends CommonView {
     this.addNavSearch();
 
     this.addNavItem({
-      id: this.MODEL.SELECTOR_NAV_SETTING,
+      id: this.MODEL.SELECTOR.NAV.SETTING,
       name: LN.get('setting')
     });
     this.addNavItem({
-      id: this.MODEL.SELECTOR_NAV_HELP,
+      id: this.MODEL.SELECTOR.NAV.HELP,
       name: LN.get('help')
     });
     this.addNavItem({
-      id: this.MODEL.SELECTOR_NAV_LOGOUT,
+      id: this.MODEL.SELECTOR.NAV.LOGOUT,
       name: LN.get('logout')
     });
   }
@@ -139,6 +144,7 @@ class NavEvent extends CommonEvent {
   }
 
   setEvent () {
+    this.setClickHeaderClear();
     this.setOpenLogin();
     this.setOpenSetting();
     this.setOpenLogout();
@@ -146,9 +152,26 @@ class NavEvent extends CommonEvent {
     this.setOpenHelp();
   }
 
+  setClickHeaderClear () {
+    super.setOn({
+      selector: this.MODEL.SELECTOR.HEADER.CLEAR,
+      func: () => {
+        super.log('Click', 'Header LocalStorage Clear')();
+        new Confirm({
+          title: LN.get('userdata_clear'),
+          content: LN.get('userdata_clear_confirm'),
+          functionYes: () => {
+            LocalStorage.clear();
+            location.reload();
+          }
+        });
+      }
+    });
+  }
+
   setOpenLogin () {
     super.setOn({
-      selector: `#${this.MODEL.SELECTOR_NAV_LOGIN}`,
+      selector: `#${this.MODEL.SELECTOR.NAV.LOGIN}`,
       func: () => {
         super.log('Login', 'Open')();
         USER.openLogin();
@@ -158,7 +181,7 @@ class NavEvent extends CommonEvent {
 
   setOpenSetting () {
     super.setOn({
-      selector: `#${this.MODEL.SELECTOR_NAV_SETTING}`,
+      selector: `#${this.MODEL.SELECTOR.NAV.SETTING}`,
       func: () => {
         super.log('User Setting', 'Open')();
         USER.openSetting();
@@ -168,7 +191,7 @@ class NavEvent extends CommonEvent {
 
   setOpenLogout () {
     super.setOn({
-      selector: `#${this.MODEL.SELECTOR_NAV_LOGOUT}`,
+      selector: `#${this.MODEL.SELECTOR.NAV.LOGOUT}`,
       func: () => {
         super.log('Logout', 'Open')();
         USER.openLogout();
@@ -178,7 +201,7 @@ class NavEvent extends CommonEvent {
 
   setOpenRegister () {
     super.setOn({
-      selector: `#${this.MODEL.SELECTOR_NAV_REGISTER}`,
+      selector: `#${this.MODEL.SELECTOR.NAV.REGISTER}`,
       func: () => {
         super.log('Register', 'Open')();
         USER.openRegister();
@@ -188,7 +211,7 @@ class NavEvent extends CommonEvent {
 
   setOpenHelp () {
     super.setOn({
-      selector: `#${this.MODEL.SELECTOR_NAV_HELP}`,
+      selector: `#${this.MODEL.SELECTOR.NAV.HELP}`,
       func: () => {
         super.log('Help', 'Open')();
         HELP.openHelp();
