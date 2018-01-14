@@ -25,6 +25,20 @@ EX.Date.formatString = function (
   return _format;
 };
 
+EX.String.format = function (arg) {
+  let rep_fn = undefined;
+
+  if (typeof arg == 'object') {
+    rep_fn = function (m, k) { return arg[k]; };
+  }
+  else {
+    let args = arguments;
+    rep_fn = function (m, k) { return args[ parseInt(k) ]; };
+  }
+
+  return this.replace( /\{(\w+)\}/g, rep_fn );
+};
+
 EX.String.capitalize = function () {
   return this.substring(0, 1).toUpperCase() + this.substring(1).toLowerCase();
 };
