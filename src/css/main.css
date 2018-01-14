@@ -103,6 +103,8 @@ textarea {
         .header-area header .header-wrapper .header-content .header-content-item {
           margin: .5rem;
           font-size: 1.5rem; }
+          .header-area header .header-wrapper .header-content .header-content-item #header-clear {
+            cursor: pointer; }
 
 .footer-area {
   box-shadow: 0 -2px 1px 1px #dcdcd0;

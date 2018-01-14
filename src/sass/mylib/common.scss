@@ -136,6 +136,10 @@ textarea {
         .header-content-item {
           margin: .5rem;
           font-size: 1.5rem;
+
+          #header-clear {
+            cursor: pointer;
+          }
         }
       }
     }
