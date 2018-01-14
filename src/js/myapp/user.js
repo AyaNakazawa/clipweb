@@ -227,7 +227,7 @@ class UserView extends CommonView {
     let _mainModel = null;
     if (type == this.MODEL.TYPE.LOGIN) {
       // LOGIN
-      header = 'Login';
+      header = LN.get('header_login');
       _mainTemplate = this.MODEL.TEMPLATE.LOGIN;
       _mainModel = {
         length: {
@@ -248,7 +248,7 @@ class UserView extends CommonView {
 
     } else if (type == this.MODEL.TYPE.SETTING) {
       // SETTING
-      header = 'User Setting';
+      header = LN.get('header_setting');
       _mainTemplate = this.MODEL.TEMPLATE.SETTING;
       _mainModel = {
         theme: this.MODEL.THEME,
@@ -258,7 +258,7 @@ class UserView extends CommonView {
 
     } else if (type == this.MODEL.TYPE.INFO) {
       // INFO
-      header = 'User Info';
+      header = LN.get('header_info');
       _mainTemplate = this.MODEL.TEMPLATE.INFO;
       _mainModel = {
         length: {
@@ -281,7 +281,7 @@ class UserView extends CommonView {
 
     } else if (type == this.MODEL.TYPE.LOGOUT) {
       // LOGOUT
-      header = 'Logout';
+      header = LN.get('header_logout');
       _mainTemplate = this.MODEL.TEMPLATE.LOGOUT;
       _mainModel = {
         username: this.MODEL.USERNAME
@@ -289,7 +289,7 @@ class UserView extends CommonView {
 
     } else if (type == this.MODEL.TYPE.REGISTER) {
       // REGISTER
-      header = 'Join clipweb';
+      header = LN.get('header_register');
       _mainTemplate = this.MODEL.TEMPLATE.REGISTER;
       _mainModel = {
         length: {
@@ -704,22 +704,22 @@ class UserController extends CommonController {
     let _loadingHeader = null;
 
     if (type == this.MODEL.TYPE.REGISTER) {
-      _loadingHeader = 'Registering to clipweb';
+      _loadingHeader = LN.get('loading_header_register');
 
     } else if (type == this.MODEL.TYPE.LOGIN) {
-      _loadingHeader = 'Login to clipweb';
+      _loadingHeader = LN.get('loading_header_login');
 
     } else if (type == this.MODEL.TYPE.LOGOUT) {
-      _loadingHeader = 'Logout from clipweb';
+      _loadingHeader = LN.get('loading_header_logout');
 
     } else if (type == this.MODEL.TYPE.LEAVE) {
-      _loadingHeader = 'Leaving from clipweb';
+      _loadingHeader = LN.get('loading_header_leaving');
 
     } else if (type == this.MODEL.TYPE.SETTING) {
-      _loadingHeader = 'Save your Setting';
+      _loadingHeader = LN.get('loading_header_setting');
 
     } else if (type == this.MODEL.TYPE.INFO) {
-      _loadingHeader = 'Save your Info';
+      _loadingHeader = LN.get('loading_header_info');
 
     } else {
       Log.error(arguments, 'unknown type.')();
@@ -770,8 +770,8 @@ class UserController extends CommonController {
         successOpenType: this.MODEL.TYPE.LOGIN,
         successModel: {
           alertMessage:
-            View.div({ content: 'ユーザーを登録しました。' }) +
-            View.div({ content: 'メール認証をしてください。' })
+            View.div({ content: LN.get('user_registered') }) +
+            View.div({ content: LN.get('please_email_auth') })
         },
         successFunction: () => {
           if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
@@ -779,7 +779,7 @@ class UserController extends CommonController {
             this.open({
               type: this.MODEL.TYPE.REGISTER,
               model: {
-                alertMessage: View.div({ content: 'サーバが正常に動作していません。' }),
+                alertMessage: View.div({ content: LN.get('server_not_working') }),
                 alertType: View.ALERT_DANGER
               }
             });
@@ -791,9 +791,12 @@ class UserController extends CommonController {
                 type: this.MODEL.TYPE.REGISTER,
                 model: {
                   alertMessage:
-                    View.div({ content: '登録できませんでした。' }) +
-                    View.div({ content: `${Project.NAME} ${this.MODEL.KEY.capitalize()} Error Code: ${_ERROR['code']}` }) +
-                    View.div({ content: _ERROR['message'] }),
+                    View.div({ content: LN.get('failed_to_register') }) +
+                    View.div({ content: LN.get('clipweb_user_error_code', {
+                      project: Project.NAME,
+                      code: _ERROR['code']
+                    }) }) +
+                    View.div({ content: LN.get('clipweb_user_error_message', { message: _ERROR['message'] }) }),
                   alertType: View.ALERT_WARNING
                 }
               });
@@ -805,9 +808,10 @@ class UserController extends CommonController {
                   type: this.MODEL.TYPE.REGISTER,
                   model: {
                     alertMessage:
-                      View.div({ content: `flex sqlite3 Error Code: ${_ERROR['code']}` }) +
-                      View.div({ content: `Mode: ${_ERROR['mode']}` }) +
-                      View.div({ content: _ERROR['message'] }),
+                      View.div({ content: LN.get('failed_to_register') }) +
+                      View.div({ content: LN.get('flex_sqlite3_error_code', { code: _ERROR['code'] }) }) +
+                      View.div({ content: LN.get('flex_sqlite3_error_mode', { mode: _ERROR['mode'] }) }) +
+                      View.div({ content: LN.get('flex_sqlite3_error_message', { message: _ERROR['message'] }) }),
                     alertType: View.ALERT_WARNING
                   }
                 });
@@ -818,7 +822,8 @@ class UserController extends CommonController {
         errorOpenType: _TYPE,
         errorModel: {
           alertMessage: (
-            View.div({ content: 'サーバとの通信に失敗しました。' })
+            View.div({ content: LN.get('failed_connect_to_server') }) +
+            View.div({ content: LN.get('failed_to_register') })
           ),
           alertType: View.ALERT_DANGER
         }
@@ -831,7 +836,7 @@ class UserController extends CommonController {
         type: _TYPE,
         model: {
           alertMessage: (
-            View.div({ content: 'すべての項目を正しく入力してください。' })
+            View.div({ content: LN.get('please_all_inputs_correctly') })
           ),
           alertType: View.ALERT_WARNING
         }
@@ -867,8 +872,8 @@ class UserController extends CommonController {
         errorOpenType: _TYPE,
         errorModel: {
           alertMessage: (
-            View.div({ content: 'ログインに失敗しました。' }) +
-            View.div({ content: 'メールアドレスとパスワードの組み合わせが間違っています。' })
+            View.div({ content: LN.get('failed_connect_to_server') }) +
+            View.div({ content: LN.get('failed_to_login') })
           ),
           alertType: View.ALERT_WARNING
         }
@@ -881,7 +886,7 @@ class UserController extends CommonController {
         type: _TYPE,
         model: {
           alertMessage: (
-            View.div({ content: 'すべての項目を正しく入力してください。' })
+            View.div({ content: LN.get('please_all_inputs_correctly') })
           ),
           alertType: View.ALERT_WARNING
         }
@@ -897,7 +902,7 @@ class UserController extends CommonController {
       successOpenType: this.MODEL.TYPE.LOGIN,
       successModel: {
         alertMessage:
-          View.div({ content: 'ログアウトしました。' })
+          View.div({ content: LN.get('user_logouted') })
       },
       successFunction: () => {
         PS.NAV.VIEW.generateNotLogin();
@@ -905,8 +910,8 @@ class UserController extends CommonController {
       errorOpenType: _TYPE,
       errorModel: {
         alertMessage: (
-          View.div({ content: 'ログアウトに失敗しました。' }) +
-          View.div({ content: 'サーバーに障害が発生しています。' })
+          View.div({ content: LN.get('failed_connect_to_server') }) +
+          View.div({ content: LN.get('failed_to_logout') })
         ),
         alertType: View.ALERT_WARNING
       }
@@ -956,12 +961,13 @@ class UserController extends CommonController {
         successOpenType: _TYPE,
         successModel: {
           alertMessage:
-            View.div({ content: 'ユーザー情報を更新しました。' })
+            View.div({ content: LN.get('user_update_info') })
         },
         errorOpenType: _TYPE,
         errorModel: {
           alertMessage: (
-            View.div({ content: 'ユーザー情報の更新に失敗しました。' })
+            View.div({ content: LN.get('failed_connect_to_server') }) +
+            View.div({ content: LN.get('failed_to_update_info') })
           ),
           alertType: View.ALERT_DANGER
         }
@@ -974,7 +980,7 @@ class UserController extends CommonController {
         type: _TYPE,
         model: {
           alertMessage: (
-            View.div({ content: '正しく入力してください。' })
+            View.div({ content: LN.get('please_inputs_correctly') })
           ),
           alertType: View.ALERT_WARNING
         }
@@ -1013,12 +1019,13 @@ class UserController extends CommonController {
         successOpenType: _TYPE,
         successModel: {
           alertMessage:
-            View.div({ content: 'ユーザー設定を更新しました。' })
+            View.div({ content: LN.get('user_update_setting') })
         },
         errorOpenType: _TYPE,
         errorModel: {
           alertMessage: (
-            View.div({ content: 'ユーザー設定の更新に失敗しました。' })
+            View.div({ content: LN.get('failed_connect_to_server') }) +
+            View.div({ content: LN.get('failed_to_update_setting') })
           ),
           alertType: View.ALERT_DANGER
         }
@@ -1031,7 +1038,7 @@ class UserController extends CommonController {
         type: _TYPE,
         model: {
           alertMessage: (
-            View.div({ content: '正しく選択してください。' })
+            View.div({ content: LN.get('please_selects_correctly') })
           ),
           alertType: View.ALERT_WARNING
         }
@@ -1397,7 +1404,7 @@ class UserController extends CommonController {
       password = $(password);
       passwordRe = $(passwordRe);
       if (password.val() != passwordRe.val()) {
-        passwordRe[0].setCustomValidity('パスワードが一致しません。');
+        passwordRe[0].setCustomValidity(LN.get('password_dont_match'));
       } else {
         passwordRe[0].setCustomValidity('');
       }
