@@ -97,8 +97,7 @@ class View {
   } = {}) {
     message = message || text;
     if (message == null) {
-      super.logGenerate(this.getAlert, arguments);
-      super.logCaution()();
+      Log.error(arguments)();
       return;
     }
 
@@ -119,8 +118,7 @@ class View {
     header = 'LOADING'
   } = {}) {
     if (header == null) {
-      super.logGenerate(this.getLoading, arguments);
-      super.logCaution()();
+      Log.error(arguments)();
       return;
     }
 
