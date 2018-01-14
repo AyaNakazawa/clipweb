@@ -170,7 +170,11 @@
         </div>
         <div class="content-item">
           <label class="content-check-label">
-            <input class="content-check" type="checkbox" id="login-auto">
+            <% if (auto_login) { %>
+              <input class="content-check" type="checkbox" id="login-auto" checked>
+            <% } else { %>
+              <input class="content-check" type="checkbox" id="login-auto">
+            <% } %>
             <span class="content-check-icon"></span>
             <%= LN.get('auto_login') %>
           </label>

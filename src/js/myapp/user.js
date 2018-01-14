@@ -49,6 +49,18 @@ class UserModel extends CommonModel {
     // ステータス
     this.STATUS = {};
     this.STATUS.LOGIN = false;
+    this.STATUS.AUTO = false;
+    this.STATUS.LS_LOAD = false;
+
+    // ----------------------------------------------------------------
+    // LocalStorageキー
+    this.LS = {};
+    this.LS.AUTO = {};
+    this.LS.AUTO.LOGIN = 'auto.login';
+    this.LS.AUTO.EMAIL = 'auto.em';
+
+    this.LS.AUTO.HASH = {};
+    this.LS.AUTO.HASH.PASSWORD = 'auto.ph';
 
     // ----------------------------------------------------------------
     // ユーザ情報
@@ -164,6 +176,7 @@ class UserModel extends CommonModel {
     this.SELECTOR.LOGIN = {};
     this.SELECTOR.LOGIN.EMAIL = '#login-email';
     this.SELECTOR.LOGIN.PASSWORD = '#login-password';
+    this.SELECTOR.LOGIN.AUTO = '#login-auto';
     this.SELECTOR.LOGIN.SUBMIT = '#login-submit';
     this.SELECTOR.LOGIN.REGISTER = '#login-register';
 
@@ -252,7 +265,8 @@ class UserView extends CommonView {
         email: this.MODEL.EMAIL,
         pattern: {
           password: this.MODEL.VALIDATE.PATTERN.PASSWORD
-        }
+        },
+        auto_login: this.MODEL.STATUS.AUTO
       };
 
     } else if (type == this.MODEL.TYPE.SETTING) {
@@ -456,6 +470,20 @@ class UserEvent extends CommonEvent {
       }
     });
 
+    super.setOn({
+      trigger: 'change',
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.LOGIN.AUTO}`,
+      func: () => {
+        super.log('Auto Login', 'Change')();
+        this.MODEL.STATUS.AUTO = $(this.MODEL.SELECTOR.LOGIN.AUTO).prop('checked');
+        if (this.MODEL.STATUS.AUTO) {
+          LocalStorage.setItem(this.MODEL.LS.AUTO.LOGIN, 'true');
+        } else {
+          LocalStorage.setItem(this.MODEL.LS.AUTO.LOGIN, 'false');
+        }
+      }
+    });
+
     super.setValidate(
       this.MODEL.SELECTOR.LOGIN.EMAIL
     );
@@ -598,8 +626,20 @@ class UserController extends CommonController {
     }
   ) {
     super(model, initSetting);
+    this.init();
+  }
 
+  init () {
     this.EVENT.setEvent();
+    if (LocalStorage.getItem(this.MODEL.LS.AUTO.LOGIN) == 'true') {
+      this.MODEL.EMAIL = LocalStorage.getItem(this.MODEL.LS.AUTO.EMAIL);
+      this.MODEL.HASH.PASSWORD = LocalStorage.getItem(this.MODEL.LS.AUTO.HASH.PASSWORD);
+      this.MODEL.STATUS.AUTO = true;
+      if (this.MODEL.EMAIL != null || this.MODEL.HASH.PASSWORD != null) {
+        this.MODEL.STATUS.LS_LOAD = true;
+        this.submitLogin(true);
+      }
+    }
     this.open({ type: this.MODEL.TYPE.LOGIN });
   }
 
@@ -815,23 +855,25 @@ class UserController extends CommonController {
     }
   }
 
-  submitLogin () {
+  submitLogin (auto = false) {
     const _TYPE = this.MODEL.TYPE.LOGIN;
 
     let _validEmail = true;
     let _validPassword = true;
 
-    const _EMAIL = $(this.MODEL.SELECTOR.LOGIN.EMAIL);
-    const _PASSWORD = $(this.MODEL.SELECTOR.LOGIN.PASSWORD);
+    if (auto == false) {
+      const _EMAIL = $(this.MODEL.SELECTOR.LOGIN.EMAIL);
+      const _PASSWORD = $(this.MODEL.SELECTOR.LOGIN.PASSWORD);
 
-    _validEmail = _EMAIL[0].validity.valid;
-    _validPassword = _PASSWORD[0].validity.valid;
+      _validEmail = _EMAIL[0].validity.valid;
+      _validPassword = _PASSWORD[0].validity.valid;
 
-    if (_validEmail) {
-      this.MODEL.EMAIL = _EMAIL.val().trim();
-    }
-    if (_validPassword) {
-      this.MODEL.PASSWORD = _PASSWORD.val();
+      if (_validEmail) {
+        this.MODEL.EMAIL = _EMAIL.val().trim();
+      }
+      if (_validPassword) {
+        this.MODEL.PASSWORD = _PASSWORD.val();
+      }
     }
 
     if ( _validEmail && _validPassword) {
@@ -901,7 +943,12 @@ class UserController extends CommonController {
                   }
                 }
               }
+              // Login成功
               NAV.login();
+              if (this.MODEL.STATUS.AUTO) {
+                LocalStorage.setItem(this.MODEL.LS.AUTO.HASH.PASSWORD, this.MODEL.HASH.PASSWORD);
+                LocalStorage.setItem(this.MODEL.LS.AUTO.EMAIL, this.MODEL.EMAIL);
+              }
               this.MODEL.STATUS.LOGIN = true;
               this.CONTROLLER.applyModel(_TYPE);
               this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
@@ -1116,7 +1163,9 @@ class UserController extends CommonController {
       // LOGIN
       if (timing == this.MODEL.TIMING.BEFORE) {
         // BEFORE
-        this.MODEL.HASH.PASSWORD = SHA256.getHash(this.MODEL.PASSWORD);
+        if (!this.MODEL.STATUS.LS_LOAD || !this.MODEL.STATUS.AUTO) {
+          this.MODEL.HASH.PASSWORD = SHA256.getHash(this.MODEL.PASSWORD);
+        }
       } else if (timing == this.MODEL.TIMING.AFTER) {
         // AFTER
         this.MODEL.HASH.CRYPTO = Crypto.decrypt(
