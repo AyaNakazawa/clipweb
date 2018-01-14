@@ -298,6 +298,7 @@ main {
         font-size: .7rem; }
     main .content .content-image {
       width: 100%;
+      padding: 8px 0;
       text-align: center; }
       main .content .content-image img {
         box-shadow: 2px 2px 1px 1px #dcdcd0;
