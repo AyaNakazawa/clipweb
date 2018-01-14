@@ -1,15 +1,29 @@
 
 やること
-  ユーザー系が完成したら、
-    USERNAME
-    PASSWORD
-    HTMLのパスワードのvalue
-    UserControllerのコンストラクタのopen種別
-  を直す
-  メッセージ系LogでErrorから行数とか関数とか表示するやつ
+
+  User
+    html, js
+      ユーザー系が完成したら、
+        USERNAME
+        PASSWORD
+        HTMLのパスワードのvalue
+        UserControllerのコンストラクタのopen種別
+      を直す
+    js
+      自動ログイン
+    py
+      ログイン
+      ログアウト
+      設定変更
+      情報変更
+  Clip
+    HTML
+    js
+    py
 
 
 やったこと
+  メッセージ系LogでErrorから行数とか関数とか表示するやつ
   メソッドチェーン実装
   他のlog系もCommonに導入する
   logCautionとかにthisを渡して自動でいろいろ出してもらう
