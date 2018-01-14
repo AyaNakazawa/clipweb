@@ -321,7 +321,7 @@ class UserView extends CommonView {
 
     // Header
     super.append(
-      Content.getHeader(header, headerButton)
+      Content.getHeader(header, headerButton, null, 290)
     );
 
     // Generate Loading

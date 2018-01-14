@@ -65,18 +65,25 @@ class Content {
 
   static getHeader (
     _header = null,
-    _button = null,
-    _id = null
+    _icon = null,
+    _id = null,
+    _tabindex = null
   ) {
     if (_header != null) {
       let button = '';
-      if (_button != null) {
+      let icon = '';
+      if (_icon != null) {
+        icon = `<i class="${_icon}"></i>`;
         let id = '';
         if (_id != null) {
           id = ` id=${_id}`;
         }
+        let tabindex = '';
+        if (_tabindex != null) {
+          tabindex = ` tabindex=${_tabindex}`;
+        }
 
-        button = ` <i class='${Content.HEADER_BUTTON} ${_button}'${id}></i>`;
+        button = ` <button class='close ${Content.HEADER_BUTTON}'${id}${tabindex}>${icon}</button>`;
       }
       return `<div class='${Content.HEADER}'>${_header}${button}</div>`;
     }
