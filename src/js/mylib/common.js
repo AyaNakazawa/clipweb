@@ -88,6 +88,8 @@ class CommonModel extends CommonClass {
     this.COMMON.DISPLAY_NONE = 'display-none';
     this.COMMON.OFFSET = 0;
 
+    this.COMMON.MESSAGE = {};
+
     this.COMMON.VIEW = null;
 
     this.COMMON.TYPE = {};
@@ -168,6 +170,42 @@ class CommonModel extends CommonClass {
     this[_key] = undefined;
     // Method chain
     return this;
+  }
+
+  addMessage (
+    obj = null,
+    string = null
+  ) {
+    if (Object.getType(obj) == 'Object') {
+      for (let key of Object.keys(obj)) {
+        this.COMMON.MESSAGE[key] = obj[key];
+      }
+    } else if (Object.getType(obj) == 'Number') {
+      this.COMMON.MESSAGE[obj] = string;
+    }
+    return this;
+  }
+
+  getMessage (
+    code = null,
+    base = null,
+    lang = false
+  ) {
+    if (code == null) {
+      Log.error(arguments, 'Message code is null')();
+      return;
+    }
+    let result = base;
+    if (typeof this.COMMON.MESSAGE[code] != 'undefined') {
+      if (lang) {
+        if (LN.check(this.COMMON.MESSAGE[code])) {
+          result = LN.get(this.COMMON.MESSAGE[code]);
+        }
+      } else {
+        result = this.COMMON.MESSAGE[code];
+      }
+    }
+    return result;
   }
 }
 
