@@ -729,6 +729,62 @@ class CommonEvent extends CommonClass {
     // Method chain
     return this;
   }
+
+  // ----------------------------------------------------------------
+  // validate
+
+  setValidate (
+    selector = null
+  ) {
+    if (selector == null) {
+      Log.error(arguments)();
+      return;
+    }
+    selector = `${this.MODEL.SELECTOR.AREA} ${selector}`;
+
+    this.setOn({
+      selector: selector,
+      trigger: 'keyup',
+      func: () => {
+        this.CONTROLLER.updateValidMessage(selector);
+      }
+    });
+    // Method chain
+    return this;
+  }
+
+  setValidatePassword (
+    selector = null,
+    selectorRe = null
+  ) {
+    if (selector == null || selectorRe == null) {
+      Log.error(arguments)();
+      return;
+    }
+    selector = `${this.MODEL.SELECTOR.AREA} ${selector}`;
+    selectorRe = `${this.MODEL.SELECTOR.AREA} ${selectorRe}`;
+
+    this.setOn({
+      selector: selector,
+      trigger: 'keyup',
+      func: () => {
+        this.CONTROLLER.validPassword(selector, selectorRe);
+        this.CONTROLLER.updateValidMessage(selector);
+        this.CONTROLLER.updateValidMessage(selectorRe);
+      }
+    });
+
+    this.setOn({
+      selector: selectorRe,
+      trigger: 'keyup',
+      func: () => {
+        this.CONTROLLER.validPassword(selector, selectorRe);
+        this.CONTROLLER.updateValidMessage(selectorRe);
+      }
+    });
+    // Method chain
+    return this;
+  }
 }
 
 // ----------------------------------------------------------------
@@ -768,6 +824,46 @@ class CommonController extends CommonClass {
     this.EVENT.VIEW = this.VIEW;
     this.EVENT.EVENT = this.EVENT;
     this.EVENT.CONTROLLER = this;
+
+    // Method chain
+    return this;
+  }
+
+  // ----------------------------------------------------------------
+  // validate
+
+  validPassword (
+    password = null,
+    passwordRe = null
+  ) {
+    if (password != null && passwordRe != null) {
+      password = $(password);
+      passwordRe = $(passwordRe);
+      if (password.val() != passwordRe.val()) {
+        passwordRe[0].setCustomValidity(LN.get('password_dont_match'));
+      } else {
+        passwordRe[0].setCustomValidity('');
+      }
+    } else {
+      Log.error(arguments, 'selector is null')();
+      return;
+    }
+    // Method chain
+    return this;
+  }
+
+  updateValidMessage (
+    inputElement = null
+  ) {
+    if (inputElement == null) {
+      Log.error(arguments, 'selector is null')();
+      return;
+    }
+
+    $(inputElement)
+      .parent('.content-input')
+      .children('.content-input-valid-message')
+      .text($(inputElement)[0].validationMessage);
 
     // Method chain
     return this;

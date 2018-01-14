@@ -410,13 +410,13 @@ class UserEvent extends CommonEvent {
       }
     });
 
-    this.setValidate(
+    super.setValidate(
       this.MODEL.SELECTOR.REGISTER.USERNAME
     );
-    this.setValidate(
+    super.setValidate(
       this.MODEL.SELECTOR.REGISTER.EMAIL
     );
-    this.setValidatePassword(
+    super.setValidatePassword(
       this.MODEL.SELECTOR.REGISTER.PASSWORD,
       this.MODEL.SELECTOR.REGISTER.PASSWORD_RE
     );
@@ -439,10 +439,10 @@ class UserEvent extends CommonEvent {
       }
     });
 
-    this.setValidate(
+    super.setValidate(
       this.MODEL.SELECTOR.LOGIN.EMAIL
     );
-    this.setValidate(
+    super.setValidate(
       this.MODEL.SELECTOR.LOGIN.PASSWORD
     );
   }
@@ -474,16 +474,16 @@ class UserEvent extends CommonEvent {
       }
     });
 
-    this.setValidate(
+    super.setValidate(
       this.MODEL.SELECTOR.INFO.USERNAME
     );
-    this.setValidate(
+    super.setValidate(
       this.MODEL.SELECTOR.INFO.EMAIL
     );
-    this.setValidate(
+    super.setValidate(
       this.MODEL.SELECTOR.INFO.OLD_PASSWORD
     );
-    this.setValidatePassword(
+    super.setValidatePassword(
       this.MODEL.SELECTOR.INFO.NEW_PASSWORD,
       this.MODEL.SELECTOR.INFO.NEW_PASSWORD_RE
     );
@@ -503,58 +503,6 @@ class UserEvent extends CommonEvent {
       func: () => {
         super.log('User Setting', 'Submit')();
         this.CONTROLLER.submitSetting();
-      }
-    });
-  }
-
-  // ----------------------------------------------------------------
-  // change & key
-
-  setValidate (
-    selector = null
-  ) {
-    if (selector == null) {
-      Log.error(arguments)();
-      return;
-    }
-    selector = `${this.MODEL.SELECTOR.AREA} ${selector}`;
-
-    super.setOn({
-      selector: selector,
-      trigger: 'keyup',
-      func: () => {
-        this.CONTROLLER.updateValidMessage(selector);
-      }
-    });
-  }
-
-  setValidatePassword (
-    selector = null,
-    selectorRe = null
-  ) {
-    if (selector == null || selectorRe == null) {
-      Log.error(arguments)();
-      return;
-    }
-    selector = `${this.MODEL.SELECTOR.AREA} ${selector}`;
-    selectorRe = `${this.MODEL.SELECTOR.AREA} ${selectorRe}`;
-
-    super.setOn({
-      selector: selector,
-      trigger: 'keyup',
-      func: () => {
-        this.CONTROLLER.validPassword(selector, selectorRe);
-        this.CONTROLLER.updateValidMessage(selector);
-        this.CONTROLLER.updateValidMessage(selectorRe);
-      }
-    });
-
-    super.setOn({
-      selector: selectorRe,
-      trigger: 'keyup',
-      func: () => {
-        this.CONTROLLER.validPassword(selector, selectorRe);
-        this.CONTROLLER.updateValidMessage(selectorRe);
       }
     });
   }
@@ -1393,38 +1341,4 @@ class UserController extends CommonController {
     });
   }
 
-  // ----------------------------------------------------------------
-  // validate
-
-  validPassword (
-    password = null,
-    passwordRe = null
-  ) {
-    if (password != null && passwordRe != null) {
-      password = $(password);
-      passwordRe = $(passwordRe);
-      if (password.val() != passwordRe.val()) {
-        passwordRe[0].setCustomValidity(LN.get('password_dont_match'));
-      } else {
-        passwordRe[0].setCustomValidity('');
-      }
-    } else {
-      Log.error(arguments, 'selector is null')();
-      return;
-    }
-  }
-
-  updateValidMessage (
-    inputElement = null
-  ) {
-    if (inputElement == null) {
-      Log.error(arguments, 'selector is null')();
-      return;
-    }
-
-    $(inputElement)
-      .parent('.content-input')
-      .children('.content-input-valid-message')
-      .text($(inputElement)[0].validationMessage);
-  }
 }
