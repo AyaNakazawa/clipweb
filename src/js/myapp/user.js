@@ -782,7 +782,10 @@ class UserController extends CommonController {
             this.open({
               type: _TYPE,
               model: {
-                alertMessage: View.element({ content: LN.get('server_not_working') }),
+                alertMessage:
+                  View.element({ element: 'h5', content: LN.get('server_not_working') }) +
+                  View.element({ element: 'hr' }) +
+                  View.element({ content: LN.get('failed_to_register') }),
                 alertType: View.ALERT_DANGER
               }
             });
@@ -844,7 +847,7 @@ class UserController extends CommonController {
         errorOpenType: _TYPE,
         errorModel: {
           alertMessage: (
-            View.element({ content: LN.get('failed_connect_to_server') }) +
+            View.element({ element: 'h5', content: LN.get('failed_connect_to_server') }) +
             View.element({ element: 'hr' }) +
             View.element({ content: LN.get('failed_to_register') })
           ),
@@ -897,7 +900,10 @@ class UserController extends CommonController {
             this.open({
               type: _TYPE,
               model: {
-                alertMessage: View.element({ content: LN.get('server_not_working') }),
+                alertMessage:
+                  View.element({ element: 'h5', content: LN.get('server_not_working') }) +
+                  View.element({ element: 'hr' }) +
+                  View.element({ content: LN.get('failed_to_login') }),
                 alertType: View.ALERT_DANGER
               }
             });
@@ -972,7 +978,7 @@ class UserController extends CommonController {
         errorOpenType: _TYPE,
         errorModel: {
           alertMessage: (
-            View.element({ content: LN.get('failed_connect_to_server') }) +
+            View.element({ element: 'h5', content: LN.get('failed_connect_to_server') }) +
             View.element({ element: 'hr' }) +
             View.element({ content: LN.get('failed_to_login') })
           ),
@@ -1006,7 +1012,10 @@ class UserController extends CommonController {
           this.open({
             type: _TYPE,
             model: {
-              alertMessage: View.element({ content: LN.get('server_not_working') }),
+              alertMessage:
+                View.element({ element: 'h5', content: LN.get('server_not_working') }) +
+                View.element({ element: 'hr' }) +
+                View.element({ content: LN.get('failed_to_logout') }),
               alertType: View.ALERT_DANGER
             }
           });
@@ -1051,7 +1060,7 @@ class UserController extends CommonController {
       errorOpenType: _TYPE,
       errorModel: {
         alertMessage: (
-          View.element({ content: LN.get('failed_connect_to_server') }) +
+          View.element({ element: 'h5', content: LN.get('failed_connect_to_server') }) +
           View.element({ element: 'hr' }) +
           View.element({ content: LN.get('failed_to_logout') })
         ),
@@ -1108,7 +1117,7 @@ class UserController extends CommonController {
         errorOpenType: _TYPE,
         errorModel: {
           alertMessage: (
-            View.element({ content: LN.get('failed_connect_to_server') }) +
+            View.element({ element: 'h5', content: LN.get('failed_connect_to_server') }) +
             View.element({ element: 'hr' }) +
             View.element({ content: LN.get('failed_to_update_info') })
           ),
@@ -1167,7 +1176,7 @@ class UserController extends CommonController {
         errorOpenType: _TYPE,
         errorModel: {
           alertMessage: (
-            View.element({ content: LN.get('failed_connect_to_server') }) +
+            View.element({ element: 'h5', content: LN.get('failed_connect_to_server') }) +
             View.element({ element: 'hr' }) +
             View.element({ content: LN.get('failed_to_update_setting') })
           ),
