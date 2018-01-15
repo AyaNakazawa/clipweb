@@ -4,7 +4,7 @@
 
 class Language {
   constructor () {
-    this.default = {
+    this.en = {
       name: 'English',
 
       username: 'Username',
@@ -85,9 +85,6 @@ class Language {
       flex_sqlite3_error_code: 'Flex Sqlite3 Error Code: {code}',
       flex_sqlite3_error_mode: 'Flex Sqlite3 Mode: {mode}',
       flex_sqlite3_error_message: 'Message: {message}',
-    };
-    this.en = {
-      name: 'English',
     };
     this.ja = {
       name: '日本語',
@@ -207,5 +204,6 @@ class Language {
     this.el = {
       name: 'Ελληνικά',
     };
+    this.default = this.en;
   }
 }
