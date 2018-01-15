@@ -1002,8 +1002,45 @@ class UserController extends CommonController {
           View.element({ content: LN.get('user_logouted') })
       },
       successFunction: () => {
-        NAV.logout();
-        LocalStorage.setItem(this.MODEL.LS.LOGIN, 'false');
+        if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
+          // resultが取得できない
+          this.open({
+            type: _TYPE,
+            model: {
+              alertMessage: View.element({ content: LN.get('server_not_working') }),
+              alertType: View.ALERT_DANGER
+            }
+          });
+        } else {
+          if (this.getAjaxData({ key: 'result' }) == false) {
+            // ログアウトできていない(clipweb user error)
+            if (typeof this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`] != 'undefined') {
+              const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
+              let message = this.MODEL.getMessage(_ERROR['code'], _ERROR['message'], true);
+              this.open({
+                type: _TYPE,
+                model: {
+                  alertMessage:
+                    View.element({ element: 'h5', content: LN.get('failed_to_logout') }) +
+                    View.element({ element: 'hr' }) +
+                    View.element({ content: LN.get('clipweb_user_error_code', {
+                      project: Project.NAME,
+                      code: _ERROR['code']
+                    }) }) +
+                    View.element({ content: LN.get('clipweb_user_error_message', { message: message }) }),
+                  alertType: View.ALERT_WARNING
+                }
+              });
+            }
+          } else {
+            // Logout成功
+            NAV.logout();
+            LocalStorage.setItem(this.MODEL.LS.LOGIN, 'false');
+            this.MODEL.STATUS.LOGIN = false;
+            this.CONTROLLER.applyModel(_TYPE);
+            this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
+          }
+        }
       },
       errorOpenType: _TYPE,
       errorModel: {
@@ -1382,6 +1419,7 @@ class UserController extends CommonController {
     } else if (type == this.MODEL.TYPE.LOGOUT) {
       // LOGOUT
       _method = 'GET';
+      _model['hash'] = this.MODEL.HASH.USER;
 
     } else if (type == this.MODEL.TYPE.LEAVE) {
       // LEAVE
