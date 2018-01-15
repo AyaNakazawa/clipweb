@@ -842,6 +842,7 @@ class UserController extends CommonController {
         errorModel: {
           alertMessage: (
             View.element({ content: LN.get('failed_connect_to_server') }) +
+            View.element({ element: 'hr' }) +
             View.element({ content: LN.get('failed_to_register') })
           ),
           alertType: View.ALERT_DANGER
@@ -968,9 +969,10 @@ class UserController extends CommonController {
         errorModel: {
           alertMessage: (
             View.element({ content: LN.get('failed_connect_to_server') }) +
+            View.element({ element: 'hr' }) +
             View.element({ content: LN.get('failed_to_login') })
           ),
-          alertType: View.ALERT_WARNING
+          alertType: View.ALERT_DANGER
         }
       });
 
@@ -1007,9 +1009,10 @@ class UserController extends CommonController {
       errorModel: {
         alertMessage: (
           View.element({ content: LN.get('failed_connect_to_server') }) +
+          View.element({ element: 'hr' }) +
           View.element({ content: LN.get('failed_to_logout') })
         ),
-        alertType: View.ALERT_WARNING
+        alertType: View.ALERT_DANGER
       }
     });
 
@@ -1063,6 +1066,7 @@ class UserController extends CommonController {
         errorModel: {
           alertMessage: (
             View.element({ content: LN.get('failed_connect_to_server') }) +
+            View.element({ element: 'hr' }) +
             View.element({ content: LN.get('failed_to_update_info') })
           ),
           alertType: View.ALERT_DANGER
@@ -1121,6 +1125,7 @@ class UserController extends CommonController {
         errorModel: {
           alertMessage: (
             View.element({ content: LN.get('failed_connect_to_server') }) +
+            View.element({ element: 'hr' }) +
             View.element({ content: LN.get('failed_to_update_setting') })
           ),
           alertType: View.ALERT_DANGER
