@@ -71,6 +71,7 @@ class Language {
       email_address_alreay_exist: 'Email address already exists.',
       hash_alreay_exist: 'User information can not be constructed. please try again.',
       email_password_incorrect: 'The combination of the e-mail address and the password is incorrect.',
+      password_incorrect: 'Password is incorrect.',
       corrupt_userdata: 'User data is corrupted. Please contact the administrator.',
       password_dont_match: 'Password don\'t match.',
 
@@ -155,6 +156,7 @@ class Language {
       email_address_alreay_exist: 'すでに存在するメールアドレスです。',
       hash_alreay_exist: 'ユーザー情報が構築できません。もう一度お試しください。',
       email_password_incorrect: 'メールアドレスとパスワードの組み合わせが間違っています。',
+      password_incorrect: 'パスワードが間違っています。',
       corrupt_userdata: 'ユーザーデータが破損しています。管理者までご確認ください。',
       password_dont_match: 'パスワードが一致しません。',
 
