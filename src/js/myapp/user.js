@@ -899,7 +899,7 @@ class UserController extends CommonController {
             });
           } else {
             if (this.getAjaxData({ key: 'result' }) == false) {
-              // 新規登録できていない(clipweb user error)
+              // ログインできていない(clipweb user error)
               if (typeof this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`] != 'undefined') {
                 const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
                 let message = this.MODEL.getMessage(_ERROR['code'], _ERROR['message'], true);
