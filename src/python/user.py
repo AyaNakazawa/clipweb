@@ -350,6 +350,127 @@ class User:
     def info(cls):
         cls.result["type"] = sys._getframe().f_code.co_name
         cls.result["result"] = False
+
+        # ----------------------------------------------------------------
+        # cgi get
+
+        user_hash = cls.cgi.get("hash")
+        user_password_hash = cls.cgi.get("password_hash")
+        user_username = cls.cgi.get("username")
+        user_email_address = cls.cgi.get("email_address")
+        user_encrypted_crypto_hash = cls.cgi.get("encrypted_crypto_hash")
+        user_password_hash_new = cls.cgi.get("password_hash_new")
+
+        # ----------------------------------------------------------------
+        # cgi get strings check
+
+        if cls._check_str(
+            model=user_hash,
+            not_defined_error="hash_not_defined",
+            unknown_class_error="hash_unknown_class"
+        ) is False:
+            return cls.result
+
+        if cls._check_str(
+            model=user_password_hash,
+            not_defined_error="password_hash_not_defined",
+            unknown_class_error="password_hash_unknown_class"
+        ) is False:
+            return cls.result
+
+        if cls._check_str(
+            model=user_username,
+            not_defined_error="username_not_defined",
+            unknown_class_error="username_unknown_class"
+        ) is False:
+            return cls.result
+
+        if cls._check_str(
+            model=user_email_address,
+            not_defined_error="email_address_not_defined",
+            unknown_class_error="email_address_unknown_class"
+        ) is False:
+            return cls.result
+
+        if cls._check_str(
+            model=user_encrypted_crypto_hash,
+            not_defined_error="encrypted_crypto_hash_not_defined",
+            unknown_class_error="encrypted_crypto_hash_unknown_class"
+        ) is False:
+            return cls.result
+
+        # ----------------------------------------------------------------
+        # generate datetime
+
+        now = datetime.datetime.now()
+        now = now.strftime("%Y/%m/%d %H:%M:%S")
+
+        # ----------------------------------------------------------------
+        # count user
+
+        num_user_data = cls.DB.count_records(
+            table="owners",
+            where={
+                "hash": user_hash,
+                "password_hash": user_password_hash
+            }
+        )
+
+        if num_user_data > 1:
+            cls.result["error"] = cls._error("corrupt_userdata")
+            return cls.result
+
+        if num_user_data < 1:
+            cls.result["error"] = cls._error("user_not_found")
+            return cls.result
+
+        # ----------------------------------------------------------------
+        # update user data
+
+        user_values = {
+            "username": user_username,
+            "email_address": user_email_address,
+            "encrypted_crypto_hash": user_encrypted_crypto_hash,
+            "updated_at": now
+        }
+        if user_password_hash_new is not None:
+            user_values["password_hash"] = user_password_hash_new
+
+        cls.result["update_info"] = cls.DB.update(
+            table="owners",
+            value=user_values,
+            where={
+                "hash": user_hash,
+                "password_hash": user_password_hash
+            }
+        )
+
+        # ----------------------------------------------------------------
+        # select user data
+
+        if user_password_hash_new is not None:
+            user_password_hash = user_password_hash_new
+
+        user_data = cls.DB.select(
+            table="owners",
+            column=[
+                "username",
+                "email_address",
+                "encrypted_crypto_hash",
+                "updated_at"
+            ],
+            where={
+                "hash": user_hash,
+                "password_hash": user_password_hash
+            }
+        )
+
+        for key in user_data[0].keys():
+            cls.result[key] = user_data[0][key]
+
+        # ----------------------------------------------------------------
+        # return
+
         cls.result["result"] = True
         return cls.result
 
