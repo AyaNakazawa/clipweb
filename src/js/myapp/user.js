@@ -1248,7 +1248,7 @@ class UserController extends CommonController {
                     }
                   }
                 }
-                // 登録成功
+                // 設定更新成功
                 this.CONTROLLER.applyModel(_TYPE);
                 this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
                 this.open({
@@ -1428,7 +1428,6 @@ class UserController extends CommonController {
     } else if (type == this.MODEL.TYPE.INFO) {
       // INFO
       this.MODEL.USERNAME = this.getAjaxData({ key: 'username' });
-      this.MODEL.HASH.USER = this.getAjaxData({ key: 'hash' });
       this.MODEL.ENCRYPT.CRYPTO = this.getAjaxData({ key: 'encrypted_crypto_hash' });
       this.MODEL.EMAIL_AUTH = this.getAjaxData({ key: 'email_authentication' });
       this.MODEL.UPDATED_AT = this.getAjaxData({ key: 'updated_at' });
