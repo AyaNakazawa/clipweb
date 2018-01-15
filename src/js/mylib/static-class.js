@@ -656,9 +656,11 @@ class LocalStorage {
 }
 
 class SHA256 {
-  static getHash (string = null) {
-    if (string != null) {
-      return CryptoJS.SHA256(string).toString();
+  static getHash(_string = null) {
+    if (_string != null) {
+      let shaObject = new jsSHA('SHA-256', 'TEXT', 1);
+      shaObject.update(_string);
+      return shaObject.getHash('HEX');
     }
     return null;
   }
