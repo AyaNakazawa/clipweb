@@ -1342,7 +1342,6 @@ class UserController extends CommonController {
       this.MODEL.HASH.USER = this.getAjaxData({ key: 'hash' });
       this.MODEL.ENCRYPT.CRYPTO = this.getAjaxData({ key: 'encrypted_crypto_hash' });
       this.MODEL.EMAIL_AUTH = this.getAjaxData({ key: 'email_authentication' });
-      this.MODEL.CREATED_AT = this.getAjaxData({ key: 'created_at' });
       this.MODEL.UPDATED_AT = this.getAjaxData({ key: 'updated_at' });
       if (this.MODEL.PASSWORD_NEW != '') {
         this.MODEL.PASSWORD = this.MODEL.PASSWORD_NEW;
@@ -1354,7 +1353,6 @@ class UserController extends CommonController {
       this.MODEL.THEME = this.getAjaxData({ key: 'theme' });
       this.MODEL.OWNER_PUBLISH = this.getAjaxData({ key: 'default_owner_publish' });
       this.MODEL.CLIP_MODE = this.getAjaxData({ key: 'default_clip_mode' });
-      this.MODEL.CREATED_AT = this.getAjaxData({ key: 'created_at' });
       this.MODEL.UPDATED_AT = this.getAjaxData({ key: 'updated_at' });
 
     } else {
