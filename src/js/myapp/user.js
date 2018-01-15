@@ -776,12 +776,6 @@ class UserController extends CommonController {
     if (_validUsername && _validEmail && _validPassword && _validPasswordRe) {
       this.EVENT.setOnLoading({
         type: _TYPE,
-        successOpenType: this.MODEL.TYPE.LOGIN,
-        successModel: {
-          alertMessage:
-            View.element({ content: LN.get('user_registered') }) +
-            View.element({ content: LN.get('please_email_auth') })
-        },
         successFunction: () => {
           if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
             // resultが取得できない
@@ -832,8 +826,17 @@ class UserController extends CommonController {
                   });
                 }
               } else {
+                // 登録成功
                 this.CONTROLLER.applyModel(_TYPE);
                 this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
+                this.open({
+                  type: this.MODEL.TYPE.LOGIN,
+                  model: {
+                    alertMessage:
+                      View.element({ content: LN.get('user_registered') }) +
+                      View.element({ content: LN.get('please_email_auth') })
+                  },
+                });
               }
             }
           }
@@ -962,6 +965,7 @@ class UserController extends CommonController {
               this.MODEL.STATUS.LOGIN = true;
               this.CONTROLLER.applyModel(_TYPE);
               this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
+              this.open();
             }
           }
         },
@@ -996,11 +1000,6 @@ class UserController extends CommonController {
 
     this.EVENT.setOnLoading({
       type: _TYPE,
-      successOpenType: this.MODEL.TYPE.LOGIN,
-      successModel: {
-        alertMessage:
-          View.element({ content: LN.get('user_logouted') })
-      },
       successFunction: () => {
         if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
           // resultが取得できない
@@ -1039,6 +1038,13 @@ class UserController extends CommonController {
             this.MODEL.STATUS.LOGIN = false;
             this.CONTROLLER.applyModel(_TYPE);
             this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
+            this.open({
+              type: this.MODEL.TYPE.LOGIN,
+              model: {
+                alertMessage:
+                  View.element({ content: LN.get('user_logouted') })
+              },
+            });
           }
         }
       },
