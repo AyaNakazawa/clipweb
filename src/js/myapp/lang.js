@@ -77,6 +77,8 @@ class Language {
       failed_to_register: 'Failed to register.',
       failed_to_login: 'Failed to login.',
       failed_to_logout: 'Failed to logout.',
+      failed_to_save_setting: 'Failed to save of user setting.',
+      failed_to_save_info: 'Failed to save of user info.',
       failed_connect_to_server: 'Failed connect to clipweb server.',
       server_not_working: 'clipweb server is not working.',
 
@@ -159,6 +161,8 @@ class Language {
       failed_to_register: '登録できませんでした。',
       failed_to_login: 'ログインに失敗しました。',
       failed_to_logout: 'ログアウトに失敗しました。',
+      failed_to_save_setting: 'ユーザー設定の保存に失敗しました。',
+      failed_to_save_info: 'ユーザー情報の保存に失敗しました。',
       failed_connect_to_server: 'clipwebサーバーとの通信に失敗しました。',
       server_not_working: 'clipwebサーバーが正常に動作していません。',
 
