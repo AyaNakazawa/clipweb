@@ -1168,10 +1168,99 @@ class UserController extends CommonController {
     if (_validTheme && _validOwnerPublish && _validClipMode) {
       this.EVENT.setOnLoading({
         type: _TYPE,
-        successOpenType: _TYPE,
-        successModel: {
-          alertMessage:
-            View.element({ content: LN.get('user_update_setting') })
+        successFunction: () => {
+          if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
+            // resultが取得できない
+            this.open({
+              type: _TYPE,
+              model: {
+                alertMessage:
+                  View.element({ element: 'h5', content: LN.get('server_not_working') }) +
+                  View.element({ element: 'hr' }) +
+                  View.element({ content: LN.get('failed_to_save_setting') }),
+                alertType: View.ALERT_DANGER
+              }
+            });
+          } else {
+            if (this.getAjaxData({ key: 'result' }) == false) {
+              // 設定変更できていない(clipweb user error)
+              if (typeof this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`] != 'undefined') {
+                const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
+                let message = this.MODEL.getMessage(_ERROR['code'], _ERROR['message'], true);
+                this.open({
+                  type: _TYPE,
+                  model: {
+                    alertMessage:
+                      View.element({ element: 'h5', content: LN.get('failed_to_update_setting') }) +
+                      View.element({ element: 'hr' }) +
+                      View.element({ content: LN.get('clipweb_user_error_code', {
+                        project: Project.NAME,
+                        code: _ERROR['code']
+                      }) }) +
+                      View.element({ content: LN.get('clipweb_user_error_message', { message: message }) }),
+                    alertType: View.ALERT_WARNING
+                  }
+                });
+              }
+            } else {
+              if (this.getAjaxData({ key: 'update_setting' }) != true) {
+                // 設定変更できていない(flex sqlite3 error)
+                if (typeof this.getAjaxData({ key: 'update_setting' })['flex sqlite3 error'] != 'undefined') {
+                  const _ERROR = this.getAjaxData({ key: 'update_setting' })['flex sqlite3 error'];
+                  this.open({
+                    type: _TYPE,
+                    model: {
+                      alertMessage:
+                        View.element({ element: 'h5', content: LN.get('failed_to_update_setting') }) +
+                        View.element({ element: 'hr' }) +
+                        View.element({ content: LN.get('flex_sqlite3_error_code', { code: _ERROR['code'] }) }) +
+                        View.element({ content: LN.get('flex_sqlite3_error_mode', { mode: _ERROR['mode'] }) }) +
+                        View.element({ content: LN.get('flex_sqlite3_error_message', { message: _ERROR['message'] }) }),
+                      alertType: View.ALERT_WARNING
+                    }
+                  });
+                }
+              } else {
+                const _SETTING = [
+                  'theme',
+                  'default_owner_publish',
+                  'default_clip_mode',
+                  'updated_at',
+                ];
+                for (let i_info = 0; i_info < _SETTING.length; i_info++) {
+                  if (Object.getType(this.getAjaxData({ key: _SETTING[i_info] })) != 'String') {
+                    // ログイン情報を取得できていない(flex sqlite3 error)
+                    if (typeof this.getAjaxData({ key: _SETTING[i_info] }) != 'undefined') {
+                      const _ERROR = this.getAjaxData({ key: _SETTING[i_info] })['flex sqlite3 error'];
+                      this.open({
+                        type: _TYPE,
+                        model: {
+                          alertMessage:
+                          View.element({ element: 'h5', content: LN.get('failed_to_update_setting') }) +
+                          View.element({ element: 'hr' }) +
+                          View.element({ content: LN.get('flex_sqlite3_error_code', { code: _ERROR['code'] }) }) +
+                          View.element({ content: LN.get('flex_sqlite3_error_mode', { mode: _ERROR['mode'] }) }) +
+                          View.element({ content: LN.get('flex_sqlite3_error_message', { message: _ERROR['message'] }) }),
+                          alertType: View.ALERT_WARNING
+                        }
+                      });
+                      return;
+                    }
+                  }
+                }
+                // 登録成功
+                this.CONTROLLER.applyModel(_TYPE);
+                this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
+                this.open({
+                  type: _TYPE,
+                  model: {
+                    alertMessage:
+                      View.element({ content: LN.get('user_update_setting') })
+                  }
+                });
+              }
+            }
+          }
         },
         errorOpenType: _TYPE,
         errorModel: {
