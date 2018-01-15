@@ -222,6 +222,12 @@ class User:
         cls.result["result"] = True
         return cls.result
 
+    def logout(cls):
+        cls.result["type"] = sys._getframe().f_code.co_name
+        cls.result["result"] = False
+        cls.result["result"] = True
+        return cls.result
+
     def setting(cls):
         cls.result["type"] = sys._getframe().f_code.co_name
         cls.result["result"] = False

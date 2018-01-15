@@ -76,6 +76,9 @@ class Clipweb:
         elif _type == "login":
             cls.result["user"] = USER.login()
 
+        elif _type == "logout":
+            cls.result["user"] = USER.logout()
+
         elif _type == "setting":
             cls.result["user"] = USER.setting()
 
