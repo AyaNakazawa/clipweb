@@ -19,6 +19,7 @@ class UserModel extends CommonModel {
     super.addMessage(302, 'email_address_alreay_exist');
     super.addMessage(303, 'hash_alreay_exist');
     super.addMessage(401, 'email_password_incorrect');
+    super.addMessage(402, 'password_incorrect');
     super.addMessage(801, 'corrupt_userdata');
 
     // ----------------------------------------------------------------
@@ -63,6 +64,7 @@ class UserModel extends CommonModel {
 
     this.LS.AUTO.HASH = {};
     this.LS.AUTO.HASH.PASSWORD = 'auto.ph';
+    this.LS.AUTO.HASH.DECRYPT_CRYPTO = 'auto.dch';
 
     // ----------------------------------------------------------------
     // ユーザ情報
@@ -640,6 +642,7 @@ class UserController extends CommonController {
         // 前回ログインしていたとき
         this.MODEL.EMAIL = LocalStorage.getItem(this.MODEL.LS.AUTO.EMAIL);
         this.MODEL.HASH.PASSWORD = LocalStorage.getItem(this.MODEL.LS.AUTO.HASH.PASSWORD);
+        this.MODEL.HASH.DECRYPT_CRYPTO = LocalStorage.getItem(this.MODEL.LS.AUTO.HASH.DECRYPT_CRYPTO);
         if (this.MODEL.EMAIL != null || this.MODEL.HASH.PASSWORD != null) {
           // データがあるとき
           this.MODEL.STATUS.LS_LOAD = true;
@@ -963,14 +966,15 @@ class UserController extends CommonController {
               }
               // Login成功
               NAV.login();
+              this.CONTROLLER.applyModel(_TYPE);
+              this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
               if (this.MODEL.STATUS.AUTO) {
                 LocalStorage.setItem(this.MODEL.LS.AUTO.HASH.PASSWORD, this.MODEL.HASH.PASSWORD);
                 LocalStorage.setItem(this.MODEL.LS.AUTO.EMAIL, this.MODEL.EMAIL);
+                LocalStorage.setItem(this.MODEL.LS.AUTO.HASH.DECRYPT_CRYPTO, this.MODEL.HASH.DECRYPT_CRYPTO);
               }
               LocalStorage.setItem(this.MODEL.LS.LOGIN, 'true');
               this.MODEL.STATUS.LOGIN = true;
-              this.CONTROLLER.applyModel(_TYPE);
-              this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
               this.open();
             }
           }
@@ -1045,6 +1049,9 @@ class UserController extends CommonController {
             NAV.logout();
             LocalStorage.setItem(this.MODEL.LS.LOGIN, 'false');
             this.MODEL.STATUS.LOGIN = false;
+            LocalStorage.removeItem(this.MODEL.LS.AUTO.HASH.PASSWORD);
+            LocalStorage.removeItem(this.MODEL.LS.AUTO.EMAIL);
+            LocalStorage.removeItem(this.MODEL.LS.AUTO.HASH.DECRYPT_CRYPTO);
             this.CONTROLLER.applyModel(_TYPE);
             this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
             this.open({
@@ -1138,7 +1145,7 @@ class UserController extends CommonController {
                   type: _TYPE,
                   model: {
                     alertMessage:
-                      View.element({ element: 'h5', content: LN.get('failed_to_update_info') }) +
+                      View.element({ element: 'h5', content: LN.get('failed_to_save_info') }) +
                       View.element({ element: 'hr' }) +
                       View.element({ content: LN.get('clipweb_user_error_code', {
                         project: Project.NAME,
@@ -1158,7 +1165,7 @@ class UserController extends CommonController {
                     type: _TYPE,
                     model: {
                       alertMessage:
-                        View.element({ element: 'h5', content: LN.get('failed_to_update_info') }) +
+                        View.element({ element: 'h5', content: LN.get('failed_to_save_info') }) +
                         View.element({ element: 'hr' }) +
                         View.element({ content: LN.get('flex_sqlite3_error_code', { code: _ERROR['code'] }) }) +
                         View.element({ content: LN.get('flex_sqlite3_error_mode', { mode: _ERROR['mode'] }) }) +
@@ -1170,8 +1177,8 @@ class UserController extends CommonController {
               } else {
                 const _INFO = [
                   'username',
+                  'email_address',
                   'encrypted_crypto_hash',
-                  'email_authentication',
                   'updated_at',
                 ];
                 for (let i_info = 0; i_info < _INFO.length; i_info++) {
@@ -1183,7 +1190,7 @@ class UserController extends CommonController {
                         type: _TYPE,
                         model: {
                           alertMessage:
-                          View.element({ element: 'h5', content: LN.get('failed_to_update_info') }) +
+                          View.element({ element: 'h5', content: LN.get('failed_to_save_info') }) +
                           View.element({ element: 'hr' }) +
                           View.element({ content: LN.get('flex_sqlite3_error_code', { code: _ERROR['code'] }) }) +
                           View.element({ content: LN.get('flex_sqlite3_error_mode', { mode: _ERROR['mode'] }) }) +
@@ -1198,6 +1205,11 @@ class UserController extends CommonController {
                 // 情報変更成功
                 this.CONTROLLER.applyModel(_TYPE);
                 this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
+                if (this.MODEL.STATUS.AUTO) {
+                  LocalStorage.setItem(this.MODEL.LS.AUTO.HASH.PASSWORD, this.MODEL.HASH.PASSWORD);
+                  LocalStorage.setItem(this.MODEL.LS.AUTO.EMAIL, this.MODEL.EMAIL);
+                  LocalStorage.setItem(this.MODEL.LS.AUTO.HASH.DECRYPT_CRYPTO, this.MODEL.HASH.DECRYPT_CRYPTO);
+                }
                 this.open({
                   type: _TYPE,
                   model: {
@@ -1214,7 +1226,7 @@ class UserController extends CommonController {
           alertMessage: (
             View.element({ element: 'h5', content: LN.get('failed_connect_to_server') }) +
             View.element({ element: 'hr' }) +
-            View.element({ content: LN.get('failed_to_update_info') })
+            View.element({ content: LN.get('failed_to_save_info') })
           ),
           alertType: View.ALERT_DANGER
         }
@@ -1286,7 +1298,7 @@ class UserController extends CommonController {
                   type: _TYPE,
                   model: {
                     alertMessage:
-                      View.element({ element: 'h5', content: LN.get('failed_to_update_setting') }) +
+                      View.element({ element: 'h5', content: LN.get('failed_to_save_setting') }) +
                       View.element({ element: 'hr' }) +
                       View.element({ content: LN.get('clipweb_user_error_code', {
                         project: Project.NAME,
@@ -1306,7 +1318,7 @@ class UserController extends CommonController {
                     type: _TYPE,
                     model: {
                       alertMessage:
-                        View.element({ element: 'h5', content: LN.get('failed_to_update_setting') }) +
+                        View.element({ element: 'h5', content: LN.get('failed_to_save_setting') }) +
                         View.element({ element: 'hr' }) +
                         View.element({ content: LN.get('flex_sqlite3_error_code', { code: _ERROR['code'] }) }) +
                         View.element({ content: LN.get('flex_sqlite3_error_mode', { mode: _ERROR['mode'] }) }) +
@@ -1331,7 +1343,7 @@ class UserController extends CommonController {
                         type: _TYPE,
                         model: {
                           alertMessage:
-                          View.element({ element: 'h5', content: LN.get('failed_to_update_setting') }) +
+                          View.element({ element: 'h5', content: LN.get('failed_to_save_setting') }) +
                           View.element({ element: 'hr' }) +
                           View.element({ content: LN.get('flex_sqlite3_error_code', { code: _ERROR['code'] }) }) +
                           View.element({ content: LN.get('flex_sqlite3_error_mode', { mode: _ERROR['mode'] }) }) +
@@ -1362,7 +1374,7 @@ class UserController extends CommonController {
           alertMessage: (
             View.element({ element: 'h5', content: LN.get('failed_connect_to_server') }) +
             View.element({ element: 'hr' }) +
-            View.element({ content: LN.get('failed_to_update_setting') })
+            View.element({ content: LN.get('failed_to_save_setting') })
           ),
           alertType: View.ALERT_DANGER
         }
@@ -1401,9 +1413,10 @@ class UserController extends CommonController {
         // BEFORE
         this.MODEL.HASH.USER = SHA256.getHash(this.MODEL.USERNAME + new Date().toString());
         this.MODEL.HASH.CRYPTO = SHA256.getHash(this.MODEL.HASH.USER + this.MODEL.PASSWORD);
+        this.MODEL.HASH.DECRYPT_CRYPTO = SHA256.getHash(this.MODEL.PASSWORD + this.MODEL.HASH.USER);
         this.MODEL.ENCRYPT.CRYPTO = Crypto.encrypt(
           this.MODEL.HASH.CRYPTO,
-          this.MODEL.PASSWORD
+          this.MODEL.HASH.DECRYPT_CRYPTO
         );
         this.MODEL.HASH.PASSWORD = SHA256.getHash(this.MODEL.PASSWORD);
       } else if (timing == this.MODEL.TIMING.AFTER) {
@@ -1414,15 +1427,18 @@ class UserController extends CommonController {
       // LOGIN
       if (timing == this.MODEL.TIMING.BEFORE) {
         // BEFORE
-        if (!this.MODEL.STATUS.LS_LOAD || !this.MODEL.STATUS.AUTO) {
+        if (!this.MODEL.STATUS.LS_LOAD || !this.MODEL.STATUS.AUTO || this.MODEL.PASSWORD.length > 0) {
           this.MODEL.HASH.PASSWORD = SHA256.getHash(this.MODEL.PASSWORD);
         }
       } else if (timing == this.MODEL.TIMING.AFTER) {
         // AFTER
-        this.MODEL.HASH.CRYPTO = Crypto.decrypt(
-          this.MODEL.ENCRYPT.CRYPTO,
-          this.MODEL.PASSWORD
-        );
+        if (!this.MODEL.STATUS.LS_LOAD || !this.MODEL.STATUS.AUTO || this.MODEL.PASSWORD.length > 0) {
+          this.MODEL.HASH.DECRYPT_CRYPTO = SHA256.getHash(this.MODEL.PASSWORD + this.MODEL.HASH.USER);
+          this.MODEL.HASH.CRYPTO = Crypto.decrypt(
+            this.MODEL.ENCRYPT.CRYPTO,
+            this.MODEL.HASH.DECRYPT_CRYPTO
+          );
+        }
         this.MODEL.HASH.GRAVATAR = MD5.getHash(this.MODEL.EMAIL.toLowerCase().trim());
       }
 
@@ -1452,16 +1468,19 @@ class UserController extends CommonController {
         this.MODEL.HASH.PASSWORD = SHA256.getHash(this.MODEL.PASSWORD);
         if (this.MODEL.PASSWORD_NEW != '') {
           this.MODEL.HASH.PASSWORD_NEW = SHA256.getHash(this.MODEL.PASSWORD_NEW);
+          this.MODEL.HASH.DECRYPT_CRYPTO = SHA256.getHash(this.MODEL.PASSWORD_NEW + this.MODEL.HASH.USER);
           this.MODEL.ENCRYPT.CRYPTO = Crypto.encrypt(
             this.MODEL.HASH.CRYPTO,
-            this.MODEL.PASSWORD_NEW
+            this.MODEL.HASH.DECRYPT_CRYPTO
           );
         }
       } else if (timing == this.MODEL.TIMING.AFTER) {
         // AFTER
+        this.MODEL.HASH.PASSWORD = SHA256.getHash(this.MODEL.PASSWORD);
+        this.MODEL.HASH.DECRYPT_CRYPTO = SHA256.getHash(this.MODEL.PASSWORD + this.MODEL.HASH.USER);
         this.MODEL.HASH.CRYPTO = Crypto.decrypt(
           this.MODEL.ENCRYPT.CRYPTO,
-          this.MODEL.PASSWORD
+          this.MODEL.HASH.DECRYPT_CRYPTO
         );
         this.MODEL.HASH.GRAVATAR = MD5.getHash(this.MODEL.EMAIL.toLowerCase().trim());
       }
@@ -1526,7 +1545,7 @@ class UserController extends CommonController {
       this.MODEL.ENCRYPT.CRYPTO = this.getAjaxData({ key: 'encrypted_crypto_hash' });
       this.MODEL.EMAIL_AUTH = this.getAjaxData({ key: 'email_authentication' });
       this.MODEL.UPDATED_AT = this.getAjaxData({ key: 'updated_at' });
-      if (this.MODEL.PASSWORD_NEW != '') {
+      if (this.MODEL.PASSWORD_NEW.length > 0) {
         this.MODEL.PASSWORD = this.MODEL.PASSWORD_NEW;
         this.MODEL.PASSWORD_NEW = '';
       }
@@ -1551,7 +1570,7 @@ class UserController extends CommonController {
     this.MODEL.EMAIL_AUTH = false;
     this.MODEL.CREATED_AT = new Date().formatString();
     this.MODEL.UPDATED_AT = new Date().formatString();
-    this.HASH = {};
+    this.MODEL.HASH = {};
   }
 
   getAjaxData ({
