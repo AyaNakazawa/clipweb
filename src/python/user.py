@@ -231,6 +231,119 @@ class User:
     def setting(cls):
         cls.result["type"] = sys._getframe().f_code.co_name
         cls.result["result"] = False
+
+        # ----------------------------------------------------------------
+        # cgi get
+
+        user_hash = cls.cgi.get("hash")
+        user_password_hash = cls.cgi.get("password_hash")
+        user_theme = cls.cgi.get("theme")
+        user_default_owner_publish = cls.cgi.get("default_owner_publish")
+        user_default_clip_mode = cls.cgi.get("default_clip_mode")
+
+        # ----------------------------------------------------------------
+        # cgi get strings check
+
+        if cls._check_str(
+            model=user_hash,
+            not_defined_error="hash_not_defined",
+            unknown_class_error="hash_unknown_class"
+        ) is False:
+            return cls.result
+
+        if cls._check_str(
+            model=user_password_hash,
+            not_defined_error="password_hash_not_defined",
+            unknown_class_error="password_hash_unknown_class"
+        ) is False:
+            return cls.result
+
+        if cls._check_str(
+            model=user_theme,
+            not_defined_error="theme_not_defined",
+            unknown_class_error="theme_unknown_class"
+        ) is False:
+            return cls.result
+
+        if cls._check_str(
+            model=user_default_owner_publish,
+            not_defined_error="default_owner_publish_not_defined",
+            unknown_class_error="default_owner_publish_unknown_class"
+        ) is False:
+            return cls.result
+
+        if cls._check_str(
+            model=user_default_clip_mode,
+            not_defined_error="default_clip_mode_not_defined",
+            unknown_class_error="default_clip_mode_unknown_class"
+        ) is False:
+            return cls.result
+
+        # ----------------------------------------------------------------
+        # generate datetime
+
+        now = datetime.datetime.now()
+        now = now.strftime("%Y/%m/%d %H:%M:%S")
+
+        # ----------------------------------------------------------------
+        # count user
+
+        num_user_data = cls.DB.count_records(
+            table="owners",
+            where={
+                "hash": user_hash,
+                "password_hash": user_password_hash
+            }
+        )
+
+        if num_user_data > 1:
+            cls.result["error"] = cls._error("corrupt_userdata")
+            return cls.result
+
+        if num_user_data < 1:
+            cls.result["error"] = cls._error("user_not_found")
+            return cls.result
+
+        # ----------------------------------------------------------------
+        # update user data
+
+        cls.result["update_setting"] = cls.DB.update(
+            table="owners",
+            value={
+                "theme": user_theme,
+                "default_owner_publish": user_default_owner_publish,
+                "default_clip_mode": user_default_clip_mode,
+                "updated_at": now
+            },
+            where={
+                "hash": user_hash,
+                "password_hash": user_password_hash
+            }
+        )
+
+        # ----------------------------------------------------------------
+        # select user data
+
+        user_data = cls.DB.select(
+            table="owners",
+            column=[
+                "theme",
+                "default_owner_publish",
+                "default_clip_mode",
+                "updated_at"
+            ],
+            where={
+                "hash": user_hash,
+                "password_hash": user_password_hash
+            }
+        )
+
+        for key in user_data[0].keys():
+            cls.result[key] = user_data[0][key]
+
+        # ----------------------------------------------------------------
+        # return
+
         cls.result["result"] = True
         return cls.result
 
@@ -401,6 +514,12 @@ class User:
                 "{} error".format(cls.NAME): {
                     "code": 401,
                     "message": "The combination of the e-mail address and the password is incorrect."
+                }
+            },
+            "user_not_found": {
+                "{} error".format(cls.NAME): {
+                    "code": 402,
+                    "message": "User data not found."
                 }
             },
             "corrupt_userdata": {
