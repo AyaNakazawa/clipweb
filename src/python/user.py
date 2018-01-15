@@ -421,7 +421,7 @@ class User:
             return cls.result
 
         if num_user_data < 1:
-            cls.result["error"] = cls._error("user_not_found")
+            cls.result["error"] = cls._error("password_incorrect")
             return cls.result
 
         # ----------------------------------------------------------------
@@ -637,9 +637,15 @@ class User:
                     "message": "The combination of the e-mail address and the password is incorrect."
                 }
             },
-            "user_not_found": {
+            "password_incorrect": {
                 "{} error".format(cls.NAME): {
                     "code": 402,
+                    "message": "Password is incorrect."
+                }
+            },
+            "user_not_found": {
+                "{} error".format(cls.NAME): {
+                    "code": 403,
                     "message": "User data not found."
                 }
             },
