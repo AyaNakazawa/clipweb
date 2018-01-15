@@ -68,9 +68,9 @@ class UserModel extends CommonModel {
     // ユーザ情報
 
     // ユーザ名
-    this.USERNAME = 'test';
+    this.USERNAME = '';
     // メールアドレス
-    this.EMAIL = 'test@test';
+    this.EMAIL = '';
     // パスワード
     this.PASSWORD = '';
     this.PASSWORD_NEW = '';
