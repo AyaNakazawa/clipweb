@@ -835,8 +835,8 @@ class Crypto {
     const ENCRYPTED = CryptoJS.AES.encrypt(DATA, KEY, OPTIONS);
 
     result += Crypto.stringifyHex(SALT);
-    result += (':' + Crypto.stringifyHex(IV));
-    result += (':' + ENCRYPTED);
+    result += (',' + Crypto.stringifyHex(IV));
+    result += (',' + ENCRYPTED);
 
     return result;
   }
@@ -854,7 +854,7 @@ class Crypto {
 
     let result = '';
 
-    const DATA = _data.split(':');
+    const DATA = _data.split(',');
 
     const ENCRYPTED = Crypto.parseBase64(DATA[2]);
     const PASSWORD = Crypto.parseUTF8(_password);
