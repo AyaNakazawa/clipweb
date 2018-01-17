@@ -58,9 +58,6 @@ EX.String.count = function (target) {
 **/
 
 EX.Object.getType = function(obj = null) {
-  if (obj === null) {
-    obj = this;
-  }
   return Object.prototype.toString.call(obj).slice(8, -1);
 };
 
