@@ -224,9 +224,6 @@ class CommonModel extends CommonClass {
     this.TRIGGER.POST.SUCCESS = `${Project.KEY}.${this.ID}.post.success`;
     this.TRIGGER.POST.ERROR = `${Project.KEY}.${this.ID}.post.error`;
     this.TRIGGER.POST.COMPLETE = `${Project.KEY}.${this.ID}.post.complete`;
-
-    Log.obj(this.TRIGGER.VIEW)();
-    Log.obj(this.TRIGGER.POST)();
   }
 }
 
