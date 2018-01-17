@@ -812,6 +812,51 @@ class CommonEvent extends CommonClass {
   }
 
   // ----------------------------------------------------------------
+  // triggers
+
+  setTrigger () {
+    this.setOn({
+      trigger: this.MODEL.TRIGGER.VIEW.SHOW,
+      func: () => {
+        super.log('Show', 'Submit')();
+        this.VIEW.show();
+      }
+    });
+
+    this.setOn({
+      trigger: this.MODEL.TRIGGER.VIEW.HIDE,
+      func: () => {
+        super.log('Hide', 'Submit')();
+        this.VIEW.hide();
+      }
+    });
+
+    this.setOn({
+      trigger: this.MODEL.TRIGGER.VIEW.CLEAR,
+      func: () => {
+        super.log('Clear', 'Submit')();
+        this.VIEW.clear();
+      }
+    });
+
+    this.setOn({
+      trigger: this.MODEL.TRIGGER.VIEW.REMOVE,
+      func: () => {
+        super.log('Remove', 'Submit')();
+        this.VIEW.remove();
+      }
+    });
+
+    this.setOn({
+      trigger: this.MODEL.TRIGGER.VIEW.SCROLL,
+      func: () => {
+        super.log('Scroll', 'Submit')();
+        this.VIEW.scroll();
+      }
+    });
+  }
+
+  // ----------------------------------------------------------------
   // validate
 
   setValidate (
@@ -890,6 +935,7 @@ class CommonController extends CommonClass {
     this.assignType(this.MODEL, 'Function');
 
     this.applyObject();
+    this.EVENT.setTrigger();
     this.VIEW.initView();
   }
 
