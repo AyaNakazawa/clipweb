@@ -734,7 +734,13 @@ class CommonEvent extends CommonClass {
     func = () => {}
   } = {}) {
     if (selector != null) {
-      $(this.MODEL.COMMON.SELECTOR.ROOT).on(trigger, selector, func);
+      if (Object.getType(trigger) == 'Array') {
+        for (let _triggerStr of trigger) {
+          $(this.MODEL.COMMON.SELECTOR.ROOT).on(_triggerStr, selector, func);
+        }
+      } else if (Object.getType(trigger) == 'String') {
+        $(this.MODEL.COMMON.SELECTOR.ROOT).on(trigger, selector, func);
+      }
     } else {
       $(this.MODEL.COMMON.SELECTOR.ROOT).on(trigger, func);
     }
@@ -747,7 +753,13 @@ class CommonEvent extends CommonClass {
     selector = null
   } = {}) {
     if (selector != null) {
-      $(this.MODEL.COMMON.SELECTOR.ROOT).off(trigger, selector);
+      if (Object.getType(trigger) == 'Array') {
+        for (let _triggerStr of trigger) {
+          $(this.MODEL.COMMON.SELECTOR.ROOT).off(_triggerStr, selector);
+        }
+      } else if (Object.getType(trigger) == 'String') {
+        $(this.MODEL.COMMON.SELECTOR.ROOT).off(trigger, selector);
+      }
     } else {
       $(this.MODEL.COMMON.SELECTOR.ROOT).off(trigger);
     }
