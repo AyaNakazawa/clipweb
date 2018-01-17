@@ -5,7 +5,7 @@
 // ----------------------------------------------------------------
 // Model
 
-class UserModel extends CommonModel {
+class UserModel extends ClipwebModel {
   constructor (
     initSetting = {
       NAME: 'User Object'
@@ -26,45 +26,23 @@ class UserModel extends CommonModel {
     // 識別子
     this.KEY = 'user';
 
-    this.TYPE = {};
-    this.TYPE.REGISTER = 'register';
-    this.TYPE.LOGIN = 'login';
-    this.TYPE.LOGOUT = 'logout';
-    this.TYPE.LEAVE = 'leave';
-    this.TYPE.INFO = 'info';
-    this.TYPE.SETTING = 'setting';
-
-    this.TIMING = {};
-    this.TIMING.AFTER = 'after';
-    this.TIMING.BEFORE = 'before';
-
-    // ----------------------------------------------------------------
-    // 時間
-    this.TIME = {};
-    this.TIME.POST = new Date();
-    this.TIME.BEFORE_SEND = new Date();
-    this.TIME.RETURN = new Date();
-    this.TIME.COMPLETE = new Date();
-
     // ----------------------------------------------------------------
     // ステータス
-    this.STATUS = {};
     this.STATUS.LOGIN = false;
     this.STATUS.AUTO = false;
     this.STATUS.LS_LOAD = false;
 
     // ----------------------------------------------------------------
     // LocalStorageキー
-    this.LS = {};
-    this.LS.LOGIN = 'login';
+    this.LS.LOGIN = 'user.lgi';
 
     this.LS.AUTO = {};
-    this.LS.AUTO.LOGIN = 'auto.login';
-    this.LS.AUTO.EMAIL = 'auto.em';
+    this.LS.AUTO.LOGIN = 'user.at.lgi';
+    this.LS.AUTO.EMAIL = 'user.at.em';
 
     this.LS.AUTO.HASH = {};
-    this.LS.AUTO.HASH.PASSWORD = 'auto.ph';
-    this.LS.AUTO.HASH.DECRYPT_CRYPTO = 'auto.dch';
+    this.LS.AUTO.HASH.PASSWORD = 'user.at.ph';
+    this.LS.AUTO.HASH.DECRYPT_CRYPTO = 'user.at.dch';
 
     // ----------------------------------------------------------------
     // ユーザ情報
@@ -125,7 +103,6 @@ class UserModel extends CommonModel {
 
     // ----------------------------------------------------------------
     // テンプレート
-    this.TEMPLATE = {};
     this.TEMPLATE.LOGIN = '#login-template';
     this.TEMPLATE.REGISTER = '#register-template';
     this.TEMPLATE.SETTING = '#user-setting-template';
@@ -133,36 +110,11 @@ class UserModel extends CommonModel {
     this.TEMPLATE.LOGOUT = '#logout-template';
 
     // ----------------------------------------------------------------
-    // バリデーション
-    this.VALIDATE = {};
-    this.VALIDATE.LENGTH = {};
-    this.VALIDATE.LENGTH.MIN_USERNAME = 3;
-    this.VALIDATE.LENGTH.MAX_USERNAME = 32;
-    this.VALIDATE.LENGTH.MIN_PASSWORD = 8;
-    this.VALIDATE.LENGTH.MAX_PASSWORD = 32;
-
-    this.VALIDATE.PATTERN = {};
-    this.VALIDATE.PATTERN.PASSWORD = '^[a-zA-Z0-9]*(?:[a-zA-Z][0-9]|[0-9][a-zA-Z])[a-zA-Z0-9]*$';
-
-    // ----------------------------------------------------------------
     // オフセット
     this.COMMON.OFFSET = -8;
 
     // ----------------------------------------------------------------
-    // トリガー
-    this.TRIGGER = {};
-
-    this.TRIGGER.VIEW = {};
-    this.TRIGGER.VIEW.CLOSE = 'cw.user.view.close';
-
-    this.TRIGGER.POST = {};
-    this.TRIGGER.POST.SUCCESS = 'cw.user.post.success';
-    this.TRIGGER.POST.ERROR = 'cw.user.post.error';
-    this.TRIGGER.POST.COMPLETE = 'cw.user.post.complete';
-
-    // ----------------------------------------------------------------
     // セレクタ
-    this.SELECTOR = {};
 
     // エリア
     this.SELECTOR.AREA = '#user-area';
@@ -212,7 +164,7 @@ class UserModel extends CommonModel {
 // ----------------------------------------------------------------
 // View
 
-class UserView extends CommonView {
+class UserView extends ClipwebView {
   constructor (
     initSetting = {
       NAME: 'User View'
@@ -387,7 +339,7 @@ class UserView extends CommonView {
 // ----------------------------------------------------------------
 // Event
 
-class UserEvent extends CommonEvent {
+class UserEvent extends ClipwebEvent {
   constructor (
     initSetting = {
       NAME: 'User Event'
@@ -397,7 +349,7 @@ class UserEvent extends CommonEvent {
   }
 
   setEvent () {
-    this.setClose();
+    this.setHide();
     this.setRegister();
     this.setLogin();
     this.setLogout();
@@ -406,21 +358,13 @@ class UserEvent extends CommonEvent {
   }
 
   // ----------------------------------------------------------------
-  // close
+  // hide
 
-  setClose () {
+  setHide () {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} .content-header-button`,
       func: () => {
-        this.trigger({ trigger: this.MODEL.TRIGGER.VIEW.CLOSE });
-      }
-    });
-
-    super.setOn({
-      trigger: this.MODEL.TRIGGER.VIEW.CLOSE,
-      func: () => {
-        super.log('Close', 'Submit')();
-        this.VIEW.hide();
+        this.trigger({ trigger: this.MODEL.TRIGGER.VIEW.HIDE });
       }
     });
   }
@@ -619,7 +563,7 @@ class UserEvent extends CommonEvent {
 // ----------------------------------------------------------------
 // Controller
 
-class UserController extends CommonController {
+class UserController extends ClipwebController {
   constructor (
     model = {},
     initSetting = {
@@ -657,25 +601,6 @@ class UserController extends CommonController {
   // ----------------------------------------------------------------
   // open
 
-  open ({
-    mode = this.MODEL.KEY,
-    type = null,
-    model = {}
-  } = {}) {
-    if (type != null) {
-      model['type'] = type;
-    }
-
-    if (mode == this.MODEL.KEY) {
-      this.VIEW.generateArea(model);
-    } else if (mode == ClipListModel.MODEL.KEY) {
-      CLIPLIST.open(type, model);
-    } else {
-      Log.error(arguments, 'unknown mode')();
-      return;
-    }
-  }
-
   openLogin (
     model = {}
   ) {
@@ -704,45 +629,6 @@ class UserController extends CommonController {
     model = {}
   ) {
     this.open({ type: this.MODEL.TYPE.REGISTER, model: model });
-  }
-
-  openLoading (
-    type = null
-  ) {
-    if (type == null) {
-      Log.error(arguments)();
-      return;
-    }
-    let _loadingHeader = null;
-
-    if (type == this.MODEL.TYPE.REGISTER) {
-      _loadingHeader = LN.get('loading_header_register');
-
-    } else if (type == this.MODEL.TYPE.LOGIN) {
-      _loadingHeader = LN.get('loading_header_login');
-
-    } else if (type == this.MODEL.TYPE.LOGOUT) {
-      _loadingHeader = LN.get('loading_header_logout');
-
-    } else if (type == this.MODEL.TYPE.LEAVE) {
-      _loadingHeader = LN.get('loading_header_leaving');
-
-    } else if (type == this.MODEL.TYPE.SETTING) {
-      _loadingHeader = LN.get('loading_header_setting');
-
-    } else if (type == this.MODEL.TYPE.INFO) {
-      _loadingHeader = LN.get('loading_header_info');
-
-    } else {
-      Log.error(arguments, 'unknown type.')();
-      return;
-    }
-
-    this.open({
-      model: {
-        loadingHeader: _loadingHeader
-      }
-    });
   }
 
   // ----------------------------------------------------------------
@@ -858,7 +744,12 @@ class UserController extends CommonController {
         }
       });
 
-      this.post(_TYPE);
+      // Post
+      this.updateHash(_TYPE, this.MODEL.TIMING.BEFORE);
+      this.post({
+        type: _TYPE,
+        data: this.getSendModel(_TYPE)
+      });
 
     } else {
       this.open({
@@ -990,7 +881,12 @@ class UserController extends CommonController {
         }
       });
 
-      this.post(_TYPE);
+      // Post
+      this.updateHash(_TYPE, this.MODEL.TIMING.BEFORE);
+      this.post({
+        type: _TYPE,
+        data: this.getSendModel(_TYPE)
+      });
 
     } else {
       this.open({
@@ -1075,8 +971,12 @@ class UserController extends CommonController {
       }
     });
 
-    this.post(_TYPE);
-
+    // Post
+    this.updateHash(_TYPE, this.MODEL.TIMING.BEFORE);
+    this.post({
+      type: _TYPE,
+      data: this.getSendModel(_TYPE)
+    });
   }
 
   submitInfo () {
@@ -1101,10 +1001,10 @@ class UserController extends CommonController {
     _validNewPasswordRe = _NEW_PASSWORD_RE[0].validity.valid;
 
     if (_validUsername) {
-      this.MODEL.USERNAME = _USERNAME.val().trim();
+      this.MODEL.USERNAME_NEW = _USERNAME.val().trim();
     }
     if (_validEmail) {
-      this.MODEL.EMAIL = _EMAIL.val().trim();
+      this.MODEL.EMAIL_NEW = _EMAIL.val().trim();
     }
     if (_validPassword) {
       this.MODEL.PASSWORD = _PASSWORD.val();
@@ -1232,7 +1132,12 @@ class UserController extends CommonController {
         }
       });
 
-      this.post(_TYPE);
+      // Post
+      this.updateHash(_TYPE, this.MODEL.TIMING.BEFORE);
+      this.post({
+        type: _TYPE,
+        data: this.getSendModel(_TYPE)
+      });
 
     } else {
       this.open({
@@ -1380,7 +1285,12 @@ class UserController extends CommonController {
         }
       });
 
-      this.post(_TYPE);
+      // Post
+      this.updateHash(_TYPE, this.MODEL.TIMING.BEFORE);
+      this.post({
+        type: _TYPE,
+        data: this.getSendModel(_TYPE)
+      });
 
     } else {
       this.open({
@@ -1542,8 +1452,8 @@ class UserController extends CommonController {
     } else if (type == this.MODEL.TYPE.INFO) {
       // INFO
       this.MODEL.USERNAME = this.getAjaxData({ key: 'username' });
+      this.MODEL.EMAIL = this.getAjaxData({ key: 'email_address' });
       this.MODEL.ENCRYPT.CRYPTO = this.getAjaxData({ key: 'encrypted_crypto_hash' });
-      this.MODEL.EMAIL_AUTH = this.getAjaxData({ key: 'email_authentication' });
       this.MODEL.UPDATED_AT = this.getAjaxData({ key: 'updated_at' });
       if (this.MODEL.PASSWORD_NEW.length > 0) {
         this.MODEL.PASSWORD = this.MODEL.PASSWORD_NEW;
@@ -1573,52 +1483,16 @@ class UserController extends CommonController {
     this.MODEL.HASH = {};
   }
 
-  getAjaxData ({
-    type = this.MODEL.KEY,
-    key = null
-  } = {}) {
-    if (key == null) {
-      return this.MODEL.OBJECT.AJAX[type];
-    }
-    if (typeof this.MODEL.OBJECT.AJAX[type] == 'undefined') {
-      Log.error(arguments, 'type undefined', this.MODEL.OBJECT.AJAX)();
-      return;
-    }
-    if (typeof this.MODEL.OBJECT.AJAX[type][key] != 'undefined') {
-      return this.MODEL.OBJECT.AJAX[type][key];
-    } else {
-      Log.error(arguments, 'key undefined', this.MODEL.OBJECT.AJAX)();
-      return;
-    }
-  }
-
-  // ----------------------------------------------------------------
-  // post
-
-  post (
+  getSendModel (
     type = null
   ) {
     if (type == null) {
+      Log.error(arguments)();
       return;
     }
-
-    super.log()();
-    Log.log('Post', Log.ALIGN_CENTER)();
-    super.log('post', type.capitalize())();
-
-    let _path = 'python/clipweb.py';
     let _model = {};
-    let _method = 'GET';
-    let _cache = false;
-    let _dateType = 'json';
-
-    _model['type'] = `${this.MODEL.KEY}.${type.toLowerCase()}`;
-
-    this.updateHash(type, this.MODEL.TIMING.BEFORE);
-
     if (type == this.MODEL.TYPE.REGISTER) {
       // REGISTER
-      _method = 'POST';
       _model['hash'] = this.MODEL.HASH.USER;
       _model['username'] = this.MODEL.USERNAME;
       _model['email_address'] = this.MODEL.EMAIL;
@@ -1627,18 +1501,15 @@ class UserController extends CommonController {
 
     } else if (type == this.MODEL.TYPE.LOGIN) {
       // LOGIN
-      _method = 'GET';
       _model['email_address'] = this.MODEL.EMAIL;
       _model['password_hash'] = this.MODEL.HASH.PASSWORD;
 
     } else if (type == this.MODEL.TYPE.LOGOUT) {
       // LOGOUT
-      _method = 'GET';
       _model['hash'] = this.MODEL.HASH.USER;
 
     } else if (type == this.MODEL.TYPE.LEAVE) {
       // LEAVE
-      _method = 'POST';
       _model['hash'] = this.MODEL.HASH.USER;
       _model['username'] = this.MODEL.USERNAME;
       _model['email_address'] = this.MODEL.EMAIL;
@@ -1646,11 +1517,10 @@ class UserController extends CommonController {
 
     } else if (type == this.MODEL.TYPE.INFO) {
       // INFO
-      _method = 'POST';
       _model['hash'] = this.MODEL.HASH.USER;
-      _model['username'] = this.MODEL.USERNAME;
-      _model['email_address'] = this.MODEL.EMAIL;
       _model['password_hash'] = this.MODEL.HASH.PASSWORD;
+      _model['username'] = this.MODEL.USERNAME_NEW;
+      _model['email_address'] = this.MODEL.EMAIL_NEW;
       if (this.MODEL.HASH.PASSWORD_NEW != '') {
         _model['password_hash_new'] = this.MODEL.HASH.PASSWORD_NEW;
       }
@@ -1658,7 +1528,6 @@ class UserController extends CommonController {
 
     } else if (type == this.MODEL.TYPE.SETTING) {
       // SETTING
-      _method = 'POST';
       _model['hash'] = this.MODEL.HASH.USER;
       _model['password_hash'] = this.MODEL.HASH.PASSWORD;
       _model['theme'] = this.MODEL.THEME;
@@ -1670,80 +1539,6 @@ class UserController extends CommonController {
       return;
     }
 
-    super.log('data')(_model);
-
-    this.MODEL.TIME.POST = new Date();
-
-    $.ajax({
-      url: _path,
-      data: _model,
-      method: _method,
-      cache: _cache,
-      beforeSend: (jqXHR, settings) => {
-        this.MODEL.TIME.BEFORE_SEND = new Date();
-        super.log()();
-        Log.log('Post Before Send', Log.ALIGN_CENTER)();
-        super.log('post', 'Send')();
-        super.log('settings')(settings);
-        // super.log('jqXHR')(jqXHR);
-      },
-      success: (data, textStatus, jqXHR) => {
-        this.MODEL.TIME.RETURN = new Date();
-        data = JSON.parse(data);
-        super.log()();
-        Log.log('Post Success', Log.ALIGN_CENTER)();
-        super.log('post', 'Success')();
-        // super.log('textStatus', textStatus)();
-        super.log('data')(data);
-        // super.log('jqXHR')(jqXHR);
-        super.log()();
-        this.MODEL.OBJECT.AJAX = data;
-        this.EVENT.trigger({ trigger: this.MODEL.TRIGGER.POST.SUCCESS });
-      },
-      error: (jqXHR, textStatus, errorThrown) => {
-        this.MODEL.TIME.RETURN = new Date();
-        super.log()();
-        Log.log('Post Error', Log.ALIGN_CENTER)();
-        super.log('post', 'Error')();
-        super.log('textStatus', textStatus)();
-        super.log('errorThrown', errorThrown)();
-        super.log('jqXHR')(jqXHR);
-        super.log()();
-        this.EVENT.trigger({ trigger: this.MODEL.TRIGGER.POST.ERROR });
-      },
-      complete: (jqXHR, textStatus) => {
-        this.MODEL.TIME.COMPLETE = new Date();
-        super.log()();
-        Log.log('Post Complete', Log.ALIGN_CENTER)();
-        super.log('post', 'Complete')();
-        // super.log('textStatus', textStatus)();
-        // super.log('jqXHR')(jqXHR);
-        const _EXEC_TIME = parseInt(this.getAjaxData({ type: 'exec_time' }) * 1000);
-        Log.log('Post Time', Log.ALIGN_CENTER)();
-        Log.classKey(
-          'Before Send',
-          new Date(this.MODEL.TIME.BEFORE_SEND - this.MODEL.TIME.POST).formatString('%S.%MSs'),
-          new Date(this.MODEL.TIME.BEFORE_SEND - this.MODEL.TIME.POST).formatString('%S.%MSs')
-        )();
-        Log.classKey(
-          'Server Exec',
-          new Date(_EXEC_TIME).formatString('%S.%MSs'),
-          new Date(_EXEC_TIME + (this.MODEL.TIME.BEFORE_SEND - this.MODEL.TIME.POST)).formatString('%S.%MSs')
-        )();
-        Log.classKey(
-          'Network Delay',
-          new Date((this.MODEL.TIME.RETURN - this.MODEL.TIME.BEFORE_SEND) - _EXEC_TIME).formatString('%S.%MSs'),
-          new Date(this.MODEL.TIME.RETURN - this.MODEL.TIME.POST).formatString('%S.%MSs')
-        )();
-        Log.classKey(
-          'Post Complete',
-          new Date(this.MODEL.TIME.COMPLETE - this.MODEL.TIME.RETURN).formatString('%S.%MSs'),
-          new Date(this.MODEL.TIME.COMPLETE - this.MODEL.TIME.POST).formatString('%S.%MSs')
-        )();
-        super.log()();
-        this.EVENT.trigger({ trigger: this.MODEL.TRIGGER.POST.COMPLETE });
-      }
-    });
+    return _model;
   }
-
 }
