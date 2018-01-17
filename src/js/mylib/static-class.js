@@ -872,3 +872,124 @@ class Crypto {
     return result;
   }
 }
+
+class Random {
+  static rand (
+    min = null,
+    max = null,
+    type = 'int'
+  ) {
+    if (min == null || max == null) {
+      Log.error(arguments, 'Need min & max of argument. X(')();
+      return;
+    }
+    const _DIVIDE = this._calcDivide(max - min, 'uint');
+    let _array = new Uint32Array(1);
+    window.crypto.getRandomValues(_array);
+    const _RESULT = (_array[0] / _DIVIDE) + min;
+
+    if (type == 'int') {
+      return parseInt(_RESULT);
+
+    } else if (type == 'float') {
+      return _RESULT;
+
+    } else {
+      Log.error(arguments, 'Unknown type. X(', 'e.g. "int" or "float"')();
+      return;
+    }
+  }
+
+  static randInt (
+    min = null,
+    max = null
+  ) {
+    return this.rand(min, max, 'int');
+  }
+
+  static randFloat (
+    min = null,
+    max = null
+  ) {
+    return this.rand(min, max, 'float');
+  }
+
+  static hex (
+    length = null
+  ) {
+    if (length == null) {
+      Log.error(arguments, 'Need length of argument. X(')();
+      return;
+    }
+    return SHA256.getHash(this.rand(this.getMin('uint'), this.getMax('uint')).toString()).substr(0, length);
+  }
+
+  static getMin (
+    type = null
+  ) {
+    const _MINS = {
+      sbyte: -128,
+      byte: 0,
+      short: -32768,
+      ushort: 0,
+      int: -2147483648,
+      uint: 0,
+      long: -9223372036854775808,
+      ulong: 0,
+    };
+    if (type in _MINS) {
+      return _MINS[type];
+    } else {
+      if (type == null) {
+        Log.error(arguments, 'Need type of argument. X(', 'e.g. "int" or "sbyte" etc..')();
+        return;
+      } else {
+        Log.error(arguments, 'Unknown type X(')();
+        return;
+      }
+    }
+  }
+
+  static getMax (
+    type = null
+  ) {
+    const _MAXS = {
+      sbyte: 127,
+      byte: 255,
+      short: 32767,
+      ushort: 65535,
+      int: 2147483647,
+      uint: 4294967295,
+      long: 9223372036854775807,
+      ulong: 18446744073709551615
+    };
+    if (type in _MAXS) {
+      return _MAXS[type];
+    } else {
+      if (type == null) {
+        Log.error(arguments, 'Need type of argument. X(', 'e.g. "int" or "sbyte" etc..')();
+        return;
+      } else {
+        Log.error(arguments, 'Unknown type X(')();
+        return;
+      }
+    }
+  }
+
+  static _calcDivide (
+    diff = null,
+    type = null
+  ) {
+    if (diff == 0) {
+      Log.error(arguments, 'Need make B and C different values. X(')();
+      return;
+    } else if (diff == null) {
+      Log.error(arguments, 'Need diff of argument. X(')();
+      return;
+    } else if (type == null) {
+      Log.error(arguments, 'Need type of argument. X(')();
+      return;
+    }
+    return this.getMax(type) / diff;
+  }
+}
