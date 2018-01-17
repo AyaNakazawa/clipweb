@@ -14,7 +14,6 @@ class CommonClass {
     Object.assign(this, common, initSetting);
 
     this.OBJECT = {};
-    this.OBJECT.LOG = {};
 
     if (this.VIEW_OBJECT) {
       this.logNameModel();
