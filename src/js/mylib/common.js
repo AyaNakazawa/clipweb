@@ -769,13 +769,22 @@ class CommonEvent extends CommonClass {
 
   trigger ({
     trigger = null,
-    selector = this.MODEL.COMMON.SELECTOR.ROOT
+    selector = this.MODEL.COMMON.SELECTOR.ROOT,
+    model = null
   } = {}) {
-    if (trigger == null) {
-      Log.error(arguments)();
-      return;
+    if (model != null) {
+      if (Object.getType(model) == 'Array') {
+        for (let set of model) {
+          $(set[0]).trigger(set[1]);
+        }
+      }
+    } else {
+      if (trigger == null) {
+        Log.error(arguments)();
+        return;
+      }
+      $(selector).trigger(trigger);
     }
-    $(selector).trigger(trigger);
     // Method chain
     return this;
   }
