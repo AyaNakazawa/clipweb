@@ -306,15 +306,16 @@ class CommonView extends CommonClass {
     if (Object.getType(arguments[0]) == 'String') {
       selector = arguments[0];
     }
+
+    let _selector = `${parentSelector} ${selector}`;
     if (selector == null) {
-      Log.error(arguments)();
-      return;
+      _selector = selector;
     }
 
     if (delay > 0) {
-      $(`${parentSelector} ${selector}`).delay(delay).remove();
+      $(_selector).delay(delay).remove();
     } else {
-      $(`${parentSelector} ${selector}`).remove();
+      $(_selector).remove();
     }
     // Method chain
     return this;
