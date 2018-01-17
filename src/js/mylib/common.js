@@ -80,6 +80,8 @@ class CommonModel extends CommonClass {
     super(initSetting, common);
 
     this.COMMON = {};
+    this.generateId();
+
     this.COMMON.BODY = 'html, body';
     this.COMMON.ACTIVE = 'active';
     this.COMMON.HOVER = 'hover';
@@ -205,6 +207,11 @@ class CommonModel extends CommonClass {
       }
     }
     return result;
+  }
+
+  generateId () {
+    this.ID = Random.hex(7);
+    this.COMMON.ID = this.ID;
   }
 }
 
