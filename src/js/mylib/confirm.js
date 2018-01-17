@@ -11,7 +11,7 @@ class ConfirmModel extends CommonModel {
       NAME: 'Confirm Object',
       id: null,
       title: '',
-      content: null,
+      content: '',
       type: Confirm.TYPE_YES_NO,
       show: true,
       backdrop: true,
@@ -248,7 +248,7 @@ class ConfirmController extends CommonController {
 
   selectYes () {
     super.log(this.MODEL.id, 'Yes', Log.ARROW_INPUT)();
-    if (Object.getType(this.MODEL.functionYes) == 'Function' && this.MODEL.functionYes != null) {
+    if (Object.getType(this.MODEL.functionYes) == 'Function') {
       super.log('Yes', 'Exec', Log.ARROW_INPUT)();
       this.MODEL.functionYes();
     }
@@ -256,7 +256,7 @@ class ConfirmController extends CommonController {
 
   selectNo () {
     super.log(this.MODEL.id, 'No', Log.ARROW_INPUT)();
-    if (Object.getType(this.MODEL.functionNo) == 'Function' && this.MODEL.functionNo != null) {
+    if (Object.getType(this.MODEL.functionNo) == 'Function') {
       super.log('No', 'Exec', Log.ARROW_INPUT)();
       this.MODEL.functionNo();
     }
@@ -265,7 +265,7 @@ class ConfirmController extends CommonController {
   destroy () {
     setTimeout(() => {
       super.log(this.MODEL.id, 'Close', Log.ARROW_INPUT)();
-      if (Object.getType(this.MODEL.functionClose) == 'Function' && this.MODEL.functionClose != null) {
+      if (Object.getType(this.MODEL.functionClose) == 'Function') {
         super.log('Close', 'Exec', Log.ARROW_INPUT)();
         this.MODEL.functionClose();
       }
