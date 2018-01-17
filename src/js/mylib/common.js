@@ -133,18 +133,16 @@ class CommonModel extends CommonClass {
     this.COMMON.EASING.HIDE = 'easeOutCubic';
     this.COMMON.EASING.SCROLL = 'easeInOutCubic';
 
-    this.COMMON.TRIGGER = {};
-    this.COMMON.TRIGGER.SCROLL = null;
-    this.COMMON.TRIGGER.CLEAR = null;
-    this.COMMON.TRIGGER.SHOW = null;
-    this.COMMON.TRIGGER.HIDE = null;
-
     this.COMMON.SELECTOR = {};
     this.COMMON.SELECTOR.ROOT = document;
     this.COMMON.SELECTOR.AREA = '#area';
 
     this.SELECTOR = {};
     this.SELECTOR.AREA = this.COMMON.SELECTOR.AREA;
+
+    this.TRIGGER = {};
+    this.generateTrigger();
+
   }
 
   // Add var to Instance
@@ -212,6 +210,23 @@ class CommonModel extends CommonClass {
   generateId () {
     this.ID = Random.hex(7);
     this.COMMON.ID = this.ID;
+  }
+
+  generateTrigger () {
+    this.TRIGGER.VIEW = {};
+    this.TRIGGER.VIEW.SHOW = `${Project.KEY}.${this.ID}.view.show`;
+    this.TRIGGER.VIEW.HIDE = `${Project.KEY}.${this.ID}.view.hide`;
+    this.TRIGGER.VIEW.CLEAR = `${Project.KEY}.${this.ID}.view.clear`;
+    this.TRIGGER.VIEW.REMOVE = `${Project.KEY}.${this.ID}.view.remove`;
+    this.TRIGGER.VIEW.SCROLL = `${Project.KEY}.${this.ID}.view.scroll`;
+
+    this.TRIGGER.POST = {};
+    this.TRIGGER.POST.SUCCESS = `${Project.KEY}.${this.ID}.post.success`;
+    this.TRIGGER.POST.ERROR = `${Project.KEY}.${this.ID}.post.error`;
+    this.TRIGGER.POST.COMPLETE = `${Project.KEY}.${this.ID}.post.complete`;
+
+    Log.obj(this.TRIGGER.VIEW)();
+    Log.obj(this.TRIGGER.POST)();
   }
 }
 
