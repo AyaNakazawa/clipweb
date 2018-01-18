@@ -43,7 +43,7 @@ class Process extends CommonProcess {
     NAV = new NavController();
     // HELP = new HelpController();
     USER = new UserController();
-    LIST = new ClipListController();
+    LIST = new ListController();
   }
 
   show () {

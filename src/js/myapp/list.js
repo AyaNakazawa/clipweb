@@ -5,10 +5,10 @@
 // ----------------------------------------------------------------
 // Model
 
-class ClipListModel extends ClipwebModel {
+class ListModel extends ClipwebModel {
   constructor (
     initSetting = {
-      NAME: 'clipweb List Object'
+      NAME: 'List Object'
     }
   ) {
     super(initSetting);
@@ -76,10 +76,10 @@ class ClipListModel extends ClipwebModel {
 // ----------------------------------------------------------------
 // View
 
-class ClipListView extends ClipwebView {
+class ListView extends ClipwebView {
   constructor (
     initSetting = {
-      NAME: 'clipweb List View'
+      NAME: 'List View'
     }
   ) {
     super(initSetting);
@@ -175,10 +175,10 @@ class ClipListView extends ClipwebView {
 // ----------------------------------------------------------------
 // Event
 
-class ClipListEvent extends ClipwebEvent {
+class ListEvent extends ClipwebEvent {
   constructor (
     initSetting = {
-      NAME: 'clipweb List Event'
+      NAME: 'List Event'
     }
   ) {
     super(initSetting);
@@ -301,14 +301,14 @@ class ClipListEvent extends ClipwebEvent {
 // ----------------------------------------------------------------
 // Controller
 
-class ClipListController extends ClipwebController {
+class ListController extends ClipwebController {
   constructor (
     model = {},
     initSetting = {
-      NAME: 'clipweb List Controller',
-      MODEL: new ClipListModel(),
-      VIEW: new ClipListView(),
-      EVENT: new ClipListEvent()
+      NAME: 'List Controller',
+      MODEL: new ListModel(),
+      VIEW: new ListView(),
+      EVENT: new ListEvent()
     }
   ) {
     super(model, initSetting);
@@ -327,7 +327,7 @@ class ClipListController extends ClipwebController {
   // ----------------------------------------------------------------
   // ajax
 
-  loadClipList () {
+  loadList () {
     const _TYPE = this.MODEL.TYPE.SEARCH;
     this.MODEL.STATUS.GET = false;
 
