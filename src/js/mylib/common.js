@@ -762,6 +762,28 @@ class CommonView extends CommonClass {
     // Method chain
     return this;
   }
+
+  generateHeader ({
+    selector = this.MODEL.SELECTOR.AREA,
+    id = null,
+    header = null,
+    icon = null,
+    tabindex = null
+  } = {}) {
+    if (selector == null || header == null) {
+      Log.error(arguments)();
+      return;
+    }
+
+    $(selector).prepend(Content.getHeader({
+      id: id,
+      header: header,
+      icon: icon,
+      tabindex: tabindex
+    }));
+    // Method chain
+    return this;
+  }
 }
 
 // ----------------------------------------------------------------
