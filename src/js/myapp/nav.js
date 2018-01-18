@@ -5,7 +5,7 @@
 // ----------------------------------------------------------------
 // Model
 
-class NavModel extends CommonModel {
+class NavModel extends ClipwebModel {
   constructor (
     initSetting = {
       NAME: 'Nav Object',
@@ -22,6 +22,7 @@ class NavModel extends CommonModel {
     this.SELECTOR.NAV.REGISTER = 'nav-register';
     this.SELECTOR.NAV.SETTING = 'nav-setting';
     this.SELECTOR.NAV.LOGOUT = 'nav-logout';
+    this.SELECTOR.NAV.LIST = 'nav-list';
     this.SELECTOR.NAV.HELP = 'nav-help';
 
     this.SELECTOR.HEADER = {};
@@ -33,7 +34,7 @@ class NavModel extends CommonModel {
 // ----------------------------------------------------------------
 // View
 
-class NavView extends CommonView {
+class NavView extends ClipwebView {
   constructor (
     initSetting = {
       NAME: 'Nav View'
@@ -117,6 +118,10 @@ class NavView extends CommonView {
     this.addNavSearch();
 
     this.addNavItem({
+      id: this.MODEL.SELECTOR.NAV.LIST,
+      name: LN.get('clips')
+    });
+    this.addNavItem({
       id: this.MODEL.SELECTOR.NAV.SETTING,
       name: LN.get('setting')
     });
@@ -134,7 +139,7 @@ class NavView extends CommonView {
 // ----------------------------------------------------------------
 // Event
 
-class NavEvent extends CommonEvent {
+class NavEvent extends ClipwebEvent {
   constructor (
     initSetting = {
       NAME: 'Nav Event'
@@ -174,7 +179,7 @@ class NavEvent extends CommonEvent {
       selector: `#${this.MODEL.SELECTOR.NAV.LOGIN}`,
       func: () => {
         super.log('Login', 'Open')();
-        USER.openLogin();
+        USER.open({ type: this.MODEL.TYPE.LOGIN });
       }
     });
   }
@@ -184,7 +189,7 @@ class NavEvent extends CommonEvent {
       selector: `#${this.MODEL.SELECTOR.NAV.SETTING}`,
       func: () => {
         super.log('User Setting', 'Open')();
-        USER.openSetting();
+        USER.open({ type: this.MODEL.TYPE.SETTING });
       }
     });
   }
@@ -194,7 +199,7 @@ class NavEvent extends CommonEvent {
       selector: `#${this.MODEL.SELECTOR.NAV.LOGOUT}`,
       func: () => {
         super.log('Logout', 'Open')();
-        USER.openLogout();
+        USER.open({ type: this.MODEL.TYPE.LOGOUT });
       }
     });
   }
@@ -204,7 +209,7 @@ class NavEvent extends CommonEvent {
       selector: `#${this.MODEL.SELECTOR.NAV.REGISTER}`,
       func: () => {
         super.log('Register', 'Open')();
-        USER.openRegister();
+        USER.open({ type: this.MODEL.TYPE.REGISTER });
       }
     });
   }
@@ -214,7 +219,7 @@ class NavEvent extends CommonEvent {
       selector: `#${this.MODEL.SELECTOR.NAV.HELP}`,
       func: () => {
         super.log('Help', 'Open')();
-        HELP.openHelp();
+        HELP.open({ type: this.MODEL.TYPE.HELP });
       }
     });
   }
@@ -223,7 +228,7 @@ class NavEvent extends CommonEvent {
 // ----------------------------------------------------------------
 // Controller
 
-class NavController extends CommonController {
+class NavController extends ClipwebController {
   constructor (
     model = {},
     initSetting = {

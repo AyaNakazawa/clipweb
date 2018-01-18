@@ -27,6 +27,9 @@ class ClipwebModel extends CommonModel {
     this.TYPE.LEAVE = 'leave';
     this.TYPE.INFO = 'info';
     this.TYPE.SETTING = 'setting';
+    this.TYPE.LIST = 'list';
+    this.TYPE.LOAD = 'load';
+    this.TYPE.OPEN = 'open';
     this.TYPE.NEW = 'new';
     this.TYPE.SAVE = 'save';
     this.TYPE.DELETE = 'delete';
