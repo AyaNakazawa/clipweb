@@ -691,7 +691,10 @@ class CommonView extends CommonClass {
       Log.error(arguments)();
       return;
     }
-    super.log('View', 'Scroll')();
+    super.log(selector, 'Scroll')();
+
+    // skip
+    this.skip(this.MODEL.COMMON.BODY);
 
     const _TOP = $(selector).offset().top + offset;
 
