@@ -806,6 +806,7 @@ class UserController extends ClipwebController {
               LocalStorage.setItem(this.MODEL.LS.LOGIN, 'true');
               this.MODEL.STATUS.LOGIN = true;
               this.open();
+              LIST.loadList();
             }
           }
         },
