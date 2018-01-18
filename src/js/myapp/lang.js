@@ -23,6 +23,7 @@ class Language {
       clips: 'clips',
 
       list: 'List',
+      history: 'History',
       help: 'Help',
 
       register: 'Register',
@@ -119,6 +120,7 @@ class Language {
       clips: 'クリップ',
 
       list: '一覧',
+      history: '履歴',
       help: 'ヘルプ',
 
       register: '登録',
