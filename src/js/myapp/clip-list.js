@@ -18,7 +18,7 @@ class ClipListModel extends ClipwebModel {
 
     // ----------------------------------------------------------------
     // 識別子
-    this.KEY = 'cliplist';
+    this.KEY = 'list';
 
     // ----------------------------------------------------------------
     // ステータス
@@ -50,7 +50,7 @@ class ClipListModel extends ClipwebModel {
     // セレクタ
 
     // エリア
-    this.SELECTOR.AREA = '#clip-list-area';
+    this.SELECTOR.AREA = '#list-area';
 
     // 検索
     this.SELECTOR.SEARCH = {};
