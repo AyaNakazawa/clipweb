@@ -472,6 +472,7 @@ class CommonView extends CommonClass {
     type = null,
     easing = null,
     view = null,
+    scroll = false,
     callback = null
   } = {}) {
     if (view == null) {
@@ -661,6 +662,11 @@ class CommonView extends CommonClass {
         return;
       }
     }
+
+    if (scroll) {
+      this.scroll({ selector: selector });
+    }
+
     // Method chain
     return this;
   }
