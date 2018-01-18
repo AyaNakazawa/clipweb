@@ -50,6 +50,8 @@ class Language {
       header_setting: 'User Setting',
       header_info: 'User Info',
 
+      header_clip_list: 'clip List',
+
       loading_header_register: 'Registering to clipweb',
       loading_header_login: 'Login to clipweb',
       loading_header_logout: 'Logout from clipweb',
@@ -143,6 +145,8 @@ class Language {
       header_leaving: 'ユーザー削除',
       header_setting: 'ユーザー設定',
       header_info: 'ユーザー情報',
+
+      header_clip_list: 'クリップ一覧',
 
       loading_header_register: 'clipweb に登録中',
       loading_header_login: 'ログイン中',
