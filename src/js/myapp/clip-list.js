@@ -34,6 +34,9 @@ class ClipListModel extends ClipwebModel {
     // 検索文字列
     this.SEARCH = '';
 
+    // クリップ
+    this.CLIPS = null;
+
     // ----------------------------------------------------------------
     // テンプレート
     this.TEMPLATE.SEARCH = '#list-search-template';
@@ -112,90 +115,15 @@ class ClipListView extends ClipwebView {
 
     let _mainTemplate = null;
     let _mainModel = null;
-    if (type == this.MODEL.TYPE.LOGIN) {
-      // LOGIN
-      header = LN.get('header_login');
-      _mainTemplate = this.MODEL.TEMPLATE.LOGIN;
-      _mainModel = {
-        length: {
-          min: {
-            username: this.MODEL.VALIDATE.LENGTH.MIN_USERNAME,
-            password: this.MODEL.VALIDATE.LENGTH.MIN_PASSWORD
-          },
-          max: {
-            username: this.MODEL.VALIDATE.LENGTH.MAX_USERNAME,
-            password: this.MODEL.VALIDATE.LENGTH.MAX_PASSWORD
-          }
-        },
-        email: this.MODEL.EMAIL,
-        pattern: {
-          password: this.MODEL.VALIDATE.PATTERN.PASSWORD
-        },
-        auto_login: this.MODEL.STATUS.AUTO
-      };
-
-    } else if (type == this.MODEL.TYPE.SETTING) {
-      // SETTING
-      header = LN.get('header_setting');
-      _mainTemplate = this.MODEL.TEMPLATE.SETTING;
-      _mainModel = {
-        theme: this.MODEL.THEME,
-        ownerPublish: this.MODEL.OWNER_PUBLISH,
-        clipMode: this.MODEL.CLIP_MODE
-      };
-
-    } else if (type == this.MODEL.TYPE.INFO) {
-      // INFO
-      header = LN.get('header_info');
-      _mainTemplate = this.MODEL.TEMPLATE.INFO;
-      _mainModel = {
-        length: {
-          min: {
-            username: this.MODEL.VALIDATE.LENGTH.MIN_USERNAME,
-            password: this.MODEL.VALIDATE.LENGTH.MIN_PASSWORD
-          },
-          max: {
-            username: this.MODEL.VALIDATE.LENGTH.MAX_USERNAME,
-            password: this.MODEL.VALIDATE.LENGTH.MAX_PASSWORD
-          }
-        },
-        username: this.MODEL.USERNAME,
-        email: this.MODEL.EMAIL,
-        gravatarHash: this.MODEL.HASH.GRAVATAR,
-        pattern: {
-          password: this.MODEL.VALIDATE.PATTERN.PASSWORD
-        }
-      };
-
-    } else if (type == this.MODEL.TYPE.LOGOUT) {
-      // LOGOUT
-      header = LN.get('header_logout');
-      _mainTemplate = this.MODEL.TEMPLATE.LOGOUT;
-      _mainModel = {
-        username: this.MODEL.USERNAME
-      };
-
-    } else if (type == this.MODEL.TYPE.REGISTER) {
-      // REGISTER
-      header = LN.get('header_register');
-      _mainTemplate = this.MODEL.TEMPLATE.REGISTER;
-      _mainModel = {
-        length: {
-          min: {
-            username: this.MODEL.VALIDATE.LENGTH.MIN_USERNAME,
-            password: this.MODEL.VALIDATE.LENGTH.MIN_PASSWORD
-          },
-          max: {
-            username: this.MODEL.VALIDATE.LENGTH.MAX_USERNAME,
-            password: this.MODEL.VALIDATE.LENGTH.MAX_PASSWORD
-          }
-        },
-        username: this.MODEL.USERNAME,
-        email: this.MODEL.EMAIL,
-        pattern: {
-          password: this.MODEL.VALIDATE.PATTERN.PASSWORD
-        }
-      };
+    switch (type) {
+      case this.MODEL.TYPE.SEARCH:
+        // SEARCH
+        header = LN.get('header_clip_list');
+        _mainTemplate = this.MODEL.TEMPLATE.SEARCH;
+        _mainModel = {
+          search: this.MODEL.SEARCH
+        };
+        break;
     }
 
     // Clear
@@ -206,10 +134,14 @@ class ClipListView extends ClipwebView {
       super.log(type.capitalize(), 'Generate')();
     }
 
-    // Header
-    super.append(
-      Content.getHeader(header, headerButton, null, 290)
-    );
+    // Generate Header
+    if (header != null) {
+      super.generateHeader({
+        header: header,
+        icon: headerButton,
+        tabindex: 290
+      });
+    }
 
     // Generate Loading
     if (loadingHeader != null) {
@@ -229,19 +161,14 @@ class ClipListView extends ClipwebView {
 
     // Generate Content
     if (_mainTemplate != null && _mainModel != null) {
-      super.append(
-        View.getTemplate({
-          template: _mainTemplate,
-          model: _mainModel
-        })
-      );
+      super.append({
+        template: _mainTemplate,
+        model: _mainModel
+      });
     }
 
     // View
-    this.setView({ view: view });
-    if (view) {
-      this.scroll();
-    }
+    this.setView({ view: view, scroll: true });
   }
 }
 
@@ -258,16 +185,15 @@ class ClipListEvent extends ClipwebEvent {
   }
 
   setEvent () {
-    this.setHide();
-    this.setSearch();
+    this.setOnHide();
+    this.setOnSearch();
   }
 
   // ----------------------------------------------------------------
   // hide
 
-  setHide () {
-    super.setOn({
-      selector: `${this.MODEL.SELECTOR.AREA} .content-header-button`,
+  setOnHide () {
+    super.setHeaderButton({
       func: () => {
         this.trigger({ trigger: this.MODEL.TRIGGER.VIEW.HIDE });
       }
@@ -277,13 +203,97 @@ class ClipListEvent extends ClipwebEvent {
   // ----------------------------------------------------------------
   // type
 
-  setSearch () {
+  setOnSearch () {
     super.setOn({
-      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.REGISTER.SUBMIT}`,
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.NEW}`,
       func: () => {
-        super.log('Register', 'Submit')();
-        this.CONTROLLER.submitRegister();
+        super.log('Search', 'New')();
+        this.CONTROLLER.submitNew();
       }
+    });
+
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.ORDER_NAME}`,
+      func: () => {
+        super.log('Search', 'Order Name')();
+        this.CONTROLLER.order({ type: this.MODEL.TYPE.NAME });
+      }
+    });
+
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.ORDER_TYPE}`,
+      func: () => {
+        super.log('Search', 'Order Type')();
+        this.CONTROLLER.order({ type: this.MODEL.TYPE.TYPE });
+      }
+    });
+
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.ORDER_UPDATE}`,
+      func: () => {
+        super.log('Search', 'Order Update')();
+        this.CONTROLLER.order({ type: this.MODEL.TYPE.UPDATE });
+      }
+    });
+  }
+
+  setOnClip (
+    hash = null
+  ) {
+    if (hash == null) {
+      Log.error(arguments, 'need hash of argument')();
+      return;
+    }
+    const _SELECTOR = `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.CLIPS} ${hash}`;
+    super.setOn({
+      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.CLIP.EDIT}`,
+      func: () => {
+        super.log(`Clip ${hash}`, 'Edit')();
+        this.CONTROLLER.edit({ hash: hash });
+      }
+    });
+    super.setOn({
+      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.CLIP.DELETE}`,
+      func: () => {
+        super.log(`Clip ${hash}`, 'Delete')();
+        this.CONTROLLER.delete({ hash: hash });
+      }
+    });
+    super.setOn({
+      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.CLIP.SHARE}`,
+      func: () => {
+        super.log(`Clip ${hash}`, 'Share')();
+        this.CONTROLLER.share({ hash: hash });
+      }
+    });
+    super.setOn({
+      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.CLIP.SETTING}`,
+      func: () => {
+        super.log(`Clip ${hash}`, 'Setting')();
+        this.CONTROLLER.setting({ hash: hash });
+      }
+    });
+  }
+
+  setOffClip (
+    hash = null
+  ) {
+    if (hash == null) {
+      Log.error(arguments, 'need hash of argument')();
+      return;
+    }
+    const _SELECTOR = `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.CLIPS} ${hash}`;
+    super.setOff({
+      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.CLIP.EDIT}`
+    });
+    super.setOff({
+      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.CLIP.DELETE}`
+    });
+    super.setOff({
+      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.CLIP.SHARE}`
+    });
+    super.setOff({
+      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.CLIP.SETTING}`
     });
   }
 }
@@ -296,9 +306,9 @@ class ClipListController extends ClipwebController {
     model = {},
     initSetting = {
       NAME: 'clipweb List Controller',
-      MODEL: new UserModel(),
-      VIEW: new UserView(),
-      EVENT: new UserEvent()
+      MODEL: new ClipListModel(),
+      VIEW: new ClipListView(),
+      EVENT: new ClipListEvent()
     }
   ) {
     super(model, initSetting);
@@ -426,6 +436,7 @@ class ClipListController extends ClipwebController {
     switch (type) {
       case this.MODEL.TYPE.SEARCH:
         // SEARCH
+        this.MODEL.CLIPS = this.getAjaxData({ key: 'clip_list' });
         break;
 
       default:
@@ -435,6 +446,7 @@ class ClipListController extends ClipwebController {
   }
 
   clearModel () {
+    this.MODEL.CLIPS = null;
   }
 
   getSendModel (
@@ -445,19 +457,11 @@ class ClipListController extends ClipwebController {
       return;
     }
     let _model = {};
-    _model['hash'] = this.MODEL.HASH.USER;
-    _model['password_hash'] = this.MODEL.HASH.PASSWORD;
+    _model['hash'] = USER.MODEL.HASH.USER;
+    _model['password_hash'] = USER.MODEL.HASH.PASSWORD;
     switch (type) {
-      case this.MODEL.TYPE.NEW:
-        // NEW
-        break;
-
-      case this.MODEL.TYPE.SAVE:
-        // SAVE
-        break;
-
-      case this.MODEL.TYPE.DELETE:
-        // DELETE
+      case this.MODEL.TYPE.SEARCH:
+        // SEARCH
         break;
 
       default:
