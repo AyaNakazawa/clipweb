@@ -42,7 +42,7 @@ class ConfirmModel extends CommonModel {
 
   updateSelector () {
     if (this.id == null) {
-      this.id = Random.hex(7);
+      this.id = this.ID;
       super.log(this.id, 'Generate', Log.ARROW_INPUT)();
     }
     this.id = `confirm-${this.id}`;
