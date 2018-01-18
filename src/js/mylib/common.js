@@ -124,8 +124,8 @@ class CommonModel extends CommonClass {
     this.COMMON.EFFECT.SLIDE_UP = 'slideUp';
 
     this.COMMON.EFFECT.DEFAULT = {};
-    this.COMMON.EFFECT.DEFAULT.SHOW = this.COMMON.EFFECT.SHOW;
-    this.COMMON.EFFECT.DEFAULT.HIDE = this.COMMON.EFFECT.HIDE;
+    this.COMMON.EFFECT.DEFAULT.SHOW = this.COMMON.EFFECT.SLIDE_DOWN;
+    this.COMMON.EFFECT.DEFAULT.HIDE = this.COMMON.EFFECT.SLIDE_UP;
 
     this.COMMON.EASING = {};
     this.COMMON.EASING.CLEAR = 'easeOutCubic';
@@ -402,8 +402,6 @@ class CommonView extends CommonClass {
       Log.error(arguments)();
       return;
     }
-    super.log(selector, 'Clear', Log.ARROW_INPUT)();
-
     if (speed > 0 || this.getView()) {
       this.setView({
         view: false,
@@ -414,6 +412,8 @@ class CommonView extends CommonClass {
         easing: easing
       });
     }
+
+    super.log(selector, 'Clear', Log.ARROW_INPUT)();
     $(selector).empty();
     // Method chain
     return this;
@@ -520,6 +520,10 @@ class CommonView extends CommonClass {
       } else if (!view) {
         easing = this.MODEL.COMMON.EASING.HIDE;
       }
+    }
+
+    if (view && this.getView()) {
+      $(selector).hide({ duration: 0 });
     }
 
     // view
