@@ -63,29 +63,29 @@ class Content {
     return '';
   }
 
-  static getHeader (
-    _header = null,
-    _icon = null,
-    _id = null,
-    _tabindex = null
-  ) {
-    if (_header != null) {
+  static getHeader ({
+    id = null,
+    header = null,
+    icon = null,
+    tabindex = null
+  }) {
+    if (header != null) {
       let button = '';
-      let icon = '';
-      if (_icon != null) {
-        icon = `<i class="${_icon}"></i>`;
-        let id = '';
-        if (_id != null) {
-          id = ` id=${_id}`;
+      let _icon = '';
+      if (icon != null) {
+        _icon = `<i class="${icon}"></i>`;
+        let _id = '';
+        if (id != null) {
+          _id = ` id=${id}`;
         }
-        let tabindex = '';
-        if (_tabindex != null) {
-          tabindex = ` tabindex=${_tabindex}`;
+        let _tabindex = '';
+        if (tabindex != null) {
+          _tabindex = ` tabindex=${tabindex}`;
         }
 
-        button = ` <button class='close ${Content.HEADER_BUTTON}'${id}${tabindex}>${icon}</button>`;
+        button = ` <button class='close ${Content.HEADER_BUTTON}'${_id}${_tabindex}>${_icon}</button>`;
       }
-      return `<div class='${Content.HEADER}'>${_header}${button}</div>`;
+      return `<div class='${Content.HEADER}'>${header}${button}</div>`;
     }
     return '';
   }
