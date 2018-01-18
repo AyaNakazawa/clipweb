@@ -1,5 +1,7 @@
 
 やること
+  DB
+    histories
   Popover
   Clip
     HTML
