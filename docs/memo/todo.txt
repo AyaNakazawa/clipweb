@@ -3,7 +3,7 @@
   DB
     histories
   Popover
-  Clip
+  List
     HTML
     js
     py
