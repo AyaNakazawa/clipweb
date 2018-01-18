@@ -183,6 +183,8 @@ class UserView extends ClipwebView {
     alertMessage = null,
     loadingHeader = null
   } = {}) {
+    super.log()();
+    Log.log('Generating...', Log.ALIGN_CENTER)();
 
     // Set
 
@@ -332,6 +334,9 @@ class UserView extends ClipwebView {
 
     // View
     this.setView({ view: view, scroll: true });
+
+    Log.log('Generated !', Log.ALIGN_CENTER)();
+    super.log()();
   }
 }
 
