@@ -248,28 +248,28 @@ class ListEvent extends ClipwebEvent {
     super.setOn({
       selector: `${_SELECTOR} ${this.MODEL.SELECTOR.CLIP.EDIT}`,
       func: () => {
-        super.log(`Clip ${hash}`, 'Edit')();
+        super.log(`clip ${hash}`, 'Edit')();
         this.CONTROLLER.edit({ hash: hash });
       }
     });
     super.setOn({
       selector: `${_SELECTOR} ${this.MODEL.SELECTOR.CLIP.DELETE}`,
       func: () => {
-        super.log(`Clip ${hash}`, 'Delete')();
+        super.log(`clip ${hash}`, 'Delete')();
         this.CONTROLLER.delete({ hash: hash });
       }
     });
     super.setOn({
       selector: `${_SELECTOR} ${this.MODEL.SELECTOR.CLIP.SHARE}`,
       func: () => {
-        super.log(`Clip ${hash}`, 'Share')();
+        super.log(`clip ${hash}`, 'Share')();
         this.CONTROLLER.share({ hash: hash });
       }
     });
     super.setOn({
       selector: `${_SELECTOR} ${this.MODEL.SELECTOR.CLIP.SETTING}`,
       func: () => {
-        super.log(`Clip ${hash}`, 'Setting')();
+        super.log(`clip ${hash}`, 'Setting')();
         this.CONTROLLER.setting({ hash: hash });
       }
     });

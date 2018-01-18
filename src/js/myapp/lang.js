@@ -16,7 +16,7 @@ class Language {
       avatar: 'Avatar',
       theme: 'Theme',
       default_owner_publish: 'Default Owner Publish',
-      default_clip_mode: 'Default Clip mode',
+      default_clip_mode: 'Default clip mode',
       using_gravatar: 'Using {gravatar}',
 
       clip: 'clip',
@@ -66,7 +66,7 @@ class Language {
       user_update_info: 'Update your info.',
       user_update_setting: 'Update your setting.',
 
-      clip_list_got: 'Got your Clips.',
+      clip_list_got: 'Got your clips.',
 
       please_email_auth: 'Please Email authentication.',
       userdata_clear: 'Delete your data',
@@ -90,7 +90,7 @@ class Language {
       failed_to_save_setting: 'Failed to save of user setting.',
       failed_to_save_info: 'Failed to save of user info.',
 
-      failed_to_get_clip_list: 'Failed to getting your Clips.',
+      failed_to_get_clip_list: 'Failed to getting your clips.',
 
       failed_connect_to_server: 'Failed connect to clipweb server.',
       server_not_working: 'clipweb server is not working.',
