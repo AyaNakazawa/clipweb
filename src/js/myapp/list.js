@@ -410,7 +410,6 @@ class ListController extends ClipwebController {
     });
 
     // Post
-    this.updateHash(_TYPE, this.MODEL.TIMING.BEFORE);
     this.post({
       type: _TYPE,
       data: this.getSendModel(_TYPE)
