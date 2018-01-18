@@ -424,6 +424,7 @@ class CommonView extends CommonClass {
     type = this.MODEL.COMMON.EFFECT.DEFAULT.SHOW,
     speed = this.MODEL.COMMON.SPEED.SHOW,
     delay = this.MODEL.COMMON.DELAY.SHOW,
+    scroll = false,
     easing = this.MODEL.COMMON.EASING.SHOW
   } = {}) {
     if (selector == null) {
@@ -438,6 +439,7 @@ class CommonView extends CommonClass {
       type: type,
       speed: speed,
       delay: delay,
+      scroll: scroll,
       easing: easing
     });
   }
