@@ -499,65 +499,6 @@ class UserEvent extends ClipwebEvent {
       }
     });
   }
-
-  // ----------------------------------------------------------------
-  // set on with loading
-
-  setOnLoading ({
-    type = null,
-    successOpenMode = this.MODEL.KEY,
-    successOpenType = null,
-    successModel = {},
-    successFunction = () => {},
-    errorOpenMode = this.MODEL.KEY,
-    errorOpenType = null,
-    errorModel = {},
-    errorFunction = () => {}
-  } = {}) {
-    if (type == null) {
-      Log.error(arguments)();
-      return;
-    }
-    super.log(type.capitalize(), 'Loading')();
-
-    // Loading
-    this.CONTROLLER.openLoading(type);
-
-    // Success
-    super.setOn({
-      trigger: this.MODEL.TRIGGER.POST.SUCCESS,
-      func: () => {
-        this.CONTROLLER.open({
-          mode: successOpenMode,
-          type: successOpenType,
-          model: successModel
-        });
-        successFunction();
-      }
-    });
-    // Error
-    super.setOn({
-      trigger: this.MODEL.TRIGGER.POST.ERROR,
-      func: () => {
-        this.CONTROLLER.open({
-          mode: errorOpenMode,
-          type: errorOpenType,
-          model: errorModel
-        });
-        errorFunction();
-      }
-    });
-    // Complete
-    super.setOn({
-      trigger: this.MODEL.TRIGGER.POST.COMPLETE,
-      func: () => {
-        super.log(type.capitalize(), 'Complete')();
-        super.setOff({ trigger: this.MODEL.TRIGGER.POST.SUCCESS });
-        super.setOff({ trigger: this.MODEL.TRIGGER.POST.ERROR });
-        super.setOff({ trigger: this.MODEL.TRIGGER.POST.COMPLETE });
-      }
-    });
-  }
 }
 
 // ----------------------------------------------------------------
