@@ -200,10 +200,10 @@ class ClipwebController extends CommonController {
 
     if (mode == this.MODEL.KEY) {
       this.VIEW.generateArea(model);
-    } else if (mode == UserModel.MODEL.KEY) {
+    } else if (mode == UserModel.KEY) {
       USER.open(type, model);
-    } else if (mode == ListModel.MODEL.KEY) {
-      CLIPLIST.open(type, model);
+    } else if (mode == ListModel.KEY) {
+      LIST.open(type, model);
     } else {
       Log.error(arguments, 'unknown mode')();
       return;
