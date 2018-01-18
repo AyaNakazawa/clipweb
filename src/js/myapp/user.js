@@ -297,10 +297,14 @@ class UserView extends ClipwebView {
       super.log(type.capitalize(), 'Generate')();
     }
 
-    // Header
-    super.append(
-      Content.getHeader(header, headerButton, null, 290)
-    );
+    // Generate Header
+    if (header != null) {
+      super.generateHeader({
+        header: header,
+        icon: headerButton,
+        tabindex: 290
+      });
+    }
 
     // Generate Loading
     if (loadingHeader != null) {
@@ -320,19 +324,14 @@ class UserView extends ClipwebView {
 
     // Generate Content
     if (_mainTemplate != null && _mainModel != null) {
-      super.append(
-        View.getTemplate({
-          template: _mainTemplate,
-          model: _mainModel
-        })
-      );
+      super.append({
+        template: _mainTemplate,
+        model: _mainModel
+      });
     }
 
     // View
-    this.setView({ view: view });
-    if (view) {
-      this.scroll();
-    }
+    this.setView({ view: view, scroll: true });
   }
 }
 
@@ -349,20 +348,19 @@ class UserEvent extends ClipwebEvent {
   }
 
   setEvent () {
-    this.setHide();
-    this.setRegister();
-    this.setLogin();
-    this.setLogout();
-    this.setInfo();
-    this.setSetting();
+    this.setOnHide();
+    this.setOnRegister();
+    this.setOnLogin();
+    this.setOnLogout();
+    this.setOnInfo();
+    this.setOnSetting();
   }
 
   // ----------------------------------------------------------------
   // hide
 
-  setHide () {
-    super.setOn({
-      selector: `${this.MODEL.SELECTOR.AREA} .content-header-button`,
+  setOnHide () {
+    super.setHeaderButton({
       func: () => {
         this.trigger({ trigger: this.MODEL.TRIGGER.VIEW.HIDE });
       }
@@ -372,7 +370,7 @@ class UserEvent extends ClipwebEvent {
   // ----------------------------------------------------------------
   // type
 
-  setRegister () {
+  setOnRegister () {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.REGISTER.SUBMIT}`,
       func: () => {
@@ -401,7 +399,7 @@ class UserEvent extends ClipwebEvent {
     );
   }
 
-  setLogin () {
+  setOnLogin () {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.LOGIN.SUBMIT}`,
       func: () => {
@@ -440,7 +438,7 @@ class UserEvent extends ClipwebEvent {
     );
   }
 
-  setLogout () {
+  setOnLogout () {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.LOGOUT.SUBMIT}`,
       func: () => {
@@ -450,7 +448,7 @@ class UserEvent extends ClipwebEvent {
     });
   }
 
-  setInfo () {
+  setOnInfo () {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.INFO.SETTING}`,
       func: () => {
@@ -482,7 +480,7 @@ class UserEvent extends ClipwebEvent {
     );
   }
 
-  setSetting () {
+  setOnSetting () {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.INFO}`,
       func: () => {
