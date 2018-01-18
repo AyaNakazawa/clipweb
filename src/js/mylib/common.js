@@ -854,6 +854,30 @@ class CommonEvent extends CommonClass {
   }
 
   // ----------------------------------------------------------------
+  // content
+
+  setHeaderButton ({
+    type = 'on',
+    trigger = 'click',
+    func = () => {}
+  } = {}) {
+    if (type == 'on') {
+      this.setOn({
+        selector: `${this.MODEL.SELECTOR.AREA} .content-header-button`,
+        trigger: trigger,
+        func: func
+      });
+    } else if (type == 'off') {
+      this.setOff({
+        selector: `${this.MODEL.SELECTOR.AREA} .content-header-button`,
+        trigger: trigger
+      });
+    } else {
+      Log.error(arguments, 'unknown type')();
+    }
+  }
+
+  // ----------------------------------------------------------------
   // validate
 
   setValidate (
