@@ -33,11 +33,11 @@ class ConfirmModel extends CommonModel {
     this.SELECTOR.AREA = '#confirm-view';
     this.SELECTOR.TEMPLATE = '#confirm-view-template';
 
-    this.TRIGGER = {};
-    this.TRIGGER.SHOW = 'show.bs.modal';
-    this.TRIGGER.SHOWN = 'shown.bs.modal';
-    this.TRIGGER.HIDE = 'hide.bs.modal';
-    this.TRIGGER.HIDDEN = 'hidden.bs.modal';
+    this.TRIGGER.BS = {};
+    this.TRIGGER.BS.SHOW = 'show.bs.modal';
+    this.TRIGGER.BS.SHOWN = 'shown.bs.modal';
+    this.TRIGGER.BS.HIDE = 'hide.bs.modal';
+    this.TRIGGER.BS.HIDDEN = 'hidden.bs.modal';
   }
 
   updateSelector () {
@@ -119,7 +119,7 @@ class ConfirmEvent extends CommonEvent {
 
   setOnHide () {
     super.setOn({
-      trigger: this.MODEL.TRIGGER.HIDE,
+      trigger: this.MODEL.TRIGGER.BS.HIDE,
       func: () => {
         this.CONTROLLER.destroy();
       }
@@ -128,7 +128,7 @@ class ConfirmEvent extends CommonEvent {
 
   setOffHide () {
     super.setOff({
-      trigger: this.MODEL.TRIGGER.HIDE
+      trigger: this.MODEL.TRIGGER.BS.HIDE
     });
   }
 
@@ -137,7 +137,7 @@ class ConfirmEvent extends CommonEvent {
 
   setOnHidden () {
     super.setOn({
-      trigger: this.MODEL.TRIGGER.HIDDEN,
+      trigger: this.MODEL.TRIGGER.BS.HIDDEN,
       func: () => {
         this.CONTROLLER.remove();
       }
@@ -146,7 +146,7 @@ class ConfirmEvent extends CommonEvent {
 
   setOffHidden () {
     super.setOff({
-      trigger: this.MODEL.TRIGGER.HIDDEN
+      trigger: this.MODEL.TRIGGER.BS.HIDDEN
     });
   }
 
