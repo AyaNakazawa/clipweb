@@ -883,6 +883,7 @@ class UserController extends ClipwebController {
           } else {
             // Logout成功
             NAV.logout();
+            LIST.VIEW.hide();
             LocalStorage.setItem(this.MODEL.LS.LOGIN, 'false');
             this.MODEL.STATUS.LOGIN = false;
             LocalStorage.removeItem(this.MODEL.LS.AUTO.HASH.PASSWORD);

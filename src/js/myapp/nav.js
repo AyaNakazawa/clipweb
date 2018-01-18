@@ -220,7 +220,7 @@ class NavEvent extends ClipwebEvent {
       selector: `#${this.MODEL.SELECTOR.NAV.LIST}`,
       func: () => {
         super.log('List', 'Open')();
-        LIST.open({ type: this.MODEL.TYPE.SEARCH });
+        LIST.VIEW.show({ scroll: true });
       }
     });
   }
