@@ -376,6 +376,21 @@ class CommonView extends CommonClass {
     return this;
   }
 
+  stop (
+    selector = this.MODEL.SELECTOR.AREA,
+    clearQueue = false,
+    jumpToEnd = false
+  ) {
+    if (selector == null) {
+      Log.error(arguments)();
+      return;
+    }
+
+    $(selector).stop(clearQueue, jumpToEnd);
+    // Method chain
+    return this;
+  }
+
   clear ({
     selector = this.MODEL.SELECTOR.AREA,
     type = this.MODEL.COMMON.EFFECT.DEFAULT.HIDE,
