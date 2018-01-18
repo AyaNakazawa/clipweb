@@ -154,6 +154,7 @@ class NavEvent extends ClipwebEvent {
     this.setOpenSetting();
     this.setOpenLogout();
     this.setOpenRegister();
+    this.setOpenList();
     this.setOpenHelp();
   }
 
@@ -210,6 +211,16 @@ class NavEvent extends ClipwebEvent {
       func: () => {
         super.log('Register', 'Open')();
         USER.open({ type: this.MODEL.TYPE.REGISTER });
+      }
+    });
+  }
+
+  setOpenList () {
+    super.setOn({
+      selector: `#${this.MODEL.SELECTOR.NAV.LIST}`,
+      func: () => {
+        super.log('List', 'Open')();
+        LIST.open({ type: this.MODEL.TYPE.SEARCH });
       }
     });
   }
