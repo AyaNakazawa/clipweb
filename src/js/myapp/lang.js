@@ -19,6 +19,10 @@ class Language {
       default_clip_mode: 'Default Clip mode',
       using_gravatar: 'Using {gravatar}',
 
+      clip: 'clip',
+      clips: 'clips',
+
+      list: 'List',
       help: 'Help',
 
       register: 'Register',
@@ -59,6 +63,8 @@ class Language {
       user_update_info: 'Update your info.',
       user_update_setting: 'Update your setting.',
 
+      clip_list_got: 'Got your Clips.',
+
       please_email_auth: 'Please Email authentication.',
       userdata_clear: 'Delete your data',
       userdata_clear_confirm: 'Delete user data such as login information saved in the browser?',
@@ -80,6 +86,9 @@ class Language {
       failed_to_logout: 'Failed to logout.',
       failed_to_save_setting: 'Failed to save of user setting.',
       failed_to_save_info: 'Failed to save of user info.',
+
+      failed_to_get_clip_list: 'Failed to getting your Clips.',
+
       failed_connect_to_server: 'Failed connect to clipweb server.',
       server_not_working: 'clipweb server is not working.',
 
@@ -104,6 +113,10 @@ class Language {
       default_clip_mode: 'クリップボード',
       using_gravatar: '{gravatar} を利用しています。',
 
+      clip: 'クリップ',
+      clips: 'クリップ',
+
+      list: '一覧',
       help: 'ヘルプ',
 
       register: '登録',
@@ -144,6 +157,8 @@ class Language {
       user_update_info: 'ユーザー情報を更新しました。',
       user_update_setting: 'ユーザー設定を更新しました。',
 
+      clip_list_got: 'クリップ一覧を取得しました。',
+
       please_email_auth: 'メール認証をしてください。',
       userdata_clear: 'ユーザデータの削除',
       userdata_clear_confirm: 'ブラウザに保存されている、ログイン情報などのユーザーデータを削除しますか？',
@@ -165,6 +180,9 @@ class Language {
       failed_to_logout: 'ログアウトに失敗しました。',
       failed_to_save_setting: 'ユーザー設定の保存に失敗しました。',
       failed_to_save_info: 'ユーザー情報の保存に失敗しました。',
+
+      failed_to_get_clip_list: 'クリップ一覧の取得に失敗しました。',
+
       failed_connect_to_server: 'clipwebサーバーとの通信に失敗しました。',
       server_not_working: 'clipwebサーバーが正常に動作していません。',
 
