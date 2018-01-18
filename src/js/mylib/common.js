@@ -244,20 +244,34 @@ class CommonView extends CommonClass {
     mode = this.COMMON.TYPE.APPEND,
     selector = this.MODEL.SELECTOR.AREA,
     element = null,
+    template = null,
+    model = null,
     delay = this.MODEL.COMMON.DELAY.ADD
   } = {}) {
     if (Object.getType(arguments[0]) == 'String') {
       element = arguments[0];
     }
-    if (selector == null || element == null) {
+    if (selector == null || element == null && (template == null || model == null)) {
       Log.error(arguments)();
       return;
     }
 
     if (mode == this.COMMON.TYPE.APPEND || mode == this.COMMON.TYPE.AFTER) {
-      this.append({ selector: selector, element: element, delay: delay });
+      this.append({
+        selector: selector,
+        element: element,
+        template: template,
+        model: model,
+        delay: delay
+      });
     } else if (mode == this.COMMON.TYPE.APPEND || mode == this.COMMON.TYPE.AFTER) {
-      this.prepend({ selector: selector, element: element, delay: delay });
+      this.prepend({
+        selector: selector,
+        element: element,
+        template: template,
+        model: model,
+        delay: delay
+      });
     } else {
       Log.error(arguments, 'unknown mode')();
       return;
@@ -269,14 +283,22 @@ class CommonView extends CommonClass {
   append ({
     selector = this.MODEL.SELECTOR.AREA,
     element = null,
+    template = null,
+    model = null,
     delay = this.MODEL.COMMON.DELAY.APPEND
   } = {}) {
     if (Object.getType(arguments[0]) == 'String') {
       element = arguments[0];
     }
-    if (selector == null || element == null) {
+    if (selector == null || element == null && (template == null || model == null)) {
       Log.error(arguments)();
       return;
+    }
+    if (template != null && model != null) {
+      element = View.getTemplate({
+        template: template,
+        model: model
+      });
     }
 
     if (delay > 0) {
@@ -291,14 +313,22 @@ class CommonView extends CommonClass {
   prepend ({
     selector = this.MODEL.SELECTOR.AREA,
     element = null,
+    template = null,
+    model = null,
     delay = this.MODEL.COMMON.DELAY.PREPEND
   } = {}) {
     if (Object.getType(arguments[0]) == 'String') {
       element = arguments[0];
     }
-    if (selector == null || element == null) {
+    if (selector == null || element == null && (template == null || model == null)) {
       Log.error(arguments)();
       return;
+    }
+    if (template != null && model != null) {
+      element = View.getTemplate({
+        template: template,
+        model: model
+      });
     }
 
     if (delay > 0) {
