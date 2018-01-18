@@ -13,7 +13,7 @@ class Process extends CommonProcess {
 
     this.SELECTOR.CONTENT = {};
     this.SELECTOR.CONTENT.USER = 'user-area';
-    this.SELECTOR.CONTENT.HELP = 'clip-list-area';
+    this.SELECTOR.CONTENT.LIST = 'list-area';
     this.SELECTOR.CONTENT.HELP = 'help-area';
 
     this.run();
