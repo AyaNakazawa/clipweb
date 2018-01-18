@@ -402,7 +402,7 @@ class CommonView extends CommonClass {
       Log.error(arguments)();
       return;
     }
-    super.log('View', 'Clear', Log.ARROW_INPUT)();
+    super.log(selector, 'Clear', Log.ARROW_INPUT)();
 
     if (speed > 0 || this.getView()) {
       this.setView({
@@ -481,7 +481,7 @@ class CommonView extends CommonClass {
       Log.error(arguments)();
       return;
     }
-    super.log('View', view, Log.ARROW_INPUT)();
+    super.log(selector, view, Log.ARROW_INPUT)();
 
     // skip
     this.skip(selector);
