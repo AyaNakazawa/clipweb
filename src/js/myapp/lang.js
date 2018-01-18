@@ -57,8 +57,10 @@ class Language {
       loading_header_login: 'Login to clipweb',
       loading_header_logout: 'Logout from clipweb',
       loading_header_leaving: 'Leaving from clipweb',
-      loading_header_setting: 'Save your Setting',
-      loading_header_info: 'Save your Info',
+      loading_header_setting: 'Saving your Setting',
+      loading_header_info: 'Saving your Info',
+
+      loading_header_search: 'Getting clip list',
 
       user_registered: 'Registered you.',
       user_logined: 'You logined.',
@@ -156,6 +158,8 @@ class Language {
       loading_header_leaving: 'ユーザーを削除中',
       loading_header_setting: 'ユーザー設定を保存中',
       loading_header_info: 'ユーザー情報を保存中',
+
+      loading_header_search: 'クリップ一覧を取得中',
 
       user_registered: 'ユーザーを登録しました。',
       user_logined: 'ログインしました。',
