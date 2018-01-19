@@ -201,6 +201,10 @@ class NavEvent extends ClipwebEvent {
       selector: `#${this.MODEL.SELECTOR.NAV.LOGIN}`,
       func: () => {
         super.log('Login', 'Open')();
+        this.VIEW.updateArea({
+          object: USER,
+          selector: this.MODEL.SELECTOR.AREA.USER
+        });
         USER.open({ type: this.MODEL.TYPE.LOGIN });
       }
     });
@@ -211,6 +215,10 @@ class NavEvent extends ClipwebEvent {
       selector: `#${this.MODEL.SELECTOR.NAV.SETTING}`,
       func: () => {
         super.log('User Setting', 'Open')();
+        this.VIEW.updateArea({
+          object: USER,
+          selector: this.MODEL.SELECTOR.AREA.USER
+        });
         USER.open({ type: this.MODEL.TYPE.SETTING });
       }
     });
@@ -221,6 +229,10 @@ class NavEvent extends ClipwebEvent {
       selector: `#${this.MODEL.SELECTOR.NAV.LOGOUT}`,
       func: () => {
         super.log('Logout', 'Open')();
+        this.VIEW.updateArea({
+          object: USER,
+          selector: this.MODEL.SELECTOR.AREA.USER
+        });
         USER.open({ type: this.MODEL.TYPE.LOGOUT });
       }
     });
@@ -231,6 +243,10 @@ class NavEvent extends ClipwebEvent {
       selector: `#${this.MODEL.SELECTOR.NAV.REGISTER}`,
       func: () => {
         super.log('Register', 'Open')();
+        this.VIEW.updateArea({
+          object: USER,
+          selector: this.MODEL.SELECTOR.AREA.USER
+        });
         USER.open({ type: this.MODEL.TYPE.REGISTER });
       }
     });
@@ -241,7 +257,10 @@ class NavEvent extends ClipwebEvent {
       selector: `#${this.MODEL.SELECTOR.NAV.LIST}`,
       func: () => {
         super.log('List', 'Open')();
-        LIST.VIEW.show({ scroll: true });
+        this.VIEW.updateArea({
+          object: LIST,
+          selector: this.MODEL.SELECTOR.AREA.LIST
+        });
       }
     });
   }
@@ -251,6 +270,10 @@ class NavEvent extends ClipwebEvent {
       selector: `#${this.MODEL.SELECTOR.NAV.HELP}`,
       func: () => {
         super.log('Help', 'Open')();
+        this.VIEW.updateArea({
+          object: HELP,
+          selector: this.MODEL.SELECTOR.AREA.HELP
+        });
         HELP.open({ type: this.MODEL.TYPE.HELP });
       }
     });
