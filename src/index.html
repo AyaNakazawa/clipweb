@@ -147,13 +147,13 @@
         <rp>）</rp>
       </ruby>
     </script>
-    <!-- login -->
-    <script type="text/template" id="login-template">
+    <!-- user-login -->
+    <script type="text/template" id="user-login-template">
       <div class="content-item-area">
         <div class="content-item">
           <label for="login-email"><%= LN.get('email_address') %></label>
           <div class="content-input">
-            <input id="login-email" type="email" required class="form-control" value="<%- email %>" tabindex="200">
+            <input id="user-login-email" type="email" required class="form-control" value="<%- email %>" tabindex="200">
             <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-envelope"></i>
             <span class="content-input-valid-message"></span>
@@ -162,7 +162,7 @@
         <div class="content-item">
           <label for="login-password"><%= LN.get('password') %></label>
           <div class="content-input">
-            <input id="login-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" placeholder="" value="" tabindex="200">
+            <input id="user-login-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" placeholder="" value="" tabindex="200">
             <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-lock"></i>
             <span class="content-input-valid-message"></span>
@@ -171,27 +171,27 @@
         <div class="content-item">
           <label class="content-check-label">
             <% if (auto_login) { %>
-              <input class="content-check" type="checkbox" id="login-auto" checked>
+              <input class="content-check" type="checkbox" id="user-login-auto" checked>
             <% } else { %>
-              <input class="content-check" type="checkbox" id="login-auto">
+              <input class="content-check" type="checkbox" id="user-login-auto">
             <% } %>
             <span class="content-check-icon"></span>
             <%= LN.get('auto_login') %>
           </label>
         </div>
         <div class="content-item d-flex justify-content-between">
-          <button id="login-register" class="btn btn-link" tabindex="210"><%= LN.get('register') %> <i class="fal fa-user-plus"></i></button>
-          <button id="login-submit" class="btn btn-primary" tabindex="200"><%= LN.get('login') %> <i class="fal fa-sign-in-alt"></i></button>
+          <button id="user-login-register" class="btn btn-link" tabindex="210"><%= LN.get('register') %> <i class="fal fa-user-plus"></i></button>
+          <button id="user-login-submit" class="btn btn-primary" tabindex="200"><%= LN.get('login') %> <i class="fal fa-sign-in-alt"></i></button>
         </div>
       </div>
     </script>
-    <!-- register -->
-    <script type="text/template" id="register-template">
+    <!-- user-register -->
+    <script type="text/template" id="user-register-template">
       <div class="content-item-area">
         <div class="content-item">
           <label for="register-username"><%= LN.get('username') %></label>
           <div class="content-input">
-            <input id="register-username" type="text" minLength="<%- length.min.username %>" maxLength="<%- length.max.username %>" required class="form-control" value="<%- username %>" tabindex="200">
+            <input id="user-register-username" type="text" minLength="<%- length.min.username %>" maxLength="<%- length.max.username %>" required class="form-control" value="<%- username %>" tabindex="200">
             <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-user"></i>
             <span class="content-input-valid-message"></span>
@@ -200,7 +200,7 @@
         <div class="content-item">
           <label for="register-email"><%= LN.get('email_address') %></label>
           <div class="content-input">
-            <input id="register-email" type="email" required class="form-control" value="<%- email %>" tabindex="200">
+            <input id="user-register-email" type="email" required class="form-control" value="<%- email %>" tabindex="200">
             <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-envelope"></i>
             <span class="content-input-valid-message"></span>
@@ -210,7 +210,7 @@
           <div class="content-split-item">
             <label for="register-password"><%= LN.get('password') %></label>
             <div class="content-input">
-              <input id="register-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" placeholder="" value="" tabindex="200">
+              <input id="user-register-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" placeholder="" value="" tabindex="200">
               <span class="content-input-valid"></span>
               <i class="content-input-icon fas fa-lock"></i>
               <span class="content-input-valid-message"></span>
@@ -219,7 +219,7 @@
           <div class="content-split-item">
             <label for="register-password-re"><%= LN.get('password_confirm') %></label>
             <div class="content-input">
-              <input id="register-password-re" type="password" required class="form-control" placeholder="" value="" tabindex="200">
+              <input id="user-register-password-re" type="password" required class="form-control" placeholder="" value="" tabindex="200">
               <span class="content-input-valid"></span>
               <i class="content-input-icon fas fa-lock"></i>
               <span class="content-input-valid-message"></span>
@@ -227,8 +227,8 @@
           </div>
         </div>
         <div class="content-item d-flex justify-content-between">
-          <button id="register-login" class="btn btn-link" tabindex="210"><%= LN.get('login') %> <i class="fal fa-sign-in-alt"></i></button>
-          <button id="register-submit" class="btn btn-primary" tabindex="200"><%= LN.get('register') %> <i class="fal fa-user-plus"></i></button>
+          <button id="user-register-login" class="btn btn-link" tabindex="210"><%= LN.get('login') %> <i class="fal fa-sign-in-alt"></i></button>
+          <button id="user-register-submit" class="btn btn-primary" tabindex="200"><%= LN.get('register') %> <i class="fal fa-user-plus"></i></button>
         </div>
       </div>
     </script>
@@ -386,20 +386,20 @@
         </div>
       </div>
     </script>
-    <!-- logout -->
-    <script type="text/template" id="logout-template">
+    <!-- user-logout -->
+    <script type="text/template" id="user-logout-template">
       <div class="content-item-area">
         <div class="content-item">
           <label for="logout-username"><%= LN.get('username') %></label>
           <div class="content-input">
-            <input id="logout-username" type="text" class="form-control" value="<%- username %>" readonly>
+            <input id="user-logout-username" type="text" class="form-control" value="<%- username %>" readonly>
             <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-user"></i>
             <span class="content-input-valid-message"></span>
           </div>
         </div>
         <div class="content-item d-flex justify-content-end">
-          <button id="logout-submit" class="btn btn-primary"><%= LN.get('logout') %> <i class="fal fa-sign-out-alt"></i></button>
+          <button id="user-logout-submit" class="btn btn-primary"><%= LN.get('logout') %> <i class="fal fa-sign-out-alt"></i></button>
         </div>
       </div>
     </script>

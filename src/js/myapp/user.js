@@ -103,11 +103,11 @@ class UserModel extends ClipwebModel {
 
     // ----------------------------------------------------------------
     // テンプレート
-    this.TEMPLATE.LOGIN = '#login-template';
-    this.TEMPLATE.REGISTER = '#register-template';
+    this.TEMPLATE.LOGIN = '#user-login-template';
+    this.TEMPLATE.REGISTER = '#user-register-template';
     this.TEMPLATE.SETTING = '#user-setting-template';
     this.TEMPLATE.INFO = '#user-info-template';
-    this.TEMPLATE.LOGOUT = '#logout-template';
+    this.TEMPLATE.LOGOUT = '#user-logout-template';
 
     // ----------------------------------------------------------------
     // オフセット
@@ -121,24 +121,24 @@ class UserModel extends ClipwebModel {
 
     // 登録
     this.SELECTOR.REGISTER = {};
-    this.SELECTOR.REGISTER.USERNAME = '#register-username';
-    this.SELECTOR.REGISTER.EMAIL = '#register-email';
-    this.SELECTOR.REGISTER.PASSWORD = '#register-password';
-    this.SELECTOR.REGISTER.PASSWORD_RE = '#register-password-re';
-    this.SELECTOR.REGISTER.SUBMIT = '#register-submit';
-    this.SELECTOR.REGISTER.LOGIN = '#register-login';
+    this.SELECTOR.REGISTER.USERNAME = '#user-register-username';
+    this.SELECTOR.REGISTER.EMAIL = '#user-register-email';
+    this.SELECTOR.REGISTER.PASSWORD = '#user-register-password';
+    this.SELECTOR.REGISTER.PASSWORD_RE = '#user-register-password-re';
+    this.SELECTOR.REGISTER.SUBMIT = '#user-register-submit';
+    this.SELECTOR.REGISTER.LOGIN = '#user-register-login';
 
     // ログイン
     this.SELECTOR.LOGIN = {};
-    this.SELECTOR.LOGIN.EMAIL = '#login-email';
-    this.SELECTOR.LOGIN.PASSWORD = '#login-password';
-    this.SELECTOR.LOGIN.AUTO = '#login-auto';
-    this.SELECTOR.LOGIN.SUBMIT = '#login-submit';
-    this.SELECTOR.LOGIN.REGISTER = '#login-register';
+    this.SELECTOR.LOGIN.EMAIL = '#user-login-email';
+    this.SELECTOR.LOGIN.PASSWORD = '#user-login-password';
+    this.SELECTOR.LOGIN.AUTO = '#user-login-auto';
+    this.SELECTOR.LOGIN.SUBMIT = '#user-login-submit';
+    this.SELECTOR.LOGIN.REGISTER = '#user-login-register';
 
     // ログアウト
     this.SELECTOR.LOGOUT = {};
-    this.SELECTOR.LOGOUT.SUBMIT = '#logout-submit';
+    this.SELECTOR.LOGOUT.SUBMIT = '#user-logout-submit';
 
     // ユーザ情報
     this.SELECTOR.INFO = {};
