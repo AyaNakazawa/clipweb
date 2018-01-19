@@ -96,6 +96,8 @@ class ClipwebView extends CommonView {
   ) {
     super(initSetting);
   }
+
+  generateArea () {}
 }
 
 // ----------------------------------------------------------------
@@ -201,9 +203,9 @@ class ClipwebController extends CommonController {
     if (mode == this.MODEL.KEY) {
       this.VIEW.generateArea(model);
     } else if (mode == UserModel.KEY) {
-      USER.open(type, model);
+      USER.open({ mode: mode, type: type, model: model });
     } else if (mode == ListModel.KEY) {
-      LIST.open(type, model);
+      LIST.open({ mode: mode, type: type, model: model });
     } else {
       Log.error(arguments, 'unknown mode')();
       return;
