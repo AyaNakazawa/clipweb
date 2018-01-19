@@ -352,8 +352,9 @@ class CommonView extends CommonClass {
 
     let _selector = `${parentSelector} ${selector}`;
     if (selector == null) {
-      _selector = selector;
+      _selector = parentSelector;
     }
+    super.log(_selector, 'Remove', Log.ARROW_INPUT)();
 
     if (delay > 0) {
       $(_selector).delay(delay).remove();
