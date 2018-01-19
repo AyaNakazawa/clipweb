@@ -14,7 +14,11 @@ class NavModel extends ClipwebModel {
     super(initSetting);
 
     this.SELECTOR = {};
-    this.SELECTOR.AREA = '#navbar';
+
+    this.SELECTOR.AREA = {};
+    this.SELECTOR.AREA.NAV = '#navbar';
+    this.SELECTOR.AREA.USER = 'user-area';
+    this.SELECTOR.AREA.LIST = 'list-area';
 
     this.SELECTOR.NAV = {};
     this.SELECTOR.NAV.BAR = '.navbar-nav';
@@ -44,8 +48,8 @@ class NavView extends ClipwebView {
   }
 
   clearNavItem () {
-    $(this.MODEL.SELECTOR.AREA).empty();
-    $(this.MODEL.SELECTOR.AREA).append('<ul class="navbar-nav col-md-8"></ul>');
+    $(this.MODEL.SELECTOR.AREA.NAV).empty();
+    $(this.MODEL.SELECTOR.AREA.NAV).append('<ul class="navbar-nav col-md-8"></ul>');
   }
 
   addNavItem ({
@@ -93,7 +97,7 @@ class NavView extends ClipwebView {
   }
 
   addNavSearch () {
-    $(this.MODEL.SELECTOR.AREA).append(`<div class="col-md-4 nav-seacrh"><div class="input-group"><input class="form-control" id="nav-seacrh-text" placeholder="${LN.get('search')}"><span class="input-group-btn"><button class="btn btn-outline-info" id="nav-seacrh-button"><i class="fas fa-search"></i></button></span></div></div>`);
+    $(this.MODEL.SELECTOR.AREA.NAV).append(`<div class="col-md-4 nav-seacrh"><div class="input-group"><input class="form-control" id="nav-seacrh-text" placeholder="${LN.get('search')}"><span class="input-group-btn"><button class="btn btn-outline-info" id="nav-seacrh-button"><i class="fas fa-search"></i></button></span></div></div>`);
   }
 
   generateNotLogin () {
