@@ -83,6 +83,7 @@ class CommonModel extends CommonClass {
     this.generateId();
 
     this.COMMON.BODY = 'html, body';
+    this.COMMON.MAIN = 'main';
     this.COMMON.ACTIVE = 'active';
     this.COMMON.HOVER = 'hover';
     this.COMMON.CURRENT = 'current';
