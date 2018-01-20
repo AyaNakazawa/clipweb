@@ -62,6 +62,7 @@ class ListModel extends ClipwebModel {
     // 検索
     this.SELECTOR.SEARCH = {};
     this.SELECTOR.SEARCH.NEW = '#list-search-new';
+    this.SELECTOR.SEARCH.REFRESH = '#list-search-refresh';
     this.SELECTOR.SEARCH.SEARCH = '#list-search-search';
     this.SELECTOR.SEARCH.GROUP = '#list-search-group';
     this.SELECTOR.SEARCH.SORT = '#list-search-sort';
@@ -222,6 +223,14 @@ class ListEvent extends ClipwebEvent {
       func: () => {
         super.log('Search', 'New')();
         this.CONTROLLER.submitNew();
+      }
+    });
+
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.REFRESH}`,
+      func: () => {
+        super.log('Search', 'Refresh')();
+        this.CONTROLLER.loadList();
       }
     });
 
