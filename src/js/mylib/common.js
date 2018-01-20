@@ -127,6 +127,7 @@ class CommonModel extends CommonClass {
     this.COMMON.EFFECT.DEFAULT = {};
     this.COMMON.EFFECT.DEFAULT.SHOW = this.COMMON.EFFECT.SLIDE_DOWN;
     this.COMMON.EFFECT.DEFAULT.HIDE = this.COMMON.EFFECT.SLIDE_UP;
+    this.COMMON.EFFECT.DEFAULT.SCROLL = false;
 
     this.COMMON.EASING = {};
     this.COMMON.EASING.CLEAR = 'easeOutCubic';
@@ -426,7 +427,7 @@ class CommonView extends CommonClass {
     type = this.MODEL.COMMON.EFFECT.DEFAULT.SHOW,
     speed = this.MODEL.COMMON.SPEED.SHOW,
     delay = this.MODEL.COMMON.DELAY.SHOW,
-    scroll = false,
+    scroll = this.MODEL.COMMON.EFFECT.DEFAULT.SCROLL,
     easing = this.MODEL.COMMON.EASING.SHOW
   } = {}) {
     if (selector == null) {
