@@ -211,6 +211,7 @@ class NavEvent extends ClipwebEvent {
           selector: this.MODEL.SELECTOR.AREA.LIST
         });
         $(LIST.MODEL.SELECTOR.SEARCH.SEARCH).val($(`#${this.MODEL.SELECTOR.NAV.SEARCH.TEXT}`).val());
+        $(`#${this.MODEL.SELECTOR.NAV.SEARCH.TEXT}`).val('');
         LIST.filtering();
       }
     });
