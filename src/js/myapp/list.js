@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------
-// User Class
+// List Class
 
 // ----------------------------------------------------------------
 // Model
@@ -92,99 +92,6 @@ class ListView extends ClipwebView {
     super(initSetting);
   }
 
-  generateArea ({
-    type = null,
-    view = false,
-    header = null,
-    headerButton = 'fas fa-times',
-    alertType = this.MODEL.ALERT_SUCCESS,
-    alertClose = true,
-    alertMessage = null,
-    loadingHeader = null
-  } = {}) {
-    super.log()();
-    Log.log('Generating...', Log.ALIGN_CENTER)();
-
-    // Set
-
-    if (loadingHeader != null) {
-      view = true;
-    }
-    if (alertMessage != null) {
-      view = true;
-    }
-    if (header != null) {
-      view = true;
-    }
-    if (type != null) {
-      view = true;
-    }
-
-    // Type
-
-    let _mainTemplate = null;
-    let _mainModel = null;
-    switch (type) {
-      case this.MODEL.TYPE.SEARCH:
-        // SEARCH
-        header = LN.get('header_clip_list');
-        _mainTemplate = this.MODEL.TEMPLATE.SEARCH;
-        _mainModel = {
-          search: this.MODEL.SEARCH,
-          group: this.MODEL.GROUP,
-          sort: this.MODEL.SORT,
-          order: this.MODEL.ORDER
-        };
-        break;
-    }
-
-    // Clear
-    this.clear();
-
-    // Generate
-    if (type != null) {
-      super.log(type.capitalize(), 'Generate')();
-    }
-
-    // Generate Header
-    if (header != null) {
-      super.generateHeader({
-        header: header,
-        buttonIcon: headerButton,
-        buttonTabindex: 290
-      });
-    }
-
-    // Generate Loading
-    if (loadingHeader != null) {
-      super.generateLoading({
-        header: loadingHeader
-      });
-    }
-
-    // Generate Alert
-    if (alertMessage != null) {
-      super.generateAlert({
-        type: alertType,
-        message: alertMessage,
-        close: alertClose
-      });
-    }
-
-    // Generate Content
-    if (_mainTemplate != null && _mainModel != null) {
-      super.append({
-        template: _mainTemplate,
-        model: _mainModel
-      });
-    }
-
-    // View
-    this.setView({ view: view, scroll: true });
-
-    Log.log('Generated !', Log.ALIGN_CENTER)();
-    super.log()();
-  }
 }
 
 // ----------------------------------------------------------------
@@ -562,7 +469,52 @@ class ListController extends ClipwebController {
   }
 
   // ----------------------------------------------------------------
-  // update
+  // model
+
+  getAreaModel (
+    type = null
+  ) {
+    if (type == null) {
+      Log.error(arguments)();
+      return;
+    }
+    let _result = {};
+    switch (type) {
+      case this.MODEL.TYPE.SEARCH:
+        // SEARCH
+        _result = {
+          search: this.MODEL.SEARCH,
+          group: this.MODEL.GROUP,
+          sort: this.MODEL.SORT,
+          order: this.MODEL.ORDER
+        };
+        break;
+      default:
+        Log.error(arguments, 'unknown type X(')();
+        return;
+    }
+    return _result;
+  }
+
+  getAreaHeader (
+    type = null
+  ) {
+    if (type == null) {
+      Log.error(arguments)();
+      return;
+    }
+    let _result = '';
+    switch (type) {
+      case this.MODEL.TYPE.SEARCH:
+        // SEARCH
+        _result = LN.get('header_clip_list');
+        break;
+      default:
+        Log.error(arguments, 'unknown type X(')();
+        return;
+    }
+    return _result;
+  }
 
   applyModel (
     type = null

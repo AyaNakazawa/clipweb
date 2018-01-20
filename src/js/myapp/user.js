@@ -173,172 +173,6 @@ class UserView extends ClipwebView {
   ) {
     super(initSetting);
   }
-
-  generateArea ({
-    type = null,
-    view = false,
-    header = null,
-    headerButton = 'fas fa-times',
-    alertType = this.MODEL.ALERT_SUCCESS,
-    alertClose = true,
-    alertMessage = null,
-    loadingHeader = null
-  } = {}) {
-    super.log()();
-    Log.log('Generating...', Log.ALIGN_CENTER)();
-
-    // Set
-
-    if (loadingHeader != null) {
-      view = true;
-    }
-    if (alertMessage != null) {
-      view = true;
-    }
-    if (header != null) {
-      view = true;
-    }
-    if (type != null) {
-      view = true;
-    }
-
-    // Type
-
-    let _mainTemplate = null;
-    let _mainModel = null;
-    if (type == this.MODEL.TYPE.LOGIN) {
-      // LOGIN
-      header = LN.get('header_login');
-      _mainTemplate = this.MODEL.TEMPLATE.LOGIN;
-      _mainModel = {
-        length: {
-          min: {
-            username: this.MODEL.VALIDATE.LENGTH.MIN_USERNAME,
-            password: this.MODEL.VALIDATE.LENGTH.MIN_PASSWORD
-          },
-          max: {
-            username: this.MODEL.VALIDATE.LENGTH.MAX_USERNAME,
-            password: this.MODEL.VALIDATE.LENGTH.MAX_PASSWORD
-          }
-        },
-        email: this.MODEL.EMAIL,
-        pattern: {
-          password: this.MODEL.VALIDATE.PATTERN.PASSWORD
-        },
-        auto_login: this.MODEL.STATUS.AUTO
-      };
-
-    } else if (type == this.MODEL.TYPE.SETTING) {
-      // SETTING
-      header = LN.get('header_setting');
-      _mainTemplate = this.MODEL.TEMPLATE.SETTING;
-      _mainModel = {
-        theme: this.MODEL.THEME,
-        ownerPublish: this.MODEL.OWNER_PUBLISH,
-        clipMode: this.MODEL.CLIP_MODE
-      };
-
-    } else if (type == this.MODEL.TYPE.INFO) {
-      // INFO
-      header = LN.get('header_info');
-      _mainTemplate = this.MODEL.TEMPLATE.INFO;
-      _mainModel = {
-        length: {
-          min: {
-            username: this.MODEL.VALIDATE.LENGTH.MIN_USERNAME,
-            password: this.MODEL.VALIDATE.LENGTH.MIN_PASSWORD
-          },
-          max: {
-            username: this.MODEL.VALIDATE.LENGTH.MAX_USERNAME,
-            password: this.MODEL.VALIDATE.LENGTH.MAX_PASSWORD
-          }
-        },
-        username: this.MODEL.USERNAME,
-        email: this.MODEL.EMAIL,
-        gravatarHash: this.MODEL.HASH.GRAVATAR,
-        pattern: {
-          password: this.MODEL.VALIDATE.PATTERN.PASSWORD
-        }
-      };
-
-    } else if (type == this.MODEL.TYPE.LOGOUT) {
-      // LOGOUT
-      header = LN.get('header_logout');
-      _mainTemplate = this.MODEL.TEMPLATE.LOGOUT;
-      _mainModel = {
-        username: this.MODEL.USERNAME
-      };
-
-    } else if (type == this.MODEL.TYPE.REGISTER) {
-      // REGISTER
-      header = LN.get('header_register');
-      _mainTemplate = this.MODEL.TEMPLATE.REGISTER;
-      _mainModel = {
-        length: {
-          min: {
-            username: this.MODEL.VALIDATE.LENGTH.MIN_USERNAME,
-            password: this.MODEL.VALIDATE.LENGTH.MIN_PASSWORD
-          },
-          max: {
-            username: this.MODEL.VALIDATE.LENGTH.MAX_USERNAME,
-            password: this.MODEL.VALIDATE.LENGTH.MAX_PASSWORD
-          }
-        },
-        username: this.MODEL.USERNAME,
-        email: this.MODEL.EMAIL,
-        pattern: {
-          password: this.MODEL.VALIDATE.PATTERN.PASSWORD
-        }
-      };
-    }
-
-    // Clear
-    this.clear();
-
-    // Generate
-    if (type != null) {
-      super.log(type.capitalize(), 'Generate')();
-    }
-
-    // Generate Header
-    if (header != null) {
-      super.generateHeader({
-        header: header,
-        buttonIcon: headerButton,
-        buttonTabindex: 290
-      });
-    }
-
-    // Generate Loading
-    if (loadingHeader != null) {
-      super.generateLoading({
-        header: loadingHeader
-      });
-    }
-
-    // Generate Alert
-    if (alertMessage != null) {
-      super.generateAlert({
-        type: alertType,
-        message: alertMessage,
-        close: alertClose
-      });
-    }
-
-    // Generate Content
-    if (_mainTemplate != null && _mainModel != null) {
-      super.append({
-        template: _mainTemplate,
-        model: _mainModel
-      });
-    }
-
-    // View
-    this.setView({ view: view, scroll: true });
-
-    Log.log('Generated !', Log.ALIGN_CENTER)();
-    super.log()();
-  }
 }
 
 // ----------------------------------------------------------------
@@ -1266,7 +1100,134 @@ class UserController extends ClipwebController {
   }
 
   // ----------------------------------------------------------------
-  // update
+  // model
+
+  getAreaModel (
+    type = null
+  ) {
+    if (type == null) {
+      Log.error(arguments)();
+      return;
+    }
+    let _result = {};
+    switch (type) {
+      case this.MODEL.TYPE.LOGIN:
+        // LOGIN
+        _result = {
+          length: {
+            min: {
+              username: this.MODEL.VALIDATE.LENGTH.MIN_USERNAME,
+              password: this.MODEL.VALIDATE.LENGTH.MIN_PASSWORD
+            },
+            max: {
+              username: this.MODEL.VALIDATE.LENGTH.MAX_USERNAME,
+              password: this.MODEL.VALIDATE.LENGTH.MAX_PASSWORD
+            }
+          },
+          email: this.MODEL.EMAIL,
+          pattern: {
+            password: this.MODEL.VALIDATE.PATTERN.PASSWORD
+          },
+          auto_login: this.MODEL.STATUS.AUTO
+        };
+        break;
+      case this.MODEL.TYPE.SETTING:
+        // SETTING
+        _result = {
+          theme: this.MODEL.THEME,
+          ownerPublish: this.MODEL.OWNER_PUBLISH,
+          clipMode: this.MODEL.CLIP_MODE
+        };
+        break;
+      case this.MODEL.TYPE.INFO:
+        // INFO
+        _result = {
+          length: {
+            min: {
+              username: this.MODEL.VALIDATE.LENGTH.MIN_USERNAME,
+              password: this.MODEL.VALIDATE.LENGTH.MIN_PASSWORD
+            },
+            max: {
+              username: this.MODEL.VALIDATE.LENGTH.MAX_USERNAME,
+              password: this.MODEL.VALIDATE.LENGTH.MAX_PASSWORD
+            }
+          },
+          username: this.MODEL.USERNAME,
+          email: this.MODEL.EMAIL,
+          gravatarHash: this.MODEL.HASH.GRAVATAR,
+          pattern: {
+            password: this.MODEL.VALIDATE.PATTERN.PASSWORD
+          }
+        };
+        break;
+      case this.MODEL.TYPE.LOGOUT:
+        // LOGOUT
+        _result = {
+          username: this.MODEL.USERNAME
+        };
+        break;
+      case this.MODEL.TYPE.REGISTER:
+        // REGISTER
+        _result = {
+          length: {
+            min: {
+              username: this.MODEL.VALIDATE.LENGTH.MIN_USERNAME,
+              password: this.MODEL.VALIDATE.LENGTH.MIN_PASSWORD
+            },
+            max: {
+              username: this.MODEL.VALIDATE.LENGTH.MAX_USERNAME,
+              password: this.MODEL.VALIDATE.LENGTH.MAX_PASSWORD
+            }
+          },
+          username: this.MODEL.USERNAME,
+          email: this.MODEL.EMAIL,
+          pattern: {
+            password: this.MODEL.VALIDATE.PATTERN.PASSWORD
+          }
+        };
+        break;
+      default:
+        Log.error(arguments, 'unknown type X(')();
+        return;
+    }
+    return _result;
+  }
+
+  getAreaHeader (
+    type = null
+  ) {
+    if (type == null) {
+      Log.error(arguments)();
+      return;
+    }
+    let _result = '';
+    switch (type) {
+      case this.MODEL.TYPE.LOGIN:
+        // LOGIN
+        _result = LN.get('header_login');
+        break;
+      case this.MODEL.TYPE.SETTING:
+        // SETTING
+        _result = LN.get('header_setting');
+        break;
+      case this.MODEL.TYPE.INFO:
+        // INFO
+        _result = LN.get('header_info');
+        break;
+      case this.MODEL.TYPE.LOGOUT:
+        // LOGOUT
+        _result = LN.get('header_logout');
+        break;
+      case this.MODEL.TYPE.REGISTER:
+        // REGISTER
+        _result = LN.get('header_register');
+        break;
+      default:
+        Log.error(arguments, 'unknown type X(')();
+        return;
+    }
+    return _result;
+  }
 
   updateHash (
     type = null,
