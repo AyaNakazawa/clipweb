@@ -129,6 +129,10 @@ class CommonModel extends CommonClass {
     this.COMMON.EFFECT.DEFAULT.HIDE = this.COMMON.EFFECT.SLIDE_UP;
     this.COMMON.EFFECT.DEFAULT.SCROLL = false;
 
+    this.COMMON.EFFECT.DEFAULT.MOVE = {};
+    this.COMMON.EFFECT.DEFAULT.MOVE.VIEW = true;
+    this.COMMON.EFFECT.DEFAULT.MOVE.SCROLL = true;
+
     this.COMMON.EASING = {};
     this.COMMON.EASING.CLEAR = 'easeOutCubic';
     this.COMMON.EASING.SHOW = 'easeOutCubic';
@@ -243,30 +247,77 @@ class CommonView extends CommonClass {
   }
 
   move ({
-    mode = this.MODEL.COMMON.TYPE.PREPEND,
+    target = null,
+    mode = this.MODEL.COMMON.TYPE.APPEND,
     parent = this.MODEL.COMMON.MAIN,
-    selector = this.MODEL.SELECTOR.AREA
+    selector = this.MODEL.SELECTOR.AREA,
+    view = this.MODEL.COMMON.EFFECT.DEFAULT.MOVE.VIEW,
+    scroll = this.MODEL.COMMON.EFFECT.DEFAULT.MOVE.SCROLL
   } = {}) {
-    mode = Object.getArg(arguments, 0, 'String', mode);
-    parent = Object.getArg(arguments, 1, 'String', parent);
-    selector = Object.getArg(arguments, 2, 'String', selector);
-    if (mode == null || parent == null) {
-      Log.error(arguments)();
+    target = Object.getArg(arguments, 0, 'String', target);
+    mode = Object.getArg(arguments, 1, 'String', mode);
+    parent = Object.getArg(arguments, 2, 'String', parent);
+    selector = Object.getArg(arguments, 3, 'String', selector);
+    if (mode == null || parent == null || selector == null) {
+      Log.error(arguments, 'Need mode & parent & selector of arguments. X(')();
       return;
     }
-    const _HTML = $(selector)[0]['innerHTML'];
-    this.VIEW.remove();
-    if (mode == this.MODEL.COMMON.TYPE.APPEND) {
-      $(parent).append(Content.getContent({ id: selector }));
-    } else if (mode == this.MODEL.COMMON.TYPE.PREPEND) {
-      $(parent).prepend(Content.getContent({ id: selector }));
+    const _HTML = $(selector)[0]['outerHTML'];
+    $(selector).remove();
+
+    if (target == null) {
+      this.VIEW.hide({ selector: selector, speed: 0 });
+      if (mode == this.MODEL.COMMON.TYPE.APPEND) {
+        this.VIEW.append({ selector: parent, element: _HTML });
+      } else if (mode == this.MODEL.COMMON.TYPE.PREPEND) {
+        this.VIEW.prepend({ selector: parent, element: _HTML });
+      } else {
+        Log.error(arguments, 'unknown mode X(')();
+        return;
+      }
+      this.VIEW.setView({ selector: selector, view: view, scroll: scroll });
     } else {
-      Log.error(arguments, 'unknown mode X(')();
-      return;
+      const _HTMLS = [];
+      const _VISIBLES = [];
+      const _SELECTORS = [];
+      let _append = false;
+      const _CHILDREN = $(parent).children();
+      for (let child of _CHILDREN) {
+        if (target == `#${$(child)[0]['id']}`) {
+          if (mode == this.MODEL.COMMON.TYPE.AFTER) {
+            _append = true;
+          } else if (mode == this.MODEL.COMMON.TYPE.BEFORE) {
+            _HTMLS.push(_HTML);
+            _VISIBLES.push(view);
+            _SELECTORS.push(selector);
+          } else {
+            Log.error(arguments, 'unknown mode X(')();
+            return;
+          }
+        } else if (_append) {
+          _HTMLS.push(_HTML);
+          _VISIBLES.push(view);
+          _SELECTORS.push(selector);
+          _append = false;
+        }
+        _HTMLS.push($(child)[0]['outerHTML']);
+        _VISIBLES.push($(child).is(':visible'));
+        _SELECTORS.push(`#${$(child)[0]['id']}`);
+        this.VIEW.hide({ selector: `#${$(child)[0]['id']}`, speed: 0 });
+        $(child).remove();
+      }
+      Log.obj(_HTMLS)();
+      Log.obj(_VISIBLES)();
+      Log.obj(_SELECTORS)();
+      for (let index in _HTMLS) {
+        this.VIEW.append({ selector: parent, element: _HTMLS[index] });
+        $(parent).append();
+        if (!_VISIBLES[index]) {
+          this.VIEW.hide({ selector: _SELECTORS[index], speed: 0 });
+        }
+      }
+      this.VIEW.setView({ selector: selector, view: view, scroll: scroll });
     }
-    this.VIEW.hide({ selector: selector, speed: 0 });
-    this.VIEW.append({ selector: selector, element: _HTML });
-    this.VIEW.show({ selector: selector, scroll: true });
   }
 
   add ({
