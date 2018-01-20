@@ -33,6 +33,9 @@ class ListModel extends ClipwebModel {
 
     // 検索文字列
     this.SEARCH = '';
+    this.GROUP = '';
+    this.SORT = '';
+    this.ORDER = '';
 
     // クリップ
     this.CLIPS = null;
@@ -54,21 +57,20 @@ class ListModel extends ClipwebModel {
 
     // 検索
     this.SELECTOR.SEARCH = {};
-    this.SELECTOR.SEARCH.NEW = '#search-new';
-    this.SELECTOR.SEARCH.SEARCH = '#search-search';
-    this.SELECTOR.SEARCH.ORDER_NAME = '#search-order-name';
-    this.SELECTOR.SEARCH.ORDER_TYPE = '#search-order-type';
-    this.SELECTOR.SEARCH.ORDER_UPDATE = '#search-order-update';
-    this.SELECTOR.SEARCH.CLIPS = '#search-clips';
+    this.SELECTOR.SEARCH.NEW = '#list-search-new';
+    this.SELECTOR.SEARCH.SEARCH = '#list-search-search';
+    this.SELECTOR.SEARCH.ORDER_UPDATE = '#list-search-group';
+    this.SELECTOR.SEARCH.ORDER_UPDATE = '#list-search-sort';
+    this.SELECTOR.SEARCH.CLIPS = '#list-search-clips';
 
     // クリップ
     this.SELECTOR.CLIP = {};
-    this.SELECTOR.CLIP.NAME = '#clip-name';
-    this.SELECTOR.CLIP.TYPE = '#clip-type';
-    this.SELECTOR.CLIP.EDIT = '#clip-edit';
-    this.SELECTOR.CLIP.DELETE = '#clip-delete';
-    this.SELECTOR.CLIP.SHARE = '#clip-share';
-    this.SELECTOR.CLIP.SETTING = '#clip-setting';
+    this.SELECTOR.CLIP.NAME = '#list-clip-name';
+    this.SELECTOR.CLIP.TYPE = '#list-clip-type';
+    this.SELECTOR.CLIP.EDIT = '#list-clip-edit';
+    this.SELECTOR.CLIP.DELETE = '#list-clip-delete';
+    this.SELECTOR.CLIP.SHARE = '#list-clip-share';
+    this.SELECTOR.CLIP.SETTING = '#list-clip-setting';
 
   }
 }
@@ -123,7 +125,10 @@ class ListView extends ClipwebView {
         header = LN.get('header_clip_list');
         _mainTemplate = this.MODEL.TEMPLATE.SEARCH;
         _mainModel = {
-          search: this.MODEL.SEARCH
+          search: this.MODEL.SEARCH,
+          group: this.MODEL.GROUP,
+          sort: this.MODEL.SORT,
+          order: this.MODEL.ORDER
         };
         break;
     }
