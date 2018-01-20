@@ -129,6 +129,28 @@ EX.Object.assignType = function (
   return target;
 };
 
+/**
+ * Object.prototype.getArg
+ * @param  {Arguments} args         Inputted arguments
+ * @param  {Number}    index        Index of arguments
+ * @param  {String}    type         Type of arguments
+ * @param  {Object}    defaultValue Default value
+ * @return {Object}                 Result
+**/
+
+EX.Object.getArg = function(
+  args = null,
+  index = null,
+  type = null,
+  defaultValue = null
+) {
+  let result = defaultValue;
+  if (Object.getType(args[index]) == type) {
+    result = args[index];
+  }
+  return result;
+};
+
 // ----------------------------------------------------------------
 // defineProperty
 
