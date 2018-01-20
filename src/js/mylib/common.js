@@ -797,11 +797,21 @@ class CommonView extends CommonClass {
 
   generateHeader ({
     selector = this.MODEL.SELECTOR.AREA,
-    id = null,
     header = null,
-    icon = null,
-    tabindex = null
+    id = null,
+    buttonIcon = null,
+    buttonTabindex = null,
+    buttonId = null,
+    buttonClass = null
   } = {}) {
+    selector = Object.getArg(arguments, 0, 'String', selector);
+    header = Object.getArg(arguments, 1, 'String', header);
+    id = Object.getArg(arguments, 2, 'String', id);
+    buttonIcon = Object.getArg(arguments, 3, 'String', buttonIcon);
+    buttonTabindex = Object.getArg(arguments, 4, 'Number', buttonTabindex);
+    buttonId = Object.getArg(arguments, 5, 'String', buttonId);
+    buttonClass = Object.getArg(arguments, 6, 'String', buttonClass);
+
     if (selector == null || header == null) {
       Log.error(arguments)();
       return;
@@ -810,8 +820,10 @@ class CommonView extends CommonClass {
     $(selector).prepend(Content.getHeader({
       id: id,
       header: header,
-      icon: icon,
-      tabindex: tabindex
+      buttonIcon: buttonIcon,
+      buttonTabindex: buttonTabindex,
+      buttonId: buttonId,
+      buttonClass: buttonClass
     }));
     // Method chain
     return this;
