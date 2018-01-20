@@ -189,10 +189,7 @@ class NavEvent extends ClipwebEvent {
       selector: `#${this.MODEL.SELECTOR.NAV.SEARCH.BUTTON}`,
       func: () => {
         super.log('Click', 'Nav Search')();
-        this.VIEW.updateArea({
-          object: LIST,
-          selector: this.MODEL.SELECTOR.AREA.LIST
-        });
+        LIST.VIEW.move({ mode: this.MODEL.COMMON.TYPE.PREPEND });
         $(LIST.MODEL.SELECTOR.SEARCH.SEARCH).val($(`#${this.MODEL.SELECTOR.NAV.SEARCH.TEXT}`).val());
         $(`#${this.MODEL.SELECTOR.NAV.SEARCH.TEXT}`).val('');
         LIST.filtering();
@@ -218,10 +215,7 @@ class NavEvent extends ClipwebEvent {
       selector: `#${this.MODEL.SELECTOR.NAV.LOGIN}`,
       func: () => {
         super.log('Login', 'Open')();
-        this.VIEW.updateArea({
-          object: USER,
-          selector: this.MODEL.SELECTOR.AREA.USER
-        });
+        USER.VIEW.move({ mode: this.MODEL.COMMON.TYPE.PREPEND });
         USER.open({ type: this.MODEL.TYPE.LOGIN });
       }
     });
@@ -232,10 +226,7 @@ class NavEvent extends ClipwebEvent {
       selector: `#${this.MODEL.SELECTOR.NAV.SETTING}`,
       func: () => {
         super.log('User Setting', 'Open')();
-        this.VIEW.updateArea({
-          object: USER,
-          selector: this.MODEL.SELECTOR.AREA.USER
-        });
+        USER.VIEW.move({ mode: this.MODEL.COMMON.TYPE.PREPEND });
         USER.open({ type: this.MODEL.TYPE.SETTING });
       }
     });
@@ -246,10 +237,7 @@ class NavEvent extends ClipwebEvent {
       selector: `#${this.MODEL.SELECTOR.NAV.LOGOUT}`,
       func: () => {
         super.log('Logout', 'Open')();
-        this.VIEW.updateArea({
-          object: USER,
-          selector: this.MODEL.SELECTOR.AREA.USER
-        });
+        USER.VIEW.move({ mode: this.MODEL.COMMON.TYPE.PREPEND });
         USER.open({ type: this.MODEL.TYPE.LOGOUT });
       }
     });
@@ -260,10 +248,7 @@ class NavEvent extends ClipwebEvent {
       selector: `#${this.MODEL.SELECTOR.NAV.REGISTER}`,
       func: () => {
         super.log('Register', 'Open')();
-        this.VIEW.updateArea({
-          object: USER,
-          selector: this.MODEL.SELECTOR.AREA.USER
-        });
+        USER.VIEW.move({ mode: this.MODEL.COMMON.TYPE.PREPEND });
         USER.open({ type: this.MODEL.TYPE.REGISTER });
       }
     });
@@ -274,10 +259,7 @@ class NavEvent extends ClipwebEvent {
       selector: `#${this.MODEL.SELECTOR.NAV.LIST}`,
       func: () => {
         super.log('List', 'Open')();
-        this.VIEW.updateArea({
-          object: LIST,
-          selector: this.MODEL.SELECTOR.AREA.LIST
-        });
+        LIST.VIEW.move({ mode: this.MODEL.COMMON.TYPE.PREPEND });
       }
     });
   }
@@ -287,10 +269,7 @@ class NavEvent extends ClipwebEvent {
       selector: `#${this.MODEL.SELECTOR.NAV.HELP}`,
       func: () => {
         super.log('Help', 'Open')();
-        this.VIEW.updateArea({
-          object: HELP,
-          selector: this.MODEL.SELECTOR.AREA.HELP
-        });
+        HELP.VIEW.move({ mode: this.MODEL.COMMON.TYPE.PREPEND });
         HELP.open({ type: this.MODEL.TYPE.HELP });
       }
     });

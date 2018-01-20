@@ -130,6 +130,7 @@ class ListEvent extends ClipwebEvent {
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.NEW}`,
       func: () => {
         super.log('Search', 'New')();
+        CLIP.VIEW.move({ target: LIST.MODEL.SELECTOR.AREA, mode: this.MODEL.COMMON.TYPE.BEFORE });
         CLIP.open({ type: this.MODEL.TYPE.NEW });
       }
     });
