@@ -61,9 +61,11 @@ class View {
     let _attr = '';
 
     if (id != null) {
+      id = id.replace('#', '');
       _id = ` id="${id}"`;
     }
     if (clas != null) {
+      id = id.replace('.', '');
       _clas = ` class="${clas}"`;
     }
     if (content != null) {
