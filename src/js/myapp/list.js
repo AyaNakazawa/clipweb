@@ -362,6 +362,64 @@ class ListController extends ClipwebController {
   }
 
   // ----------------------------------------------------------------
+  // data shape
+
+  grouping () {
+    const _SELECTOR = this.MODEL.SELECTOR.SEARCH.GROUP;
+    const _VALID = $(_SELECTOR)[0].validity.valid;
+
+    if (_VALID) {
+      this.MODEL.GROUP = $(`${_SELECTOR} option:selected`).val();
+    } else {
+      Log.error(arguments, 'select is invalid X(')();
+    }
+
+    // Grouping
+    super.log('Grouping', this.MODEL.GROUP)();
+    LocalStorage.setItem(this.MODEL.LS.GROUP, this.MODEL.GROUP);
+
+    this.sorting({ type: this.MODEL.ORDER });
+  }
+
+  sorting ({
+    type = null
+  } = {}) {
+    if (type == null) {
+      Log.error(arguments)();
+      return;
+    }
+    const _SELECTOR = this.MODEL.SELECTOR.SEARCH.SORT;
+    const _VALID = $(_SELECTOR)[0].validity.valid;
+
+    if (_VALID) {
+      this.MODEL.SORT = $(`${_SELECTOR} option:selected`).val();
+    } else {
+      Log.error(arguments, 'select is invalid X(')();
+    }
+
+    switch (type) {
+      case 'asc':
+        this.MODEL.ORDER = 'asc';
+        $(this.MODEL.SELECTOR.SEARCH.SORT_ASC).addClass('active');
+        $(this.MODEL.SELECTOR.SEARCH.SORT_DESC).removeClass('active');
+        break;
+      case 'desc':
+        this.MODEL.ORDER = 'desc';
+        $(this.MODEL.SELECTOR.SEARCH.SORT_DESC).addClass('active');
+        $(this.MODEL.SELECTOR.SEARCH.SORT_ASC).removeClass('active');
+        break;
+      default:
+        Log.error(arguments, 'unknown type X(')();
+    }
+
+    // Sorting
+    super.log('Sorting', `${this.MODEL.SORT} ${this.MODEL.ORDER.capitalize()}`)();
+    LocalStorage.setItem(this.MODEL.LS.SORT, this.MODEL.SORT);
+    LocalStorage.setItem(this.MODEL.LS.ORDER, this.MODEL.ORDER);
+
+  }
+
+  // ----------------------------------------------------------------
   // ajax
 
   loadList () {
@@ -431,6 +489,7 @@ class ListController extends ClipwebController {
                     View.element({ content: LN.get('clip_list_got') })
                 },
               });
+              this.grouping();
             }
           }
         }
