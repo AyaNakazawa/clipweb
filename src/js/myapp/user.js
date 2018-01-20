@@ -132,6 +132,7 @@ class UserModel extends ClipwebModel {
     this.SELECTOR.LOGIN = {};
     this.SELECTOR.LOGIN.EMAIL = '#user-login-email';
     this.SELECTOR.LOGIN.PASSWORD = '#user-login-password';
+    this.SELECTOR.LOGIN.AUTO_LABEL = '#user-login-auto-label';
     this.SELECTOR.LOGIN.AUTO = '#user-login-auto';
     this.SELECTOR.LOGIN.SUBMIT = '#user-login-submit';
     this.SELECTOR.LOGIN.REGISTER = '#user-login-register';
@@ -418,6 +419,19 @@ class UserEvent extends ClipwebEvent {
       func: () => {
         super.log('Register', 'Open')();
         this.CONTROLLER.open({ type: this.MODEL.TYPE.REGISTER });
+      }
+    });
+
+    super.setOn({
+      trigger: 'keyup',
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.LOGIN.AUTO_LABEL}`,
+      func: (event) => {
+        if (event.which == 13 || event.which == 32) {
+          super.trigger({
+            trigger: 'click',
+            selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.LOGIN.AUTO}`
+          });
+        }
       }
     });
 
