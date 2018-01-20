@@ -159,19 +159,31 @@ class Log {
     // View permission
     if (view) {
       const _ERROR = new Error().stack.split('\n');
-      _ERROR.shift();
+      if (_ERROR[0] == 'Error') {
+        _ERROR.shift();
+      }
       _ERROR.shift();
       _ERROR.shift();
       let _stack = [];
       for (let error of _ERROR) {
-        let _temp = error.trim().substr(3);
-        let _temp2 = _temp.split(' (');
-        _temp2[1] = _temp2[1].slice(0, -1);
-        let _temp3 = {
-          name: _temp2[0],
-          path: _temp2[1]
-        };
-        _stack.push(_temp3);
+        let _temp = error.trim();
+        let _temp2 = null;
+        if (_temp.indexOf(' (') > 0) {
+          _temp = _temp.substr(3);
+          _temp2 = _temp.split(' (');
+        } else if (_temp.indexOf('@') > 0) {
+          _temp2 = _temp.split('@');
+        }
+        if (_temp2 != null) {
+          if (_temp.indexOf(')') > 0) {
+            _temp2[1] = _temp2[1].slice(0, -1);
+          }
+          let _temp3 = {
+            name: _temp2[0],
+            path: _temp2[1]
+          };
+          _stack.push(_temp3);
+        }
       }
 
       // Draw line
