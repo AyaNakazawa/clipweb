@@ -33,6 +33,7 @@ class Language {
       info: 'Info',
 
       none: 'None',
+      name: 'Name',
       yes: 'Yes',
       no: 'No',
       save: 'Save',
@@ -141,6 +142,7 @@ class Language {
       info: '情報',
 
       none: 'なし',
+      name: '名前',
       yes: 'はい',
       no: 'いいえ',
       save: '保存',
