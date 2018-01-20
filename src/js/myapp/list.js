@@ -63,19 +63,18 @@ class ListModel extends ClipwebModel {
     this.SELECTOR.SEARCH = {};
     this.SELECTOR.SEARCH.NEW = '#list-search-new';
     this.SELECTOR.SEARCH.SEARCH = '#list-search-search';
-    this.SELECTOR.SEARCH.ORDER_UPDATE = '#list-search-group';
-    this.SELECTOR.SEARCH.ORDER_UPDATE = '#list-search-sort';
+    this.SELECTOR.SEARCH.GROUP = '#list-search-group';
+    this.SELECTOR.SEARCH.SORT = '#list-search-sort';
+    this.SELECTOR.SEARCH.SORT_ASC = '#list-search-sort-asc';
+    this.SELECTOR.SEARCH.SORT_DESC = '#list-search-sort-desc';
     this.SELECTOR.SEARCH.CLIPS = '#list-search-clips';
 
     // クリップ
     this.SELECTOR.CLIP = {};
-    this.SELECTOR.CLIP.NAME = '#list-clip-name';
-    this.SELECTOR.CLIP.TYPE = '#list-clip-type';
     this.SELECTOR.CLIP.EDIT = '#list-clip-edit';
     this.SELECTOR.CLIP.DELETE = '#list-clip-delete';
     this.SELECTOR.CLIP.SHARE = '#list-clip-share';
     this.SELECTOR.CLIP.SETTING = '#list-clip-setting';
-
   }
 }
 
