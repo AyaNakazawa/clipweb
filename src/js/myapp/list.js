@@ -253,7 +253,6 @@ class ListEvent extends ClipwebEvent {
     });
 
     super.setOn({
-      trigger: 'click',
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.SORT_ASC}`,
       func: () => {
         super.log('Search', 'Sort Asc')();
@@ -262,7 +261,6 @@ class ListEvent extends ClipwebEvent {
     });
 
     super.setOn({
-      trigger: 'click',
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.SORT_DESC}`,
       func: () => {
         super.log('Search', 'Sort Desc')();
@@ -390,6 +388,7 @@ class ListController extends ClipwebController {
       this.MODEL.GROUP = $(`${_SELECTOR} option:selected`).val();
     } else {
       Log.error(arguments, 'select is invalid X(')();
+      return;
     }
 
     // Grouping
@@ -413,6 +412,7 @@ class ListController extends ClipwebController {
       this.MODEL.SORT = $(`${_SELECTOR} option:selected`).val();
     } else {
       Log.error(arguments, 'select is invalid X(')();
+      return;
     }
 
     switch (type) {
