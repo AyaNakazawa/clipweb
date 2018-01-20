@@ -29,6 +29,10 @@ class NavModel extends ClipwebModel {
     this.SELECTOR.NAV.LIST = 'nav-list';
     this.SELECTOR.NAV.HELP = 'nav-help';
 
+    this.SELECTOR.NAV.SEARCH = {};
+    this.SELECTOR.NAV.SEARCH.TEXT = 'nav-seacrh-text';
+    this.SELECTOR.NAV.SEARCH.BUTTON = 'nav-seacrh-button';
+
     this.SELECTOR.HEADER = {};
     this.SELECTOR.HEADER.CLEAR = '#header-clear';
 
