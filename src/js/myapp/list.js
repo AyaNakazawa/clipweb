@@ -385,33 +385,16 @@ class ListController extends ClipwebController {
           // resultが取得できない
           this.open({
             type: _TYPE,
-            model: {
-              alertMessage:
-                View.element({ element: 'h5', content: LN.get('server_not_working') }) +
-                View.element({ element: 'hr' }) +
-                View.element({ content: LN.get('failed_to_get_clip_list') }),
-              alertType: View.ALERT_DANGER
-            }
+            model: super.getErrorModel('result', 'failed_to_get_clip_list')
           });
         } else {
           if (this.getAjaxData({ key: 'result' }) == false) {
             // 新規登録できていない(clipweb user error)
             if (typeof this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`] != 'undefined') {
               const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
-              let message = this.MODEL.getMessage(_ERROR['code'], _ERROR['message'], true);
               this.open({
                 type: _TYPE,
-                model: {
-                  alertMessage:
-                    View.element({ element: 'h5', content: LN.get('failed_to_get_clip_list') }) +
-                    View.element({ element: 'hr' }) +
-                    View.element({ content: LN.get('clipweb_user_error_code', {
-                      project: Project.NAME,
-                      code: _ERROR['code']
-                    }) }) +
-                    View.element({ content: LN.get('clipweb_user_error_message', { message: message }) }),
-                  alertType: View.ALERT_WARNING
-                }
+                model: super.getErrorModel('clipweb', 'failed_to_get_clip_list', _ERROR)
               });
             }
           } else {
@@ -420,15 +403,7 @@ class ListController extends ClipwebController {
               const _ERROR = this.getAjaxData({ key: 'clip_list' })['flex sqlite3 error'];
               this.open({
                 type: _TYPE,
-                model: {
-                  alertMessage:
-                    View.element({ element: 'h5', content: LN.get('failed_to_get_clip_list') }) +
-                    View.element({ element: 'hr' }) +
-                    View.element({ content: LN.get('flex_sqlite3_error_code', { code: _ERROR['code'] }) }) +
-                    View.element({ content: LN.get('flex_sqlite3_error_mode', { mode: _ERROR['mode'] }) }) +
-                    View.element({ content: LN.get('flex_sqlite3_error_message', { message: _ERROR['message'] }) }),
-                  alertType: View.ALERT_WARNING
-                }
+                model: super.getErrorModel('fsql', 'failed_to_get_clip_list', _ERROR)
               });
             } else {
               // 取得成功
@@ -447,14 +422,7 @@ class ListController extends ClipwebController {
         }
       },
       errorOpenType: _TYPE,
-      errorModel: {
-        alertMessage: (
-          View.element({ element: 'h5', content: LN.get('failed_connect_to_server') }) +
-          View.element({ element: 'hr' }) +
-          View.element({ content: LN.get('failed_to_get_clip_list') })
-        ),
-        alertType: View.ALERT_DANGER
-      }
+      errorModel: super.getErrorModel('server', 'failed_to_get_clip_list')
     });
 
     // Post
