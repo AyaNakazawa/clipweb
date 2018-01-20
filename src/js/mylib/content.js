@@ -56,38 +56,62 @@ class Content {
     return 'content-item-key';
   }
 
-  static getContent (_id = null) {
-    if (_id != null) {
-      return `<div class='${Content.CONTENT}' id='${_id}'></div>`;
+  static getContent ({
+    id = null
+  } = {}) {
+    id = Object.getArg(arguments, 0, 'String', id);
+    if (id == null) {
+      Log.error(arguments, 'Need id of arguments. X(')();
+      return;
     }
-    return '';
+    return View.element({
+      id: id,
+      clas: Content.CONTENT
+    });
   }
 
   static getHeader ({
-    id = null,
     header = null,
-    icon = null,
-    tabindex = null
-  }) {
-    if (header != null) {
-      let button = '';
-      let _icon = '';
-      if (icon != null) {
-        _icon = `<i class="${icon}"></i>`;
-        let _id = '';
-        if (id != null) {
-          _id = ` id=${id}`;
-        }
-        let _tabindex = '';
-        if (tabindex != null) {
-          _tabindex = ` tabindex=${tabindex}`;
-        }
+    id = null,
+    buttonIcon = null,
+    buttonTabindex = null,
+    buttonId = null,
+    buttonClass = null
+  } = {}) {
+    header = Object.getArg(arguments, 0, 'String', header);
+    id = Object.getArg(arguments, 1, 'String', id);
+    buttonIcon = Object.getArg(arguments, 2, 'String', buttonIcon);
+    buttonTabindex = Object.getArg(arguments, 3, 'String', buttonTabindex);
+    buttonId = Object.getArg(arguments, 4, 'String', buttonId);
+    buttonClass = Object.getArg(arguments, 5, 'String', buttonClass);
 
-        button = ` <button class='close ${Content.HEADER_BUTTON}'${_id}${_tabindex}>${_icon}</button>`;
-      }
-      return `<div class='${Content.HEADER}'>${header}${button}</div>`;
+    if (header == null) {
+      Log.error(arguments, 'Need header of arguments. X(')();
+      return;
     }
-    return '';
+    let _result = '';
+    let _button = '';
+    if (buttonIcon != null) {
+      _button = View.element({
+        element: 'button',
+        id: buttonId,
+        clas: `close ${Content.HEADER_BUTTON} ${buttonClass}`,
+        content: View.element({
+          element: 'i',
+          clas: buttonIcon
+        }),
+        attr: {
+          tabindex: buttonTabindex
+        }
+      });
+    }
+
+    _result = View.element({
+      id: id,
+      clas: Content.HEADER,
+      content: `${header}${_button}`
+    });
+    return _result;
   }
 
   static getNav () {
