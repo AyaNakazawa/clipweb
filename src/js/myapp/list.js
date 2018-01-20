@@ -226,26 +226,38 @@ class ListEvent extends ClipwebEvent {
     });
 
     super.setOn({
-      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.ORDER_NAME}`,
+      trigger: 'change',
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.GROUP}`,
       func: () => {
-        super.log('Search', 'Order Name')();
-        this.CONTROLLER.order({ type: this.MODEL.TYPE.NAME });
+        super.log('Search', 'Group')();
+        this.CONTROLLER.grouping();
       }
     });
 
     super.setOn({
-      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.ORDER_TYPE}`,
+      trigger: 'change',
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.SORT}`,
       func: () => {
-        super.log('Search', 'Order Type')();
-        this.CONTROLLER.order({ type: this.MODEL.TYPE.TYPE });
+        super.log('Search', 'Sort')();
+        this.CONTROLLER.sorting({ type: 'asc' });
       }
     });
 
     super.setOn({
-      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.ORDER_UPDATE}`,
+      trigger: 'click',
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.SORT_ASC}`,
       func: () => {
-        super.log('Search', 'Order Update')();
-        this.CONTROLLER.order({ type: this.MODEL.TYPE.UPDATE });
+        super.log('Search', 'Sort Asc')();
+        this.CONTROLLER.sorting({ type: 'asc' });
+      }
+    });
+
+    super.setOn({
+      trigger: 'click',
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.SORT_DESC}`,
+      func: () => {
+        super.log('Search', 'Sort Desc')();
+        this.CONTROLLER.sorting({ type: 'desc' });
       }
     });
   }
