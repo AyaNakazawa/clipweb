@@ -315,7 +315,7 @@
         <div class="content-item">
           <label for="user-setting-theme"><%= LN.get('theme') %></label>
           <div class="content-input">
-            <select id="user-setting-theme" class="form-control" required tabindex="200">
+            <select id="user-setting-theme" class="custom-select" required tabindex="200">
               <% if (theme == 'light') { %>
                 <option value="light" selected><%= LN.get('light') %></option>
               <% } else { %>
@@ -336,7 +336,7 @@
         <div class="content-item">
           <label for="user-setting-owner-publish"><%= LN.get('default_owner_publish') %></label>
           <div class="content-input">
-            <select id="user-setting-owner-publish" class="form-control" required tabindex="200">
+            <select id="user-setting-owner-publish" class="custom-select" required tabindex="200">
               <% if (ownerPublish == 'private') { %>
                 <option value="private" selected><%= LN.get('private') %></option>
               <% } else { %>
@@ -357,7 +357,7 @@
         <div class="content-item">
           <label for="user-setting-clip-mode"><%= LN.get('default_clip_mode') %></label>
           <div class="content-input">
-            <select id="user-setting-clip-mode" class="form-control" required tabindex="200">
+            <select id="user-setting-clip-mode" class="custom-select" required tabindex="200">
               <% if (clipMode == 'private') { %>
                 <option value="private" selected><%= LN.get('private') %></option>
               <% } else { %>
