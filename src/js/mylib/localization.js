@@ -47,13 +47,13 @@ class Localization {
     let result = {};
     for (let key of Object.keys(this.langs)) {
       if (!existLimit || Object.keys(this.langs[key]).length > 1) {
-        if (typeof this.langs[key]['name'] == 'undefined') {
+        if (typeof this.langs[key]['language_name'] == 'undefined') {
           // 言語名が定義されていないのでエラー
           Log.error(arguments, `lang name is not defined: ${key}`, this.langs[key])();
           return;
         }
-        if (key == 'default' || key != 'default' && this.langs[key]['name'] != this.langs.default['name']) {
-          result[key] = this.langs[key]['name'];
+        if (key == 'default' || key != 'default' && this.langs[key]['language_name'] != this.langs.default['language_name']) {
+          result[key] = this.langs[key]['language_name'];
         }
       }
     }

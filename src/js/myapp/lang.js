@@ -5,7 +5,7 @@
 class Language {
   constructor () {
     this.en = {
-      name: 'English',
+      language_name: 'English',
 
       username: 'Username',
       email_address: 'Email address',
@@ -113,7 +113,7 @@ class Language {
       flex_sqlite3_error_message: 'Message: {message}',
     };
     this.ja = {
-      name: '日本語',
+      language_name: '日本語',
 
       username: 'ユーザー名',
       email_address: 'メールアドレス',
@@ -221,40 +221,40 @@ class Language {
       flex_sqlite3_error_message: 'メッセージ: {message}',
     };
     this.zh = {
-      name: '中文',
+      language_name: '中文',
     };
     this.fl = {
-      name: 'Français',
+      language_name: 'Français',
     };
     this.ru = {
-      name: 'Русский язык',
+      language_name: 'Русский язык',
     };
     this.ko = {
-      name: '한국',
+      language_name: '한국',
     };
     this.de = {
-      name: 'Deutsch',
+      language_name: 'Deutsch',
     };
     this.it = {
-      name: 'italiano',
+      language_name: 'italiano',
     };
     this.es = {
-      name: 'Español',
+      language_name: 'Español',
     };
     this.ar = {
-      name: 'عربى',
+      language_name: 'عربى',
     };
     this.eo = {
-      name: 'Esperanto',
+      language_name: 'Esperanto',
     };
     this.la = {
-      name: 'Latine',
+      language_name: 'Latine',
     };
     this.ms = {
-      name: 'Melayu',
+      language_name: 'Melayu',
     };
     this.el = {
-      name: 'Ελληνικά',
+      language_name: 'Ελληνικά',
     };
     this.default = this.en;
   }
