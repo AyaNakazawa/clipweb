@@ -377,17 +377,17 @@ class CommonView extends CommonClass {
   }
 
   remove ({
-    parentSelector = this.MODEL.SELECTOR.AREA,
+    parent = this.MODEL.SELECTOR.AREA,
     selector = null,
     delay = this.MODEL.COMMON.DELAY.REMOVE
   } = {}) {
-    parentSelector = Object.getArg(arguments, 0, 'String', parentSelector);
+    parent = Object.getArg(arguments, 0, 'String', parent);
     selector = Object.getArg(arguments, 1, 'String', selector);
     delay = Object.getArg(arguments, 2, 'Number', delay);
 
-    let _selector = `${parentSelector} ${selector}`;
+    let _selector = `${parent} ${selector}`;
     if (selector == null) {
-      _selector = parentSelector;
+      _selector = parent;
     }
     super.log(_selector, 'Remove', Log.ARROW_INPUT)();
 
