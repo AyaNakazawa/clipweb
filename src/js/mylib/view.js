@@ -11,10 +11,6 @@ class View {
     return 350;
   }
 
-  static get NAV () {
-    return 'nav .navbar-nav';
-  }
-
   static get ALERT_SUCCESS () {
     return 'success';
   }
@@ -81,15 +77,6 @@ class View {
 
     result = `<${element}${_id}${_clas}${_attr}>${_content}</${element}>`;
     return result;
-  }
-
-  static addNav ({
-    id = 'nav-new'
-  } = {}) {
-    if (_id != null) {
-      return `<div class='${Content.CONTENT}' id='${_id}'></div>`;
-    }
-    return '';
   }
 
   static getTemplate ({
