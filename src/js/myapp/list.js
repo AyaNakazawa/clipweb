@@ -254,7 +254,7 @@ class ListEvent extends ClipwebEvent {
     hash = null
   ) {
     if (hash == null) {
-      Log.error(arguments, 'need hash of argument')();
+      Log.error(arguments, 'need hash of argument X(')();
       return;
     }
     const _SELECTOR = `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.CLIPS} ${hash}`;
@@ -292,7 +292,7 @@ class ListEvent extends ClipwebEvent {
     hash = null
   ) {
     if (hash == null) {
-      Log.error(arguments, 'need hash of argument')();
+      Log.error(arguments, 'need hash of argument X(')();
       return;
     }
     const _SELECTOR = `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.CLIPS} ${hash}`;
@@ -441,7 +441,7 @@ class ListController extends ClipwebController {
       return;
     }
     if (type != this.getAjaxData({ key: 'type' })) {
-      Log.error(arguments, 'type mismatch')();
+      Log.error(arguments, 'type mismatch X(')();
       return;
     }
 
@@ -452,7 +452,7 @@ class ListController extends ClipwebController {
         break;
 
       default:
-        Log.error(arguments, 'unknown type.')();
+        Log.error(arguments, 'unknown type X(')();
         return;
     }
   }
@@ -477,7 +477,7 @@ class ListController extends ClipwebController {
         break;
 
       default:
-        Log.error(arguments, 'unknown type.')();
+        Log.error(arguments, 'unknown type X(')();
         return;
     }
     return _model;
