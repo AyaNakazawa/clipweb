@@ -250,9 +250,12 @@ class CommonView extends CommonClass {
     model = null,
     delay = this.MODEL.COMMON.DELAY.ADD
   } = {}) {
-    if (Object.getType(arguments[0]) == 'String') {
-      element = arguments[0];
-    }
+    mode = Object.getArg(arguments, 0, 'String', mode);
+    selector = Object.getArg(arguments, 1, 'String', selector);
+    element = Object.getArg(arguments, 2, 'String', element);
+    template = Object.getArg(arguments, 3, 'String', template);
+    model = Object.getArg(arguments, 4, 'Object', model);
+    delay = Object.getArg(arguments, 5, 'Number', delay);
     if (selector == null || element == null && (template == null || model == null)) {
       Log.error(arguments)();
       return;
@@ -289,9 +292,11 @@ class CommonView extends CommonClass {
     model = null,
     delay = this.MODEL.COMMON.DELAY.APPEND
   } = {}) {
-    if (Object.getType(arguments[0]) == 'String') {
-      element = arguments[0];
-    }
+    selector = Object.getArg(arguments, 0, 'String', selector);
+    element = Object.getArg(arguments, 1, 'String', element);
+    template = Object.getArg(arguments, 2, 'String', template);
+    model = Object.getArg(arguments, 3, 'Object', model);
+    delay = Object.getArg(arguments, 4, 'Number', delay);
     if (selector == null || element == null && (template == null || model == null)) {
       Log.error(arguments)();
       return;
@@ -319,9 +324,11 @@ class CommonView extends CommonClass {
     model = null,
     delay = this.MODEL.COMMON.DELAY.PREPEND
   } = {}) {
-    if (Object.getType(arguments[0]) == 'String') {
-      element = arguments[0];
-    }
+    selector = Object.getArg(arguments, 0, 'String', selector);
+    element = Object.getArg(arguments, 1, 'String', element);
+    template = Object.getArg(arguments, 2, 'String', template);
+    model = Object.getArg(arguments, 3, 'Object', model);
+    delay = Object.getArg(arguments, 4, 'Number', delay);
     if (selector == null || element == null && (template == null || model == null)) {
       Log.error(arguments)();
       return;
@@ -347,9 +354,9 @@ class CommonView extends CommonClass {
     selector = null,
     delay = this.MODEL.COMMON.DELAY.REMOVE
   } = {}) {
-    if (Object.getType(arguments[0]) == 'String') {
-      selector = arguments[0];
-    }
+    parentSelector = Object.getArg(arguments, 0, 'String', parentSelector);
+    selector = Object.getArg(arguments, 1, 'String', selector);
+    delay = Object.getArg(arguments, 2, 'Number', delay);
 
     let _selector = `${parentSelector} ${selector}`;
     if (selector == null) {
@@ -369,6 +376,7 @@ class CommonView extends CommonClass {
   skip (
     selector = this.MODEL.SELECTOR.AREA
   ) {
+    selector = Object.getArg(arguments, 0, 'String', selector);
     if (selector == null) {
       Log.error(arguments)();
       return;
@@ -384,6 +392,9 @@ class CommonView extends CommonClass {
     clearQueue = false,
     jumpToEnd = false
   ) {
+    selector = Object.getArg(arguments, 0, 'String', selector);
+    clearQueue = Object.getArg(arguments, 1, 'Boolean', clearQueue);
+    jumpToEnd = Object.getArg(arguments, 2, 'Boolean', jumpToEnd);
     if (selector == null) {
       Log.error(arguments)();
       return;
@@ -401,6 +412,11 @@ class CommonView extends CommonClass {
     delay = this.MODEL.COMMON.DELAY.CLEAR,
     easing = this.MODEL.COMMON.EASING.CLEAR
   } = {}) {
+    selector = Object.getArg(arguments, 0, 'String', selector);
+    type = Object.getArg(arguments, 1, 'String', type);
+    speed = Object.getArg(arguments, 2, 'Number', speed);
+    delay = Object.getArg(arguments, 3, 'Number', delay);
+    easing = Object.getArg(arguments, 4, 'String', easing);
     if (selector == null) {
       Log.error(arguments)();
       return;
@@ -430,6 +446,12 @@ class CommonView extends CommonClass {
     scroll = this.MODEL.COMMON.EFFECT.DEFAULT.SCROLL,
     easing = this.MODEL.COMMON.EASING.SHOW
   } = {}) {
+    selector = Object.getArg(arguments, 0, 'String', selector);
+    type = Object.getArg(arguments, 1, 'String', type);
+    speed = Object.getArg(arguments, 2, 'Number', speed);
+    delay = Object.getArg(arguments, 3, 'Number', delay);
+    scroll = Object.getArg(arguments, 4, 'Boolean', scroll);
+    easing = Object.getArg(arguments, 5, 'String', easing);
     if (selector == null) {
       Log.error(arguments)();
       return;
@@ -454,6 +476,11 @@ class CommonView extends CommonClass {
     delay = this.MODEL.COMMON.DELAY.HIDE,
     easing = this.MODEL.COMMON.EASING.HIDE
   } = {}) {
+    selector = Object.getArg(arguments, 0, 'String', selector);
+    type = Object.getArg(arguments, 1, 'String', type);
+    speed = Object.getArg(arguments, 2, 'Number', speed);
+    delay = Object.getArg(arguments, 3, 'Number', delay);
+    easing = Object.getArg(arguments, 4, 'String', easing);
     if (selector == null) {
       Log.error(arguments)();
       return;
@@ -480,6 +507,14 @@ class CommonView extends CommonClass {
     scroll = false,
     callback = null
   } = {}) {
+    selector = Object.getArg(arguments, 0, 'String', selector);
+    speed = Object.getArg(arguments, 1, 'Number', speed);
+    delay = Object.getArg(arguments, 2, 'Number', delay);
+    type = Object.getArg(arguments, 3, 'String', type);
+    easing = Object.getArg(arguments, 4, 'String', easing);
+    view = Object.getArg(arguments, 5, 'Boolean', view);
+    scroll = Object.getArg(arguments, 6, 'Boolean', scroll);
+    callback = Object.getArg(arguments, 7, 'Function', callback);
     if (view == null) {
       Log.error(arguments)();
       return;
@@ -702,6 +737,12 @@ class CommonView extends CommonClass {
     offset = this.MODEL.COMMON.OFFSET,
     callback = null
   } = {}) {
+    selector = Object.getArg(arguments, 0, 'String', selector);
+    speed = Object.getArg(arguments, 1, 'Number', speed);
+    delay = Object.getArg(arguments, 2, 'Number', delay);
+    easing = Object.getArg(arguments, 3, 'String', easing);
+    offset = Object.getArg(arguments, 4, 'Number', offset);
+    callback = Object.getArg(arguments, 5, 'Function', callback);
     if (selector == null || speed == null || easing == null) {
       Log.error(arguments)();
       return;
@@ -766,6 +807,10 @@ class CommonView extends CommonClass {
     message = null,
     close = true
   } = {}) {
+    selector = Object.getArg(arguments, 0, 'String', selector);
+    type = Object.getArg(arguments, 1, 'String', type);
+    message = Object.getArg(arguments, 2, 'String', message);
+    close = Object.getArg(arguments, 3, 'Boolean', close);
     if (selector == null) {
       Log.error(arguments)();
       return;
@@ -784,6 +829,8 @@ class CommonView extends CommonClass {
     selector = this.MODEL.SELECTOR.AREA,
     header = 'Loading'
   } = {}) {
+    selector = Object.getArg(arguments, 0, 'String', selector);
+    header = Object.getArg(arguments, 1, 'String', header);
     if (selector == null) {
       Log.error(arguments)();
       return;
