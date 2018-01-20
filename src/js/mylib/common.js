@@ -242,7 +242,7 @@ class CommonView extends CommonClass {
   }
 
   add ({
-    mode = this.COMMON.TYPE.APPEND,
+    mode = this.MODEL.COMMON.TYPE.APPEND,
     selector = this.MODEL.SELECTOR.AREA,
     element = null,
     template = null,
@@ -257,7 +257,7 @@ class CommonView extends CommonClass {
       return;
     }
 
-    if (mode == this.COMMON.TYPE.APPEND || mode == this.COMMON.TYPE.AFTER) {
+    if (mode == this.MODEL.COMMON.TYPE.APPEND || mode == this.MODEL.COMMON.TYPE.AFTER) {
       this.append({
         selector: selector,
         element: element,
@@ -265,7 +265,7 @@ class CommonView extends CommonClass {
         model: model,
         delay: delay
       });
-    } else if (mode == this.COMMON.TYPE.APPEND || mode == this.COMMON.TYPE.AFTER) {
+    } else if (mode == this.MODEL.COMMON.TYPE.PREPEND || mode == this.MODEL.COMMON.TYPE.BEFORE) {
       this.prepend({
         selector: selector,
         element: element,
