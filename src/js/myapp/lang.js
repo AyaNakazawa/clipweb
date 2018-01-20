@@ -70,6 +70,9 @@ class Language {
 
       header_clip_list: 'clip List',
 
+      header_new_clip: 'New clip',
+      header_setting_clip: 'clip setting',
+
       loading_header_register: 'Registering to clipweb',
       loading_header_login: 'Login to clipweb',
       loading_header_logout: 'Logout from clipweb',
@@ -134,7 +137,7 @@ class Language {
       avatar: 'アバター',
       theme: 'テーマ',
       default_owner_publish: 'オーナー公開設定',
-      default_clip_mode: 'クリップボード',
+      default_clip_mode: 'クリップモード',
       using_gravatar: '{gravatar} を利用しています。',
 
       clip: 'クリップ',
@@ -170,7 +173,7 @@ class Language {
       type: '種別',
       tag: 'タグ',
       owner: 'オーナー',
-      clip_mode: 'クリップボード',
+      clip_mode: 'クリップモード',
       created_at: '作成日時',
       updated_at: '更新日時',
       private: '非公開',
@@ -187,6 +190,9 @@ class Language {
       header_info: 'ユーザー情報',
 
       header_clip_list: 'クリップ一覧',
+
+      header_new_clip: '新規クリップ',
+      header_setting_clip: 'クリップ設定',
 
       loading_header_register: 'clipweb に登録中',
       loading_header_login: 'ログイン中',
