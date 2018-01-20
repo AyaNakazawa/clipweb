@@ -343,9 +343,21 @@ class ListController extends ClipwebController {
   init () {
     this.EVENT.setEvent();
     // データを取得
+    // 前回の検索文字列
     if (LocalStorage.getItem(this.MODEL.LS.SEARCH) != null) {
-      // 前回の検索文字列
       this.MODEL.SEARCH = LocalStorage.getItem(this.MODEL.LS.SEARCH);
+    }
+    // 前回のグループ
+    if (LocalStorage.getItem(this.MODEL.LS.GROUP) != null) {
+      this.MODEL.GROUP = LocalStorage.getItem(this.MODEL.LS.GROUP);
+    }
+    // 前回のソート
+    if (LocalStorage.getItem(this.MODEL.LS.SORT) != null) {
+      this.MODEL.SORT = LocalStorage.getItem(this.MODEL.LS.SORT);
+    }
+    // 前回のオーダー
+    if (LocalStorage.getItem(this.MODEL.LS.ORDER) != null) {
+      this.MODEL.ORDER = LocalStorage.getItem(this.MODEL.LS.ORDER);
     }
   }
 
