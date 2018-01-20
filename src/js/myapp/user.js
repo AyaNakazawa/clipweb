@@ -34,15 +34,15 @@ class UserModel extends ClipwebModel {
 
     // ----------------------------------------------------------------
     // LocalStorageキー
-    this.LS.LOGIN = 'user.lgi';
+    this.LS.LOGIN = 'user.login';
 
     this.LS.AUTO = {};
-    this.LS.AUTO.LOGIN = 'user.at.lgi';
-    this.LS.AUTO.EMAIL = 'user.at.em';
+    this.LS.AUTO.LOGIN = 'user.auto.login';
+    this.LS.AUTO.EMAIL = 'user.auto.em';
 
     this.LS.AUTO.HASH = {};
-    this.LS.AUTO.HASH.PASSWORD = 'user.at.ph';
-    this.LS.AUTO.HASH.DECRYPT_CRYPTO = 'user.at.dch';
+    this.LS.AUTO.HASH.PASSWORD = 'user.auto.ph';
+    this.LS.AUTO.HASH.DECRYPT_CRYPTO = 'user.auto.dch';
 
     // ----------------------------------------------------------------
     // ユーザ情報
