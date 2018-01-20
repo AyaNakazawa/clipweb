@@ -104,23 +104,6 @@ class NavView extends ClipwebView {
     $(this.MODEL.SELECTOR.AREA.NAV).append(`<div class="col-md-4 nav-seacrh"><div class="input-group"><input class="form-control" id="${this.MODEL.SELECTOR.NAV.SEARCH.TEXT}" placeholder="${LN.get('search')}"><span class="input-group-append"><button class="btn btn-outline-info" id="${this.MODEL.SELECTOR.NAV.SEARCH.BUTTON}"><i class="fas fa-search"></i></button></span></div></div>`);
   }
 
-  updateArea ({
-    object = null,
-    selector = null,
-    parent = this.MODEL.COMMON.MAIN
-  } = {}) {
-    if (object == null || selector == null || parent == null) {
-      Log.error(arguments)();
-      return;
-    }
-    const _HTML = $(`#${selector}`)[0]['innerHTML'];
-    object.VIEW.remove();
-    $(parent).prepend(Content.getContent(selector));
-    object.VIEW.hide({ speed: 0 });
-    object.VIEW.append({ element: _HTML });
-    object.VIEW.show({ scroll: true });
-  }
-
   generateNotLogin () {
     this.clearNavItem();
 
