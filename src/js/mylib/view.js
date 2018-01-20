@@ -61,7 +61,7 @@ class View {
       _id = ` id="${id}"`;
     }
     if (clas != null) {
-      id = id.replace('.', '');
+      clas = clas.replace('.', '');
       _clas = ` class="${clas}"`;
     }
     if (content != null) {
