@@ -472,7 +472,7 @@ class ListController extends ClipwebController {
     switch (type) {
       case this.MODEL.TYPE.SEARCH:
         // SEARCH
-        this.MODEL.CLIPS = this.getAjaxData({ key: 'clip_list' });
+        this.MODEL.DL_CLIPS = this.getAjaxData({ key: 'clip_list' });
         break;
 
       default:
