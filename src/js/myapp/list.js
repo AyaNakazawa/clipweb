@@ -26,18 +26,22 @@ class ListModel extends ClipwebModel {
 
     // ----------------------------------------------------------------
     // LocalStorageキー
-    this.LS.SEARCH = 'cl.search';
+    this.LS.SEARCH = 'list.search';
+    this.LS.GROUP = 'list.group';
+    this.LS.SORT = 'list.sort';
+    this.LS.ORDER = 'list.order';
 
     // ----------------------------------------------------------------
     // 情報
 
     // 検索文字列
     this.SEARCH = '';
-    this.GROUP = '';
-    this.SORT = '';
-    this.ORDER = '';
+    this.GROUP = 'type';
+    this.SORT = 'name';
+    this.ORDER = 'asc';
 
     // クリップ
+    this.DL_CLIPS = null;
     this.CLIPS = null;
 
     // ----------------------------------------------------------------
