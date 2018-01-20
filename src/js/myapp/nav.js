@@ -19,6 +19,7 @@ class NavModel extends ClipwebModel {
     this.SELECTOR.AREA.NAV = '#navbar';
     this.SELECTOR.AREA.USER = 'user-area';
     this.SELECTOR.AREA.LIST = 'list-area';
+    this.SELECTOR.AREA.CLIP = 'clip-area';
 
     this.SELECTOR.NAV = {};
     this.SELECTOR.NAV.BAR = '.navbar-nav';
@@ -27,6 +28,7 @@ class NavModel extends ClipwebModel {
     this.SELECTOR.NAV.SETTING = 'nav-setting';
     this.SELECTOR.NAV.LOGOUT = 'nav-logout';
     this.SELECTOR.NAV.LIST = 'nav-list';
+    this.SELECTOR.NAV.NEW = 'nav-new';
     this.SELECTOR.NAV.HELP = 'nav-help';
 
     this.SELECTOR.NAV.SEARCH = {};
@@ -130,6 +132,10 @@ class NavView extends ClipwebView {
       name: LN.get('clips')
     });
     this.addNavItem({
+      id: this.MODEL.SELECTOR.NAV.NEW,
+      name: LN.get('new')
+    });
+    this.addNavItem({
       id: this.MODEL.SELECTOR.NAV.SETTING,
       name: LN.get('setting')
     });
@@ -164,6 +170,7 @@ class NavEvent extends ClipwebEvent {
     this.setOpenLogout();
     this.setOpenRegister();
     this.setOpenList();
+    this.setOpenNew();
     this.setOpenHelp();
   }
 
@@ -260,6 +267,17 @@ class NavEvent extends ClipwebEvent {
       func: () => {
         super.log('List', 'Open')();
         LIST.VIEW.move({ mode: this.MODEL.COMMON.TYPE.PREPEND });
+      }
+    });
+  }
+
+  setOpenNew () {
+    super.setOn({
+      selector: `#${this.MODEL.SELECTOR.NAV.NEW}`,
+      func: () => {
+        super.log('New', 'Open')();
+        CLIP.VIEW.move({ target: LIST.MODEL.SELECTOR.AREA, mode: this.MODEL.COMMON.TYPE.BEFORE });
+        CLIP.open({ type: this.MODEL.TYPE.NEW });
       }
     });
   }
