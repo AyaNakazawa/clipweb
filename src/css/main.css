@@ -60,6 +60,7 @@ textarea {
   resize: vertical; }
 
 .localization {
+  font-size: .85rem;
   color: #666 !important; }
   .localization option {
     color: #666 !important; }
