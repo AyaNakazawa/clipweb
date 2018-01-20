@@ -175,6 +175,7 @@ class NavEvent extends ClipwebEvent {
 
   setEvent () {
     this.setClickHeaderClear();
+    this.setClickNavSearch();
     this.setOpenLogin();
     this.setOpenSetting();
     this.setOpenLogout();
@@ -196,6 +197,34 @@ class NavEvent extends ClipwebEvent {
             location.reload();
           }
         });
+      }
+    });
+  }
+
+  setClickNavSearch () {
+    super.setOn({
+      selector: `#${this.MODEL.SELECTOR.NAV.SEARCH.BUTTON}`,
+      func: () => {
+        super.log('Click', 'Nav Search')();
+        this.VIEW.updateArea({
+          object: LIST,
+          selector: this.MODEL.SELECTOR.AREA.LIST
+        });
+        $(LIST.MODEL.SELECTOR.SEARCH.SEARCH).val($(`#${this.MODEL.SELECTOR.NAV.SEARCH.TEXT}`).val());
+        LIST.filtering();
+      }
+    });
+
+    super.setOn({
+      trigger: 'keyup',
+      selector: `#${this.MODEL.SELECTOR.NAV.SEARCH.TEXT}`,
+      func: (event) => {
+        if (event.which == 13) {
+          super.trigger({
+            trigger: 'click',
+            selector: `#${this.MODEL.SELECTOR.NAV.SEARCH.BUTTON}`
+          });
+        }
       }
     });
   }
