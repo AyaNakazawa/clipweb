@@ -6,8 +6,21 @@
 
 #list-area {
   width: 100%;
+
   #list-search-search {
     border-top-right-radius: .25rem;
     border-bottom-right-radius: .25rem;
+  }
+
+  #list-search-search-clear {
+    cursor: pointer;
+    position: absolute;
+    padding: .5rem;
+    top: 0.2rem;
+    right: 2.5rem;
+  }
+
+  #list-search-clips {
+
   }
 }
