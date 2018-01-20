@@ -242,6 +242,33 @@ class CommonView extends CommonClass {
     super(initSetting, common);
   }
 
+  move ({
+    mode = this.MODEL.COMMON.TYPE.PREPEND,
+    parent = this.MODEL.COMMON.MAIN,
+    selector = this.MODEL.SELECTOR.AREA
+  } = {}) {
+    mode = Object.getArg(arguments, 0, 'String', mode);
+    parent = Object.getArg(arguments, 1, 'String', parent);
+    selector = Object.getArg(arguments, 2, 'String', selector);
+    if (mode == null || parent == null) {
+      Log.error(arguments)();
+      return;
+    }
+    const _HTML = $(selector)[0]['innerHTML'];
+    this.VIEW.remove();
+    if (mode == this.MODEL.COMMON.TYPE.APPEND) {
+      $(parent).append(Content.getContent({ id: selector }));
+    } else if (mode == this.MODEL.COMMON.TYPE.PREPEND) {
+      $(parent).prepend(Content.getContent({ id: selector }));
+    } else {
+      Log.error(arguments, 'unknown mode X(')();
+      return;
+    }
+    this.VIEW.hide({ selector: selector, speed: 0 });
+    this.VIEW.append({ selector: selector, element: _HTML });
+    this.VIEW.show({ selector: selector, scroll: true });
+  }
+
   add ({
     mode = this.MODEL.COMMON.TYPE.APPEND,
     selector = this.MODEL.SELECTOR.AREA,
