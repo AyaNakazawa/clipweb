@@ -269,6 +269,15 @@ class ListEvent extends ClipwebEvent {
         this.CONTROLLER.sorting({ type: 'desc' });
       }
     });
+
+    super.setOn({
+      trigger: 'change',
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.SEARCH}`,
+      func: () => {
+        super.log('Search', 'Filter')();
+        this.CONTROLLER.filtering();
+      }
+    });
   }
 
   setOnClip (
