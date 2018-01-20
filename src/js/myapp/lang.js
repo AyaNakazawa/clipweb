@@ -111,7 +111,7 @@ class Language {
       failed_to_get_clip_list: 'Failed to getting your clips.',
 
       failed_connect_to_server: 'Failed connect to clipweb server.',
-      server_not_working: 'clipweb server is not working.',
+      server_not_working: 'clipweb server is not working properly.',
 
       clipweb_user_error_code: '{project} User Error Code: {code}',
       clipweb_user_error_message: 'Message: {message}',
