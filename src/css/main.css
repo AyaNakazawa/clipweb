@@ -462,5 +462,8 @@ body:before {
 
 #list-area {
   width: 100%; }
+  #list-area #list-search-search {
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem; }
 
 /*# sourceMappingURL=main.css.map */
