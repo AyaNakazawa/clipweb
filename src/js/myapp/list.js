@@ -130,7 +130,7 @@ class ListEvent extends ClipwebEvent {
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.NEW}`,
       func: () => {
         super.log('Search', 'New')();
-        this.CONTROLLER.submitNew();
+        CLIP.open({ type: this.MODEL.TYPE.NEW });
       }
     });
 
@@ -462,10 +462,6 @@ class ListController extends ClipwebController {
       type: _TYPE,
       data: this.getSendModel(_TYPE)
     });
-  }
-
-  submitNew () {
-
   }
 
   // ----------------------------------------------------------------
