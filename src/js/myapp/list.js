@@ -428,6 +428,23 @@ class ListController extends ClipwebController {
 
   }
 
+  filtering () {
+    const _SELECTOR = this.MODEL.SELECTOR.SEARCH.SEARCH;
+    const _VALID = $(_SELECTOR)[0].validity.valid;
+
+    if (_VALID) {
+      this.MODEL.SEARCH = $(_SELECTOR).val();
+    } else {
+      Log.error(arguments, 'input is invalid X(')();
+      return;
+    }
+
+    // Filtering
+    super.log('Filtering', `${this.MODEL.SEARCH}`)();
+    LocalStorage.setItem(this.MODEL.LS.SEARCH, this.MODEL.SEARCH);
+
+  }
+
   // ----------------------------------------------------------------
   // ajax
 
@@ -519,6 +536,10 @@ class ListController extends ClipwebController {
       type: _TYPE,
       data: this.getSendModel(_TYPE)
     });
+  }
+
+  submitNew () {
+
   }
 
   // ----------------------------------------------------------------
