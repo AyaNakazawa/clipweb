@@ -304,8 +304,8 @@ class UserView extends ClipwebView {
     if (header != null) {
       super.generateHeader({
         header: header,
-        icon: headerButton,
-        tabindex: 290
+        buttonIcon: headerButton,
+        buttonTabindex: 290
       });
     }
 
