@@ -313,7 +313,7 @@ class ClipwebController extends CommonController {
   }
 
   // ----------------------------------------------------------------
-  // update
+  // model
 
   getAjaxData ({
     type = this.MODEL.KEY,
@@ -332,6 +332,69 @@ class ClipwebController extends CommonController {
       Log.error(arguments, 'key undefined', this.MODEL.OBJECT.AJAX)();
       return;
     }
+  }
+
+  getErrorModel ({
+    type = null,
+    localization = null,
+    error = null
+  } = {}) {
+    type = Object.getArg(arguments, 0, 'String', type);
+    localization = Object.getArg(arguments, 1, 'String', localization);
+    error = Object.getArg(arguments, 2, 'Object', error);
+    if (type == null || localization == null) {
+      Log.error(arguments)();
+      return;
+    }
+    let _result = '';
+    switch (type) {
+      case 'result':
+        _result = {
+          alertMessage:
+            View.element({ element: 'h5', content: LN.get('server_not_working') }) +
+            View.element({ element: 'hr' }) +
+            View.element({ content: LN.get(localization) }),
+          alertType: View.ALERT_DANGER
+        };
+        break;
+      case 'clipweb':
+        _result = {
+          alertMessage:
+            View.element({ element: 'h5', content: LN.get(localization) }) +
+            View.element({ element: 'hr' }) +
+            View.element({ content: LN.get(`clipweb_${this.MODEL.KEY}_error_code`, {
+              project: Project.NAME,
+              code: error['code']
+            }) }) +
+            View.element({ content: LN.get(`clipweb_${this.MODEL.KEY}_error_message`, {
+              message: this.MODEL.getMessage(error['code'], error['message'], true)
+            }) }),
+          alertType: View.ALERT_WARNING
+        };
+        break;
+      case 'fsql':
+        _result = {
+          alertMessage:
+            View.element({ element: 'h5', content: LN.get(localization) }) +
+            View.element({ element: 'hr' }) +
+            View.element({ content: LN.get('flex_sqlite3_error_code', { code: error['code'] }) }) +
+            View.element({ content: LN.get('flex_sqlite3_error_mode', { mode: error['mode'] }) }) +
+            View.element({ content: LN.get('flex_sqlite3_error_message', { message: error['message'] }) }),
+          alertType: View.ALERT_WARNING
+        };
+        break;
+      case 'server':
+        _result = {
+          alertMessage: (
+            View.element({ element: 'h5', content: LN.get('failed_connect_to_server') }) +
+            View.element({ element: 'hr' }) +
+            View.element({ content: LN.get(localization) })
+          ),
+          alertType: View.ALERT_DANGER
+        };
+        break;
+    }
+    return _result;
   }
 
   // ----------------------------------------------------------------
