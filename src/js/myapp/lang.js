@@ -106,6 +106,7 @@ class Language {
       password_incorrect: 'Password is incorrect.',
       corrupt_userdata: 'User data is corrupted. Please contact the administrator.',
       password_dont_match: 'Password don\'t match.',
+      clip_not_exists: 'Your clip not exists.',
 
       failed_to_register: 'Failed to register.',
       failed_to_login: 'Failed to login.',
@@ -121,6 +122,12 @@ class Language {
 
       clipweb_user_error_code: '{project} User Error Code: {code}',
       clipweb_user_error_message: 'Message: {message}',
+      clipweb_list_error_code: '{project} List Error Code: {code}',
+      clipweb_list_error_message: 'Message: {message}',
+      clipweb_clip_error_code: '{project} Clip Error Code: {code}',
+      clipweb_clip_error_message: 'Message: {message}',
+      clipweb_share_error_code: '{project} Share Error Code: {code}',
+      clipweb_share_error_message: 'Message: {message}',
       flex_sqlite3_error_code: 'Flex Sqlite3 Error Code: {code}',
       flex_sqlite3_error_mode: 'Flex Sqlite3 Mode: {mode}',
       flex_sqlite3_error_message: 'Message: {message}',
@@ -227,6 +234,7 @@ class Language {
       password_incorrect: 'パスワードが間違っています。',
       corrupt_userdata: 'ユーザーデータが破損しています。管理者までご確認ください。',
       password_dont_match: 'パスワードが一致しません。',
+      clip_not_exists: 'あなたのクリップはありません。',
 
       failed_to_register: '登録できませんでした。',
       failed_to_login: 'ログインに失敗しました。',
@@ -242,6 +250,12 @@ class Language {
 
       clipweb_user_error_code: '{project} ユーザー エラーコード: {code}',
       clipweb_user_error_message: 'メッセージ: {message}',
+      clipweb_list_error_code: '{project} リスト エラーコード: {code}',
+      clipweb_list_error_message: 'メッセージ: {message}',
+      clipweb_clip_error_code: '{project} クリップ エラーコード: {code}',
+      clipweb_clip_error_message: 'メッセージ: {message}',
+      clipweb_share_error_code: '{project} シェア エラーコード: {code}',
+      clipweb_share_error_message: 'メッセージ: {message}',
       flex_sqlite3_error_code: 'Flex Sqlite3 エラーコード: {code}',
       flex_sqlite3_error_mode: 'Flex Sqlite3 モード: {mode}',
       flex_sqlite3_error_message: 'メッセージ: {message}',
