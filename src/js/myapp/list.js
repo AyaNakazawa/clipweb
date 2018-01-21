@@ -399,9 +399,9 @@ class ListController extends ClipwebController {
               });
             }
           } else {
-            if (typeof this.getAjaxData({ key: 'clip_list' })['flex sqlite3 error'] != 'undefined') {
+            if (typeof this.getAjaxData({ key: 'clips' })['flex sqlite3 error'] != 'undefined') {
               // Flex SQLite3 エラー
-              const _ERROR = this.getAjaxData({ key: 'clip_list' })['flex sqlite3 error'];
+              const _ERROR = this.getAjaxData({ key: 'clips' })['flex sqlite3 error'];
               this.open({
                 type: _TYPE,
                 model: super.getErrorModel('fsql', 'failed_to_get_clip_list', _ERROR)
@@ -497,7 +497,7 @@ class ListController extends ClipwebController {
     switch (type) {
       case this.MODEL.TYPE.SEARCH:
         // SEARCH
-        this.MODEL.DL_CLIPS = this.getAjaxData({ key: 'clip_list' });
+        this.MODEL.DL_CLIPS = this.getAjaxData({ key: 'clips' });
         break;
 
       default:
