@@ -18,7 +18,9 @@ class Localization {
     }
   }
 
-  setLanguage (lang = null) {
+  setLanguage (
+    lang = null
+  ) {
     if (lang == null) {
       Log.error(arguments, 'language is null')();
       return;
@@ -43,7 +45,9 @@ class Localization {
     });
   }
 
-  getLanguageList (existLimit = true) {
+  getLanguageList (
+    existLimit = true
+  ) {
     let result = {};
     for (let key of Object.keys(this.langs)) {
       if (!existLimit || Object.keys(this.langs[key]).length > 1) {
@@ -68,14 +72,19 @@ class Localization {
     return result;
   }
 
-  check (id = null) {
+  check (
+    id = null
+  ) {
     if (typeof this.langs.default[id] == 'undefined') {
       return false;
     }
     return true;
   }
 
-  get (id = null, model = null) {
+  get (
+    id = null,
+    model = null
+  ) {
     if (typeof this.langs[this.LANG] == 'undefined') {
       // 現在の言語がない
       if (typeof this.langs[this.getShortLanguage()] == 'undefined') {
@@ -88,45 +97,51 @@ class Localization {
         }
 
         // デフォルト言語でIDがある
-        if (model != null) {
-          return this.langs.default[id].format(model);
-        }
-        return this.langs.default[id];
+        return this._get({ lang: 'default', id: id, model: model });
       }
 
       // 省略言語がある
       if (typeof this.langs[this.getShortLanguage()][id] == 'undefined') {
         // 省略言語でIDがない
         // デフォルト言語で返す
-        if (model != null) {
-          return this.langs.default[id].format(model);
-        }
-        return this.langs.default[id];
+        return this._get({ lang: 'default', id: id, model: model });
       }
 
       // 省略言語でIDがある
-      if (model != null) {
-        return this.langs[this.getShortLanguage()][id].format(model);
-      }
-      return this.langs[this.getShortLanguage()][id];
+      return this._get({ lang: this.getShortLanguage(), id: id, model: model });
     }
 
     // 現在の言語がある
     if (typeof this.langs[this.LANG][id] == 'undefined') {
       // 現在の言語でIDがない
       // デフォルト言語で返す
-      if (model != null) {
-        return this.langs.default[id].format(model);
-      }
-
-      return this.langs.default[id];
+      return this._get({ lang: 'default', id: id, model: model });
     }
 
     // 現在の言語でIDがある
-    if (model != null) {
-      return this.langs[this.LANG][id].format(model);
-    }
+    return this._get({ lang: this.LANG, id: id, model: model });
+  }
 
-    return this.langs[this.LANG][id];
+  _get ({
+    lang = this.LANG,
+    id = null,
+    model = null
+  } = {}) {
+    lang = Object.getArg(arguments, 0, 'String', lang);
+    id = Object.getArg(arguments, 1, 'String', id);
+    model = Object.getArg(arguments, 2, 'String', model);
+    if (lang == null || id == null) {
+      Log.error(arguments)();
+      reutrn;
+    }
+    if (typeof this.langs[lang][id] == 'undefined') {
+      Log.error(arguments, 'Undefined word. X(', `Please define: ${id}`)();
+      return `Undefined word. X( => [${id}]`;
+    }
+    if (model != null) {
+      Log.info(arguments)();
+      return this.langs[lang][id].format(model);
+    }
+    return this.langs[lang][id];
   }
 }
