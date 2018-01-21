@@ -306,9 +306,6 @@ class CommonView extends CommonClass {
         this.VIEW.hide({ selector: `#${$(child)[0]['id']}`, speed: 0 });
         $(child).remove();
       }
-      Log.obj(_HTMLS)();
-      Log.obj(_VISIBLES)();
-      Log.obj(_SELECTORS)();
       for (let index in _HTMLS) {
         this.VIEW.append({ selector: parent, element: _HTMLS[index] });
         $(parent).append();
