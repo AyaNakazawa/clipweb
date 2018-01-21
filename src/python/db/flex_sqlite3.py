@@ -509,6 +509,8 @@ class FlexSQLite3:
         where_op=None,
         where_not=None,
         where_type=None,
+        join_table=None,
+        join_key=None,
         query=None,
         model=None,
         result=None
@@ -520,6 +522,8 @@ class FlexSQLite3:
         :param where_op   (str)         : Where Operator. Default: "=". e.g. "=" or ">" etc...
         :param where_not  (boolean|str) : Where Not Operator. Default: False. e.g. True or "not" etc...
         :param where_type (str)         : Where Type. Default: "AND". e.g. "AND" or "OR" etc...
+        :param join_table (str)         : Join table.
+        :param join_key (str)           : Join key.
             OR
         :param query      (str)         : Query string.
         :param model      (dict)        : Model of query, qmark or named style.
@@ -582,6 +586,34 @@ class FlexSQLite3:
                 return cls._error("column_type", mode=sys._getframe().f_code.co_name)
 
             # ----------------------------------------------------------------
+            # Join
+            query_join = ""
+            if join_table is not None:
+                if isinstance(join_table, str):
+                    # String
+                    query_join = "INNER JOIN {join_table}".format(**{
+                        "join_table": join_table
+                    })
+
+                else:
+                    # unknown type
+                    return cls._error("join_table_type", mode=sys._getframe().f_code.co_name)
+
+                if join_key is not None:
+                    if isinstance(join_key, str):
+                        # String
+                        query_join += " ON {table}.{table_key} = {join_table}.{join_key}".format(**{
+                            "table": query_table,
+                            "table_key": "{}_{}".format(join_table[:-1], join_key),
+                            "join_table": join_table,
+                            "join_key": join_key
+                        })
+
+                    else:
+                        # unknown type
+                        return cls._error("join_key_type", mode=sys._getframe().f_code.co_name)
+
+            # ----------------------------------------------------------------
             # Where dict
             if isinstance(where, str):
                 # String
@@ -633,9 +665,10 @@ class FlexSQLite3:
 
             # ----------------------------------------------------------------
             # Generate query
-            exec_query = "SELECT {column} FROM {table} {where};".format(**{
+            exec_query = "SELECT {column} FROM {table} {join} {where};".format(**{
                 "column": query_column,
                 "table": query_table,
+                "join": query_join,
                 "where": query_where
             })
 
