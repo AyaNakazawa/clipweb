@@ -18,9 +18,11 @@ import datetime
 import time
 
 from web import cgi
-import user
-import clip
-import share
+from db import flex_sqlite3
+import cw_user
+import cw_clip
+import cw_list
+import cw_share
 
 TIME = {}
 TIME["init"] = datetime.datetime.now()
@@ -57,6 +59,9 @@ class Clipweb:
         if _type[0] == "user":
             cls.check_user(_type[1])
 
+        elif _type[0] == "list":
+            cls.check_list(_type[1])
+
         elif _type[0] == "clip":
             cls.check_clip(_type[1])
 
@@ -68,7 +73,7 @@ class Clipweb:
             cls.result["error"]["message"] = "check_type: {0}".format(_type)
 
     def check_user(cls, _type=None):
-        USER = user.User()
+        USER = cw_user.User()
         USER.set_cgi(cls.cgi)
         if _type == "register":
             cls.result["user"] = USER.register()
@@ -92,14 +97,27 @@ class Clipweb:
             cls.result["error"] = {}
             cls.result["error"]["message"] = "check_user: {0}".format(_type)
 
+    def check_list(cls, _type=None):
+        LIST = cw_list.List()
+        LIST.set_cgi(cls.cgi)
+        if _type == "search":
+            cls.result["list"] = LIST.search()
+
+        else:
+            cls.result["error"] = {}
+            cls.result["error"]["message"] = "check_clip: {0}".format(_type)
+
     def check_clip(cls, _type=None):
-        CLIP = clip.Clip()
+        CLIP = cw_clip.Clip()
         CLIP.set_cgi(cls.cgi)
         if _type == "new":
             cls.result["clip"] = CLIP.new()
 
-        elif _type == "save":
-            cls.result["clip"] = CLIP.save()
+        elif _type == "setting":
+            cls.result["clip"] = CLIP.setting()
+
+        elif _type == "load":
+            cls.result["clip"] = CLIP.load()
 
         elif _type == "delete":
             cls.result["clip"] = CLIP.delete()
@@ -109,7 +127,7 @@ class Clipweb:
             cls.result["error"]["message"] = "check_clip: {0}".format(_type)
 
     def check_share(cls, _type=None):
-        SHARE = share.Share()
+        SHARE = cw_share.Share()
         SHARE.set_cgi(cls.cgi)
         if _type == "alive":
             cls.result["share"] = SHARE.alive()
