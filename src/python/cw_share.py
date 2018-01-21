@@ -3,7 +3,7 @@
 
 """
 ----------------------------------------------------------------
-clipweb Clip
+clipweb Share
   Author: ayaya (ayatec)
   GitHub: https://github.com/ayatec/clipweb
 ----------------------------------------------------------------
@@ -13,7 +13,9 @@ clipweb Clip
 # Import
 # ----------------------------------------------------------------
 
+import sys
 from db import flex_sqlite3
+import cw_base
 
 AUTO_GENERATE = None
 
@@ -21,39 +23,40 @@ AUTO_GENERATE = None
 # Class
 # ----------------------------------------------------------------
 
-class Clip:
+class Share(cw_base.Base):
     # ----------------------------------------------------------------
     # Define
 
     def __init__(cls):
-        cls.result = {}
-        cls.DB_PATH = "db/clipweb.db"
-        cls.DB = flex_sqlite3.FlexSQLite3(cls.DB_PATH)
+        super(Share, cls).__init__("clipweb share")
 
     # ----------------------------------------------------------------
     # Function
     # ----------------------------------------------------------------
 
-    def set_cgi(cls, cgi=None):
-        cls.cgi = cgi
-
     # ----------------------------------------------------------------
     # type
     # ----------------------------------------------------------------
 
-    def new(cls):
+    def alive(cls):
         cls.result["type"] = sys._getframe().f_code.co_name
         cls.result["result"] = False
         cls.result["result"] = True
         return cls.result
 
-    def save(cls):
+    def read(cls):
         cls.result["type"] = sys._getframe().f_code.co_name
         cls.result["result"] = False
         cls.result["result"] = True
         return cls.result
 
-    def delete(cls):
+    def write(cls):
+        cls.result["type"] = sys._getframe().f_code.co_name
+        cls.result["result"] = False
+        cls.result["result"] = True
+        return cls.result
+
+    def leave(cls):
         cls.result["type"] = sys._getframe().f_code.co_name
         cls.result["result"] = False
         cls.result["result"] = True
