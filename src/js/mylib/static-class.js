@@ -474,15 +474,27 @@ class Log {
         if (key != null) {
           if (value != null) {
             // class + key + value
-            return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, keyStyle, this.STYLE_ARROW, valueStyle, groupStyle);
+            if (Object.typeIs('Object', value) || Object.typeIs('Array', value)) {
+              return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, keyStyle, this.STYLE_ARROW, value);
+            } else {
+              return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, keyStyle, this.STYLE_ARROW, valueStyle, groupStyle);
+            }
           } else {
             // class + key
-            return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, keyStyle, groupStyle);
+            if (Object.typeIs('Object', key) || Object.typeIs('Array', key)) {
+              return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, key);
+            } else {
+              return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, keyStyle, groupStyle);
+            }
           }
         } else {
           if (value != null) {
             // class + value
-            return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, valueStyle, groupStyle);
+            if (Object.typeIs('Object', value) || Object.typeIs('Array', value)) {
+              return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, value);
+            } else {
+              return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, valueStyle, groupStyle);
+            }
           } else {
             // class
             return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, groupStyle);
@@ -526,6 +538,7 @@ class Log {
     group = this.GROUP_NONE
   } = {}) {
 
+    let groupEnd = true;
     let result = this.CHAR_STYLE;
     result += group[0];
 
@@ -547,6 +560,9 @@ class Log {
         result += this.CHAR_STYLE;
         result += this.COLON;
         result += this.SPACE;
+        if (Object.typeIs('Object', key) || Object.typeIs('Array', key)) {
+          return result;
+        }
         result += this.CHAR_STYLE;
         result += key;
         for (let i = 0; i < this.KEY_LENGTH - key.length; i++) {
@@ -557,6 +573,9 @@ class Log {
           // and Value
           result += this.CHAR_STYLE;
           result += arrow;
+          if (Object.typeIs('Object', value) || Object.typeIs('Array', value)) {
+            return result;
+          }
           result += this.CHAR_STYLE;
           result += value;
         }
