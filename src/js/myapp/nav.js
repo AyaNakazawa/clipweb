@@ -181,7 +181,21 @@ class NavEvent extends ClipwebEvent {
         super.log('Click', 'Header LocalStorage Clear')();
         new Confirm({
           title: LN.get('userdata_clear'),
-          content: LN.get('userdata_clear_confirm'),
+          content:
+          View.element({ clas: 'text-center', content: LN.get('userdata_clear_confirm') }) +
+            View.element({ element: 'hr' }) +
+            View.element({ element: 'ul', content:
+              View.element({ element: 'li', content: LN.get('language') }) +
+              View.element({ element: 'li', content: LN.get('status_login') }) +
+              View.element({ element: 'li', content: LN.get('email_address') }) +
+              View.element({ element: 'li', content: LN.get('password_hash') }) +
+              View.element({ element: 'li', content: LN.get('auto_login') }) +
+              View.element({ element: 'li', content: LN.get('crypto_hash') }) +
+              View.element({ element: 'li', content: LN.get('last_search') }) +
+              View.element({ element: 'li', content: LN.get('last_search_group') }) +
+              View.element({ element: 'li', content: LN.get('last_search_sort') }) +
+              View.element({ element: 'li', content: LN.get('history_clip') })
+            }),
           functionYes: () => {
             LocalStorage.clear();
             location.reload();
