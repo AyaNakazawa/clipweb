@@ -176,8 +176,8 @@ class ClipController extends ClipwebController {
   createNew () {
     const _TYPE = this.MODEL.TYPE.NEW;
 
-    const _NEW_NAME = this.MODEL.SELECTOR.NEW.NAME;
-    const _NEW_TYPE = this.MODEL.SELECTOR.NEW.TYPE;
+    const _NEW_NAME = this.MODEL.SELECTOR.NEW.FILENAME;
+    const _NEW_TYPE = this.MODEL.SELECTOR.NEW.FILETYPE;
     const _NEW_ONWER_PUBLISH = this.MODEL.SELECTOR.NEW.ONWER_PUBLISH;
     const _NEW_CLIP_MODE = this.MODEL.SELECTOR.NEW.CLIP_MODE;
 
@@ -188,7 +188,7 @@ class ClipController extends ClipwebController {
       $(_NEW_CLIP_MODE)[0].validity.valid
     ) {
       this.MODEL.NEW.NAME = $(_NEW_NAME).val();
-      this.MODEL.NEW.TYPE = $(_NEW_TYPE).val();
+      this.MODEL.NEW.TYPE = $(`${_NEW_TYPE} option:selected`).val();
       this.MODEL.NEW.ONWER_PUBLISH = $(`${_NEW_ONWER_PUBLISH} option:selected`).val();
       this.MODEL.NEW.CLIP_MODE = $(`${_NEW_CLIP_MODE} option:selected`).val();
 
