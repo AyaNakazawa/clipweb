@@ -556,10 +556,8 @@
             <label for="clip-new-filetype"><%= LN.get('filetype') %></label>
             <div class="content-input">
               <select id="clip-new-filetype" class="custom-select" required tabindex="200">
-                <% if (defaultOwnerPublish == 'private') { %>
-                  <option value="private" selected><%= LN.get('private') %></option>
-                <% } else { %>
-                  <option value="private"><%= LN.get('private') %></option>
+                <% for (let type of Object.keys(filetypes)) { %>
+                  <option value="<%- type %>"><%- filetypes[type]['name'] %></option>
                 <% } %>
               </select>
               <i class="content-input-icon content-select-icon fas fa-file-code"></i>
