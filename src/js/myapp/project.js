@@ -3,23 +3,23 @@
 // Project
 
 class Project {
-  static get NAME() {
+  static get NAME () {
     return 'clipweb';
   }
 
-  static get KEY() {
+  static get KEY () {
     return 'cw';
   }
 
-  static get ABBREVIATION() {
+  static get ABBREVIATION () {
     return Project.KEY;
   }
 
-  static get NAME_KEY() {
+  static get NAME_KEY () {
     return Project.KEY;
   }
 
-  static get NAME_ABBREVIATION() {
+  static get NAME_ABBREVIATION () {
     return Project.ABBREVIATION;
   }
 }
