@@ -59,10 +59,11 @@ class ClipModel extends ClipwebModel {
 
     // 新規作成
     this.SELECTOR.NEW = {};
-    this.SELECTOR.NEW.NAME = '#clip-new-name';
-    this.SELECTOR.NEW.TYPE = '#clip-new-type';
+    this.SELECTOR.NEW.FILENAME = '#clip-new-filename';
+    this.SELECTOR.NEW.FILETYPE = '#clip-new-filetype';
     this.SELECTOR.NEW.ONWER_PUBLISH = '#clip-new-onwer-publish';
     this.SELECTOR.NEW.CLIP_MODE = '#clip-new-clip-mode';
+    this.SELECTOR.NEW.CLOSE = '#clip-new-close';
     this.SELECTOR.NEW.CREATE = '#clip-new-create';
 
     // 設定
@@ -257,17 +258,35 @@ class ClipController extends ClipwebController {
       case this.MODEL.TYPE.NEW:
         // NEW
         _result = {
-          default_owner_publish: USER.MODEL.OWNER_PUBLISH,
-          default_clip_mode: USER.MODEL.CLIP_MODE
+          filetypes: FileTypes.get(),
+          defaultOwnerPublish: USER.MODEL.OWNER_PUBLISH,
+          defaultClipMode: USER.MODEL.CLIP_MODE,
+          length: {
+            min: {
+              filename: this.MODEL.VALIDATE.LENGTH.MIN_FILENAME
+            },
+            max: {
+              filename: this.MODEL.VALIDATE.LENGTH.MAX_FILENAME
+            }
+          },
         };
         break;
       case this.MODEL.TYPE.SETTING:
         // SETTING
         _result = {
-          search: this.MODEL.SEARCH,
-          group: this.MODEL.GROUP,
-          sort: this.MODEL.SORT,
-          order: this.MODEL.ORDER
+          filename: this.MODEL.FILENAME,
+          filetype: this.MODEL.FILETYPE,
+          filetypes: FileTypes.get(),
+          ownerPublish: this.MODEL.OWNER_PUBLISH,
+          clipMode: this.MODEL.CLIP_MODE,
+          length: {
+            min: {
+              filename: this.MODEL.VALIDATE.LENGTH.MIN_FILENAME
+            },
+            max: {
+              filename: this.MODEL.VALIDATE.LENGTH.MAX_FILENAME
+            }
+          },
         };
         break;
       default:
