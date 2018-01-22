@@ -78,6 +78,8 @@ class ClipwebModel extends CommonModel {
     this.VALIDATE.LENGTH.MAX_USERNAME = 32;
     this.VALIDATE.LENGTH.MIN_PASSWORD = 8;
     this.VALIDATE.LENGTH.MAX_PASSWORD = 32;
+    this.VALIDATE.LENGTH.MIN_FILENAME = 1;
+    this.VALIDATE.LENGTH.MAX_FILENAME = 128;
 
     this.VALIDATE.PATTERN = {};
     this.VALIDATE.PATTERN.PASSWORD = '^[a-zA-Z0-9]*(?:[a-zA-Z][0-9]|[0-9][a-zA-Z])[a-zA-Z0-9]*$';
