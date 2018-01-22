@@ -15,12 +15,6 @@ class UserModel extends ClipwebModel {
 
     // ----------------------------------------------------------------
     // エラーコード
-    super.addMessage(301, 'username_alreay_exist');
-    super.addMessage(302, 'email_address_alreay_exist');
-    super.addMessage(303, 'hash_alreay_exist');
-    super.addMessage(401, 'email_password_incorrect');
-    super.addMessage(402, 'password_incorrect');
-    super.addMessage(801, 'corrupt_userdata');
 
     // ----------------------------------------------------------------
     // 識別子
