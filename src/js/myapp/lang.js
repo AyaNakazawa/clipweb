@@ -93,7 +93,7 @@ class Language {
 
       please_email_auth: 'Please Email authentication.',
       userdata_clear: 'Delete your data',
-      userdata_clear_confirm: 'Delete user data such as login information saved in the browser?',
+      userdata_clear_confirm: 'Delete user data saved in the browser?',
 
       please_all_inputs_correctly: 'Please enter all items correctly.',
       please_inputs_correctly: 'Please enter items correctly.',
@@ -221,7 +221,7 @@ class Language {
 
       please_email_auth: 'メール認証をしてください。',
       userdata_clear: 'ユーザデータの削除',
-      userdata_clear_confirm: 'ブラウザに保存されている、ログイン情報などのユーザーデータを削除しますか？',
+      userdata_clear_confirm: 'ブラウザに保存されているユーザーデータを削除しますか？',
 
       please_all_inputs_correctly: 'すべての項目を正しく入力してください。',
       please_inputs_correctly: '正しく入力してください。',
