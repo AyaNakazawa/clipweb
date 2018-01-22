@@ -45,6 +45,7 @@ class ClipModel extends ClipwebModel {
     // テンプレート
     this.TEMPLATE.NEW = '#clip-new-template';
     this.TEMPLATE.SETTING = '#clip-setting-template';
+    this.TEMPLATE.SETTING = '#clip-user-template';
 
     // ----------------------------------------------------------------
     // オフセット
@@ -66,12 +67,18 @@ class ClipModel extends ClipwebModel {
 
     // 設定
     this.SELECTOR.SETTING = {};
+    this.SELECTOR.SETTING.EDIT = '#clip-setting-edit';
+    this.SELECTOR.SETTING.DELETE = '#clip-setting-delete';
     this.SELECTOR.SETTING.NAME = '#clip-setting-name';
     this.SELECTOR.SETTING.TYPE = '#clip-setting-type';
     this.SELECTOR.SETTING.ONWER_PUBLISH = '#clip-setting-onwer-publish';
     this.SELECTOR.SETTING.CLIP_MODE = '#clip-setting-clip-mode';
-    this.SELECTOR.SETTING.EDIT = '#clip-setting-edit';
-    this.SELECTOR.SETTING.DELETE = '#clip-setting-delete';
+    this.SELECTOR.SETTING.USERS = '#clip-setting-users';
+    this.SELECTOR.SETTING.SAVE = '#clip-setting-save';
+
+    // 権限設定
+    this.SELECTOR.USER = {};
+    this.SELECTOR.USER.TYPE = '#clip-user-permit';
   }
 }
 
