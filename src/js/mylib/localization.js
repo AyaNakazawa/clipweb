@@ -139,7 +139,6 @@ class Localization {
       return `Undefined word. X( => [${id}]`;
     }
     if (model != null) {
-      Log.info(arguments)();
       return this.langs[lang][id].format(model);
     }
     return this.langs[lang][id];
