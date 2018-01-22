@@ -1,5 +1,6 @@
 
 やること
+  tabindexをエリアごとに分ける
   DB
     histories
   Popover
