@@ -540,76 +540,76 @@
     <!-- clip-new -->
     <script type="text/template" id="clip-new-template">
       <div class="content-item-area">
+        <!-- File name -->
         <div class="content-item">
-          <!-- File name -->
-          <div class="content-item">
-            <label for="clip-new-filename"><%= LN.get('filename') %></label>
-            <div class="content-input">
-              <input id="clip-new-filename" type="text" minLength="<%- length.min.filename %>" maxLength="<%- length.max.filename %>" required class="form-control" placeholder="" value="" tabindex="200">
-              <span class="content-input-valid"></span>
-              <i class="content-input-icon fas fa-file"></i>
-              <span class="content-input-valid-message"></span>
-            </div>
+          <label for="clip-new-filename"><%= LN.get('filename') %></label>
+          <div class="content-input">
+            <input id="clip-new-filename" type="text" minLength="<%- length.min.filename %>" maxLength="<%- length.max.filename %>" required class="form-control" placeholder="" value="" tabindex="200">
+            <span class="content-input-valid"></span>
+            <i class="content-input-icon fas fa-file"></i>
+            <span class="content-input-valid-message"></span>
           </div>
-          <!-- File type -->
-          <div class="content-item">
-            <label for="clip-new-filetype"><%= LN.get('filetype') %></label>
-            <div class="content-input">
-              <select id="clip-new-filetype" class="custom-select" required tabindex="200">
-                <% for (let type of Object.keys(filetypes)) { %>
-                  <option value="<%- type %>"><%- filetypes[type]['name'] %></option>
-                <% } %>
-              </select>
-              <i class="content-input-icon content-select-icon fas fa-file-code"></i>
-            </div>
+        </div>
+        <!-- File type -->
+        <div class="content-item">
+          <label for="clip-new-filetype"><%= LN.get('filetype') %></label>
+          <div class="content-input">
+            <select id="clip-new-filetype" class="custom-select" required tabindex="200">
+              <% for (let type of Object.keys(filetypes)) { %>
+                <option value="<%- type %>"><%- filetypes[type]['name'] %></option>
+              <% } %>
+            </select>
+            <i class="content-input-icon content-select-icon fas fa-file-code"></i>
           </div>
-          <!-- Owner publish -->
-          <div class="content-item">
-            <label for="clip-new-owner-publish"><%= LN.get('owner_publish') %></label>
-            <div class="content-input">
-              <select id="clip-new-owner-publish" class="custom-select" required tabindex="200">
-                <% if (defaultOwnerPublish == 'private') { %>
-                  <option value="private" selected><%= LN.get('private') %></option>
-                <% } else { %>
-                  <option value="private"><%= LN.get('private') %></option>
-                <% } %>
-                <% if (defaultOwnerPublish == 'public') { %>
-                  <option value="public" selected><%= LN.get('public') %></option>
-                <% } else { %>
-                  <option value="public"><%= LN.get('public') %></option>
-                <% } %>
-              </select>
-              <i class="content-input-icon content-select-icon fas fa-user-circle"></i>
-            </div>
+        </div>
+        <!-- Owner publish -->
+        <div class="content-item">
+          <label for="clip-new-owner-publish"><%= LN.get('owner_publish') %></label>
+          <div class="content-input">
+            <select id="clip-new-owner-publish" class="custom-select" required tabindex="200">
+              <% if (defaultOwnerPublish == 'private') { %>
+                <option value="private" selected><%= LN.get('private') %></option>
+              <% } else { %>
+                <option value="private"><%= LN.get('private') %></option>
+              <% } %>
+              <% if (defaultOwnerPublish == 'public') { %>
+                <option value="public" selected><%= LN.get('public') %></option>
+              <% } else { %>
+                <option value="public"><%= LN.get('public') %></option>
+              <% } %>
+            </select>
+            <i class="content-input-icon content-select-icon fas fa-user-circle"></i>
           </div>
-          <!-- clip mode -->
-          <div class="content-item">
-            <label for="clip-new-clip-mode"><%= LN.get('clip_mode') %></label>
-            <div class="content-input">
-              <select id="clip-new-clip-mode" class="custom-select" required tabindex="200">
-                <% if (defaultClipMode == 'private') { %>
-                  <option value="private" selected><%= LN.get('private') %></option>
-                <% } else { %>
-                  <option value="private"><%= LN.get('private') %></option>
-                <% } %>
-                <% if (defaultClipMode == 'public') { %>
-                  <option value="public" selected><%= LN.get('public') %></option>
-                <% } else { %>
-                  <option value="public"><%= LN.get('public') %></option>
-                <% } %>
-                <% if (defaultClipMode == 'share') { %>
-                  <option value="share" selected><%= LN.get('share') %></option>
-                <% } else { %>
-                  <option value="share"><%= LN.get('share') %></option>
-                <% } %>
-              </select>
-              <i class="content-input-icon content-select-icon fas fa-share-alt"></i>
-            </div>
+        </div>
+        <!-- clip mode -->
+        <div class="content-item">
+          <label for="clip-new-clip-mode"><%= LN.get('clip_mode') %></label>
+          <div class="content-input">
+            <select id="clip-new-clip-mode" class="custom-select" required tabindex="200">
+              <% if (defaultClipMode == 'private') { %>
+                <option value="private" selected><%= LN.get('private') %></option>
+              <% } else { %>
+                <option value="private"><%= LN.get('private') %></option>
+              <% } %>
+              <% if (defaultClipMode == 'public') { %>
+                <option value="public" selected><%= LN.get('public') %></option>
+              <% } else { %>
+                <option value="public"><%= LN.get('public') %></option>
+              <% } %>
+              <% if (defaultClipMode == 'share') { %>
+                <option value="share" selected><%= LN.get('share') %></option>
+              <% } else { %>
+                <option value="share"><%= LN.get('share') %></option>
+              <% } %>
+            </select>
+            <i class="content-input-icon content-select-icon fas fa-share-alt"></i>
           </div>
-          <div class="content-item d-flex justify-content-between">
-            <button id="clip-new-close" class="btn btn-link" tabindex="210"><%= LN.get('close') %> <i class="far fa-times"></i></button>
-            <button id="clip-new-create" class="btn btn-primary" tabindex="200"><%= LN.get('new_create') %> <i class="fal fa-plus-circle"></i></button>
-          </div>
+        </div>
+      </div>
+      <div class="content-item-area">
+        <div class="content-item d-flex justify-content-between">
+          <button id="clip-new-close" class="btn btn-link" tabindex="210"><%= LN.get('close') %> <i class="far fa-times"></i></button>
+          <button id="clip-new-create" class="btn btn-primary" tabindex="200"><%= LN.get('new_create') %> <i class="fal fa-plus-circle"></i></button>
         </div>
       </div>
     </script>
