@@ -154,6 +154,10 @@ class ClipEvent extends ClipwebEvent {
         });
       }
     });
+
+    super.setValidate(
+      this.MODEL.SELECTOR.NEW.FILENAME
+    );
   }
 
   setOnSetting () {
