@@ -324,6 +324,16 @@ main {
         border-radius: 8px; }
       main .content .content-image .content-avatar {
         border-radius: 50%; }
+    main .content .content-help-icon {
+      line-height: 1rem;
+      padding: 0.5rem;
+      cursor: pointer;
+      z-index: 10; }
+      main .content .content-help-icon:before {
+        content: "\f059";
+        font-family: "Font Awesome 5 Pro Solid"; }
+    main .content .alert {
+      margin: 8px; }
     main .content .content-loading-header::after {
       content: '';
       -webkit-animation: dotting 3s linear infinite;
@@ -417,15 +427,6 @@ main {
     box-shadow: 0em -2.6em 0em 0em rgba(255, 220, 142, 0.2), 1.8em -1.8em 0 0em rgba(255, 220, 142, 0.2), 2.5em 0em 0 0em rgba(255, 220, 142, 0.2), 1.75em 1.75em 0 0em rgba(255, 220, 142, 0.2), 0em 2.5em 0 0em rgba(255, 220, 142, 0.5), -1.8em 1.8em 0 0em rgba(255, 220, 142, 0.7), -2.6em 0em 0 0em #ffdc8e, -1.8em -1.8em 0 0em rgba(255, 220, 142, 0.2); }
   87.5% {
     box-shadow: 0em -2.6em 0em 0em rgba(255, 220, 142, 0.2), 1.8em -1.8em 0 0em rgba(255, 220, 142, 0.2), 2.5em 0em 0 0em rgba(255, 220, 142, 0.2), 1.75em 1.75em 0 0em rgba(255, 220, 142, 0.2), 0em 2.5em 0 0em rgba(255, 220, 142, 0.2), -1.8em 1.8em 0 0em rgba(255, 220, 142, 0.5), -2.6em 0em 0 0em rgba(255, 220, 142, 0.7), -1.8em -1.8em 0 0em #ffdc8e; } }
-    main .content .help-icon {
-      line-height: 22px;
-      padding: 6px;
-      cursor: pointer;
-      position: relative;
-      z-index: 10; }
-    main .content .alert {
-      margin: 8px; }
-
 @media (min-width: 768px) {
   .nav-area .navbar {
     padding: 4px 16px; }
