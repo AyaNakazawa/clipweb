@@ -376,9 +376,9 @@ class CommonView extends CommonClass {
       Log.error(arguments, 'Need mode & parent & selector of arguments. X(')();
       return;
     }
+    this.EVENT.setOffPopover({ selector: parent, mode: 'hide' });
     const _HTML = $(selector)[0]['outerHTML'];
     $(selector).remove();
-    this.EVENT.setOffPopover({ selector: parent });
 
     if (target == null) {
       this.VIEW.hide({ selector: selector, speed: 0 });
@@ -430,6 +430,7 @@ class CommonView extends CommonClass {
       }
       this.VIEW.setView({ selector: selector, view: view, scroll: scroll });
     }
+    this.EVENT.setOnPopover({ selector: parent, type: 'all' });
   }
 
   add ({
