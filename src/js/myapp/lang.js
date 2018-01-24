@@ -78,26 +78,29 @@ class Language {
       light: 'Light',
       dark: 'Dark',
 
-      header_register: 'Join clipweb',
-      header_login: 'Login',
-      header_logout: 'Logout',
-      header_leaving: 'Leave clipweb',
-      header_setting: 'User Setting',
-      header_info: 'User Info',
+      header_user_register: 'Join clipweb',
+      header_user_login: 'Login',
+      header_user_logout: 'Logout',
+      header_user_leaving: 'Leave clipweb',
+      header_user_setting: 'User Setting',
+      header_user_info: 'User Info',
 
-      header_clip_list: 'clip List',
+      header_list_search: 'clip List',
 
-      header_new_clip: 'New clip',
-      header_setting_clip: 'clip setting',
+      header_clip_new: 'New clip',
+      header_clip_setting: 'clip setting',
 
-      loading_header_register: 'Registering to clipweb',
-      loading_header_login: 'Login to clipweb',
-      loading_header_logout: 'Logout from clipweb',
-      loading_header_leaving: 'Leaving from clipweb',
-      loading_header_setting: 'Saving your Setting',
-      loading_header_info: 'Saving your Info',
+      loading_header_user_register: 'Registering to clipweb',
+      loading_header_user_login: 'Login to clipweb',
+      loading_header_user_logout: 'Logout from clipweb',
+      loading_header_user_leaving: 'Leaving from clipweb',
+      loading_header_user_setting: 'Saving your Setting',
+      loading_header_user_info: 'Saving your Info',
 
-      loading_header_search: 'Getting clip list',
+      loading_header_list_search: 'Getting clip list',
+
+      loading_header_clip_new: 'New clip',
+      loading_header_clip_setting: 'Setting of clip',
 
       user_registered: 'Registered you.',
       user_logined: 'You logined.',
@@ -106,7 +109,7 @@ class Language {
       user_update_setting: 'Update your setting.',
 
       clip_list_got: 'Got your clips.',
-      new_clip_created: 'Created new clip.',
+      created_new_clip: 'Created new clip.',
 
       please_email_auth: 'Please Email authentication.',
       userdata_clear: 'Delete your data',
@@ -219,26 +222,29 @@ class Language {
       light: 'ライト',
       dark: 'ダーク',
 
-      header_register: 'ユーザー登録',
-      header_login: 'ログイン',
-      header_logout: 'ログアウト',
-      header_leaving: 'ユーザー削除',
-      header_setting: 'ユーザー設定',
-      header_info: 'ユーザー情報',
+      header_user_register: 'ユーザー登録',
+      header_user_login: 'ログイン',
+      header_user_logout: 'ログアウト',
+      header_user_leaving: 'ユーザー削除',
+      header_user_setting: 'ユーザー設定',
+      header_user_info: 'ユーザー情報',
 
-      header_clip_list: 'クリップ一覧',
+      header_list_search: 'クリップ一覧',
 
-      header_new_clip: '新規クリップ',
-      header_setting_clip: 'クリップ設定',
+      header_clip_new: '新規クリップ',
+      header_clip_setting: 'クリップ設定',
 
-      loading_header_register: 'clipweb に登録中',
-      loading_header_login: 'ログイン中',
-      loading_header_logout: 'ログアウト中',
-      loading_header_leaving: 'ユーザーを削除中',
-      loading_header_setting: 'ユーザー設定を保存中',
-      loading_header_info: 'ユーザー情報を保存中',
+      loading_header_user_register: 'clipweb に登録中',
+      loading_header_user_login: 'ログイン中',
+      loading_header_user_logout: 'ログアウト中',
+      loading_header_user_leaving: 'ユーザーを削除中',
+      loading_header_user_setting: 'ユーザー設定を保存中',
+      loading_header_user_info: 'ユーザー情報を保存中',
 
-      loading_header_search: 'クリップ一覧を取得中',
+      loading_header_list_search: 'クリップ一覧を取得中',
+
+      loading_header_clip_new: 'クリップ一覧を取得中',
+      loading_header_clip_setting: 'クリップ一覧を取得中',
 
       user_registered: 'ユーザーを登録しました。',
       user_logined: 'ログインしました。',
@@ -247,7 +253,7 @@ class Language {
       user_update_setting: 'ユーザー設定を更新しました。',
 
       clip_list_got: 'クリップ一覧を取得しました。',
-      new_clip_created: '新しいクリップを作成しました。',
+      created_new_clip: '新しいクリップを作成しました。',
 
       please_email_auth: 'メール認証をしてください。',
       userdata_clear: 'ユーザデータの削除',
