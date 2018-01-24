@@ -1024,3 +1024,45 @@ class Random {
     return this.getMax(type) / diff;
   }
 }
+
+class File {
+  static getName (filename = null) {
+    if (filename == null) {
+      Log.error(arguments)();
+      return;
+    }
+    return this.splitExtension(filename)[0];
+  }
+
+  static getExtension (filename = null) {
+    if (filename == null) {
+      Log.error(arguments)();
+      return;
+    }
+    return this.splitExtension(filename)[1];
+  }
+
+  static getExtensionWithDot (filename = null) {
+    if (filename == null) {
+      Log.error(arguments)();
+      return;
+    }
+    return this.splitExtensionWithDot(filename)[1];
+  }
+
+  static splitExtension (filename = null) {
+    if (filename == null) {
+      Log.error(arguments)();
+      return;
+    }
+    return filename.split(/\.(?=[^.]+$)/);
+  }
+
+  static splitExtensionWithDot (filename = null) {
+    if (filename == null) {
+      Log.error(arguments)();
+      return;
+    }
+    return filename.split(/(?=\.[^.]+$)/);
+  }
+}
