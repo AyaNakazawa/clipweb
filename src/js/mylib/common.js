@@ -1170,7 +1170,6 @@ class CommonEvent extends CommonClass {
     if (selector == null && type == null) {
       Log.error(arguments)();
     }
-    Log.info(arguments)();
 
     if (type == 'all') {
       for (let popover of $(`${selector} ${this.MODEL.COMMON.SELECTOR.POPOVER}`)) {
