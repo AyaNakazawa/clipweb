@@ -1144,7 +1144,7 @@ class CommonEvent extends CommonClass {
   // ----------------------------------------------------------------
   // popover
 
-  setPopover ({
+  setOnPopover ({
     selector = null,
     title = null,
     content = null,
@@ -1156,7 +1156,7 @@ class CommonEvent extends CommonClass {
     container = this.MODEL.COMMON.POPOVER.CONTAINER,
     fallbackPlacement = this.MODEL.COMMON.POPOVER.FALLBACK_PLACEMENT,
     boundary = this.MODEL.COMMON.POPOVER.BOUNDARY,
-  }) {
+  } = {}) {
     selector = Object.getArg(arguments, 0, 'String', selector);
     title = Object.getArg(arguments, 1, 'String', title);
     content = Object.getArg(arguments, 2, 'String', content);
