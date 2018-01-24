@@ -1039,7 +1039,11 @@ class File {
       Log.error(arguments)();
       return;
     }
-    return this.splitExtension(filename)[1];
+    const _RESULT = this.splitExtension(filename);
+    if (typeof _RESULT[1] != 'undefined') {
+      return _RESULT[1];
+    }
+    return _RESULT[0];
   }
 
   static getExtensionWithDot (filename = null) {
@@ -1047,7 +1051,11 @@ class File {
       Log.error(arguments)();
       return;
     }
-    return this.splitExtensionWithDot(filename)[1];
+    const _RESULT = this.splitExtensionWithDot(filename);
+    if (typeof _RESULT[1] != 'undefined') {
+      return _RESULT[1];
+    }
+    return _RESULT[0];
   }
 
   static splitExtension (filename = null) {
