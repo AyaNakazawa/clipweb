@@ -60,7 +60,7 @@ class ClipModel extends ClipwebModel {
     this.SELECTOR.NEW = {};
     this.SELECTOR.NEW.FILENAME = '#clip-new-filename';
     this.SELECTOR.NEW.FILETYPE = '#clip-new-filetype';
-    this.SELECTOR.NEW.ONWER_PUBLISH = '#clip-new-onwer-publish';
+    this.SELECTOR.NEW.OWNER_PUBLISH = '#clip-new-owner-publish';
     this.SELECTOR.NEW.CLIP_MODE = '#clip-new-clip-mode';
     this.SELECTOR.NEW.CLOSE = '#clip-new-close';
     this.SELECTOR.NEW.CREATE = '#clip-new-create';
@@ -71,7 +71,7 @@ class ClipModel extends ClipwebModel {
     this.SELECTOR.SETTING.DELETE = '#clip-setting-delete';
     this.SELECTOR.SETTING.NAME = '#clip-setting-name';
     this.SELECTOR.SETTING.TYPE = '#clip-setting-type';
-    this.SELECTOR.SETTING.ONWER_PUBLISH = '#clip-setting-onwer-publish';
+    this.SELECTOR.SETTING.OWNER_PUBLISH = '#clip-setting-owner-publish';
     this.SELECTOR.SETTING.CLIP_MODE = '#clip-setting-clip-mode';
     this.SELECTOR.SETTING.USERS = '#clip-setting-users';
     this.SELECTOR.SETTING.SAVE = '#clip-setting-save';
@@ -177,13 +177,13 @@ class ClipController extends ClipwebController {
 
     const _NEW_NAME = this.MODEL.SELECTOR.NEW.FILENAME;
     const _NEW_TYPE = this.MODEL.SELECTOR.NEW.FILETYPE;
-    const _NEW_ONWER_PUBLISH = this.MODEL.SELECTOR.NEW.ONWER_PUBLISH;
+    const _NEW_OWNER_PUBLISH = this.MODEL.SELECTOR.NEW.OWNER_PUBLISH;
     const _NEW_CLIP_MODE = this.MODEL.SELECTOR.NEW.CLIP_MODE;
 
     if (
       $(_NEW_NAME)[0].validity.valid &&
       $(_NEW_TYPE)[0].validity.valid &&
-      $(_NEW_ONWER_PUBLISH)[0].validity.valid &&
+      $(_NEW_OWNER_PUBLISH)[0].validity.valid &&
       $(_NEW_CLIP_MODE)[0].validity.valid
     ) {
       this.MODEL.NEW.NAME = $(_NEW_NAME).val();
