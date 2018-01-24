@@ -367,15 +367,21 @@ class ClipController extends ClipwebController {
       return;
     }
     let _model = {};
-    _model['hash'] = USER.MODEL.HASH.USER;
+    _model['owner_hash'] = USER.MODEL.HASH.USER;
     _model['password_hash'] = USER.MODEL.HASH.PASSWORD;
     switch (type) {
       case this.MODEL.TYPE.NEW:
         // NEW
+        _model['hash'] = Random.hex();
         _model['name'] = this.MODEL.FILENAME;
         _model['type'] = this.MODEL.FILETYPE;
         _model['owner_publish'] = this.MODEL.OWNER_PUBLISH;
         _model['clip_mode'] = this.MODEL.CLIP_MODE;
+        break;
+
+      case this.MODEL.TYPE.OPEN:
+        // OPEN
+        _model['hash'] = this.MODEL.HASH;
         break;
 
       case this.MODEL.TYPE.SETTING:
