@@ -12,6 +12,8 @@ class Localization {
     this.langs.set();
     this._setSelect();
 
+    this.errors = {};
+
     const _LS_LANG = LocalStorage.getItem('l10n');
     if (_LS_LANG == null) {
       this.setLanguage(window.navigator.language);
@@ -91,14 +93,7 @@ class Localization {
       // 現在の言語がない
       if (typeof this.langs[this.getShortLanguage()] == 'undefined') {
         // 省略言語がない
-        if (typeof this.langs.default[id] == 'undefined') {
-          // デフォルト言語でIDがない
-          // 定義されていないのでエラー
-          Log.error(arguments, `unknown lang id: ${id}`, 'Do you really define it?')();
-          return;
-        }
-
-        // デフォルト言語でIDがある
+        // デフォルト言語で返す
         return this._get({ lang: 'default', id: id, model: model });
       }
 
@@ -138,6 +133,8 @@ class Localization {
     }
     if (typeof this.langs[lang][id] == 'undefined') {
       Log.error(arguments, 'Undefined word. X(', `Please define: ${id}`)();
+      this.errors[id] = id;
+      Log.obj(this.errors)();
       return `Undefined word. X( => [${id}]`;
     }
     if (model != null) {
