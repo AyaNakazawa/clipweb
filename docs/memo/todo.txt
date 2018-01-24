@@ -5,7 +5,6 @@
   →headerとかloadingも？
   DB
     histories
-  Popover
   List
     HTML
     js
