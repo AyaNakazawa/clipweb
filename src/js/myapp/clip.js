@@ -27,17 +27,16 @@ class ClipModel extends ClipwebModel {
     // 情報
 
     // クリップ
-    this.CLIP = {};
-    this.CLIP.HASH = '';
-    this.CLIP.NAME = '';
-    this.CLIP.DATA = '';
-    this.CLIP.TYPE_ID = '';
-    this.CLIP.TAG_IDS = '';
-    this.CLIP.OWNER_HASH = '';
-    this.CLIP.OWNER_PUBLISH = '';
-    this.CLIP.CLIP_MODE = '';
-    this.CLIP.CREATED_AT = '';
-    this.CLIP.UPDATED_AT = '';
+    this.HASH = '';
+    this.FILENAME = '';
+    this.FILETYPE = '';
+    this.DATA = '';
+    this.TAG_IDS = '';
+    this.OWNER_HASH = '';
+    this.OWNER_PUBLISH = '';
+    this.CLIP_MODE = '';
+    this.CREATED_AT = '';
+    this.UPDATED_AT = '';
 
     this.DL_CLIP = null;
 
