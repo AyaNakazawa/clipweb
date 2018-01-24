@@ -142,9 +142,20 @@ class CommonModel extends CommonClass {
     this.COMMON.SELECTOR = {};
     this.COMMON.SELECTOR.ROOT = document;
     this.COMMON.SELECTOR.AREA = '#area';
+    this.COMMON.SELECTOR.POPOVER = '.content-popover';
 
     this.COMMON.SEQUENCE = {};
     this.COMMON.SEQUENCE.LOOP = true;
+
+    this.COMMON.POPOVER = {};
+    this.COMMON.POPOVER.TRIGGER = 'click';
+    this.COMMON.POPOVER.PLACEMENT = 'right';
+    this.COMMON.POPOVER.DELAY = 0;
+    this.COMMON.POPOVER.HTML = true;
+    this.COMMON.POPOVER.OFFSET = 0;
+    this.COMMON.POPOVER.CONTAINER = true;
+    this.COMMON.POPOVER.FALLBACK_PLACEMENT = 'flip';
+    this.COMMON.POPOVER.BOUNDARY = 'scrollParent';
 
     this.COMMON.KEYCODE = {
       '1': 49,
@@ -1128,6 +1139,45 @@ class CommonEvent extends CommonClass {
     }
     // Method chain
     return this;
+  }
+
+  // ----------------------------------------------------------------
+  // popover
+
+  setPopover ({
+    selector = null,
+    title = null,
+    content = null,
+    trigger = this.MODEL.COMMON.POPOVER.TRIGGER,
+    placement = this.MODEL.COMMON.POPOVER.PLACEMENT,
+    delay = this.MODEL.COMMON.POPOVER.DELAY,
+    html = this.MODEL.COMMON.POPOVER.HTML,
+    offset = this.MODEL.COMMON.POPOVER.OFFSET,
+    container = this.MODEL.COMMON.POPOVER.CONTAINER,
+    fallbackPlacement = this.MODEL.COMMON.POPOVER.FALLBACK_PLACEMENT,
+    boundary = this.MODEL.COMMON.POPOVER.BOUNDARY,
+  }) {
+    selector = Object.getArg(arguments, 0, 'String', selector);
+    title = Object.getArg(arguments, 1, 'String', title);
+    content = Object.getArg(arguments, 2, 'String', content);
+    if (selector == null) {
+      Log.error(arguments)();
+    } else {
+      if (container == true) {
+        container = selector;
+      }
+      $(selector).attr('title', title);
+      $(selector).attr('data-content', content);
+      $(selector).attr('data-trigger', trigger);
+      $(selector).attr('data-placement', placement);
+      $(selector).attr('data-delay', delay);
+      $(selector).attr('data-html', html);
+      $(selector).attr('data-offset', offset);
+      $(selector).attr('data-fallbackPlacement', fallbackPlacement);
+      $(selector).attr('data-boundary', boundary);
+      $(selector).attr('data-toggle', 'popover');
+      $(selector).popover();
+    }
   }
 
   // ----------------------------------------------------------------
