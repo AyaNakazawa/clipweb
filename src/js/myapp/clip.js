@@ -254,6 +254,16 @@ class ClipController extends ClipwebController {
         type: _TYPE,
         data: this.getSendModel(_TYPE)
       });
+    } else {
+      this.open({
+        type: _TYPE,
+        model: {
+          alertMessage: (
+            View.element({ content: LN.get('please_all_inputs_correctly') })
+          ),
+          alertType: View.ALERT_WARNING
+        }
+      });
     }
   }
 
