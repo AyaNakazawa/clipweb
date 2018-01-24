@@ -143,7 +143,7 @@ class UserModel extends ClipwebModel {
     this.SELECTOR.INFO.NEW_PASSWORD = '#user-info-new-password';
     this.SELECTOR.INFO.NEW_PASSWORD_RE = '#user-info-new-password-re';
     this.SELECTOR.INFO.SETTING = '#user-info-setting';
-    this.SELECTOR.INFO.UPDATE_SUBMIT = '#user-info-update-submit';
+    this.SELECTOR.INFO.SUBMIT = '#user-info-submit';
 
     // ユーザ設定
     this.SELECTOR.SETTING = {};
@@ -151,7 +151,7 @@ class UserModel extends ClipwebModel {
     this.SELECTOR.SETTING.OWNER_PUBLISH = '#user-setting-owner-publish';
     this.SELECTOR.SETTING.CLIP_MODE = '#user-setting-clip-mode';
     this.SELECTOR.SETTING.INFO = '#user-setting-info';
-    this.SELECTOR.SETTING.UPDATE_SUBMIT = '#user-setting-update-submit';
+    this.SELECTOR.SETTING.SUBMIT = '#user-setting-submit';
 
   }
 }
@@ -305,7 +305,7 @@ class UserEvent extends ClipwebEvent {
     });
 
     super.setOn({
-      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.INFO.UPDATE_SUBMIT}`,
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.INFO.SUBMIT}`,
       func: () => {
         super.log('User Info', 'Submit')();
         this.CONTROLLER.submitInfo();
@@ -337,7 +337,7 @@ class UserEvent extends ClipwebEvent {
     });
 
     super.setOn({
-      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.UPDATE_SUBMIT}`,
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.SUBMIT}`,
       func: () => {
         super.log('User Setting', 'Submit')();
         this.CONTROLLER.submitSetting();
