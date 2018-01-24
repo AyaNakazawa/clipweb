@@ -96,7 +96,7 @@ class List(cw_base.Base):
                 "clips.tags AS clip_tags",
                 "clips.hash AS clip_hash",
                 "clips.owner_hash AS clip_owner_hash",
-                "clips.owner_publish AS clip_owner_publish",
+                "clips.owner_public AS clip_owner_public",
                 "clips.clip_mode AS clip_clip_mode",
                 "clips.created_at AS clip_created_at",
                 "clips.updated_at AS clip_updated_at",

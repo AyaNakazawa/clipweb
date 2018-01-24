@@ -33,7 +33,7 @@ class ClipModel extends ClipwebModel {
     this.DATA = '';
     this.TAG_IDS = '';
     this.OWNER_HASH = '';
-    this.OWNER_PUBLISH = '';
+    this.OWNER_PUBLIC = '';
     this.CLIP_MODE = '';
     this.CREATED_AT = '';
     this.UPDATED_AT = '';
@@ -60,7 +60,7 @@ class ClipModel extends ClipwebModel {
     this.SELECTOR.NEW = {};
     this.SELECTOR.NEW.FILENAME = '#clip-new-filename';
     this.SELECTOR.NEW.FILETYPE = '#clip-new-filetype';
-    this.SELECTOR.NEW.OWNER_PUBLISH = '#clip-new-owner-publish';
+    this.SELECTOR.NEW.OWNER_PUBLIC = '#clip-new-owner-public';
     this.SELECTOR.NEW.CLIP_MODE = '#clip-new-clip-mode';
     this.SELECTOR.NEW.CLOSE = '#clip-new-close';
     this.SELECTOR.NEW.CREATE = '#clip-new-create';
@@ -71,7 +71,7 @@ class ClipModel extends ClipwebModel {
     this.SELECTOR.SETTING.DELETE = '#clip-setting-delete';
     this.SELECTOR.SETTING.NAME = '#clip-setting-name';
     this.SELECTOR.SETTING.TYPE = '#clip-setting-type';
-    this.SELECTOR.SETTING.OWNER_PUBLISH = '#clip-setting-owner-publish';
+    this.SELECTOR.SETTING.OWNER_PUBLIC = '#clip-setting-owner-public';
     this.SELECTOR.SETTING.CLIP_MODE = '#clip-setting-clip-mode';
     this.SELECTOR.SETTING.USERS = '#clip-setting-users';
     this.SELECTOR.SETTING.SAVE = '#clip-setting-save';
@@ -208,18 +208,18 @@ class ClipController extends ClipwebController {
 
     const _NEW_NAME = this.MODEL.SELECTOR.NEW.FILENAME;
     const _NEW_TYPE = this.MODEL.SELECTOR.NEW.FILETYPE;
-    const _NEW_OWNER_PUBLISH = this.MODEL.SELECTOR.NEW.OWNER_PUBLISH;
+    const _NEW_OWNER_PUBLIC = this.MODEL.SELECTOR.NEW.OWNER_PUBLIC;
     const _NEW_CLIP_MODE = this.MODEL.SELECTOR.NEW.CLIP_MODE;
 
     if (
       $(_NEW_NAME)[0].validity.valid &&
       $(_NEW_TYPE)[0].validity.valid &&
-      $(_NEW_OWNER_PUBLISH)[0].validity.valid &&
+      $(_NEW_OWNER_PUBLIC)[0].validity.valid &&
       $(_NEW_CLIP_MODE)[0].validity.valid
     ) {
       this.MODEL.FILENAME = $(_NEW_NAME).val();
       this.MODEL.FILETYPE = $(`${_NEW_TYPE} option:selected`).val();
-      this.MODEL.OWNER_PUBLISH = $(`${_NEW_OWNER_PUBLISH} option:selected`).val();
+      this.MODEL.OWNER_PUBLIC = $(`${_NEW_OWNER_PUBLIC} option:selected`).val();
       this.MODEL.CLIP_MODE = $(`${_NEW_CLIP_MODE} option:selected`).val();
 
       this.EVENT.setOnLoading({
@@ -413,7 +413,7 @@ class ClipController extends ClipwebController {
         // NEW
         _result = {
           filetypes: FileTypes.get(),
-          defaultOwnerPublish: USER.MODEL.OWNER_PUBLISH,
+          defaultOwnerPublic: USER.MODEL.OWNER_PUBLIC,
           defaultClipMode: USER.MODEL.CLIP_MODE,
           length: {
             min: {
@@ -431,7 +431,7 @@ class ClipController extends ClipwebController {
           filename: this.MODEL.FILENAME,
           filetype: this.MODEL.FILETYPE,
           filetypes: FileTypes.get(),
-          ownerPublish: this.MODEL.OWNER_PUBLISH,
+          ownerPublic: this.MODEL.OWNER_PUBLIC,
           clipMode: this.MODEL.CLIP_MODE,
           length: {
             min: {
@@ -478,7 +478,7 @@ class ClipController extends ClipwebController {
         this.MODEL.FILETYPE = this.MODEL.CLIP['type'];
         this.MODEL.TAGS = this.MODEL.CLIP['tags'];
         this.MODEL.OWNER_HASH = this.MODEL.CLIP['owner_hash'];
-        this.MODEL.OWNER_PUBLISH = this.MODEL.CLIP['owner_publish'];
+        this.MODEL.OWNER_PUBLIC = this.MODEL.CLIP['owner_public'];
         this.MODEL.CLIP_MODE = this.MODEL.CLIP['clip_mode'];
         this.MODEL.CREATED_AT = this.MODEL.CLIP['created_at'];
         this.MODEL.UPDATED_AT = this.MODEL.CLIP['updated_at'];
@@ -506,7 +506,7 @@ class ClipController extends ClipwebController {
         _model['hash'] = Random.hex();
         _model['name'] = this.MODEL.FILENAME;
         _model['type'] = this.MODEL.FILETYPE;
-        _model['owner_publish'] = this.MODEL.OWNER_PUBLISH;
+        _model['owner_public'] = this.MODEL.OWNER_PUBLIC;
         _model['clip_mode'] = this.MODEL.CLIP_MODE;
         break;
 
@@ -520,7 +520,7 @@ class ClipController extends ClipwebController {
         _model['name'] = this.MODEL.FILENAME;
         _model['type'] = this.MODEL.FILETYPE;
         _model['tags'] = this.MODEL.TAGS;
-        _model['owner_publish'] = this.MODEL.OWNER_PUBLISH;
+        _model['owner_public'] = this.MODEL.OWNER_PUBLIC;
         _model['clip_mode'] = this.MODEL.CLIP_MODE;
         break;
 

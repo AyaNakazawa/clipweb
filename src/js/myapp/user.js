@@ -92,7 +92,7 @@ class UserModel extends ClipwebModel {
 
     // ユーザ設定
     this.THEME = 'light';
-    this.OWNER_PUBLISH = 'public';
+    this.OWNER_PUBLIC = 'public';
     this.CLIP_MODE = 'private';
 
     // ----------------------------------------------------------------
@@ -148,7 +148,7 @@ class UserModel extends ClipwebModel {
     // ユーザ設定
     this.SELECTOR.SETTING = {};
     this.SELECTOR.SETTING.THEME = '#user-setting-theme';
-    this.SELECTOR.SETTING.OWNER_PUBLISH = '#user-setting-owner-publish';
+    this.SELECTOR.SETTING.OWNER_PUBLIC = '#user-setting-owner-public';
     this.SELECTOR.SETTING.CLIP_MODE = '#user-setting-clip-mode';
     this.SELECTOR.SETTING.INFO = '#user-setting-info';
     this.SELECTOR.SETTING.SUBMIT = '#user-setting-submit';
@@ -370,7 +370,7 @@ class UserEvent extends ClipwebEvent {
 
     super.setSeqFocus([
       this.MODEL.SELECTOR.SETTING.THEME,
-      this.MODEL.SELECTOR.SETTING.OWNER_PUBLISH,
+      this.MODEL.SELECTOR.SETTING.OWNER_PUBLIC,
       this.MODEL.SELECTOR.SETTING.CLIP_MODE,
       this.MODEL.SELECTOR.SETTING.SUBMIT,
     ]);
@@ -594,7 +594,7 @@ class UserController extends ClipwebController {
                 'encrypted_crypto_hash',
                 'email_authentication',
                 'theme',
-                'default_owner_publish',
+                'default_owner_public',
                 'default_clip_mode',
                 'created_at',
                 'updated_at',
@@ -841,24 +841,24 @@ class UserController extends ClipwebController {
     const _FAILED = 'failed_to_save_setting';
 
     const _THEME = this.MODEL.SELECTOR.SETTING.THEME;
-    const _OWNER_PUBLISH = this.MODEL.SELECTOR.SETTING.OWNER_PUBLISH;
+    const _OWNER_PUBLIC = this.MODEL.SELECTOR.SETTING.OWNER_PUBLIC;
     const _CLIP_MODE = this.MODEL.SELECTOR.SETTING.CLIP_MODE;
 
     let _validTheme = $(_THEME)[0].validity.valid;
-    let _validOwnerPublish = $(_OWNER_PUBLISH)[0].validity.valid;
+    let _validOwnerPublic = $(_OWNER_PUBLIC)[0].validity.valid;
     let _validClipMode = $(_CLIP_MODE)[0].validity.valid;
 
     if (_validTheme) {
       this.MODEL.THEME = $(`${_THEME} option:selected`).val();
     }
-    if (_validOwnerPublish) {
-      this.MODEL.OWNER_PUBLISH = $(`${_OWNER_PUBLISH} option:selected`).val();
+    if (_validOwnerPublic) {
+      this.MODEL.OWNER_PUBLIC = $(`${_OWNER_PUBLIC} option:selected`).val();
     }
     if (_validClipMode) {
       this.MODEL.CLIP_MODE = $(`${_CLIP_MODE} option:selected`).val();
     }
 
-    if (_validTheme && _validOwnerPublish && _validClipMode) {
+    if (_validTheme && _validOwnerPublic && _validClipMode) {
       this.EVENT.setOnLoading({
         type: _TYPE,
         successFunction: () => {
@@ -891,7 +891,7 @@ class UserController extends ClipwebController {
               } else {
                 const _SETTING = [
                   'theme',
-                  'default_owner_publish',
+                  'default_owner_public',
                   'default_clip_mode',
                   'updated_at',
                 ];
@@ -982,7 +982,7 @@ class UserController extends ClipwebController {
         // SETTING
         _result = {
           theme: this.MODEL.THEME,
-          ownerPublish: this.MODEL.OWNER_PUBLISH,
+          ownerPublic: this.MODEL.OWNER_PUBLIC,
           clipMode: this.MODEL.CLIP_MODE
         };
         break;
@@ -1168,7 +1168,7 @@ class UserController extends ClipwebController {
       this.MODEL.ENCRYPT.CRYPTO = this.getAjaxData({ key: 'encrypted_crypto_hash' });
       this.MODEL.EMAIL_AUTH = this.getAjaxData({ key: 'email_authentication' });
       this.MODEL.THEME = this.getAjaxData({ key: 'theme' });
-      this.MODEL.OWNER_PUBLISH = this.getAjaxData({ key: 'default_owner_publish' });
+      this.MODEL.OWNER_PUBLIC = this.getAjaxData({ key: 'default_owner_public' });
       this.MODEL.CLIP_MODE = this.getAjaxData({ key: 'default_clip_mode' });
       this.MODEL.CREATED_AT = this.getAjaxData({ key: 'created_at' });
       this.MODEL.UPDATED_AT = this.getAjaxData({ key: 'updated_at' });
@@ -1195,7 +1195,7 @@ class UserController extends ClipwebController {
     } else if (type == this.MODEL.TYPE.SETTING) {
       // SETTING
       this.MODEL.THEME = this.getAjaxData({ key: 'theme' });
-      this.MODEL.OWNER_PUBLISH = this.getAjaxData({ key: 'default_owner_publish' });
+      this.MODEL.OWNER_PUBLIC = this.getAjaxData({ key: 'default_owner_public' });
       this.MODEL.CLIP_MODE = this.getAjaxData({ key: 'default_clip_mode' });
       this.MODEL.UPDATED_AT = this.getAjaxData({ key: 'updated_at' });
 
@@ -1263,7 +1263,7 @@ class UserController extends ClipwebController {
       _model['hash'] = this.MODEL.HASH.USER;
       _model['password_hash'] = this.MODEL.HASH.PASSWORD;
       _model['theme'] = this.MODEL.THEME;
-      _model['default_owner_publish'] = this.MODEL.OWNER_PUBLISH;
+      _model['default_owner_public'] = this.MODEL.OWNER_PUBLIC;
       _model['default_clip_mode'] = this.MODEL.CLIP_MODE;
 
     } else {

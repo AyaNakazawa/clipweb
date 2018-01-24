@@ -88,10 +88,10 @@ class Base:
                     "message": "[theme] does not defined."
                 }
             },
-            "default_owner_publish_not_defined": {
+            "default_owner_public_not_defined": {
                 "{} error".format(cls.NAME): {
                     "code": 107,
-                    "message": "[default_owner_publish] does not defined."
+                    "message": "[default_owner_public] does not defined."
                 }
             },
             "default_clip_mode_not_defined": {
@@ -148,10 +148,10 @@ class Base:
                     "message": "[theme] is unknown class"
                 }
             },
-            "default_owner_publish_unknown_class": {
+            "default_owner_public_unknown_class": {
                 "{} error".format(cls.NAME): {
                     "code": 207,
-                    "message": "[default_owner_publish] is unknown class"
+                    "message": "[default_owner_public] is unknown class"
                 }
             },
             "default_clip_mode_unknown_class": {

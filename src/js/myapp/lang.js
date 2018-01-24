@@ -26,9 +26,9 @@ class Language {
       new_password: 'New Password',
       avatar: 'Avatar',
       theme: 'Theme',
-      default_owner_publish: 'Default Owner publish',
+      default_owner_public: 'Default Owner public',
       default_clip_mode: 'Default clip mode',
-      owner_publish: 'Owner publish',
+      owner_public: 'Owner public',
       clip_mode: 'clip mode',
       using_gravatar: 'Using {gravatar}',
 
@@ -158,7 +158,7 @@ class Language {
       popover_user_info_new_password: 'You can change the password required for login.',
       popover_user_info_new_password_re: 'Please enter your password again.',
       popover_user_setting_theme: 'You can choose the theme of your editor.',
-      popover_user_setting_owner_publish: 'You can choose your default owner publish setting.<br>Owner publish setting is managed for each clip.',
+      popover_user_setting_owner_public: 'You can choose your default owner public setting.<br>Owner public setting is managed for each clip.',
       popover_user_setting_clip_mode: 'You can choose your default clip share setting.<br>clip share setting is managed for each clip.',
 
       popover_list_search_group: 'You can group clips.',
@@ -166,7 +166,7 @@ class Language {
 
       popover_clip_new_filename: 'Please enter the name of the clip.<br>If you include a file extension, the file type is automatically selected.',
       popover_clip_new_filetype: 'Please select a file type.<br>Syntax highlighting according to the file type is applied in the editor.',
-      popover_clip_new_owner_publish: 'Please select the owner publish setting of this clip.',
+      popover_clip_new_owner_public: 'Please select the owner public setting of this clip.',
       popover_clip_new_clip_mode: 'Please select the clip share setting of this clip.',
 
       clipweb_user_error_code: '{project} Error Code: {code}',
@@ -199,9 +199,9 @@ class Language {
       new_password: '新しいパスワード',
       avatar: 'アバター',
       theme: 'テーマ',
-      default_owner_publish: 'デフォルトのオーナー公開設定',
+      default_owner_public: 'デフォルトのオーナー公開設定',
       default_clip_mode: 'デフォルトのクリップ共有設定',
-      owner_publish: 'オーナー公開設定',
+      owner_public: 'オーナー公開設定',
       clip_mode: 'クリップ共有設定',
       using_gravatar: '{gravatar} を利用しています。',
 
@@ -331,7 +331,7 @@ class Language {
       popover_user_info_new_password: 'ログインに必要なパスワードを変更できます。',
       popover_user_info_new_password_re: 'もう一度パスワードを入力してください。',
       popover_user_setting_theme: 'あなたのエディタのテーマを選択できます。',
-      popover_user_setting_owner_publish: 'あなたのデフォルトのオーナー公開設定を選択できます。<br>オーナー公開設定は、クリップごとに管理されています。',
+      popover_user_setting_owner_public: 'あなたのデフォルトのオーナー公開設定を選択できます。<br>オーナー公開設定は、クリップごとに管理されています。',
       popover_user_setting_clip_mode: 'あなたのデフォルトのクリップ共有設定を選択できます。<br>クリップ共有設定は、クリップごとに管理されています。',
 
       popover_list_search_group: 'クリップをグループに分けることができます。',
@@ -339,7 +339,7 @@ class Language {
 
       popover_clip_new_filename: 'クリップの名前を入力してください。<br>拡張子を含めると、ファイル種別が自動で選択されます。',
       popover_clip_new_filetype: 'ファイル種別を選択してください。<br>エディタで、ファイル種別に応じたシンタックスハイライトが適用されます。',
-      popover_clip_new_owner_publish: 'このクリップのオーナー公開設定を選択してください。',
+      popover_clip_new_owner_public: 'このクリップのオーナー公開設定を選択してください。',
       popover_clip_new_clip_mode: 'このクリップのクリップ共有設定を選択してください。',
 
       clipweb_user_error_code: '{project} エラーコード： {code}',

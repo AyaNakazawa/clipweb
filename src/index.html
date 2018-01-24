@@ -344,19 +344,19 @@
           </div>
         </div>
       </div>
-      <!-- Owner Publish Mode -->
+      <!-- Owner Public Mode -->
       <div class="content-item-area">
         <div class="content-item">
-          <label for="user-setting-owner-publish"><%= LN.get('default_owner_publish') %></label>
+          <label for="user-setting-owner-public"><%= LN.get('default_owner_public') %></label>
           <span class="content-popover content-help"></span>
           <div class="content-input">
-            <select id="user-setting-owner-publish" class="custom-select" required tabindex="200">
-              <% if (ownerPublish == 'private') { %>
+            <select id="user-setting-owner-public" class="custom-select" required tabindex="200">
+              <% if (ownerPublic == 'private') { %>
                 <option value="private" selected><%= LN.get('private') %></option>
               <% } else { %>
                 <option value="private"><%= LN.get('private') %></option>
               <% } %>
-              <% if (ownerPublish == 'public') { %>
+              <% if (ownerPublic == 'public') { %>
                 <option value="public" selected><%= LN.get('public') %></option>
               <% } else { %>
                 <option value="public"><%= LN.get('public') %></option>
@@ -586,18 +586,18 @@
             <i class="content-input-icon content-select-icon fas fa-file-code"></i>
           </div>
         </div>
-        <!-- Owner publish -->
+        <!-- Owner public -->
         <div class="content-item">
-          <label for="clip-new-owner-publish"><%= LN.get('owner_publish') %></label>
+          <label for="clip-new-owner-public"><%= LN.get('owner_public') %></label>
           <span class="content-popover content-help"></span>
           <div class="content-input">
-            <select id="clip-new-owner-publish" class="custom-select" required tabindex="200">
-              <% if (defaultOwnerPublish == 'private') { %>
+            <select id="clip-new-owner-public" class="custom-select" required tabindex="200">
+              <% if (defaultOwnerPublic == 'private') { %>
                 <option value="private" selected><%= LN.get('private') %></option>
               <% } else { %>
                 <option value="private"><%= LN.get('private') %></option>
               <% } %>
-              <% if (defaultOwnerPublish == 'public') { %>
+              <% if (defaultOwnerPublic == 'public') { %>
                 <option value="public" selected><%= LN.get('public') %></option>
               <% } else { %>
                 <option value="public"><%= LN.get('public') %></option>

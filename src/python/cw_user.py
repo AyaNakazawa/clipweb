@@ -189,7 +189,7 @@ class User(cw_base.Base):
                 "encrypted_crypto_hash",
                 "email_authentication",
                 "theme",
-                "default_owner_publish",
+                "default_owner_public",
                 "default_clip_mode",
                 "created_at",
                 "updated_at"
@@ -233,7 +233,7 @@ class User(cw_base.Base):
         user_hash = cls.cgi.get("hash")
         user_password_hash = cls.cgi.get("password_hash")
         user_theme = cls.cgi.get("theme")
-        user_default_owner_publish = cls.cgi.get("default_owner_publish")
+        user_default_owner_public = cls.cgi.get("default_owner_public")
         user_default_clip_mode = cls.cgi.get("default_clip_mode")
 
         # ----------------------------------------------------------------
@@ -261,9 +261,9 @@ class User(cw_base.Base):
             return cls.result
 
         if cls._check_str(
-            model=user_default_owner_publish,
-            not_defined_error="default_owner_publish_not_defined",
-            unknown_class_error="default_owner_publish_unknown_class"
+            model=user_default_owner_public,
+            not_defined_error="default_owner_public_not_defined",
+            unknown_class_error="default_owner_public_unknown_class"
         ) is False:
             return cls.result
 
@@ -306,7 +306,7 @@ class User(cw_base.Base):
             table="owners",
             value={
                 "theme": user_theme,
-                "default_owner_publish": user_default_owner_publish,
+                "default_owner_public": user_default_owner_public,
                 "default_clip_mode": user_default_clip_mode,
                 "updated_at": now
             },
@@ -323,7 +323,7 @@ class User(cw_base.Base):
             table="owners",
             column=[
                 "theme",
-                "default_owner_publish",
+                "default_owner_public",
                 "default_clip_mode",
                 "updated_at"
             ],
