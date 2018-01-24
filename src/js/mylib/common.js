@@ -1149,9 +1149,10 @@ class CommonEvent extends CommonClass {
   // popover
 
   setOnPopover ({
-    selector = null,
+    selector = this.MODEL.COMMON.MAIN,
     title = null,
     content = null,
+    type = 'single',
     trigger = this.MODEL.COMMON.POPOVER.TRIGGER,
     placement = this.MODEL.COMMON.POPOVER.PLACEMENT,
     delay = this.MODEL.COMMON.POPOVER.DELAY,
@@ -1164,8 +1165,32 @@ class CommonEvent extends CommonClass {
     selector = Object.getArg(arguments, 0, 'String', selector);
     title = Object.getArg(arguments, 1, 'String', title);
     content = Object.getArg(arguments, 2, 'String', content);
-    if (selector == null) {
+    type = Object.getArg(arguments, 3, 'String', type);
+    if (selector == null && type == null) {
       Log.error(arguments)();
+    }
+    Log.info(arguments)();
+
+    if (type == 'all') {
+      for (let popover of $(`${selector} ${this.MODEL.COMMON.SELECTOR.POPOVER}`)) {
+        if (typeof $(popover).parent().find(':required').attr('id') != 'undefined') {
+          let _id = $(popover).parent().find(':required').attr('id');
+          if (container == true) {
+            container = popover;
+          }
+          $(popover).attr('title', $(popover).parent().children('label').text());
+          $(popover).attr('data-content', LN.get(`popover_${_id.replace(/-/g, '_')}`));
+          $(popover).attr('data-trigger', trigger);
+          $(popover).attr('data-placement', placement);
+          $(popover).attr('data-delay', delay);
+          $(popover).attr('data-html', html);
+          $(popover).attr('data-offset', offset);
+          $(popover).attr('data-fallbackPlacement', fallbackPlacement);
+          $(popover).attr('data-boundary', boundary);
+          $(popover).attr('data-toggle', 'popover');
+          $(popover).popover();
+        }
+      }
     } else {
       if (container == true) {
         container = selector;
