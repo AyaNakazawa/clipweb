@@ -378,6 +378,7 @@ class CommonView extends CommonClass {
     }
     const _HTML = $(selector)[0]['outerHTML'];
     $(selector).remove();
+    this.EVENT.setOffPopover({ selector: parent });
 
     if (target == null) {
       this.VIEW.hide({ selector: selector, speed: 0 });
@@ -553,6 +554,7 @@ class CommonView extends CommonClass {
     }
     super.log(_selector, 'Remove', Log.ARROW_INPUT)();
 
+    this.EVENT.setOffPopover({ selector: parent });
     if (delay > 0) {
       $(_selector).delay(delay).remove();
     } else {
@@ -610,6 +612,7 @@ class CommonView extends CommonClass {
       Log.error(arguments)();
       return;
     }
+    this.EVENT.setOffPopover({ selector: selector });
     if (speed > 0 || this.getView()) {
       this.setView({
         view: false,
@@ -827,6 +830,7 @@ class CommonView extends CommonClass {
       }
     } else if (!view) {
       // hide
+      this.EVENT.setOffPopover({ selector: selector, mode: 'hide' });
       if (type == this.MODEL.COMMON.EFFECT.HIDE) {
         if (delay > 0) {
           if (callback != null) {
