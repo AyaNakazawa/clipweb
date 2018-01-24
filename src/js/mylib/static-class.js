@@ -950,8 +950,7 @@ class Random {
     length = null
   ) {
     if (length == null) {
-      Log.error(arguments, 'Need length of argument. X(')();
-      return;
+      return SHA256.getHash(this.rand(this.getMin('uint'), this.getMax('uint')).toString());
     }
     return SHA256.getHash(this.rand(this.getMin('uint'), this.getMax('uint')).toString()).substr(0, length);
   }
