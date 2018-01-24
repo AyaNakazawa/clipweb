@@ -44,7 +44,7 @@ class ClipModel extends ClipwebModel {
     // テンプレート
     this.TEMPLATE.NEW = '#clip-new-template';
     this.TEMPLATE.SETTING = '#clip-setting-template';
-    this.TEMPLATE.SETTING = '#clip-user-template';
+    this.TEMPLATE.SETTING_USER = '#clip-setting-user-template';
 
     // ----------------------------------------------------------------
     // オフセット
