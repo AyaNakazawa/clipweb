@@ -227,7 +227,7 @@ class Log {
 
           // Write args
           for (let i = 0; i < args.length; i++) {
-            if (!Object.typeIs('Object', args[i]) && !Object.typeIs('Array', args[i])) {
+            if (!Object.typeIs(['Object', 'Array'], args[i])) {
               args[i] = [args[i]];
             }
             for (let key of Object.keys(args[i])) {
@@ -474,14 +474,14 @@ class Log {
         if (key != null) {
           if (value != null) {
             // class + key + value
-            if (Object.typeIs('Object', value) || Object.typeIs('Array', value)) {
+            if (Object.typeIs(['Object', 'Array'], value)) {
               return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, keyStyle, this.STYLE_ARROW, value);
             } else {
               return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, keyStyle, this.STYLE_ARROW, valueStyle, groupStyle);
             }
           } else {
             // class + key
-            if (Object.typeIs('Object', key) || Object.typeIs('Array', key)) {
+            if (Object.typeIs(['Object', 'Array'], key)) {
               return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, key);
             } else {
               return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, keyStyle, groupStyle);
@@ -490,7 +490,7 @@ class Log {
         } else {
           if (value != null) {
             // class + value
-            if (Object.typeIs('Object', value) || Object.typeIs('Array', value)) {
+            if (Object.typeIs(['Object', 'Array'], value)) {
               return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, value);
             } else {
               return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, valueStyle, groupStyle);
@@ -551,29 +551,29 @@ class Log {
 
       result += this.CHAR_STYLE;
       result += clas;
-      for (let i = 0; i < this.CLASS_LENGTH - clas.length; i++) {
-        result += this.SPACE;
-      }
 
       if (key != null) {
         // and Key
+        for (let i = 0; i < this.CLASS_LENGTH - clas.length; i++) {
+          result += this.SPACE;
+        }
         result += this.CHAR_STYLE;
         result += this.COLON;
         result += this.SPACE;
-        if (Object.typeIs('Object', key) || Object.typeIs('Array', key)) {
+        if (Object.typeIs(['Object', 'Array'], key)) {
           return result;
         }
         result += this.CHAR_STYLE;
         result += key;
-        for (let i = 0; i < this.KEY_LENGTH - key.length; i++) {
-          result += this.SPACE;
-        }
 
         if (value != null) {
           // and Value
+          for (let i = 0; i < this.KEY_LENGTH - key.length; i++) {
+            result += this.SPACE;
+          }
           result += this.CHAR_STYLE;
           result += arrow;
-          if (Object.typeIs('Object', value) || Object.typeIs('Array', value)) {
+          if (Object.typeIs(['Object', 'Array'], value)) {
             return result;
           }
           result += this.CHAR_STYLE;
