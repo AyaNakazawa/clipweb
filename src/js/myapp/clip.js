@@ -164,6 +164,17 @@ class ClipEvent extends ClipwebEvent {
         this.CONTROLLER.connectSetting();
       }
     });
+
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.FILENAME}`,
+      trigger: 'keyup',
+      func: () => {
+        this.CONTROLLER.updateFile({
+          name: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.FILENAME}`,
+          type: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.FILETYPE}`
+        });
+      }
+    });
   }
 }
 
