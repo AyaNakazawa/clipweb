@@ -324,12 +324,12 @@ main {
         border-radius: 8px; }
       main .content .content-image .content-avatar {
         border-radius: 50%; }
-    main .content .content-help-icon {
+    main .content .content-help {
       line-height: 1rem;
       padding: 0.5rem;
       cursor: pointer;
       z-index: 10; }
-      main .content .content-help-icon:before {
+      main .content .content-help:before {
         content: "\f059";
         font-family: "Font Awesome 5 Pro Solid"; }
     main .content .alert {
