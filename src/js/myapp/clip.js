@@ -365,19 +365,19 @@ class ClipController extends ClipwebController {
     switch (type) {
       case this.MODEL.TYPE.NEW:
         // NEW
-        _model['name'] = this.MODEL.NEW.NAME;
-        _model['type'] = this.MODEL.NEW.TYPE;
-        _model['onwer_publish'] = this.MODEL.NEW.ONWER_PUBLISH;
-        _model['clip_mode'] = this.MODEL.NEW.CLIP_MODE;
+        _model['name'] = this.MODEL.FILENAME;
+        _model['type'] = this.MODEL.FILETYPE;
+        _model['owner_publish'] = this.MODEL.OWNER_PUBLISH;
+        _model['clip_mode'] = this.MODEL.CLIP_MODE;
         break;
 
       case this.MODEL.TYPE.SETTING:
         // SETTING
-        _model['name'] = this.MODEL.SETTING.NAME;
-        _model['type'] = this.MODEL.SETTING.TYPE;
-        _model['tags'] = this.MODEL.SETTING.TAGS;
-        _model['onwer_publish'] = this.MODEL.SETTING.ONWER_PUBLISH;
-        _model['clip_mode'] = this.MODEL.SETTING.CLIP_MODE;
+        _model['name'] = this.MODEL.FILENAME;
+        _model['type'] = this.MODEL.FILETYPE;
+        _model['tags'] = this.MODEL.TAGS;
+        _model['owner_publish'] = this.MODEL.OWNER_PUBLISH;
+        _model['clip_mode'] = this.MODEL.CLIP_MODE;
         break;
 
       default:
