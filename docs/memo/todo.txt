@@ -1,5 +1,6 @@
 
 やること
+  Popoverはクラスごとに管理して、openしなおすときに一旦全部削除する。clearの直前
   tabindexをエリアごとに分ける
   addAlertかupdateAlertをCommonViewにつくる
   →headerとかloadingも？
