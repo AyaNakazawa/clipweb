@@ -329,12 +329,21 @@ class ClipController extends ClipwebController {
     switch (type) {
       case this.MODEL.TYPE.NEW:
         // NEW
-        this.MODEL.CLIP = this.getAjaxData({ key: 'clip' });
+        this.MODEL.HASH = this.getAjaxData({ key: 'hash' });
         break;
 
       case this.MODEL.TYPE.SETTING:
         // SETTING
         this.MODEL.CLIP = this.getAjaxData({ key: 'clip' });
+        this.MODEL.FILENAME = this.MODEL.CLIP['name'];
+        this.MODEL.DATA = this.MODEL.CLIP['data'];
+        this.MODEL.FILETYPE = this.MODEL.CLIP['type'];
+        this.MODEL.TAGS = this.MODEL.CLIP['tags'];
+        this.MODEL.OWNER_HASH = this.MODEL.CLIP['owner_hash'];
+        this.MODEL.OWNER_PUBLISH = this.MODEL.CLIP['owner_publish'];
+        this.MODEL.CLIP_MODE = this.MODEL.CLIP['clip_mode'];
+        this.MODEL.CREATED_AT = this.MODEL.CLIP['created_at'];
+        this.MODEL.UPDATED_AT = this.MODEL.CLIP['updated_at'];
         break;
 
       default:
