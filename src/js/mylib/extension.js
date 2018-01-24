@@ -69,11 +69,16 @@ EX.Object.getType = function(obj = null) {
 **/
 
 EX.Object.typeIs = function(type = null, obj = null) {
-  if (obj === null) {
-    obj = this;
+  if (Object.getType(type) != 'Object' && Object.getType(type) != 'Array') {
+    type = [type];
   }
-  const _TYPE = Object.getType(obj);
-  return obj !== undefined && obj !== null && _TYPE === type;
+  for (let key of Object.keys(type)) {
+    const _TYPE = Object.getType(obj);
+    if (obj !== undefined && obj !== null && _TYPE === type[key]) {
+      return true;
+    }
+  }
+  return false;
 };
 
 /**
