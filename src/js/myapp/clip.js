@@ -174,6 +174,7 @@ class ClipController extends ClipwebController {
 
   createNew () {
     const _TYPE = this.MODEL.TYPE.NEW;
+    const _FAILED = 'failed_to_create_new_clip';
 
     const _NEW_NAME = this.MODEL.SELECTOR.NEW.FILENAME;
     const _NEW_TYPE = this.MODEL.SELECTOR.NEW.FILETYPE;
@@ -198,7 +199,7 @@ class ClipController extends ClipwebController {
             // resultが取得できない
             this.open({
               type: _TYPE,
-              model: super.getErrorModel('result', 'failed_to_create_new_clip')
+              model: super.getErrorModel('result', _FAILED)
             });
           } else {
             if (this.getAjaxData({ key: 'result' }) == false) {
@@ -207,7 +208,7 @@ class ClipController extends ClipwebController {
                 const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
                 this.open({
                   type: _TYPE,
-                  model: super.getErrorModel('clipweb', 'failed_to_create_new_clip', _ERROR)
+                  model: super.getErrorModel('clipweb', _FAILED, _ERROR)
                 });
               }
             } else {
@@ -215,7 +216,7 @@ class ClipController extends ClipwebController {
                 // 未知のエラー
                 this.open({
                   type: _TYPE,
-                  model: super.getErrorModel('result', 'failed_to_create_new_clip')
+                  model: super.getErrorModel('result', _FAILED)
                 });
               } else {
                 if (typeof this.getAjaxData({ key: 'hash' })['flex sqlite3 error'] != 'undefined') {
@@ -223,7 +224,7 @@ class ClipController extends ClipwebController {
                   const _ERROR = this.getAjaxData({ key: 'hash' })['flex sqlite3 error'];
                   this.open({
                     type: _TYPE,
-                    model: super.getErrorModel('fsql', 'failed_to_create_new_clip', _ERROR)
+                    model: super.getErrorModel('fsql', _FAILED, _ERROR)
                   });
                 } else {
                   // 取得成功
@@ -245,7 +246,7 @@ class ClipController extends ClipwebController {
           }
         },
         errorOpenType: _TYPE,
-        errorModel: super.getErrorModel('server', 'failed_to_create_new_clip')
+        errorModel: super.getErrorModel('server', _FAILED)
       });
 
       // Post

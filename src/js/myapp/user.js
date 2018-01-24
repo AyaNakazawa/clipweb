@@ -453,6 +453,7 @@ class UserController extends ClipwebController {
 
   submitRegister () {
     const _TYPE = this.MODEL.TYPE.REGISTER;
+    const _FAILED = 'failed_to_register';
 
     const _USERNAME = $(this.MODEL.SELECTOR.REGISTER.USERNAME);
     const _EMAIL = $(this.MODEL.SELECTOR.REGISTER.EMAIL);
@@ -482,7 +483,7 @@ class UserController extends ClipwebController {
             // resultが取得できない
             this.open({
               type: _TYPE,
-              model: super.getErrorModel('result', 'failed_to_register')
+              model: super.getErrorModel('result', _FAILED)
             });
           } else {
             if (this.getAjaxData({ key: 'result' }) == false) {
@@ -491,7 +492,7 @@ class UserController extends ClipwebController {
                 const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
                 this.open({
                   type: _TYPE,
-                  model: super.getErrorModel('clipweb', 'failed_to_register', _ERROR)
+                  model: super.getErrorModel('clipweb', _FAILED, _ERROR)
                 });
               }
             } else {
@@ -501,7 +502,7 @@ class UserController extends ClipwebController {
                   const _ERROR = this.getAjaxData({ key: 'new_user' })['flex sqlite3 error'];
                   this.open({
                     type: _TYPE,
-                    model: super.getErrorModel('fsql', 'failed_to_register', _ERROR)
+                    model: super.getErrorModel('fsql', _FAILED, _ERROR)
                   });
                 }
               } else {
@@ -521,7 +522,7 @@ class UserController extends ClipwebController {
           }
         },
         errorOpenType: _TYPE,
-        errorModel: super.getErrorModel('server', 'failed_to_register')
+        errorModel: super.getErrorModel('server', _FAILED)
       });
 
       // Post
@@ -546,6 +547,7 @@ class UserController extends ClipwebController {
 
   submitLogin (auto = false) {
     const _TYPE = this.MODEL.TYPE.LOGIN;
+    const _FAILED = 'failed_to_login';
 
     let _validEmail = true;
     let _validPassword = true;
@@ -573,7 +575,7 @@ class UserController extends ClipwebController {
             // resultが取得できない
             this.open({
               type: _TYPE,
-              model: super.getErrorModel('result', 'failed_to_login')
+              model: super.getErrorModel('result', _FAILED)
             });
           } else {
             if (this.getAjaxData({ key: 'result' }) == false) {
@@ -582,7 +584,7 @@ class UserController extends ClipwebController {
                 const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
                 this.open({
                   type: _TYPE,
-                  model: super.getErrorModel('clipweb', 'failed_to_login', _ERROR)
+                  model: super.getErrorModel('clipweb', _FAILED, _ERROR)
                 });
               }
             } else {
@@ -604,7 +606,7 @@ class UserController extends ClipwebController {
                     const _ERROR = this.getAjaxData({ key: _INFO[i_info] })['flex sqlite3 error'];
                     this.open({
                       type: _TYPE,
-                      model: super.getErrorModel('fsql', 'failed_to_login', _ERROR)
+                      model: super.getErrorModel('fsql', _FAILED, _ERROR)
                     });
                     return;
                   }
@@ -627,7 +629,7 @@ class UserController extends ClipwebController {
           }
         },
         errorOpenType: _TYPE,
-        errorModel: super.getErrorModel('server', 'failed_to_login')
+        errorModel: super.getErrorModel('server', _FAILED)
       });
 
       // Post
@@ -652,6 +654,7 @@ class UserController extends ClipwebController {
 
   submitLogout () {
     const _TYPE = this.MODEL.TYPE.LOGOUT;
+    const _FAILED = 'failed_to_logout';
 
     this.EVENT.setOnLoading({
       type: _TYPE,
@@ -660,7 +663,7 @@ class UserController extends ClipwebController {
           // resultが取得できない
           this.open({
             type: _TYPE,
-            model: super.getErrorModel('result', 'failed_to_logout')
+            model: super.getErrorModel('result', _FAILED)
           });
         } else {
           if (this.getAjaxData({ key: 'result' }) == false) {
@@ -669,7 +672,7 @@ class UserController extends ClipwebController {
               const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
               this.open({
                 type: _TYPE,
-                model: super.getErrorModel('clipweb', 'failed_to_logout', _ERROR)
+                model: super.getErrorModel('clipweb', _FAILED, _ERROR)
               });
             }
           } else {
@@ -694,7 +697,7 @@ class UserController extends ClipwebController {
         }
       },
       errorOpenType: _TYPE,
-      errorModel: super.getErrorModel('server', 'failed_to_logout')
+      errorModel: super.getErrorModel('server', _FAILED)
     });
 
     // Post
@@ -707,6 +710,7 @@ class UserController extends ClipwebController {
 
   submitInfo () {
     const _TYPE = this.MODEL.TYPE.INFO;
+    const _FAILED = 'failed_to_save_info';
 
     const _USERNAME = $(this.MODEL.SELECTOR.INFO.USERNAME);
     const _EMAIL = $(this.MODEL.SELECTOR.INFO.EMAIL);
@@ -747,7 +751,7 @@ class UserController extends ClipwebController {
             // resultが取得できない
             this.open({
               type: _TYPE,
-              model: super.getErrorModel('result', 'failed_to_save_info')
+              model: super.getErrorModel('result', _FAILED)
             });
           } else {
             if (this.getAjaxData({ key: 'result' }) == false) {
@@ -756,7 +760,7 @@ class UserController extends ClipwebController {
                 const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
                 this.open({
                   type: _TYPE,
-                  model: super.getErrorModel('clipweb', 'failed_to_save_info', _ERROR)
+                  model: super.getErrorModel('clipweb', _FAILED, _ERROR)
                 });
               }
             } else {
@@ -766,7 +770,7 @@ class UserController extends ClipwebController {
                   const _ERROR = this.getAjaxData({ key: 'update_info' })['flex sqlite3 error'];
                   this.open({
                     type: _TYPE,
-                    model: super.getErrorModel('fsql', 'failed_to_save_info', _ERROR)
+                    model: super.getErrorModel('fsql', _FAILED, _ERROR)
                   });
                 }
               } else {
@@ -783,7 +787,7 @@ class UserController extends ClipwebController {
                       const _ERROR = this.getAjaxData({ key: _INFO[i_info] })['flex sqlite3 error'];
                       this.open({
                         type: _TYPE,
-                        model: super.getErrorModel('fsql', 'failed_to_save_info', _ERROR)
+                        model: super.getErrorModel('fsql', _FAILED, _ERROR)
                       });
                       return;
                     }
@@ -809,7 +813,7 @@ class UserController extends ClipwebController {
           }
         },
         errorOpenType: _TYPE,
-        errorModel: super.getErrorModel('server', 'failed_to_save_info')
+        errorModel: super.getErrorModel('server', _FAILED)
       });
 
       // Post
@@ -834,6 +838,7 @@ class UserController extends ClipwebController {
 
   submitSetting () {
     const _TYPE = this.MODEL.TYPE.SETTING;
+    const _FAILED = 'failed_to_save_setting';
 
     const _THEME = this.MODEL.SELECTOR.SETTING.THEME;
     const _OWNER_PUBLISH = this.MODEL.SELECTOR.SETTING.OWNER_PUBLISH;
@@ -861,7 +866,7 @@ class UserController extends ClipwebController {
             // resultが取得できない
             this.open({
               type: _TYPE,
-              model: super.getErrorModel('result', 'failed_to_save_setting')
+              model: super.getErrorModel('result', _FAILED)
             });
           } else {
             if (this.getAjaxData({ key: 'result' }) == false) {
@@ -870,7 +875,7 @@ class UserController extends ClipwebController {
                 const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
                 this.open({
                   type: _TYPE,
-                  model: super.getErrorModel('clipweb', 'failed_to_save_setting', _ERROR)
+                  model: super.getErrorModel('clipweb', _FAILED, _ERROR)
                 });
               }
             } else {
@@ -880,7 +885,7 @@ class UserController extends ClipwebController {
                   const _ERROR = this.getAjaxData({ key: 'update_setting' })['flex sqlite3 error'];
                   this.open({
                     type: _TYPE,
-                    model: super.getErrorModel('fsql', 'failed_to_save_setting', _ERROR)
+                    model: super.getErrorModel('fsql', _FAILED, _ERROR)
                   });
                 }
               } else {
@@ -897,7 +902,7 @@ class UserController extends ClipwebController {
                       const _ERROR = this.getAjaxData({ key: _SETTING[i_info] })['flex sqlite3 error'];
                       this.open({
                         type: _TYPE,
-                        model: super.getErrorModel('fsql', 'failed_to_save_setting', _ERROR)
+                        model: super.getErrorModel('fsql', _FAILED, _ERROR)
                       });
                       return;
                     }
@@ -918,7 +923,7 @@ class UserController extends ClipwebController {
           }
         },
         errorOpenType: _TYPE,
-        errorModel: super.getErrorModel('server', 'failed_to_save_setting')
+        errorModel: super.getErrorModel('server', _FAILED)
       });
 
       // Post

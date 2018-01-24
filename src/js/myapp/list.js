@@ -377,6 +377,7 @@ class ListController extends ClipwebController {
 
   loadList () {
     const _TYPE = this.MODEL.TYPE.SEARCH;
+    const _FAILED = 'failed_to_get_clip_list';
     this.MODEL.STATUS.GET = false;
 
     this.EVENT.setOnLoading({
@@ -386,7 +387,7 @@ class ListController extends ClipwebController {
           // resultが取得できない
           this.open({
             type: _TYPE,
-            model: super.getErrorModel('result', 'failed_to_get_clip_list')
+            model: super.getErrorModel('result', _FAILED)
           });
         } else {
           if (this.getAjaxData({ key: 'result' }) == false) {
@@ -395,7 +396,7 @@ class ListController extends ClipwebController {
               const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
               this.open({
                 type: _TYPE,
-                model: super.getErrorModel('clipweb', 'failed_to_get_clip_list', _ERROR)
+                model: super.getErrorModel('clipweb', _FAILED, _ERROR)
               });
             }
           } else {
@@ -404,7 +405,7 @@ class ListController extends ClipwebController {
               const _ERROR = this.getAjaxData({ key: 'clips' })['flex sqlite3 error'];
               this.open({
                 type: _TYPE,
-                model: super.getErrorModel('fsql', 'failed_to_get_clip_list', _ERROR)
+                model: super.getErrorModel('fsql', _FAILED, _ERROR)
               });
             } else {
               // 取得成功
@@ -423,7 +424,7 @@ class ListController extends ClipwebController {
         }
       },
       errorOpenType: _TYPE,
-      errorModel: super.getErrorModel('server', 'failed_to_get_clip_list')
+      errorModel: super.getErrorModel('server', _FAILED)
     });
 
     // Post
