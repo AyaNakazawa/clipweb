@@ -1,6 +1,8 @@
 
 やること
   tabindexをエリアごとに分ける
+  addAlertかupdateAlertをCommonViewにつくる
+  →headerとかloadingも？
   DB
     histories
   Popover
