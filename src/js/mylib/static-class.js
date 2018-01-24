@@ -39,6 +39,7 @@ class Log {
   static get ALIGN_RIGHT () { return 2; }
 
   // Arrow definition
+  static get NULL () { return 'Log.NULL'; }
   static get COLON () { return ':'; }
   static get ARROW_OUTPUT () { return ' ---> '; }
   static get ARROW_INPUT () { return ' <--- '; }
@@ -149,7 +150,7 @@ class Log {
 
   static message ({
     args = null,
-    message = '',
+    message = this.NULL,
     type = 'Log',
     view = null,
     styleLine = null,
@@ -309,7 +310,7 @@ class Log {
   }
 
   static obj ({
-    obj = null,
+    obj = this.NULL,
     group = this.GROUP_NONE,
     groupStyle = this.STYLE_GROUP
   } = {}) {
@@ -368,8 +369,8 @@ class Log {
   }
 
   static class ({
-    clas = 'Class',
-    key = 'Key',
+    clas = this.NULL,
+    key = this.NULL,
     classStyle = this.STYLE_CLASS,
     keyStyle = this.STYLE_VALUE,
     group = this.GROUP_NONE,
@@ -398,9 +399,9 @@ class Log {
   }
 
   static classKey ({
-    clas = 'Class',
-    key = 'Key',
-    value = 'Value',
+    clas = this.NULL,
+    key = this.NULL,
+    value = this.NULL,
     arrow = this.ARROW_OUTPUT,
     classStyle = this.STYLE_CLASS,
     keyStyle = this.STYLE_KEY,
@@ -437,15 +438,15 @@ class Log {
   }
 
   static log ({
-    text = '',
+    text = this.NULL,
     align = this.ALIGN_LEFT,
     style = this.STYLE_LOG,
     group = this.GROUP_NONE,
     groupStyle = this.STYLE_GROUP,
     fill = this.FILL,
-    clas = null,
-    key = null,
-    value = null,
+    clas = this.NULL,
+    key = this.NULL,
+    value = this.NULL,
     arrow = this.ARROW_OUTPUT,
     classStyle = this.STYLE_CLASS,
     keyStyle = this.STYLE_KEY,
@@ -470,9 +471,9 @@ class Log {
         arrow: arrow,
         fill: fill
       });
-      if (clas != null) {
-        if (key != null) {
-          if (value != null) {
+      if (clas != this.NULL) {
+        if (key != this.NULL) {
+          if (value != this.NULL) {
             // class + key + value
             if (Object.typeIs(['Object', 'Array'], value)) {
               return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, keyStyle, this.STYLE_ARROW, value);
@@ -488,7 +489,7 @@ class Log {
             }
           }
         } else {
-          if (value != null) {
+          if (value != this.NULL) {
             // class + value
             if (Object.typeIs(['Object', 'Array'], value)) {
               return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, value);
@@ -518,7 +519,7 @@ class Log {
       }
 
       return this.log({
-        text: '',
+        text: this.NULL,
         style: style,
         group: group,
         groupStyle: style
@@ -527,12 +528,12 @@ class Log {
   }
 
   static format ({
-    text = '',
-    message = '',
+    text = this.NULL,
+    message = this.NULL,
     align = this.ALIGN_LEFT,
-    clas = null,
-    key = null,
-    value = null,
+    clas = this.NULL,
+    key = this.NULL,
+    value = this.NULL,
     arrow = this.ARROW_OUTPUT,
     fill = this.FILL,
     group = this.GROUP_NONE
@@ -542,7 +543,7 @@ class Log {
     let result = this.CHAR_STYLE;
     result += group[0];
 
-    if (clas != null) {
+    if (clas != this.NULL) {
       // Class Key
 
       for (let i = 0; i < this.MARGIN - group[0].length; i++) {
@@ -552,7 +553,7 @@ class Log {
       result += this.CHAR_STYLE;
       result += clas;
 
-      if (key != null) {
+      if (key != this.NULL) {
         // and Key
         for (let i = 0; i < this.CLASS_LENGTH - clas.length; i++) {
           result += this.SPACE;
@@ -566,7 +567,7 @@ class Log {
         result += this.CHAR_STYLE;
         result += key;
 
-        if (value != null) {
+        if (value != this.NULL) {
           // and Value
           for (let i = 0; i < this.KEY_LENGTH - key.length; i++) {
             result += this.SPACE;
@@ -582,12 +583,12 @@ class Log {
       }
     } else {
       // Text
-      if (text == '') {
+      if (text == this.NULL) {
         text = message;
       }
       result += this.CHAR_STYLE;
 
-      if (text == '') {
+      if (text == this.NULL) {
         for (let i = 0; i < (this.LENGTH - group[0].length - group[1].length); i++) {
           result += this.LINE;
         }
