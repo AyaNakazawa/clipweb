@@ -117,7 +117,7 @@ class ClipwebView extends CommonView {
     loadingHeader = null
   } = {}) {
     super.log()();
-    Log.log('Generating...', Log.ALIGN_CENTER)();
+    Log.log('Area generating...', Log.ALIGN_CENTER)();
 
     // Set
 
@@ -191,7 +191,7 @@ class ClipwebView extends CommonView {
     // View
     this.setView({ view: view, scroll: true });
 
-    Log.log('Generated !', Log.ALIGN_CENTER)();
+    Log.log('Area generated', Log.ALIGN_CENTER)();
     super.log()();
   }
 }
