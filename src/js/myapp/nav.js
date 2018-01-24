@@ -25,7 +25,7 @@ class NavModel extends ClipwebModel {
     this.SELECTOR.NAV.BAR = '.navbar-nav';
     this.SELECTOR.NAV.LOGIN = 'nav-login';
     this.SELECTOR.NAV.REGISTER = 'nav-register';
-    this.SELECTOR.NAV.SETTING = 'nav-setting';
+    this.SELECTOR.NAV.SETTING = 'nav-user';
     this.SELECTOR.NAV.LOGOUT = 'nav-logout';
     this.SELECTOR.NAV.LIST = 'nav-list';
     this.SELECTOR.NAV.NEW = 'nav-new';
@@ -137,7 +137,7 @@ class NavView extends ClipwebView {
     });
     this.addNavItem({
       id: this.MODEL.SELECTOR.NAV.SETTING,
-      name: LN.get('setting')
+      name: LN.get('user')
     });
     this.addNavItem({
       id: this.MODEL.SELECTOR.NAV.HELP,
