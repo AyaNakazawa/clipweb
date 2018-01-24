@@ -302,7 +302,7 @@ class ClipController extends ClipwebController {
       Log.error(arguments)();
       return;
     }
-    const _TYPE = type;
+    const _TYPE = this.MODEL.TYPE.SETTING;
     const _FAILED = `failed_to_${type.toLowerCase()}_clip_setting`;
     let _success_message = null;
     if (type == this.MODEL.TYPE.OPEN) {
