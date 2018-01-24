@@ -389,6 +389,12 @@ class ClipController extends ClipwebController {
       Log.error(arguments)();
       return;
     }
+    const _FILENAME = $(name).val();
+    const _FILETYPE = File.getExtension(_FILENAME);
+    const _TYPES = FileTypes.getExtensions();
+    if (typeof _TYPES[_FILETYPE] != 'undefined') {
+      $(type).val(_TYPES[_FILETYPE]);
+    }
   }
 
   // ----------------------------------------------------------------
