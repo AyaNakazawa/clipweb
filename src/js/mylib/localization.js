@@ -8,6 +8,8 @@ class Localization {
     this.SELECTOR = 'select.localization';
 
     this.langs = new Language();
+    this.langs.generate();
+    this.langs.set();
     this._setSelect();
 
     const _LS_LANG = LocalStorage.getItem('l10n');
