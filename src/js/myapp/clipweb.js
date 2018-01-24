@@ -188,16 +188,7 @@ class ClipwebView extends CommonView {
       });
     }
 
-    for (let popover of $(this.MODEL.COMMON.SELECTOR.POPOVER)) {
-      if (typeof $(popover).parent().find(':required').attr('id') != 'undefined') {
-        let _id = $(popover).parent().find(':required').attr('id');
-        this.EVENT.setOnPopover({
-          selector: popover,
-          title: $(popover).parent().children('label').text(),
-          content: LN.get(`popover_${_id.replace(/-/g, '_')}`)
-        });
-      }
-    }
+    this.EVENT.setOnPopover({ selector: this.MODEL.SELECTOR.AREA, type: 'all' });
 
     // View
     this.setView({ view: view, scroll: true });
