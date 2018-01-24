@@ -110,6 +110,7 @@ class Language {
 
       clip_list_got: 'Got your clips.',
       created_new_clip: 'Created new clip.',
+      updated_clip_setting: 'Updated clip setting.',
 
       please_email_auth: 'Please Email authentication.',
       userdata_clear: 'Delete your data',
@@ -136,6 +137,9 @@ class Language {
 
       failed_to_get_clip_list: 'Failed to getting your clips.',
       failed_to_create_new_clip: 'Failed to creating new clip.',
+
+      failed_to_open_clip_setting: 'Failed to open clip setting.',
+      failed_to_update_clip_setting: 'Failed to update clip setting.',
 
       failed_connect_to_server: 'Failed connect to clipweb server.',
       server_not_working: 'clipweb server is not working properly.',
@@ -254,6 +258,7 @@ class Language {
 
       clip_list_got: 'クリップ一覧を取得しました。',
       created_new_clip: '新しいクリップを作成しました。',
+      updated_clip_setting: 'クリップの設定を更新しました。',
 
       please_email_auth: 'メール認証をしてください。',
       userdata_clear: 'ユーザデータの削除',
@@ -280,6 +285,9 @@ class Language {
 
       failed_to_get_clip_list: 'クリップ一覧の取得に失敗しました。',
       failed_to_create_new_clip: '新しいクリップの作成に失敗しました。',
+
+      failed_to_open_clip_setting: 'クリップの設定を開くことができませんでした。',
+      failed_to_update_clip_setting: 'クリップの設定の更新に失敗しました。',
 
       failed_connect_to_server: 'clipwebサーバーとの通信に失敗しました。',
       server_not_working: 'clipwebサーバーが正常に動作していません。',
