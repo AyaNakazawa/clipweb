@@ -143,6 +143,9 @@ class CommonModel extends CommonClass {
     this.COMMON.SELECTOR.ROOT = document;
     this.COMMON.SELECTOR.AREA = '#area';
 
+    this.COMMON.SEQUENCE = {};
+    this.COMMON.SEQUENCE.LOOP = true;
+
     this.COMMON.KEYCODE = {
       '1': 49,
       '2': 50,
@@ -1124,6 +1127,50 @@ class CommonEvent extends CommonClass {
       $(selector).trigger(trigger);
     }
     // Method chain
+    return this;
+  }
+
+  // ----------------------------------------------------------------
+  // focus
+
+  setSeqFocus ({
+    selectors = null,
+    keycode = this.MODEL.COMMON.KEYCODE.ENTER,
+    loop = this.MODEL.COMMON.SEQUENCE.LOOP
+  } = {}) {
+    selectors = Object.getArg(arguments, 0, 'Array', selectors);
+    keycode = Object.getArg(arguments, 0, 'Number', keycode);
+    loop = Object.getArg(arguments, 0, 'Boolean', loop);
+    if (!Object.typeIs(['Array'], selectors)) {
+      Log.error(arguments)();
+    }
+
+    let _setNext = (selectors, next, key) => {
+      if (next != null && key != null) {
+        this.setOn({
+          selector: selectors[key],
+          trigger: 'keyup',
+          func: (event) => {
+            if (event.which == keycode) {
+              $(selectors[next]).focus();
+            }
+          }
+        });
+      }
+    };
+
+    let _before = null;
+    let _init = null;
+    for (let key of Object.keys(selectors)) {
+      if (_init == null) {
+        _init = key;
+      }
+      _setNext(selectors, key, _before);
+      _before = key;
+    }
+    if (loop) {
+      _setNext(selectors, _init, _before);
+    }
     return this;
   }
 
