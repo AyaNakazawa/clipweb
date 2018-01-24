@@ -349,6 +349,19 @@ class ClipController extends ClipwebController {
   }
 
   // ----------------------------------------------------------------
+  // file
+
+  updateFile ({
+    name = null,
+    type = null
+  } = {}) {
+    if (name == null || type == null) {
+      Log.error(arguments)();
+      return;
+    }
+  }
+
+  // ----------------------------------------------------------------
   // model
 
   getAreaModel (
