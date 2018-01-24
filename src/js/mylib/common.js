@@ -1180,6 +1180,32 @@ class CommonEvent extends CommonClass {
     }
   }
 
+  setOffPopover ({
+    type = 'all',
+    selector = null,
+    mode = 'dispose'
+  } = {}) {
+    type = Object.getArg(arguments, 0, 'String', type);
+    selector = Object.getArg(arguments, 1, 'String', selector);
+    mode = Object.getArg(arguments, 2, 'String', mode);
+    if (type == null && selector == null) {
+      Log.error(arguments)();
+      return;
+    }
+
+    if (type == 'all') {
+      let elements = $(this.MODEL.COMMON.SELECTOR.POPOVER);
+      if (selector != null) {
+        elements = $(`${selector} ${this.MODEL.COMMON.SELECTOR.POPOVER}`);
+      }
+      for (let popover of elements) {
+        $(popover).popover(mode);
+      }
+    } else {
+      $(selector).popover(mode);
+    }
+  }
+
   // ----------------------------------------------------------------
   // focus
 
