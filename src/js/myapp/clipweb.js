@@ -324,6 +324,10 @@ class ClipwebController extends CommonController {
   // ----------------------------------------------------------------
   // model
 
+  getAreaModel () {}
+
+  getAreaHeader () {}
+
   getAjaxData ({
     type = this.MODEL.KEY,
     key = null
