@@ -221,6 +221,14 @@ class UserEvent extends ClipwebEvent {
       }
     });
 
+    super.setSeqFocus([
+      this.MODEL.SELECTOR.REGISTER.USERNAME,
+      this.MODEL.SELECTOR.REGISTER.EMAIL,
+      this.MODEL.SELECTOR.REGISTER.PASSWORD,
+      this.MODEL.SELECTOR.REGISTER.PASSWORD_RE,
+      this.MODEL.SELECTOR.REGISTER.SUBMIT,
+    ]);
+
     super.setValidate(
       this.MODEL.SELECTOR.REGISTER.USERNAME
     );
@@ -277,6 +285,13 @@ class UserEvent extends ClipwebEvent {
       }
     });
 
+    super.setSeqFocus([
+      this.MODEL.SELECTOR.LOGIN.EMAIL,
+      this.MODEL.SELECTOR.LOGIN.PASSWORD,
+      this.MODEL.SELECTOR.LOGIN.AUTO_LABEL,
+      this.MODEL.SELECTOR.LOGIN.SUBMIT,
+    ]);
+
     super.setValidate(
       this.MODEL.SELECTOR.LOGIN.EMAIL
     );
@@ -312,6 +327,15 @@ class UserEvent extends ClipwebEvent {
       }
     });
 
+    super.setSeqFocus([
+      this.MODEL.SELECTOR.INFO.USERNAME,
+      this.MODEL.SELECTOR.INFO.EMAIL,
+      this.MODEL.SELECTOR.INFO.OLD_PASSWORD,
+      this.MODEL.SELECTOR.INFO.NEW_PASSWORD,
+      this.MODEL.SELECTOR.INFO.NEW_PASSWORD_RE,
+      this.MODEL.SELECTOR.INFO.SUBMIT,
+    ]);
+
     super.setValidate(
       this.MODEL.SELECTOR.INFO.USERNAME
     );
@@ -343,6 +367,13 @@ class UserEvent extends ClipwebEvent {
         this.CONTROLLER.submitSetting();
       }
     });
+
+    super.setSeqFocus([
+      this.MODEL.SELECTOR.SETTING.THEME,
+      this.MODEL.SELECTOR.SETTING.OWNER_PUBLISH,
+      this.MODEL.SELECTOR.SETTING.CLIP_MODE,
+      this.MODEL.SELECTOR.SETTING.SUBMIT,
+    ]);
   }
 }
 
