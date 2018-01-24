@@ -93,7 +93,7 @@ class View {
   }
 
   static getAlert ({
-    type = View.ALERT_SUCCESS,
+    type = this.ALERT_SUCCESS,
     message = null,
     text = 'ALERT',
     close = true
@@ -105,8 +105,8 @@ class View {
     }
 
     let result = null;
-    result = View.getTemplate({
-      template: View.TEMPLATE_ALERT,
+    result = this.getTemplate({
+      template: this.TEMPLATE_ALERT,
       model: {
         type: type,
         message: message,
@@ -126,8 +126,8 @@ class View {
     }
 
     let result = null;
-    result = View.getTemplate({
-      template: View.TEMPLATE_LOADING,
+    result = this.getTemplate({
+      template: this.TEMPLATE_LOADING,
       model: {
         header: header
       }
@@ -138,7 +138,7 @@ class View {
 
   static removeHTML ({
     selector = null,
-    speed = View.SPEED_REMOVE
+    speed = this.SPEED_REMOVE
   } = {}) {
     if (selector == null) {
       return false;
