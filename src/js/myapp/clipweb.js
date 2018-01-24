@@ -141,7 +141,7 @@ class ClipwebView extends CommonView {
 
     if (type != null) {
       if (header == null) {
-        header = this.CONTROLLER.getAreaHeader(type);
+        header = LN.get(`header_${this.MODEL.KEY.toLowerCase()}_${type.toLowerCase()}`);
       }
       _mainTemplate = this.MODEL.TEMPLATE[type.toUpperCase()];
       _mainModel = this.CONTROLLER.getAreaModel(type);
@@ -327,16 +327,6 @@ class ClipwebController extends CommonController {
   // model
 
   getAreaModel () {}
-
-  getAreaHeader (
-    type = null
-  ) {
-    if (type == null) {
-      Log.error(arguments)();
-      return;
-    }
-    return LN.get(`header_${this.MODEL.KEY.toLowerCase()}_${type.toLowerCase()}`);
-  }
 
   getAjaxData ({
     type = this.MODEL.KEY,
