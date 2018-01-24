@@ -186,10 +186,10 @@ class ClipController extends ClipwebController {
       $(_NEW_OWNER_PUBLISH)[0].validity.valid &&
       $(_NEW_CLIP_MODE)[0].validity.valid
     ) {
-      this.MODEL.NEW.NAME = $(_NEW_NAME).val();
-      this.MODEL.NEW.TYPE = $(`${_NEW_TYPE} option:selected`).val();
-      this.MODEL.NEW.ONWER_PUBLISH = $(`${_NEW_ONWER_PUBLISH} option:selected`).val();
-      this.MODEL.NEW.CLIP_MODE = $(`${_NEW_CLIP_MODE} option:selected`).val();
+      this.MODEL.FILENAME = $(_NEW_NAME).val();
+      this.MODEL.FILETYPE = $(`${_NEW_TYPE} option:selected`).val();
+      this.MODEL.OWNER_PUBLISH = $(`${_NEW_OWNER_PUBLISH} option:selected`).val();
+      this.MODEL.CLIP_MODE = $(`${_NEW_CLIP_MODE} option:selected`).val();
 
       this.EVENT.setOnLoading({
         type: _TYPE,
@@ -211,17 +211,35 @@ class ClipController extends ClipwebController {
                 });
               }
             } else {
-              if (typeof this.getAjaxData({ key: 'clip_list' })['flex sqlite3 error'] != 'undefined') {
-                // Flex SQLite3 エラー
-                const _ERROR = this.getAjaxData({ key: 'clip_list' })['flex sqlite3 error'];
+              if (typeof this.getAjaxData({ key: 'hash' }) == 'undefined') {
+                // 未知のエラー
                 this.open({
                   type: _TYPE,
-                  model: super.getErrorModel('fsql', 'failed_to_create_new_clip', _ERROR)
+                  model: super.getErrorModel('result', 'failed_to_create_new_clip')
                 });
               } else {
-                // 取得成功
-                LIST.loadClip();
-                LIST.grouping();
+                if (typeof this.getAjaxData({ key: 'hash' })['flex sqlite3 error'] != 'undefined') {
+                  // Flex SQLite3 エラー
+                  const _ERROR = this.getAjaxData({ key: 'hash' })['flex sqlite3 error'];
+                  this.open({
+                    type: _TYPE,
+                    model: super.getErrorModel('fsql', 'failed_to_create_new_clip', _ERROR)
+                  });
+                } else {
+                  // 取得成功
+                  LIST.loadClip();
+                  this.VIEW.move({
+                    target: LIST.MODEL.SELECTOR.AREA,
+                    mode: this.MODEL.COMMON.TYPE.AFTER
+                  });
+                  this.open({
+                    type: this.MODEL.TYPE.SETTING,
+                    model: {
+                      alertMessage:
+                        View.element({ content: LN.get('created_new_clip') })
+                    }
+                  });
+                }
               }
             }
           }
