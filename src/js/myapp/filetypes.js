@@ -109,6 +109,10 @@ class FileTypes {
       name: 'Diff',
       extensions: []
     };
+    _result.DJANGO = {
+      name: 'Django',
+      extensions: []
+    };
     _result.DOCKERFILE = {
       name: 'Dockerfile',
       extensions: []
@@ -575,10 +579,6 @@ class FileTypes {
     };
     _result.YAML = {
       name: 'YAML',
-      extensions: []
-    };
-    _result.DJANGO = {
-      name: 'Django',
       extensions: []
     };
     return _result;
