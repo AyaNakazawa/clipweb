@@ -142,7 +142,7 @@ class ClipEvent extends ClipwebEvent {
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.UPDATE}`,
       func: () => {
         super.log('Clip', 'Update')();
-        this.CONTROLLER.updateSetting();
+        this.CONTROLLER.connectSetting();
       }
     });
   }
@@ -267,8 +267,8 @@ class ClipController extends ClipwebController {
     }
   }
 
-  openSetting (hash = null) {
-    if (hash == null) {
+  connectSetting (type = this.MODEL.TYPE.SETTING, hash = null) {
+    if (type == null) {
       Log.error(arguments)();
       return;
     }
@@ -339,10 +339,6 @@ class ClipController extends ClipwebController {
       type: _TYPE,
       data: this.getSendModel(_TYPE)
     });
-  }
-
-  updateSetting () {
-
   }
 
   // ----------------------------------------------------------------
