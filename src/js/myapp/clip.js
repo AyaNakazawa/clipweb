@@ -256,6 +256,10 @@ class ClipController extends ClipwebController {
     }
   }
 
+  getSetting () {
+
+  }
+
   updateSetting () {
 
   }
