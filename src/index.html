@@ -152,7 +152,7 @@
       <div class="content-item-area">
         <div class="content-item">
           <label for="login-email"><%= LN.get('email_address') %></label>
-          <span class="content-popover content-help-icon"></span>
+          <span class="content-popover content-help"></span>
           <div class="content-input">
             <input id="user-login-email" type="email" required class="form-control" value="<%- email %>" tabindex="200">
             <span class="content-input-valid"></span>
@@ -162,7 +162,7 @@
         </div>
         <div class="content-item">
           <label for="login-password"><%= LN.get('password') %></label>
-          <span class="content-popover content-help-icon"></span>
+          <span class="content-popover content-help"></span>
           <div class="content-input">
             <input id="user-login-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" placeholder="" value="" tabindex="200">
             <span class="content-input-valid"></span>
@@ -180,7 +180,7 @@
             <span class="content-check-icon"></span>
             <%= LN.get('auto_login') %>
           </label>
-          <span class="content-popover content-help-icon"></span>
+          <span class="content-popover content-help"></span>
         </div>
         <div class="content-item d-flex justify-content-between">
           <button id="user-login-register" class="btn btn-link" tabindex="210"><%= LN.get('register') %> <i class="fal fa-user-plus"></i></button>
@@ -193,7 +193,7 @@
       <div class="content-item-area">
         <div class="content-item">
           <label for="register-username"><%= LN.get('username') %></label>
-          <span class="content-popover content-help-icon"></span>
+          <span class="content-popover content-help"></span>
           <div class="content-input">
             <input id="user-register-username" type="text" minLength="<%- length.min.username %>" maxLength="<%- length.max.username %>" required class="form-control" value="<%- username %>" tabindex="200">
             <span class="content-input-valid"></span>
@@ -203,7 +203,7 @@
         </div>
         <div class="content-item">
           <label for="register-email"><%= LN.get('email_address') %></label>
-          <span class="content-popover content-help-icon"></span>
+          <span class="content-popover content-help"></span>
           <div class="content-input">
             <input id="user-register-email" type="email" required class="form-control" value="<%- email %>" tabindex="200">
             <span class="content-input-valid"></span>
@@ -214,7 +214,7 @@
         <div class="content-item content-split">
           <div class="content-split-item col-6">
             <label for="register-password"><%= LN.get('password') %></label>
-          <span class="content-popover content-help-icon"></span>
+          <span class="content-popover content-help"></span>
             <div class="content-input">
               <input id="user-register-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" placeholder="" value="" tabindex="200">
               <span class="content-input-valid"></span>
@@ -224,7 +224,7 @@
           </div>
           <div class="content-split-item col-6">
             <label for="register-password-re"><%= LN.get('password_confirm') %></label>
-          <span class="content-popover content-help-icon"></span>
+          <span class="content-popover content-help"></span>
             <div class="content-input">
               <input id="user-register-password-re" type="password" required class="form-control" placeholder="" value="" tabindex="200">
               <span class="content-input-valid"></span>
@@ -257,7 +257,7 @@
         <!-- Username -->
         <div class="content-item">
           <label for="user-info-username"><%= LN.get('username') %></label>
-          <span class="content-popover content-help-icon"></span>
+          <span class="content-popover content-help"></span>
           <div class="content-input">
             <input id="user-info-username" type="text" minLength="<%- length.min.username %>" maxLength="<%- length.max.username %>" required class="form-control" value="<%- username %>" tabindex="200">
             <span class="content-input-valid"></span>
@@ -268,7 +268,7 @@
         <!-- Email address -->
         <div class="content-item">
           <label for="user-info-email"><%= LN.get('email_address') %></label>
-          <span class="content-popover content-help-icon"></span>
+          <span class="content-popover content-help"></span>
           <div class="content-input">
             <input id="user-info-email" type="email" required class="form-control" value="<%- email %>" tabindex="200">
             <span class="content-input-valid"></span>
@@ -281,7 +281,7 @@
       <div class="content-item-area">
         <div class="content-item">
           <label for="user-info-old-password"><%= LN.get('password') %></label>
-          <span class="content-popover content-help-icon"></span>
+          <span class="content-popover content-help"></span>
           <div class="content-input">
             <input id="user-info-old-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" value="" tabindex="200">
             <span class="content-input-valid"></span>
@@ -292,7 +292,7 @@
         <div class="content-item content-split">
           <div class="content-split-item col-6">
             <label for="user-info-new-password"><%= LN.get('new_password') %></label>
-          <span class="content-popover content-help-icon"></span>
+          <span class="content-popover content-help"></span>
             <div class="content-input">
               <input id="user-info-new-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" value="" tabindex="200">
               <span class="content-input-valid"></span>
@@ -302,7 +302,7 @@
           </div>
           <div class="content-split-item col-6">
             <label for="user-info-new-password-re"><%= LN.get('password_confirm') %></label>
-          <span class="content-popover content-help-icon"></span>
+          <span class="content-popover content-help"></span>
             <div class="content-input">
               <input id="user-info-new-password-re" type="password" required class="form-control" value="" tabindex="200">
               <span class="content-input-valid"></span>
@@ -326,7 +326,7 @@
       <div class="content-item-area">
         <div class="content-item">
           <label for="user-setting-theme"><%= LN.get('theme') %></label>
-          <span class="content-popover content-help-icon"></span>
+          <span class="content-popover content-help"></span>
           <div class="content-input">
             <select id="user-setting-theme" class="custom-select" required tabindex="200">
               <% if (theme == 'light') { %>
@@ -348,7 +348,7 @@
       <div class="content-item-area">
         <div class="content-item">
           <label for="user-setting-owner-publish"><%= LN.get('default_owner_publish') %></label>
-          <span class="content-popover content-help-icon"></span>
+          <span class="content-popover content-help"></span>
           <div class="content-input">
             <select id="user-setting-owner-publish" class="custom-select" required tabindex="200">
               <% if (ownerPublish == 'private') { %>
@@ -370,7 +370,7 @@
       <div class="content-item-area">
         <div class="content-item">
           <label for="user-setting-clip-mode"><%= LN.get('default_clip_mode') %></label>
-          <span class="content-popover content-help-icon"></span>
+          <span class="content-popover content-help"></span>
           <div class="content-input">
             <select id="user-setting-clip-mode" class="custom-select" required tabindex="200">
               <% if (clipMode == 'private') { %>
@@ -406,7 +406,7 @@
       <div class="content-item-area">
         <div class="content-item">
           <label for="logout-username"><%= LN.get('username') %></label>
-          <span class="content-popover content-help-icon"></span>
+          <span class="content-popover content-help"></span>
           <div class="content-input">
             <input id="user-logout-username" type="text" class="form-control" value="<%- username %>" readonly required>
             <span class="content-input-valid"></span>
@@ -425,7 +425,7 @@
         <div class="content-item content-split">
           <div class="content-split-item">
             <label for="list-search-group"><%= LN.get('group') %></label>
-            <span class="content-popover content-help-icon"></span>
+            <span class="content-popover content-help"></span>
             <div class="content-input">
               <select id="list-search-group" class="custom-select" required tabindex="200">
                 <% if (group == 'none') { %>
@@ -468,7 +468,7 @@
           </div>
           <div class="content-split-item">
             <label for="list-search-sort"><%= LN.get('sort') %></label>
-            <span class="content-popover content-help-icon"></span>
+            <span class="content-popover content-help"></span>
             <div class="content-input">
               <div class="input-group">
                 <select id="list-search-sort" class="custom-select" required tabindex="200">
@@ -561,7 +561,7 @@
         <!-- File name -->
         <div class="content-item">
           <label for="clip-new-filename"><%= LN.get('filename') %></label>
-          <span class="content-popover content-help-icon"></span>
+          <span class="content-popover content-help"></span>
           <div class="content-input">
             <input id="clip-new-filename" type="text" minLength="<%- length.min.filename %>" maxLength="<%- length.max.filename %>" required class="form-control" placeholder="" value="" tabindex="200">
             <span class="content-input-valid"></span>
@@ -572,7 +572,7 @@
         <!-- File type -->
         <div class="content-item">
           <label for="clip-new-filetype"><%= LN.get('filetype') %></label>
-          <span class="content-popover content-help-icon"></span>
+          <span class="content-popover content-help"></span>
           <div class="content-input">
             <select id="clip-new-filetype" class="custom-select" required tabindex="200">
               <% for (let type of Object.keys(filetypes)) { %>
@@ -589,7 +589,7 @@
         <!-- Owner publish -->
         <div class="content-item">
           <label for="clip-new-owner-publish"><%= LN.get('owner_publish') %></label>
-          <span class="content-popover content-help-icon"></span>
+          <span class="content-popover content-help"></span>
           <div class="content-input">
             <select id="clip-new-owner-publish" class="custom-select" required tabindex="200">
               <% if (defaultOwnerPublish == 'private') { %>
@@ -609,7 +609,7 @@
         <!-- clip mode -->
         <div class="content-item">
           <label for="clip-new-clip-mode"><%= LN.get('clip_mode') %></label>
-          <span class="content-popover content-help-icon"></span>
+          <span class="content-popover content-help"></span>
           <div class="content-input">
             <select id="clip-new-clip-mode" class="custom-select" required tabindex="200">
               <% if (defaultClipMode == 'private') { %>
