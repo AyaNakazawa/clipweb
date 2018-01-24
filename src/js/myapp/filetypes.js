@@ -7,75 +7,75 @@ class FileTypes {
     let _result = {};
     _result.ABAP = {
       name: 'ABAP',
-      extensions: []
+      extensions: ['abp']
     };
     _result.ABC = {
       name: 'ABC',
-      extensions: []
+      extensions: ['abc']
     };
     _result.ACTIONSCRIPT = {
       name: 'ActionScript',
-      extensions: []
+      extensions: ['as']
     };
     _result.ADA = {
       name: 'ADA',
-      extensions: []
+      extensions: ['ada']
     };
     _result.APACHE_CONF = {
       name: 'Apache Conf',
-      extensions: []
+      extensions: ['htaccess']
     };
     _result.ASCIIDOC = {
       name: 'AsciiDoc',
-      extensions: []
+      extensions: ['asciidoc']
     };
     _result.ASSEMBLY_X86 = {
       name: 'Assembly x86',
-      extensions: []
+      extensions: ['asm']
     };
     _result.AUTOHOTKEY = {
       name: 'AutoHotKey',
-      extensions: []
+      extensions: ['ahk']
     };
     _result.BATCHFILE = {
       name: 'BatchFile',
-      extensions: []
+      extensions: ['bat']
     };
     _result.BRO = {
       name: 'Bro',
-      extensions: []
+      extensions: ['bro']
     };
     _result.C_CPP = {
       name: 'C and C++',
-      extensions: []
+      extensions: ['c', 'cpp']
     };
     _result.C9SEARCH = {
       name: 'C9Search',
-      extensions: []
+      extensions: ['C9Search']
     };
     _result.CIRRU = {
       name: 'Cirru',
-      extensions: []
+      extensions: ['cirru']
     };
     _result.CLOJURE = {
       name: 'Clojure',
-      extensions: []
+      extensions: ['clj']
     };
     _result.COBOL = {
       name: 'Cobol',
-      extensions: []
+      extensions: ['cobol']
     };
     _result.COFFEE = {
       name: 'CoffeeScript',
-      extensions: []
+      extensions: ['coffee']
     };
     _result.COLDFUSION = {
       name: 'ColdFusion',
-      extensions: []
+      extensions: ['cfm']
     };
     _result.CSHARP = {
       name: 'C#',
-      extensions: []
+      extensions: ['cs']
     };
     _result.CSOUND_DOCUMENT = {
       name: 'Csound Document',
@@ -83,131 +83,131 @@ class FileTypes {
     };
     _result.CSOUND_ORCHESTRA = {
       name: 'Csound',
-      extensions: []
+      extensions: ['orc']
     };
     _result.CSOUND_SCORE = {
       name: 'Csound Score',
-      extensions: []
+      extensions: ['sco']
     };
     _result.CSS = {
       name: 'CSS',
-      extensions: []
+      extensions: ['css']
     };
     _result.CURLY = {
       name: 'Curly',
-      extensions: []
+      extensions: ['curl', 'dcurl']
     };
     _result.D = {
       name: 'D',
-      extensions: []
+      extensions: ['d']
     };
     _result.DART = {
       name: 'Dart',
-      extensions: []
+      extensions: ['dart']
     };
     _result.DIFF = {
       name: 'Diff',
-      extensions: []
+      extensions: ['diff']
     };
     _result.DJANGO = {
       name: 'Django',
-      extensions: []
+      extensions: ['Django']
     };
     _result.DOCKERFILE = {
       name: 'Dockerfile',
-      extensions: []
+      extensions: ['Docker', 'Dockerfile']
     };
     _result.DOT = {
       name: 'Dot',
-      extensions: []
+      extensions: ['dot']
     };
     _result.DROOLS = {
       name: 'Drools',
-      extensions: []
+      extensions: ['drl']
     };
     _result.DUMMY = {
       name: 'Dummy',
-      extensions: []
+      extensions: ['dummy', 'dmy']
     };
     _result.DUMMYSYNTAX = {
       name: 'DummySyntax',
-      extensions: []
+      extensions: ['DummySyntax']
     };
     _result.EIFFEL = {
       name: 'Eiffel',
-      extensions: []
+      extensions: ['e']
     };
     _result.EJS = {
       name: 'EJS',
-      extensions: []
+      extensions: ['ejs']
     };
     _result.ELIXIR = {
       name: 'Elixir',
-      extensions: []
+      extensions: ['ex', 'exs']
     };
     _result.ELM = {
       name: 'Elm',
-      extensions: []
+      extensions: ['elm']
     };
     _result.ERLANG = {
       name: 'Erlang',
-      extensions: []
+      extensions: ['erl', 'hrl']
     };
     _result.FORTH = {
       name: 'Forth',
-      extensions: []
+      extensions: ['forth']
     };
     _result.FORTRAN = {
       name: 'Fortran',
-      extensions: []
+      extensions: ['f90', 'for', 'f']
     };
     _result.FTL = {
       name: 'FreeMarker',
-      extensions: []
+      extensions: ['ftl']
     };
     _result.GCODE = {
       name: 'Gcode',
-      extensions: []
+      extensions: ['gcode', 'gco']
     };
     _result.GHERKIN = {
       name: 'Gherkin',
-      extensions: []
+      extensions: ['feature']
     };
     _result.GITIGNORE = {
       name: 'Gitignore',
-      extensions: []
+      extensions: ['gitignore']
     };
     _result.GLSL = {
       name: 'Glsl',
-      extensions: []
+      extensions: ['vert', 'frag']
     };
     _result.GOBSTONES = {
       name: 'Gobstones',
-      extensions: []
+      extensions: ['Gobstones']
     };
     _result.GOLANG = {
       name: 'Go',
-      extensions: []
+      extensions: ['go']
     };
     _result.GRAPHQLSCHEMA = {
       name: 'GraphQLSchema',
-      extensions: []
+      extensions: ['GraphQLSchema']
     };
     _result.GROOVY = {
       name: 'Groovy',
-      extensions: []
+      extensions: ['groovy']
     };
     _result.HAML = {
       name: 'HAML',
-      extensions: []
+      extensions: ['haml']
     };
     _result.HANDLEBARS = {
       name: 'Handlebars',
-      extensions: []
+      extensions: ['hbs']
     };
     _result.HASKELL = {
       name: 'Haskell',
-      extensions: []
+      extensions: ['hs', 'lhs']
     };
     _result.HASKELL_CABAL = {
       name: 'Haskell Cabal',
@@ -215,15 +215,15 @@ class FileTypes {
     };
     _result.HAXE = {
       name: 'haXe',
-      extensions: []
+      extensions: ['hx']
     };
     _result.HJSON = {
       name: 'Hjson',
-      extensions: []
+      extensions: ['hjson']
     };
     _result.HTML = {
       name: 'HTML',
-      extensions: []
+      extensions: ['html', 'htm']
     };
     _result.HTML_ELIXIR = {
       name: 'HTML (Elixir)',
@@ -235,335 +235,335 @@ class FileTypes {
     };
     _result.INI = {
       name: 'INI',
-      extensions: []
+      extensions: ['ini']
     };
     _result.IO = {
       name: 'Io',
-      extensions: []
+      extensions: ['io']
     };
     _result.JACK = {
       name: 'Jack',
-      extensions: []
+      extensions: ['jack']
     };
     _result.JADE = {
       name: 'Jade',
-      extensions: []
+      extensions: ['jade']
     };
     _result.JAVA = {
       name: 'Java',
-      extensions: []
+      extensions: ['java']
     };
     _result.JAVASCRIPT = {
       name: 'JavaScript',
-      extensions: []
+      extensions: ['js', 'jss']
     };
     _result.JSON = {
       name: 'JSON',
-      extensions: []
+      extensions: ['json']
     };
     _result.JSONIQ = {
       name: 'JSONiq',
-      extensions: []
+      extensions: ['JSONiq']
     };
     _result.JSP = {
       name: 'JSP',
-      extensions: []
+      extensions: ['jsp']
     };
     _result.JSSM = {
       name: 'JSSM',
-      extensions: []
+      extensions: ['JSSM']
     };
     _result.JSX = {
       name: 'JSX',
-      extensions: []
+      extensions: ['jsx']
     };
     _result.JULIA = {
       name: 'Julia',
-      extensions: []
+      extensions: ['jl']
     };
     _result.KOTLIN = {
       name: 'Kotlin',
-      extensions: []
+      extensions: ['kt', 'kts']
     };
     _result.LATEX = {
       name: 'LaTeX',
-      extensions: []
+      extensions: ['ltx']
     };
     _result.LESS = {
       name: 'LESS',
-      extensions: []
+      extensions: ['less']
     };
     _result.LIQUID = {
       name: 'Liquid',
-      extensions: []
+      extensions: ['Liquid']
     };
     _result.LISP = {
       name: 'Lisp',
-      extensions: []
+      extensions: ['lisp']
     };
     _result.LIVESCRIPT = {
       name: 'LiveScript',
-      extensions: []
+      extensions: ['ls']
     };
     _result.LOGIQL = {
       name: 'LogiQL',
-      extensions: []
+      extensions: ['LogiQL']
     };
     _result.LSL = {
       name: 'LSL',
-      extensions: []
+      extensions: ['lsl']
     };
     _result.LUA = {
       name: 'Lua',
-      extensions: []
+      extensions: ['lua']
     };
     _result.LUAPAGE = {
       name: 'LuaPage',
-      extensions: []
+      extensions: ['LuaPage']
     };
     _result.LUCENE = {
       name: 'Lucene',
-      extensions: []
+      extensions: ['Lucene']
     };
     _result.MAKEFILE = {
       name: 'Makefile',
-      extensions: []
+      extensions: ['Makefile']
     };
     _result.MARKDOWN = {
       name: 'Markdown',
-      extensions: []
+      extensions: ['md']
     };
     _result.MASK = {
       name: 'Mask',
-      extensions: []
+      extensions: ['mask']
     };
     _result.MATLAB = {
       name: 'MATLAB',
-      extensions: []
+      extensions: ['mat']
     };
     _result.MAZE = {
       name: 'Maze',
-      extensions: []
+      extensions: ['maz']
     };
     _result.MEL = {
       name: 'MEL',
-      extensions: []
+      extensions: ['mel']
     };
     _result.MUSHCODE = {
       name: 'MUSHCode',
-      extensions: []
+      extensions: ['MUSHCode']
     };
     _result.MYSQL = {
       name: 'MySQL',
-      extensions: []
+      extensions: ['MySQL']
     };
     _result.NIX = {
       name: 'Nix',
-      extensions: []
+      extensions: ['nix']
     };
     _result.NSIS = {
       name: 'NSIS',
-      extensions: []
+      extensions: ['nsi', 'nsh']
     };
     _result.OBJECTIVEC = {
       name: 'Objective-C',
-      extensions: []
+      extensions: ['m']
     };
     _result.OCAML = {
       name: 'OCaml',
-      extensions: []
+      extensions: ['ml']
     };
     _result.PASCAL = {
       name: 'Pascal',
-      extensions: []
+      extensions: ['pas']
     };
     _result.PERL = {
       name: 'Perl',
-      extensions: []
+      extensions: ['pl']
     };
     _result.PGSQL = {
       name: 'pgSQL',
-      extensions: []
+      extensions: ['pgSQL']
     };
     _result.PHP = {
       name: 'PHP',
-      extensions: []
+      extensions: ['php']
     };
     _result.PIG = {
       name: 'Pig',
-      extensions: []
+      extensions: ['pig']
     };
     _result.POWERSHELL = {
       name: 'Powershell',
-      extensions: []
+      extensions: ['ps1']
     };
     _result.PRAAT = {
       name: 'Praat',
-      extensions: []
+      extensions: ['praat']
     };
     _result.PROLOG = {
       name: 'Prolog',
-      extensions: []
+      extensions: ['pro', 'swi']
     };
     _result.PROPERTIES = {
       name: 'Properties',
-      extensions: []
+      extensions: ['properties', 'class']
     };
     _result.PROTOBUF = {
       name: 'Protobuf',
-      extensions: []
+      extensions: ['proto']
     };
     _result.PYTHON = {
       name: 'Python',
-      extensions: []
+      extensions: ['py']
     };
     _result.R = {
       name: 'R',
-      extensions: []
+      extensions: ['r']
     };
     _result.RAZOR = {
       name: 'Razor',
-      extensions: []
+      extensions: ['cshtml', 'vbhtml']
     };
     _result.RDOC = {
       name: 'RDoc',
-      extensions: []
+      extensions: ['rdoc']
     };
     _result.RED = {
       name: 'Red',
-      extensions: []
+      extensions: ['red']
     };
     _result.RHTML = {
       name: 'RHTML',
-      extensions: []
+      extensions: ['rhtml']
     };
     _result.RST = {
       name: 'RST',
-      extensions: []
+      extensions: ['rst']
     };
     _result.RUBY = {
       name: 'Ruby',
-      extensions: []
+      extensions: ['rb', 'rbw', 'erb']
     };
     _result.RUST = {
       name: 'Rust',
-      extensions: []
+      extensions: ['rs']
     };
     _result.SASS = {
       name: 'SASS',
-      extensions: []
+      extensions: ['sass']
     };
     _result.SCAD = {
       name: 'SCAD',
-      extensions: []
+      extensions: ['SCAD']
     };
     _result.SCALA = {
       name: 'Scala',
-      extensions: []
+      extensions: ['scala']
     };
     _result.SCHEME = {
       name: 'Scheme',
-      extensions: []
+      extensions: ['scm']
     };
     _result.SCSS = {
       name: 'SCSS',
-      extensions: []
+      extensions: ['scss']
     };
     _result.SH = {
       name: 'SH',
-      extensions: []
+      extensions: ['sh']
     };
     _result.SJS = {
       name: 'SJS',
-      extensions: []
+      extensions: ['sjs']
     };
     _result.SMARTY = {
       name: 'Smarty',
-      extensions: []
+      extensions: ['tpl']
     };
     _result.SNIPPETS = {
       name: 'snippets',
-      extensions: []
+      extensions: ['snippet']
     };
     _result.SOY_TEMPLATE = {
       name: 'Soy Template',
-      extensions: []
+      extensions: ['soy']
     };
     _result.SPACE = {
       name: 'Space',
-      extensions: []
+      extensions: ['ws']
     };
     _result.SQL = {
       name: 'SQL',
-      extensions: []
+      extensions: ['sql']
     };
     _result.SQLSERVER = {
       name: 'SQLServer',
-      extensions: []
+      extensions: ['ldf']
     };
     _result.STYLUS = {
       name: 'Stylus',
-      extensions: []
+      extensions: ['styl', 'stylus']
     };
     _result.SVG = {
       name: 'SVG',
-      extensions: []
+      extensions: ['svg']
     };
     _result.SWIFT = {
       name: 'Swift',
-      extensions: []
+      extensions: ['swift']
     };
     _result.TCL = {
       name: 'Tcl',
-      extensions: []
+      extensions: ['tcl']
     };
     _result.TEX = {
       name: 'Tex',
-      extensions: []
+      extensions: ['tex']
     };
     _result.TEXT = {
       name: 'Text',
-      extensions: []
+      extensions: ['', 'txt']
     };
     _result.TEXTILE = {
       name: 'Textile',
-      extensions: []
+      extensions: ['textile']
     };
     _result.TOML = {
       name: 'Toml',
-      extensions: []
+      extensions: ['toml']
     };
     _result.TSX = {
       name: 'TSX',
-      extensions: []
+      extensions: ['tsx']
     };
     _result.TWIG = {
       name: 'Twig',
-      extensions: []
+      extensions: ['twig']
     };
     _result.TYPESCRIPT = {
       name: 'Typescript',
-      extensions: []
+      extensions: ['ts']
     };
     _result.VALA = {
       name: 'Vala',
-      extensions: []
+      extensions: ['vala', 'vapi']
     };
     _result.VBSCRIPT = {
       name: 'VBScript',
-      extensions: []
+      extensions: ['vbs']
     };
     _result.VELOCITY = {
       name: 'Velocity',
-      extensions: []
+      extensions: ['vm']
     };
     _result.VERILOG = {
       name: 'Verilog',
-      extensions: []
+      extensions: ['v']
     };
     _result.VHDL = {
       name: 'VHDL',
-      extensions: []
+      extensions: ['VHD']
     };
     _result.WOLLOK = {
       name: 'Wollok',
@@ -571,15 +571,15 @@ class FileTypes {
     };
     _result.XML = {
       name: 'XML',
-      extensions: []
+      extensions: ['xml']
     };
     _result.XQUERY = {
       name: 'XQuery',
-      extensions: []
+      extensions: ['xquery']
     };
     _result.YAML = {
       name: 'YAML',
-      extensions: []
+      extensions: ['yml', 'yaml']
     };
     return _result;
   }
