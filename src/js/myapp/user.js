@@ -506,7 +506,7 @@ class UserController extends ClipwebController {
                 }
               } else {
                 // 登録成功
-                this.CONTROLLER.applyModel(_TYPE);
+                this.CONTROLLER.applyReceiveModel(_TYPE);
                 this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
                 this.open({
                   type: this.MODEL.TYPE.LOGIN,
@@ -612,7 +612,7 @@ class UserController extends ClipwebController {
               }
               // Login成功
               NAV.login();
-              this.CONTROLLER.applyModel(_TYPE);
+              this.CONTROLLER.applyReceiveModel(_TYPE);
               this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
               if (this.MODEL.STATUS.AUTO) {
                 LocalStorage.setItem(this.MODEL.LS.AUTO.HASH.PASSWORD, this.MODEL.HASH.PASSWORD);
@@ -681,7 +681,7 @@ class UserController extends ClipwebController {
             LocalStorage.removeItem(this.MODEL.LS.AUTO.HASH.PASSWORD);
             LocalStorage.removeItem(this.MODEL.LS.AUTO.EMAIL);
             LocalStorage.removeItem(this.MODEL.LS.AUTO.HASH.DECRYPT_CRYPTO);
-            this.CONTROLLER.applyModel(_TYPE);
+            this.CONTROLLER.applyReceiveModel(_TYPE);
             this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
             this.open({
               type: this.MODEL.TYPE.LOGIN,
@@ -790,7 +790,7 @@ class UserController extends ClipwebController {
                   }
                 }
                 // 情報変更成功
-                this.CONTROLLER.applyModel(_TYPE);
+                this.CONTROLLER.applyReceiveModel(_TYPE);
                 this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
                 if (this.MODEL.STATUS.AUTO) {
                   LocalStorage.setItem(this.MODEL.LS.AUTO.HASH.PASSWORD, this.MODEL.HASH.PASSWORD);
@@ -904,7 +904,7 @@ class UserController extends ClipwebController {
                   }
                 }
                 // 設定更新成功
-                this.CONTROLLER.applyModel(_TYPE);
+                this.CONTROLLER.applyReceiveModel(_TYPE);
                 this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
                 this.open({
                   type: _TYPE,
@@ -1140,7 +1140,7 @@ class UserController extends ClipwebController {
     this.MODEL.HASH.GRAVATAR = '';
   }
 
-  applyModel (
+  applyReceiveModel (
     type = null
   ) {
     super.log(type.capitalize(), 'Apply')();

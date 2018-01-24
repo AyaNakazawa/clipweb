@@ -313,7 +313,7 @@ class ClipController extends ClipwebController {
     return _result;
   }
 
-  applyModel (
+  applyReceiveModel (
     type = null
   ) {
     super.log(type.capitalize(), 'Apply')();

@@ -409,7 +409,7 @@ class ListController extends ClipwebController {
             } else {
               // 取得成功
               this.MODEL.STATUS.GET = true;
-              this.CONTROLLER.applyModel(_TYPE);
+              this.CONTROLLER.applyReceiveModel(_TYPE);
               this.open({
                 type: _TYPE,
                 model: {
@@ -461,7 +461,7 @@ class ListController extends ClipwebController {
     return _result;
   }
 
-  applyModel (
+  applyReceiveModel (
     type = null
   ) {
     super.log(type.capitalize(), 'Apply')();
