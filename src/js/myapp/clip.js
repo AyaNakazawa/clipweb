@@ -272,10 +272,18 @@ class ClipController extends ClipwebController {
       Log.error(arguments)();
       return;
     }
-    const _TYPE = this.MODEL.TYPE.OPEN;
-    const _FAILED = 'failed_to_open_clip_setting';
-
-    this.MODEL.HASH = hash;
+    const _TYPE = type;
+    const _FAILED = `failed_to_${type.toLowerCase()}_clip_setting`;
+    let _success_message = null;
+    if (type == this.MODEL.TYPE.OPEN) {
+      if (hash == null) {
+        Log.error(arguments)();
+        return;
+      }
+      this.MODEL.HASH = hash;
+    } else {
+      _success_message = View.element({ content: LN.get('updated_clip_setting') });
+    }
 
     this.EVENT.setOnLoading({
       type: _TYPE,
@@ -321,8 +329,7 @@ class ClipController extends ClipwebController {
                 this.open({
                   type: this.MODEL.TYPE.SETTING,
                   model: {
-                    alertMessage:
-                      View.element({ content: LN.get('created_new_clip') })
+                    alertMessage: _success_message
                   }
                 });
               }
