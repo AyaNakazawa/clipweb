@@ -337,9 +337,11 @@ class ClipController extends ClipwebController {
         this.MODEL.HASH = this.getAjaxData({ key: 'hash' });
         break;
 
+      case this.MODEL.TYPE.OPEN:
       case this.MODEL.TYPE.SETTING:
         // SETTING
         this.MODEL.CLIP = this.getAjaxData({ key: 'clip' });
+        this.MODEL.HASH = this.MODEL.CLIP['hash'];
         this.MODEL.FILENAME = this.MODEL.CLIP['name'];
         this.MODEL.DATA = this.MODEL.CLIP['data'];
         this.MODEL.FILETYPE = this.MODEL.CLIP['type'];
