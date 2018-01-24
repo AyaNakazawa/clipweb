@@ -132,9 +132,8 @@ class Localization {
       reutrn;
     }
     if (typeof this.langs[lang][id] == 'undefined') {
-      Log.error(arguments, 'Undefined word. X(', `Please define: ${id}`)();
       this.errors[id] = id;
-      Log.obj(this.errors)();
+      Log.error(arguments, 'Undefined word. X(', `Please define: ${id}`, this.errors)();
       return `Undefined word. X( => [${id}]`;
     }
     if (model != null) {
