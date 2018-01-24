@@ -251,7 +251,7 @@ class UserEvent extends ClipwebEvent {
     });
 
     super.setOn({
-      trigger: 'keyup',
+      trigger: 'keydown',
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.LOGIN.AUTO_LABEL}`,
       func: (event) => {
         if (event.which == 13 || event.which == 32) {
