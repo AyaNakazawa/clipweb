@@ -44,8 +44,8 @@ class Log {
   static get ARROW_INPUT () { return ' <--- '; }
 
   // Length definition
-  static get CLASS_LENGTH () { return 28; }
-  static get KEY_LENGTH () { return 28; }
+  static get CLASS_LENGTH () { return 24; }
+  static get KEY_LENGTH () { return 24; }
 
   // Style definition
   static get STYLE_COLOR_RED () { return 'color:#f00;'; }
