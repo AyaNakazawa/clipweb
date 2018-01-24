@@ -454,8 +454,8 @@ class ClipwebController extends CommonController {
         Log.log('Post Success', Log.ALIGN_CENTER)();
         super.log('post', 'Success')();
         // super.log('textStatus', textStatus)();
-        super.log('data')(data);
-        // super.log('jqXHR')(jqXHR);
+        super.log('data', data)();
+        // super.log('jqXHR', jqXHR)();
         super.log()();
         this.MODEL.OBJECT.AJAX = data;
         this.EVENT.trigger({ trigger: this.MODEL.TRIGGER.POST.SUCCESS });
@@ -467,7 +467,7 @@ class ClipwebController extends CommonController {
         super.log('post', 'Error')();
         super.log('textStatus', textStatus)();
         super.log('errorThrown', errorThrown)();
-        super.log('jqXHR')(jqXHR);
+        super.log('jqXHR', jqXHR)();
         super.log()();
         this.EVENT.trigger({ trigger: this.MODEL.TRIGGER.POST.ERROR });
       },
@@ -477,7 +477,7 @@ class ClipwebController extends CommonController {
         Log.log('Post Complete', Log.ALIGN_CENTER)();
         super.log('post', 'Complete')();
         // super.log('textStatus', textStatus)();
-        // super.log('jqXHR')(jqXHR);
+        // super.log('jqXHR', jqXHR)();
         const _EXEC_TIME = parseInt(this.getAjaxData({ type: 'exec_time' }) * 1000);
         Log.log('Post Time', Log.ALIGN_CENTER)();
         Log.classKey(
