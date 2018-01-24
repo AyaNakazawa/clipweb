@@ -296,30 +296,6 @@ class ClipController extends ClipwebController {
     return _result;
   }
 
-  getAreaHeader (
-    type = null
-  ) {
-    if (type == null) {
-      Log.error(arguments)();
-      return;
-    }
-    let _result = '';
-    switch (type) {
-      case this.MODEL.TYPE.NEW:
-        // NEW
-        _result = LN.get('header_new_clip');
-        break;
-      case this.MODEL.TYPE.SETTING:
-        // SETTING
-        _result = LN.get('header_setting_clip');
-        break;
-      default:
-        Log.error(arguments, 'unknown type X(')();
-        return;
-    }
-    return _result;
-  }
-
   applyModel (
     type = null
   ) {

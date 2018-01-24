@@ -461,26 +461,6 @@ class ListController extends ClipwebController {
     return _result;
   }
 
-  getAreaHeader (
-    type = null
-  ) {
-    if (type == null) {
-      Log.error(arguments)();
-      return;
-    }
-    let _result = '';
-    switch (type) {
-      case this.MODEL.TYPE.SEARCH:
-        // SEARCH
-        _result = LN.get('header_clip_list');
-        break;
-      default:
-        Log.error(arguments, 'unknown type X(')();
-        return;
-    }
-    return _result;
-  }
-
   applyModel (
     type = null
   ) {

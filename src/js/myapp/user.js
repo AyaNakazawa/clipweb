@@ -1035,42 +1035,6 @@ class UserController extends ClipwebController {
     return _result;
   }
 
-  getAreaHeader (
-    type = null
-  ) {
-    if (type == null) {
-      Log.error(arguments)();
-      return;
-    }
-    let _result = '';
-    switch (type) {
-      case this.MODEL.TYPE.LOGIN:
-        // LOGIN
-        _result = LN.get('header_login');
-        break;
-      case this.MODEL.TYPE.SETTING:
-        // SETTING
-        _result = LN.get('header_setting');
-        break;
-      case this.MODEL.TYPE.INFO:
-        // INFO
-        _result = LN.get('header_info');
-        break;
-      case this.MODEL.TYPE.LOGOUT:
-        // LOGOUT
-        _result = LN.get('header_logout');
-        break;
-      case this.MODEL.TYPE.REGISTER:
-        // REGISTER
-        _result = LN.get('header_register');
-        break;
-      default:
-        Log.error(arguments, 'unknown type X(')();
-        return;
-    }
-    return _result;
-  }
-
   updateHash (
     type = null,
     timing = null
