@@ -583,4 +583,19 @@ class FileTypes {
       }
     };
   }
+
+  static getExtensions (lowerCase = true) {
+    let _types = this.get();
+    let _result = {};
+    for (let type of Object.keys(_types)) {
+      for (let extension of Object.keys(_types[type]['extensions'])) {
+        if (lowerCase) {
+          _result[_types[type]['extensions'][extension].toLowerCase()] = type;
+        } else {
+          _result[_types[type]['extensions'][extension]] = _types[type]['name'];
+        }
+      }
+    }
+    return _result;
+  }
 }
