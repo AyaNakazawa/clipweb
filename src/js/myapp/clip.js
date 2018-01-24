@@ -257,8 +257,78 @@ class ClipController extends ClipwebController {
     }
   }
 
-  openSetting () {
+  openSetting (hash = null) {
+    if (hash == null) {
+      Log.error(arguments)();
+      return;
+    }
+    const _TYPE = this.MODEL.TYPE.OPEN;
+    const _FAILED = 'failed_to_open_clip_setting';
 
+    this.MODEL.HASH = hash;
+
+    this.EVENT.setOnLoading({
+      type: _TYPE,
+      successFunction: () => {
+        if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
+          // resultが取得できない
+          this.open({
+            type: _TYPE,
+            model: super.getErrorModel('result', _FAILED)
+          });
+        } else {
+          if (this.getAjaxData({ key: 'result' }) == false) {
+            // Resultエラー
+            if (typeof this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`] != 'undefined') {
+              const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
+              this.open({
+                type: _TYPE,
+                model: super.getErrorModel('clipweb', _FAILED, _ERROR)
+              });
+            }
+          } else {
+            if (typeof this.getAjaxData({ key: 'clip' }) == 'undefined') {
+              // 未知のエラー
+              this.open({
+                type: _TYPE,
+                model: super.getErrorModel('result', _FAILED)
+              });
+            } else {
+              if (typeof this.getAjaxData({ key: 'clip' })['flex sqlite3 error'] != 'undefined') {
+                // Flex SQLite3 エラー
+                const _ERROR = this.getAjaxData({ key: 'clip' })['flex sqlite3 error'];
+                this.open({
+                  type: _TYPE,
+                  model: super.getErrorModel('fsql', _FAILED, _ERROR)
+                });
+              } else {
+                // 取得成功
+                LIST.loadClip();
+                this.VIEW.move({
+                  target: LIST.MODEL.SELECTOR.AREA,
+                  mode: this.MODEL.COMMON.TYPE.AFTER
+                });
+                this.open({
+                  type: this.MODEL.TYPE.SETTING,
+                  model: {
+                    alertMessage:
+                      View.element({ content: LN.get('created_new_clip') })
+                  }
+                });
+              }
+            }
+          }
+        }
+      },
+      errorOpenType: _TYPE,
+      errorModel: super.getErrorModel('server', _FAILED)
+    });
+
+    // Post
+    this.post({
+      type: _TYPE,
+      data: this.getSendModel(_TYPE)
+    });
   }
 
   updateSetting () {
@@ -343,7 +413,6 @@ class ClipController extends ClipwebController {
         this.MODEL.CLIP = this.getAjaxData({ key: 'clip' });
         this.MODEL.HASH = this.MODEL.CLIP['hash'];
         this.MODEL.FILENAME = this.MODEL.CLIP['name'];
-        this.MODEL.DATA = this.MODEL.CLIP['data'];
         this.MODEL.FILETYPE = this.MODEL.CLIP['type'];
         this.MODEL.TAGS = this.MODEL.CLIP['tags'];
         this.MODEL.OWNER_HASH = this.MODEL.CLIP['owner_hash'];
