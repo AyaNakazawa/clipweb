@@ -556,7 +556,11 @@
           <div class="content-input">
             <select id="clip-new-filetype" class="custom-select" required tabindex="200">
               <% for (let type of Object.keys(filetypes)) { %>
-                <option value="<%- type %>"><%- filetypes[type]['name'] %></option>
+                <% if (type == 'TEXT') { %>
+                  <option value="<%- type %>" selected><%- filetypes[type]['name'] %></option>
+                <% } else { %>
+                  <option value="<%- type %>"><%- filetypes[type]['name'] %></option>
+                <% } %>
               <% } %>
             </select>
             <i class="content-input-icon content-select-icon fas fa-file-code"></i>
