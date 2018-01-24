@@ -11,6 +11,7 @@ class Language {
     this.en = {
       language_name: 'English',
 
+      user: 'User',
       username: 'Username',
       email_address: 'Email address',
       password: 'Password',
@@ -184,6 +185,7 @@ class Language {
     this.ja = {
       language_name: '日本語',
 
+      user: 'ユーザー',
       username: 'ユーザー名',
       email_address: 'メールアドレス',
       password: 'パスワード',
