@@ -129,10 +129,29 @@ class ClipEvent extends ClipwebEvent {
 
   setOnNew () {
     super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.NEW.CLOSE}`,
+      func: () => {
+        super.log('Clip', 'Close')();
+        this.VIEW.hide();
+      }
+    });
+
+    super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.NEW.CREATE}`,
       func: () => {
         super.log('Clip', 'New')();
         this.CONTROLLER.createNew();
+      }
+    });
+
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.NEW.FILENAME}`,
+      trigger: 'keyup',
+      func: () => {
+        this.CONTROLLER.updateFile({
+          name: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.NEW.FILENAME}`,
+          type: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.NEW.FILETYPE}`
+        });
       }
     });
   }
