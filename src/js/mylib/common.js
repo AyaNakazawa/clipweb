@@ -149,7 +149,7 @@ class CommonModel extends CommonClass {
 
     this.COMMON.POPOVER = {};
     this.COMMON.POPOVER.TRIGGER = 'click';
-    this.COMMON.POPOVER.PLACEMENT = 'right';
+    this.COMMON.POPOVER.PLACEMENT = 'top';
     this.COMMON.POPOVER.DELAY = 0;
     this.COMMON.POPOVER.HTML = true;
     this.COMMON.POPOVER.OFFSET = 0;
