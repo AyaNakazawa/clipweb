@@ -267,6 +267,8 @@ main {
         cursor: pointer; }
     main .content .content-split {
       display: flex; }
+      main .content .content-split .content-split-full {
+        flex-grow: 100; }
       main .content .content-split .content-split-item {
         padding: 0 8px; }
         main .content .content-split .content-split-item:first-child {
