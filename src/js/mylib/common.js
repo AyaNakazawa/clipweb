@@ -1173,8 +1173,8 @@ class CommonEvent extends CommonClass {
 
     if (type == 'all') {
       for (let popover of $(`${selector} ${this.MODEL.COMMON.SELECTOR.POPOVER}`)) {
-        if (typeof $(popover).parent().find(':required').attr('id') != 'undefined') {
-          let _id = $(popover).parent().find(':required').attr('id');
+        if (typeof $(popover).parent().find('label').attr('for') != 'undefined') {
+          let _id = $(popover).parent().find('label').attr('for');
           if (container == true) {
             container = popover;
           }
