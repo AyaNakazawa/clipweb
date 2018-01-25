@@ -95,6 +95,11 @@ class ListView extends ClipwebView {
     super(initSetting);
   }
 
+  generateGroups () {
+    super.log('Generate groups')();
+    super.clear({ selector: this.MODEL.SELECTOR.SEARCH.CLIPS });
+
+  }
 }
 
 // ----------------------------------------------------------------
