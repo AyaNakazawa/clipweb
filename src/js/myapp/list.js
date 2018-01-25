@@ -361,6 +361,37 @@ class ListController extends ClipwebController {
   }
 
   // ----------------------------------------------------------------
+  // clip
+
+  edit ({
+    hash = null
+  } = {}) {
+    if (hash == null) {
+      Log.error(arguments)();
+      return;
+    }
+  }
+
+  delete ({
+    hash = null
+  } = {}) {
+    if (hash == null) {
+      Log.error(arguments)();
+      return;
+    }
+  }
+
+  setting ({
+    hash = null
+  } = {}) {
+    if (hash == null) {
+      Log.error(arguments)();
+      return;
+    }
+  }
+
+
+  // ----------------------------------------------------------------
   // ajax
 
   loadList () {
