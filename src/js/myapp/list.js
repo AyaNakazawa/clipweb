@@ -351,6 +351,7 @@ class ListController extends ClipwebController {
     LocalStorage.setItem(this.MODEL.LS.SORT, this.MODEL.SORT);
     LocalStorage.setItem(this.MODEL.LS.ORDER, this.MODEL.ORDER);
 
+    this.VIEW.generateGroups();
   }
 
   filtering () {
@@ -368,6 +369,8 @@ class ListController extends ClipwebController {
     super.log('Filtering', `${this.MODEL.SEARCH}`)();
     LocalStorage.setItem(this.MODEL.LS.SEARCH, this.MODEL.SEARCH);
 
+    this.VIEW.generateGroups();
+  }
 
   applyClips () {
     this.filtering();
@@ -403,7 +406,6 @@ class ListController extends ClipwebController {
       return;
     }
   }
-
 
   // ----------------------------------------------------------------
   // ajax
@@ -451,7 +453,7 @@ class ListController extends ClipwebController {
                     View.element({ content: LN.get('clip_list_got') })
                 },
               });
-              this.grouping();
+              this.applyClips();
             }
           }
         }
