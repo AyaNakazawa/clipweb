@@ -1,6 +1,7 @@
 
 やること
-  Popoverはクラスごとに管理して、openしなおすときに一旦全部削除する。clearの直前
+  #list-search-clips-template完成させる
+  js List filtering完成させる
   tabindexをエリアごとに分ける
   addAlertかupdateAlertをCommonViewにつくる
   →headerとかloadingも？
@@ -13,6 +14,7 @@
 
 
 やったこと
+  Popoverはクラスごとに管理して、openしなおすときに一旦全部削除する。clearの直前
   User
     ユーザー系が完成したら、
       USERNAME
