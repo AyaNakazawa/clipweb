@@ -394,9 +394,18 @@ class ListController extends ClipwebController {
     // Filtering
     super.log('Filtering', `${this.MODEL.SEARCH}`)();
     LocalStorage.setItem(this.MODEL.LS.SEARCH, this.MODEL.SEARCH);
+    LocalStorage.setItem(this.MODEL.LS.SEARCH_OP, this.MODEL.SEARCH_OP);
 
-    this.VIEW.generateGroups();
-  }
+    this.MODEL.FILTERED_CLIPS = {};
+    Log.obj(this.MODEL.DOWNLOADED_CLIPS)();
+    let _clips = this.MODEL.DOWNLOADED_CLIPS;
+    for (let index of Object.keys(_clips)) {
+      if (_clips[index]['clip_name'].indexOf(this.MODEL.SEARCH) >= 0) {
+        this.MODEL.FILTERED_CLIPS[_clips[index]['clip_hash']] = _clips[index];
+        break;
+      }
+    }
+    Log.obj(this.MODEL.FILTERED_CLIPS)();
 
     this.grouping();
   }
