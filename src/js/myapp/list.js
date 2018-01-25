@@ -363,6 +363,10 @@ class ListController extends ClipwebController {
     super.log('Filtering', `${this.MODEL.SEARCH}`)();
     LocalStorage.setItem(this.MODEL.LS.SEARCH, this.MODEL.SEARCH);
 
+
+  applyClips () {
+    this.filtering();
+    this.grouping();
   }
 
   // ----------------------------------------------------------------
