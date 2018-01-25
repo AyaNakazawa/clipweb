@@ -112,6 +112,36 @@ class Base:
                     "message": "[updated_at] does not defined."
                 }
             },
+            "owner_hash_not_defined": {
+                "{} error".format(cls.NAME): {
+                    "code": 111,
+                    "message": "[owner_hash] does not defined."
+                }
+            },
+            "name_not_defined": {
+                "{} error".format(cls.NAME): {
+                    "code": 112,
+                    "message": "[name] does not defined."
+                }
+            },
+            "type_not_defined": {
+                "{} error".format(cls.NAME): {
+                    "code": 113,
+                    "message": "[type] does not defined."
+                }
+            },
+            "owner_public_not_defined": {
+                "{} error".format(cls.NAME): {
+                    "code": 114,
+                    "message": "[owner_public] does not defined."
+                }
+            },
+            "clip_mode_not_defined": {
+                "{} error".format(cls.NAME): {
+                    "code": 115,
+                    "message": "[clip_mode] does not defined."
+                }
+            },
             "hash_unknown_class": {
                 "{} error".format(cls.NAME): {
                     "code": 201,
@@ -172,6 +202,36 @@ class Base:
                     "message": "[updated_at] is unknown class"
                 }
             },
+            "owner_hash_unknown_class": {
+                "{} error".format(cls.NAME): {
+                    "code": 211,
+                    "message": "[owner_hash] is unknown class"
+                }
+            },
+            "name_unknown_class": {
+                "{} error".format(cls.NAME): {
+                    "code": 212,
+                    "message": "[name] is unknown class"
+                }
+            },
+            "type_unknown_class": {
+                "{} error".format(cls.NAME): {
+                    "code": 213,
+                    "message": "[type] is unknown class"
+                }
+            },
+            "owner_public_unknown_class": {
+                "{} error".format(cls.NAME): {
+                    "code": 214,
+                    "message": "[owner_public] is unknown class"
+                }
+            },
+            "clip_mode_unknown_class": {
+                "{} error".format(cls.NAME): {
+                    "code": 215,
+                    "message": "[clip_mode] is unknown class"
+                }
+            },
             "username_overlap": {
                 "{} error".format(cls.NAME): {
                     "code": 301,
@@ -187,7 +247,7 @@ class Base:
             "hash_overlap": {
                 "{} error".format(cls.NAME): {
                     "code": 303,
-                    "message": "User hash already exists."
+                    "message": "Hash already exists."
                 }
             },
             "email_password_incorrect": {
