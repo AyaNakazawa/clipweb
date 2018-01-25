@@ -203,28 +203,21 @@ class ListEvent extends ClipwebEvent {
     }
     const _SELECTOR = `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.CLIPS} ${hash}`;
     super.setOn({
-      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.CLIP.EDIT}`,
+      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.SEARCH.CLIP.EDIT}`,
       func: () => {
         super.log(`clip ${hash}`, 'Edit')();
         this.CONTROLLER.edit({ hash: hash });
       }
     });
     super.setOn({
-      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.CLIP.DELETE}`,
+      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.SEARCH.CLIP.DELETE}`,
       func: () => {
         super.log(`clip ${hash}`, 'Delete')();
         this.CONTROLLER.delete({ hash: hash });
       }
     });
     super.setOn({
-      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.CLIP.SHARE}`,
-      func: () => {
-        super.log(`clip ${hash}`, 'Share')();
-        this.CONTROLLER.share({ hash: hash });
-      }
-    });
-    super.setOn({
-      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.CLIP.SETTING}`,
+      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.SEARCH.CLIP.SETTING}`,
       func: () => {
         super.log(`clip ${hash}`, 'Setting')();
         this.CONTROLLER.setting({ hash: hash });
@@ -241,16 +234,13 @@ class ListEvent extends ClipwebEvent {
     }
     const _SELECTOR = `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.CLIPS} ${hash}`;
     super.setOff({
-      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.CLIP.EDIT}`
+      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.SEARCH.CLIP.EDIT}`
     });
     super.setOff({
-      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.CLIP.DELETE}`
+      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.SEARCH.CLIP.DELETE}`
     });
     super.setOff({
-      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.CLIP.SHARE}`
-    });
-    super.setOff({
-      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.CLIP.SETTING}`
+      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.SEARCH.CLIP.SETTING}`
     });
   }
 }
