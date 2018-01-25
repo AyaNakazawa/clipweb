@@ -49,8 +49,8 @@ class Clip(cw_base.Base):
         user_hash = cls.cgi.get("owner_hash")
         user_password_hash = cls.cgi.get("password_hash")
         clip_hash = cls.cgi.get("hash")
-        clip_name = cls.cgi.get("name")
-        clip_type = cls.cgi.get("type")
+        clip_name = cls.cgi.get("filename")
+        clip_type = cls.cgi.get("filetype")
         clip_owner_public = cls.cgi.get("owner_public")
         clip_clip_mode = cls.cgi.get("clip_mode")
 
