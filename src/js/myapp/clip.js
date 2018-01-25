@@ -508,8 +508,8 @@ class ClipController extends ClipwebController {
       case this.MODEL.TYPE.NEW:
         // NEW
         _model['hash'] = Random.hex();
-        _model['name'] = this.MODEL.FILENAME;
-        _model['type'] = this.MODEL.FILETYPE;
+        _model['filename'] = this.MODEL.FILENAME;
+        _model['filetype'] = this.MODEL.FILETYPE;
         _model['owner_public'] = this.MODEL.OWNER_PUBLIC;
         _model['clip_mode'] = this.MODEL.CLIP_MODE;
         break;
@@ -521,8 +521,8 @@ class ClipController extends ClipwebController {
 
       case this.MODEL.TYPE.SETTING:
         // SETTING
-        _model['name'] = this.MODEL.FILENAME;
-        _model['type'] = this.MODEL.FILETYPE;
+        _model['filename'] = this.MODEL.FILENAME;
+        _model['filetype'] = this.MODEL.FILETYPE;
         _model['tags'] = this.MODEL.TAGS;
         _model['owner_public'] = this.MODEL.OWNER_PUBLIC;
         _model['clip_mode'] = this.MODEL.CLIP_MODE;
