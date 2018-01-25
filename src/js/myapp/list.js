@@ -47,7 +47,7 @@ class ListModel extends ClipwebModel {
     // ----------------------------------------------------------------
     // テンプレート
     this.TEMPLATE.SEARCH = '#list-search-template';
-    this.TEMPLATE.CLIP = '#list-clip-template';
+    this.TEMPLATE.CLIP = '#list-search-clip-template';
 
     // ----------------------------------------------------------------
     // オフセット
