@@ -27,6 +27,7 @@ class ListModel extends ClipwebModel {
     // ----------------------------------------------------------------
     // LocalStorageキー
     this.LS.SEARCH = 'list.search';
+    this.LS.SEARCH_OP = 'list.search.op';
     this.LS.GROUP = 'list.group';
     this.LS.SORT = 'list.sort';
     this.LS.ORDER = 'list.order';
@@ -36,6 +37,7 @@ class ListModel extends ClipwebModel {
 
     // 検索文字列
     this.SEARCH = '';
+    this.SEARCH_OP = 'or';
     this.GROUP = 'type';
     this.SORT = 'name';
     this.ORDER = 'asc';
@@ -66,6 +68,7 @@ class ListModel extends ClipwebModel {
     this.SELECTOR.SEARCH.NEW = '#list-search-new';
     this.SELECTOR.SEARCH.REFRESH = '#list-search-refresh';
     this.SELECTOR.SEARCH.SEARCH = '#list-search-search';
+    this.SELECTOR.SEARCH.SEARCH_OP = '#list-search-search-op';
     this.SELECTOR.SEARCH.SEARCH_CLEAR = '#list-search-search-clear';
     this.SELECTOR.SEARCH.GROUP = '#list-search-group';
     this.SELECTOR.SEARCH.SORT = '#list-search-sort';
@@ -104,7 +107,7 @@ class ListView extends ClipwebView {
       selector: this.MODEL.SELECTOR.SEARCH.CLIPS,
       template: this.MODEL.TEMPLATE.SEARCH_CLIP,
       model: {
-        clips: this.MODEL.CLIPS
+        clips: this.MODEL.SORTED_CLIPS
       }
     });
   }
@@ -190,6 +193,15 @@ class ListEvent extends ClipwebEvent {
       func: () => {
         super.log('Search', 'Sort Desc')();
         this.CONTROLLER.sorting({ type: 'desc' });
+      }
+    });
+
+    super.setOn({
+      trigger: 'change',
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.SEARCH_OP}`,
+      func: () => {
+        super.log('Search', 'OP')();
+        this.CONTROLLER.filtering();
       }
     });
 
@@ -287,6 +299,10 @@ class ListController extends ClipwebController {
     if (LocalStorage.getItem(this.MODEL.LS.SEARCH) != null) {
       this.MODEL.SEARCH = LocalStorage.getItem(this.MODEL.LS.SEARCH);
     }
+    // 前回の検索タイプ
+    if (LocalStorage.getItem(this.MODEL.LS.SEARCH_OP) != null) {
+      this.MODEL.SEARCH_OP = LocalStorage.getItem(this.MODEL.LS.SEARCH_OP);
+    }
     // 前回のグループ
     if (LocalStorage.getItem(this.MODEL.LS.GROUP) != null) {
       this.MODEL.GROUP = LocalStorage.getItem(this.MODEL.LS.GROUP);
@@ -364,10 +380,12 @@ class ListController extends ClipwebController {
 
   filtering () {
     const _SELECTOR = this.MODEL.SELECTOR.SEARCH.SEARCH;
+    const _SELECTOR_OP = this.MODEL.SELECTOR.SEARCH.SEARCH_OP;
     const _VALID = $(_SELECTOR)[0].validity.valid;
 
     if (_VALID) {
       this.MODEL.SEARCH = $(_SELECTOR).val();
+      this.MODEL.SEARCH_OP = $(`${_SELECTOR_OP} option:selected`).val();
     } else {
       Log.error(arguments, 'input is invalid X(')();
       return;
@@ -493,7 +511,8 @@ class ListController extends ClipwebController {
           search: this.MODEL.SEARCH,
           group: this.MODEL.GROUP,
           sort: this.MODEL.SORT,
-          order: this.MODEL.ORDER
+          order: this.MODEL.ORDER,
+          op: this.MODEL.SEARCH_OP
         };
         break;
       default:
