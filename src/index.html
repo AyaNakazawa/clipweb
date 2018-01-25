@@ -589,14 +589,16 @@
     </script>
     <!-- list-search-clips -->
     <script type="text/template" id="list-search-clips-template">
-      <% for (let group of clips ) { %>
+      <% for (let group of Object.keys(clips) ) { %>
         <div class="list-search-groups d-flex justify-content-between">
           <span class="list-search-groups-header">
             <%= group %>
           </span>
           <button class="btn btn-outline-secondary"><i class="fas fa-caret-down"></i></button>
-          <% for (let hash of clips[group] ) { %>
-
+          <% for (let hash of Object.keys(clips[group]) ) { %>
+            <div class="list-search-clip">
+              <%= hash %>
+            </div>
           <% } %>
         </div>
       <% } %>
