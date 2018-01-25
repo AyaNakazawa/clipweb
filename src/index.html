@@ -151,7 +151,7 @@
     <script type="text/template" id="user-login-template">
       <div class="content-item-area">
         <div class="content-item">
-          <label for="login-email"><%= LN.get('email_address') %></label>
+          <label for="user-login-email"><%= LN.get('email_address') %></label>
           <span class="content-popover content-help"></span>
           <div class="content-input">
             <input id="user-login-email" type="email" required class="form-control" value="<%- email %>" tabindex="200">
@@ -161,7 +161,7 @@
           </div>
         </div>
         <div class="content-item">
-          <label for="login-password"><%= LN.get('password') %></label>
+          <label for="user-login-password"><%= LN.get('password') %></label>
           <span class="content-popover content-help"></span>
           <div class="content-input">
             <input id="user-login-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" placeholder="" value="" tabindex="200">
@@ -171,7 +171,7 @@
           </div>
         </div>
         <div class="content-item">
-          <label class="content-check-label" id="user-login-auto-label" tabindex="200">
+          <label for="user-login-auto" class="content-check-label" id="user-login-auto-label" tabindex="200">
             <% if (auto_login) { %>
               <input class="content-check" type="checkbox" id="user-login-auto" required checked>
             <% } else { %>
@@ -192,7 +192,7 @@
     <script type="text/template" id="user-register-template">
       <div class="content-item-area">
         <div class="content-item">
-          <label for="register-username"><%= LN.get('username') %></label>
+          <label for="user-register-username"><%= LN.get('username') %></label>
           <span class="content-popover content-help"></span>
           <div class="content-input">
             <input id="user-register-username" type="text" minLength="<%- length.min.username %>" maxLength="<%- length.max.username %>" required class="form-control" value="<%- username %>" tabindex="200">
@@ -202,7 +202,7 @@
           </div>
         </div>
         <div class="content-item">
-          <label for="register-email"><%= LN.get('email_address') %></label>
+          <label for="user-register-email"><%= LN.get('email_address') %></label>
           <span class="content-popover content-help"></span>
           <div class="content-input">
             <input id="user-register-email" type="email" required class="form-control" value="<%- email %>" tabindex="200">
@@ -213,7 +213,7 @@
         </div>
         <div class="content-item content-split">
           <div class="content-split-item col-6">
-            <label for="register-password"><%= LN.get('password') %></label>
+            <label for="user-register-password"><%= LN.get('password') %></label>
           <span class="content-popover content-help"></span>
             <div class="content-input">
               <input id="user-register-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" placeholder="" value="" tabindex="200">
@@ -223,7 +223,7 @@
             </div>
           </div>
           <div class="content-split-item col-6">
-            <label for="register-password-re"><%= LN.get('password_confirm') %></label>
+            <label for="user-register-password-re"><%= LN.get('password_confirm') %></label>
           <span class="content-popover content-help"></span>
             <div class="content-input">
               <input id="user-register-password-re" type="password" required class="form-control" placeholder="" value="" tabindex="200">
@@ -404,7 +404,7 @@
     <script type="text/template" id="user-logout-template">
       <div class="content-item-area">
         <div class="content-item">
-          <label for="logout-username"><%= LN.get('username') %></label>
+          <label for="user-logout-username"><%= LN.get('username') %></label>
           <span class="content-popover content-help"></span>
           <div class="content-input">
             <input id="user-logout-username" type="text" class="form-control" value="<%- username %>" readonly required>
