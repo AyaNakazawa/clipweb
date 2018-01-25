@@ -246,11 +246,9 @@
         <div class="content-item">
           <label for="user-info-avatar"><%= LN.get('avatar') %></label>
           <span class="content-popover content-help"></span>
-          <!-- <div class="d-flex justify-content-between">
-          </div> -->
-          <div>
+          <span>
             <%= LN.get('using_gravatar', { gravatar: '<a href="https://gravatar.com/" target="blank">Gravatar</a>' }) %>
-          </div>
+          </span>
           <div class="content-image">
             <img src="https://www.gravatar.com/avatar/<%- gravatarHash %>?s=120" alt="My avatar" class="content-avatar" id="user-info-avatar" required>
           </div>
