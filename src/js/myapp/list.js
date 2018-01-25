@@ -378,8 +378,6 @@ class ListController extends ClipwebController {
     this.VIEW.generateGroups();
   }
 
-  applyClips () {
-    this.filtering();
     this.grouping();
   }
 
@@ -459,7 +457,7 @@ class ListController extends ClipwebController {
                     View.element({ content: LN.get('clip_list_got') })
                 },
               });
-              this.applyClips();
+              this.filtering();
             }
           }
         }
