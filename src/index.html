@@ -421,6 +421,12 @@
     <!-- list-search -->
     <script type="text/template" id="list-search-template">
       <div class="content-item-area">
+        <div class="content-item">
+          <div class="btn-group content-input">
+            <button id="list-search-new" class="btn btn-outline-info" tabindex="200"><i class="far fa-plus-circle"></i> <%= LN.get('new') %></button>
+            <button id="list-search-refresh" class="btn btn-outline-info" tabindex="200"><i class="far fa-sync"></i> <%= LN.get('update') %></button>
+          </div>
+        </div>
         <div class="content-item content-split">
           <div class="content-split-item">
             <label for="list-search-group"><%= LN.get('group') %></label>
@@ -535,13 +541,29 @@
         </div>
         <div class="content-item">
           <div class="input-group content-input">
-            <div class="input-group-prepend">
-              <button id="list-search-new" class="btn btn-outline-info"><i class="far fa-plus-circle"></i> <%= LN.get('new') %></button>
-            </div>
-            <div class="input-group-prepend">
-              <button id="list-search-refresh" class="btn btn-outline-info"><i class="far fa-sync"></i> <%= LN.get('update') %></button>
-            </div>
-            <input id="list-search-search" class="form-control" type="text" placeholder="<%= LN.get('search') %>" value="<%- search %>">
+            <select id="list-search-search-op" class="custom-select col-3" required tabindex="200">
+              <% if (op == 'or') { %>
+                <option value="or" selected>OR</option>
+              <% } else { %>
+                <option value="or">OR</option>
+              <% } %>
+              <% if (op == 'and') { %>
+                <option value="and" selected>AND</option>
+              <% } else { %>
+                <option value="and">AND</option>
+              <% } %>
+              <% if (op == 'nor') { %>
+                <option value="nor" selected>NOR</option>
+              <% } else { %>
+                <option value="nor">NOR</option>
+              <% } %>
+              <% if (op == 'nand') { %>
+                <option value="nand" selected>NAND</option>
+              <% } else { %>
+                <option value="nand">NAND</option>
+              <% } %>
+            </select>
+            <input id="list-search-search" class="form-control" type="text" placeholder="<%= LN.get('search') %>" value="<%- search %>" tabindex="200">
             <i class="content-input-icon fas fa-search"></i>
             <i id="list-search-search-clear" class="fas fa-times"></i>
           </div>
