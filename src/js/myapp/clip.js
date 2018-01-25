@@ -262,7 +262,7 @@ class ClipController extends ClipwebController {
                   });
                 } else {
                   // 取得成功
-                  LIST.loadClip();
+                  LIST.loadList();
                   this.VIEW.move({
                     target: LIST.MODEL.SELECTOR.AREA,
                     mode: this.MODEL.COMMON.TYPE.AFTER
