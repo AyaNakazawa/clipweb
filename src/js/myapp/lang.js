@@ -66,6 +66,8 @@ class Language {
       accept: 'Accept',
       close: 'Close',
       search: 'Search',
+      search_string: 'Search string',
+      search_type: 'Search type',
       group: 'Group',
       sort: 'Sort',
       type: 'Type',
@@ -165,6 +167,8 @@ class Language {
 
       popover_list_search_group: 'You can group clips.',
       popover_list_search_sort: 'You can sort clips.',
+      popover_list_search_search: 'The string to be searched.<br>You can specify more than one blank separator.',
+      popover_list_search_search_type: 'This is the type of search when more than one is specified.',
 
       popover_clip_new_filename: 'Please enter the name of the clip.<br>If you include a file extension, the file type is automatically selected.',
       popover_clip_new_filetype: 'Please select a file type.<br>Syntax highlighting according to the file type is applied in the editor.',
@@ -241,6 +245,8 @@ class Language {
       accept: '確認',
       close: '閉じる',
       search: '検索',
+      search_string: '検索文字列',
+      search_type: '検索タイプ',
       group: 'グループ',
       sort: '並び替え',
       type: '種別',
@@ -340,6 +346,8 @@ class Language {
 
       popover_list_search_group: 'クリップをグループに分けることができます。',
       popover_list_search_sort: 'クリップを並び替えることができます。',
+      popover_list_search_search: '検索する文字列です。<br>空白区切りで複数指定できます。',
+      popover_list_search_search_type: '複数指定した際の検索のタイプです。',
 
       popover_clip_new_filename: 'クリップの名前を入力してください。<br>拡張子を含めると、ファイル種別が自動で選択されます。',
       popover_clip_new_filetype: 'ファイル種別を選択してください。<br>エディタで、ファイル種別に応じたシンタックスハイライトが適用されます。',
