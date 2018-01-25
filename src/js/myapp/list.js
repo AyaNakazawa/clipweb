@@ -41,12 +41,13 @@ class ListModel extends ClipwebModel {
     this.ORDER = 'asc';
 
     // クリップ
-    this.DL_CLIPS = null;
-    this.CLIPS = null;
+    this.DL_CLIPS = {};
+    this.CLIPS = {};
 
     // ----------------------------------------------------------------
     // テンプレート
     this.TEMPLATE.SEARCH = '#list-search-template';
+    this.TEMPLATE.SEARCH_CLIP = '#list-search-clips-template';
 
     // ----------------------------------------------------------------
     // オフセット
@@ -68,10 +69,14 @@ class ListModel extends ClipwebModel {
     this.SELECTOR.SEARCH.SORT = '#list-search-sort';
     this.SELECTOR.SEARCH.SORT_ASC = '#list-search-sort-asc';
     this.SELECTOR.SEARCH.SORT_DESC = '#list-search-sort-desc';
+    this.SELECTOR.SEARCH.CLIPS = '#list-search-clips';
+
+    // グループ
+    this.SELECTOR.SEARCH.GROUPS = '#list-search-groups';
 
     // クリップ
-    this.SELECTOR.SEARCH.CLIPS = '#list-search-clips';
     this.SELECTOR.SEARCH.CLIP = {};
+    this.SELECTOR.SEARCH.CLIP.AREA = '#list-search-clip-area';
     this.SELECTOR.SEARCH.CLIP.EDIT = '#list-search-clip-edit';
     this.SELECTOR.SEARCH.CLIP.DELETE = '#list-search-clip-delete';
     this.SELECTOR.SEARCH.CLIP.SETTING = '#list-search-clip-setting';
