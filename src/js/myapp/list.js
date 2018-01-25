@@ -41,8 +41,10 @@ class ListModel extends ClipwebModel {
     this.ORDER = 'asc';
 
     // クリップ
-    this.DL_CLIPS = {};
-    this.CLIPS = {};
+    this.DOWNLOADED_CLIPS = {};
+    this.FILTERED_CLIPS = {};
+    this.GROUPED_CLIPS = {};
+    this.SORTED_CLIPS = {};
 
     // ----------------------------------------------------------------
     // テンプレート
@@ -517,7 +519,7 @@ class ListController extends ClipwebController {
     switch (type) {
       case this.MODEL.TYPE.SEARCH:
         // SEARCH
-        this.MODEL.DL_CLIPS = this.getAjaxData({ key: 'clips' });
+        this.MODEL.DOWNLOADED_CLIPS = this.getAjaxData({ key: 'clips' });
         break;
 
       default:
