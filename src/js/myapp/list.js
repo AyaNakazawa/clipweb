@@ -101,7 +101,7 @@ class ListView extends ClipwebView {
   }
 
   generateGroups () {
-    super.log('Generate groups')();
+    super.log('Groups', 'Generate')();
     this.clear({ selector: this.MODEL.SELECTOR.SEARCH.CLIPS });
     this.append({
       selector: this.MODEL.SELECTOR.SEARCH.CLIPS,
