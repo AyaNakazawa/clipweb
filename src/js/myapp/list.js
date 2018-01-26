@@ -102,6 +102,7 @@ class ListView extends ClipwebView {
 
   generateGroups () {
     super.log('Groups', 'Generate')();
+    Log.line()();
     this.clear({ selector: this.MODEL.SELECTOR.SEARCH.CLIPS });
     this.append({
       selector: this.MODEL.SELECTOR.SEARCH.CLIPS,
@@ -176,7 +177,7 @@ class ListEvent extends ClipwebEvent {
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.SORT}`,
       func: () => {
         super.log('Search', 'Sort')();
-        this.CONTROLLER.sorting({ type: 'asc' });
+        this.CONTROLLER.sorting();
       }
     });
 
@@ -335,15 +336,20 @@ class ListController extends ClipwebController {
     super.log('Grouping', this.MODEL.GROUP)();
     LocalStorage.setItem(this.MODEL.LS.GROUP, this.MODEL.GROUP);
 
-    this.sorting({ type: this.MODEL.ORDER });
+    super.log('Grouping...', this.MODEL.SORTED_CLIPS)();
+    this.MODEL.GROUPED_CLIPS = {};
+
+
+
+    super.log('Grouped!', this.MODEL.GROUPED_CLIPS)();
+    this.VIEW.generateGroups();
   }
 
   sorting ({
     type = null
   } = {}) {
     if (type == null) {
-      Log.error(arguments)();
-      return;
+      type = 'asc';
     }
     const _SELECTOR = this.MODEL.SELECTOR.SEARCH.SORT;
     const _VALID = $(_SELECTOR)[0].validity.valid;
@@ -375,7 +381,13 @@ class ListController extends ClipwebController {
     LocalStorage.setItem(this.MODEL.LS.SORT, this.MODEL.SORT);
     LocalStorage.setItem(this.MODEL.LS.ORDER, this.MODEL.ORDER);
 
-    this.VIEW.generateGroups();
+    super.log('Sorting...', this.MODEL.FILTERED_CLIPS)();
+    this.MODEL.SORTED_CLIPS = {};
+
+
+
+    super.log('Sorted!', this.MODEL.SORTED_CLIPS)();
+    this.grouping();
   }
 
   filtering () {
@@ -395,6 +407,8 @@ class ListController extends ClipwebController {
     super.log('Filtering', `${this.MODEL.SEARCH}`)();
     LocalStorage.setItem(this.MODEL.LS.SEARCH, this.MODEL.SEARCH);
     LocalStorage.setItem(this.MODEL.LS.SEARCH_OP, this.MODEL.SEARCH_OP);
+
+    super.log('Filtering...', this.MODEL.DOWNLOADED_CLIPS)();
 
     let _search = this.MODEL.SEARCH.replace(/\s+/, ' ');
     _search = _search.split(' ');
@@ -546,7 +560,8 @@ class ListController extends ClipwebController {
       }
     }
 
-    this.grouping();
+    super.log('Filtered!', this.MODEL.FILTERED_CLIPS)();
+    this.sorting({ type: this.MODEL.ORDER });
   }
 
   // ----------------------------------------------------------------
