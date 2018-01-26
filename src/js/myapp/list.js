@@ -407,7 +407,7 @@ class ListController extends ClipwebController {
     let _clips = this.MODEL.DOWNLOADED_CLIPS;
     let _types = FileTypes.get();
     let _add = null;
-    let _temp = null;
+    let _temp = 0;
     let _temp2 = 0;
     let _skip = null;
     let _defineKeys = [
@@ -435,6 +435,9 @@ class ListController extends ClipwebController {
           break;
         case 'nand':
           _add = true;
+          break;
+        case 'xor':
+          _add = false;
           break;
         default:
           Log.error(arguments, 'unknown search op', this.MODEL.SEARCH_OP)();
@@ -482,6 +485,13 @@ class ListController extends ClipwebController {
                 _temp ++;
               }
               break;
+            case 'xor':
+              if (_item.indexOf(_searchItem) >= 0) {
+                _temp ++;
+              } else if (_item.indexOf(_searchItem.replace(`${_defineKeys[keyIndex]}=`, '')) >= 0) {
+                _temp ++;
+              }
+              break;
             default:
               Log.error(arguments, 'unknown search op', this.MODEL.SEARCH_OP)();
               return;
@@ -512,12 +522,22 @@ class ListController extends ClipwebController {
               _skip = true;
             }
             break;
+          case 'xor':
+            if (_temp > 0) {
+              _temp2 ++;
+            }
+            break;
           default:
             Log.error(arguments, 'unknown search op', this.MODEL.SEARCH_OP)();
             return;
         }
         if (_skip) {
           break;
+        }
+      }
+      if (this.MODEL.SEARCH_OP == 'xor') {
+        if (_temp2 == 1) {
+          _add = true;
         }
       }
       if (_add) {
