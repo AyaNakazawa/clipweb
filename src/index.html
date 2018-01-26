@@ -568,14 +568,13 @@
               </select>
             </div>
           </div>
-            <div class="content-split-item content-split-full">
-              <label for="list-search-search"><%= LN.get('search_string') %></label>
-              <span class="content-popover content-help"></span>
-              <div class="content-input">
-                <input id="list-search-search" class="form-control" type="text" placeholder="<%= LN.get('search') %>" value="<%- search %>" tabindex="200">
-                <i class="content-input-icon fas fa-search"></i>
-                <i id="list-search-search-clear" class="fas fa-times"></i>
-              </div>
+          <div class="content-split-item content-split-full">
+            <label for="list-search-search"><%= LN.get('search_query') %></label>
+            <span class="content-popover content-help"></span>
+            <div class="content-input">
+              <input id="list-search-search" class="form-control" type="text" placeholder="<%= LN.get('search') %>" value="<%- search %>" tabindex="200">
+              <i class="content-input-icon fas fa-search"></i>
+              <i id="list-search-search-clear" class="fas fa-times"></i>
             </div>
           </div>
         </div>
