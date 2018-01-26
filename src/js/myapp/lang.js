@@ -168,8 +168,8 @@ class Language {
 
       popover_list_search_group: 'You can group clips.',
       popover_list_search_sort: 'You can sort clips.',
-      popover_list_search_search: 'The string to be searched.<br>You can specify more than one blank separator.',
-      popover_list_search_search_type: 'This is the type of search when more than one is specified.',
+      popover_list_search_search: 'You can specify more than one blank separator.<br>You can specify the search target.<hr><div class="text-center">Available phrases</div><br>name: File name<br>type: File type<br>tags: Tag<br>owner_public: Owner public setting<br>clip_mode: clip share setting<br>created_at: Create date time<br>updated_at: Update date time<hr>例: name=test.txt<br>(Include test.txt in file name)',
+      popover_list_search_search_type: 'This is the type of search when more than one is specified.<hr>OR: If one matches.<br>AND: If all matches.<br>NOR: If one doesn\'t matches.<br>NAND: If all doesn\'t matches.<br>NAND: If only one matches.',
 
       popover_clip_new_filename: 'Please enter the name of the clip.<br>If you include a file extension, the file type is automatically selected.',
       popover_clip_new_filetype: 'Please select a file type.<br>Syntax highlighting according to the file type is applied in the editor.',
@@ -348,8 +348,8 @@ class Language {
 
       popover_list_search_group: 'クリップをグループに分けることができます。',
       popover_list_search_sort: 'クリップを並び替えることができます。',
-      popover_list_search_search: '検索する文字列です。<br>空白区切りで複数指定できます。',
-      popover_list_search_search_type: '複数指定した際の検索のタイプです。',
+      popover_list_search_search: '空白区切りで複数指定できます。<br>検索対象を指定できます。<hr><div class="text-center">使用可能語句</div><br>name：ファイル名<br>type：ファイル種別<br>tags：タグ<br>owner_public：オーナー公開設定<br>clip_mode：クリップ共有設定<br>created_at：作成日時<br>updated_at：更新日時<hr>例：name=test.txt<br>（ファイル名にtest.txtを含む）',
+      popover_list_search_search_type: '複数指定した際の検索のタイプです。<hr>OR：いずれかがマッチしたとき。<br>AND：全てがマッチしたとき。<br>NOR：いずれかがマッチしないとき。<br>NAND：全てがマッチしないとき。<br>XOR：一つのみマッチしたとき。',
 
       popover_clip_new_filename: 'クリップの名前を入力してください。<br>拡張子を含めると、ファイル種別が自動で選択されます。',
       popover_clip_new_filetype: 'ファイル種別を選択してください。<br>エディタで、ファイル種別に応じたシンタックスハイライトが適用されます。',
