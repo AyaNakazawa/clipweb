@@ -565,6 +565,11 @@
                 <% } else { %>
                   <option value="nand">NAND</option>
                 <% } %>
+                <% if (op == 'xor') { %>
+                  <option value="xor" selected>XOR</option>
+                <% } else { %>
+                  <option value="xor">XOR</option>
+                <% } %>
               </select>
             </div>
           </div>
