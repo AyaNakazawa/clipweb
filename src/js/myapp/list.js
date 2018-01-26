@@ -383,29 +383,148 @@ class ListController extends ClipwebController {
     const _SELECTOR_OP = this.MODEL.SELECTOR.SEARCH.SEARCH_OP;
     const _VALID = $(_SELECTOR)[0].validity.valid;
 
-    if (_VALID) {
-      this.MODEL.SEARCH = $(_SELECTOR).val();
-      this.MODEL.SEARCH_OP = $(`${_SELECTOR_OP} option:selected`).val();
-    } else {
+    if (!_VALID) {
       Log.error(arguments, 'input is invalid X(')();
       return;
     }
+
+    this.MODEL.SEARCH = $(_SELECTOR).val();
+    this.MODEL.SEARCH_OP = $(`${_SELECTOR_OP} option:selected`).val();
 
     // Filtering
     super.log('Filtering', `${this.MODEL.SEARCH}`)();
     LocalStorage.setItem(this.MODEL.LS.SEARCH, this.MODEL.SEARCH);
     LocalStorage.setItem(this.MODEL.LS.SEARCH_OP, this.MODEL.SEARCH_OP);
 
+    let _search = this.MODEL.SEARCH.replace(/\s+/, ' ');
+    _search = _search.split(' ');
+    let _searchItems = [];
+    for (let index in _search) {
+      _searchItems.push(_search[index]);
+    }
+
     this.MODEL.FILTERED_CLIPS = {};
-    Log.obj(this.MODEL.DOWNLOADED_CLIPS)();
     let _clips = this.MODEL.DOWNLOADED_CLIPS;
-    for (let index of Object.keys(_clips)) {
-      if (_clips[index]['clip_name'].indexOf(this.MODEL.SEARCH) >= 0) {
-        this.MODEL.FILTERED_CLIPS[_clips[index]['clip_hash']] = _clips[index];
+    let _types = FileTypes.get();
+    let _add = null;
+    let _temp = null;
+    let _temp2 = 0;
+    let _skip = null;
+    let _defineKeys = [
+      'name',
+      'type',
+      'tags',
+      'owner_public',
+      'clip_mode',
+      'created_at',
+      'updated_at'
+    ];
+    let _item = null;
+    for (let clipIndex of Object.keys(_clips)) {
+      // クリップごとにまわす
+      _skip = false;
+      switch (this.MODEL.SEARCH_OP) {
+        case 'or':
+          _add = false;
+          break;
+        case 'and':
+          _add = true;
+          break;
+        case 'nor':
+          _add = false;
+          break;
+        case 'nand':
+          _add = true;
+          break;
+        default:
+          Log.error(arguments, 'unknown search op', this.MODEL.SEARCH_OP)();
+          return;
+      }
+      for (let searchIndex of Object.keys(_searchItems)) {
+        // 空白区切りの検索ごとにまわす
+        let _searchItem = _searchItems[searchIndex].toLowerCase();
+        _temp = 0;
+        for (let keyIndex in _defineKeys) {
+          // クリップの項目ごとにまわす
+          if (_defineKeys[keyIndex] == 'type') {
+            _item = _types[_clips[clipIndex]['clip_type']]['name'].toLowerCase();
+          } else {
+            _item = _clips[clipIndex][`clip_${_defineKeys[keyIndex]}`].toLowerCase();
+          }
+          switch (this.MODEL.SEARCH_OP) {
+            case 'or':
+              if (_item.indexOf(_searchItem) >= 0) {
+                _temp ++;
+              } else if (_item.indexOf(_searchItem.replace(`${_defineKeys[keyIndex]}=`, '')) >= 0) {
+                _temp ++;
+              }
+              break;
+            case 'and':
+              if (_item.indexOf(_searchItem) < 0) {
+                _temp ++;
+              }
+              if (_item.indexOf(_searchItem.replace(`${_defineKeys[keyIndex]}=`, '')) < 0) {
+                _temp ++;
+              }
+              break;
+            case 'nor':
+              if (_item.indexOf(_searchItem) < 0) {
+                _temp ++;
+              }
+              if (_item.indexOf(_searchItem.replace(`${_defineKeys[keyIndex]}=`, '')) < 0) {
+                _temp ++;
+              }
+              break;
+            case 'nand':
+              if (_item.indexOf(_searchItem) >= 0) {
+                _temp ++;
+              } else if (_item.indexOf(_searchItem.replace(`${_defineKeys[keyIndex]}=`, '')) >= 0) {
+                _temp ++;
+              }
+              break;
+            default:
+              Log.error(arguments, 'unknown search op', this.MODEL.SEARCH_OP)();
+              return;
+          }
+        }
+        switch (this.MODEL.SEARCH_OP) {
+          case 'or':
+            if (_temp > 0) {
+              _add = true;
+              _skip = true;
+            }
+            break;
+          case 'and':
+            if (_temp == _defineKeys.length * 2) {
+              _add = false;
+              _skip = true;
+            }
+            break;
+          case 'nor':
+            if (_temp == _defineKeys.length * 2) {
+              _add = true;
+              _skip = true;
+            }
+            break;
+          case 'nand':
+            if (_temp > 0) {
+              _add = false;
+              _skip = true;
+            }
+            break;
+          default:
+            Log.error(arguments, 'unknown search op', this.MODEL.SEARCH_OP)();
+            return;
+        }
+        if (_skip) {
+          break;
+        }
+      }
+      if (_add) {
+        this.MODEL.FILTERED_CLIPS[_clips[clipIndex]['clip_hash']] = _clips[clipIndex];
         break;
       }
     }
-    Log.obj(this.MODEL.FILTERED_CLIPS)();
 
     this.grouping();
   }
