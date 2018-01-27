@@ -108,9 +108,10 @@ class ListView extends ClipwebView {
       selector: this.MODEL.SELECTOR.SEARCH.CLIPS,
       template: this.MODEL.TEMPLATE.SEARCH_CLIP,
       model: {
-        clips: this.MODEL.SORTED_CLIPS
+        clips: this.MODEL.GROUPED_CLIPS
       }
     });
+    this.show({ selector: this.MODEL.SELECTOR.SEARCH.CLIPS });
   }
 }
 
