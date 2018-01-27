@@ -192,6 +192,7 @@ class NavEvent extends ClipwebEvent {
               View.element({ element: 'li', content: LN.get('auto_login') }) +
               View.element({ element: 'li', content: LN.get('crypto_hash') }) +
               View.element({ element: 'li', content: LN.get('last_search') }) +
+              View.element({ element: 'li', content: LN.get('last_search_type') }) +
               View.element({ element: 'li', content: LN.get('last_search_group') }) +
               View.element({ element: 'li', content: LN.get('last_search_sort') }) +
               View.element({ element: 'li', content: LN.get('history_clip') })
