@@ -1,7 +1,6 @@
 
 やること
   #list-search-clips-template完成させる
-  js List filtering完成させる
   tabindexをエリアごとに分ける
   addAlertかupdateAlertをCommonViewにつくる
   →headerとかloadingも？
