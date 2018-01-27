@@ -569,6 +569,7 @@ class ListController extends ClipwebController {
       return 0;
     });
 
+    // タグを配列に分割
     let _temp_tags = null;
     for (let index in this.MODEL.SORTED_CLIPS) {
       _temp_tags = this.MODEL.SORTED_CLIPS[index]['clip_tags'];
@@ -906,6 +907,21 @@ class ListController extends ClipwebController {
         // SEARCH
         this.MODEL.DOWNLOADED_CLIPS = this.getAjaxData({ key: 'clips' });
         this.MODEL.DOWNLOADED_OWNERS = this.getAjaxData({ key: 'owners' });
+
+        // オーナーを格納
+        for (let index in this.MODEL.DOWNLOADED_CLIPS) {
+          if (this.MODEL.DOWNLOADED_CLIPS[index]['clip_owner_public'] == 'public') {
+            this.MODEL.DOWNLOADED_CLIPS[index]['clip_owner'] = LN.get('unknown');
+            for (let owner_index in this.MODEL.DOWNLOADED_OWNERS) {
+              if (this.MODEL.DOWNLOADED_CLIPS[index]['clip_owner_hash'] == this.MODEL.DOWNLOADED_OWNERS[owner_index]['hash']) {
+                this.MODEL.DOWNLOADED_CLIPS[index]['clip_owner'] = this.MODEL.DOWNLOADED_OWNERS[owner_index]['username'];
+              }
+            }
+          } else {
+            this.MODEL.DOWNLOADED_CLIPS[index]['clip_owner'] = LN.get('private');
+          }
+        }
+
         break;
 
       default:
