@@ -783,6 +783,7 @@ class ListController extends ClipwebController {
       Log.error(arguments)();
       return;
     }
+    super.log(hash.substr(0, 14), 'edit', Log.ARROW_INPUT)();
   }
 
   delete ({
@@ -792,6 +793,7 @@ class ListController extends ClipwebController {
       Log.error(arguments)();
       return;
     }
+    super.log(hash.substr(0, 14), 'delete', Log.ARROW_INPUT)();
   }
 
   setting ({
@@ -801,6 +803,7 @@ class ListController extends ClipwebController {
       Log.error(arguments)();
       return;
     }
+    super.log(hash.substr(0, 14), 'setting', Log.ARROW_INPUT)();
   }
 
   // ----------------------------------------------------------------
