@@ -77,14 +77,15 @@ class ListModel extends ClipwebModel {
     this.SELECTOR.SEARCH.CLIPS = '#list-search-clips';
 
     // グループ
-    this.SELECTOR.SEARCH.GROUPS = '#list-search-groups';
+    this.SELECTOR.SEARCH.GROUP_HEADER = '.list-search-group-header';
+    this.SELECTOR.SEARCH.GROUP_CLIPS = '.list-search-group-clips';
 
     // クリップ
-    this.SELECTOR.SEARCH.CLIP = {};
-    this.SELECTOR.SEARCH.CLIP.AREA = '#list-search-clip-area';
-    this.SELECTOR.SEARCH.CLIP.EDIT = '#list-search-clip-edit';
-    this.SELECTOR.SEARCH.CLIP.DELETE = '#list-search-clip-delete';
-    this.SELECTOR.SEARCH.CLIP.SETTING = '#list-search-clip-setting';
+    this.SELECTOR.SEARCH.CLIP_MAIN = '.list-search-clip-main';
+    this.SELECTOR.SEARCH.CLIP_DETAIL = '.list-search-clip-detail';
+    this.SELECTOR.SEARCH.CLIP_EDIT = '.list-search-clip-edit';
+    this.SELECTOR.SEARCH.CLIP_DELETE = '.list-search-clip-delete';
+    this.SELECTOR.SEARCH.CLIP_SETTING = '.list-search-clip-setting';
   }
 }
 
