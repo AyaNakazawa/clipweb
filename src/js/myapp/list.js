@@ -382,9 +382,25 @@ class ListController extends ClipwebController {
     LocalStorage.setItem(this.MODEL.LS.ORDER, this.MODEL.ORDER);
 
     super.log('Sorting...', this.MODEL.FILTERED_CLIPS, Log.ARROW_INPUT)();
-    this.MODEL.SORTED_CLIPS = [];
+    this.MODEL.SORTED_CLIPS = this.MODEL.FILTERED_CLIPS;
 
+    this.MODEL.SORTED_CLIPS.sort((a, b) => {
+      const _KEY_A = a[`clip_${this.MODEL.SORT}`].toLowerCase();
+      const _KEY_B = b[`clip_${this.MODEL.SORT}`].toLowerCase();
 
+      if (_KEY_A > _KEY_B) {
+        if (this.MODEL.ORDER == 'desc') {
+          return -1;
+        }
+        return 1;
+      } else if (_KEY_A < _KEY_B) {
+        if (this.MODEL.ORDER == 'desc') {
+          return 1;
+        }
+        return -1;
+      }
+      return 0;
+    });
 
     super.log('Sorted!', this.MODEL.SORTED_CLIPS)();
     this.grouping();
