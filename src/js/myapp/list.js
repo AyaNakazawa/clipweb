@@ -338,8 +338,174 @@ class ListController extends ClipwebController {
 
     super.log('Grouping...', this.MODEL.SORTED_CLIPS, Log.ARROW_INPUT)();
     this.MODEL.GROUPED_CLIPS = [];
+    let _sortedClips = _.cloneDeep(this.MODEL.SORTED_CLIPS);
+    let _fileTypes = FileTypes.get();
 
+    let _groupSort = () => {
+      this.MODEL.GROUPED_CLIPS.sort((a, b) => {
+        const _KEY_A = a['key'].toLowerCase();
+        const _KEY_B = b['key'].toLowerCase();
 
+        if (_KEY_A > _KEY_B) {
+          if (this.MODEL.SORT == this.MODEL.GROUP && this.MODEL.ORDER == 'desc') {
+            return -1;
+          }
+          return 1;
+        } else if (_KEY_A < _KEY_B) {
+          if (this.MODEL.SORT == this.MODEL.GROUP && this.MODEL.ORDER == 'desc') {
+            return 1;
+          }
+          return -1;
+        }
+        return 0;
+      });
+    };
+
+    // グループ作成
+    if (this.MODEL.GROUP == 'none') {
+      // グループなし
+      this.MODEL.GROUPED_CLIPS = [
+        { name: LN.get('all'), key: '', clips: [] }
+      ];
+    } else if (this.MODEL.GROUP.indexOf('_at') >= 0) {
+      // 日付系
+      this.MODEL.GROUPED_CLIPS = [
+        { name: LN.get('within_1_week'), key: '0', clips: [] },
+        { name: LN.get('within_1_month'), key: '1', clips: [] },
+        { name: LN.get('within_3_month'), key: '2', clips: [] },
+        { name: LN.get('within_6_month'), key: '3', clips: [] },
+        { name: LN.get('within_1_year'), key: '4', clips: [] },
+        { name: LN.get('over_1_year_ago'), key: '5', clips: [] }
+      ];
+      _groupSort();
+    } else if (this.MODEL.GROUP == 'tags') {
+      // タグ
+      let _add = null;
+      let _add_tag = null;
+      for (let index in _sortedClips) {
+        _add = true;
+        for (let tag_index in _sortedClips[index]['clip_tags']) {
+          for (let group_index in this.MODEL.GROUPED_CLIPS) {
+            if (this.MODEL.GROUPED_CLIPS[group_index]['name'] == _sortedClips[index]['clip_tags'][tag_index]) {
+              _add = false;
+              break;
+            }
+          }
+          if (_add) {
+            this.MODEL.GROUPED_CLIPS.push({ name: _sortedClips[index]['clip_tags'][tag_index], key: _sortedClips[index]['clip_tags'][tag_index], clips: [] });
+          }
+        }
+      }
+      _groupSort();
+    } else if (this.MODEL.GROUP == 'type') {
+      // ファイルタイプ
+      let _add = null;
+      for (let index in _sortedClips) {
+        _add = true;
+        for (let group_index in this.MODEL.GROUPED_CLIPS) {
+          if (this.MODEL.GROUPED_CLIPS[group_index]['name'] == _fileTypes[_sortedClips[index][`clip_${this.MODEL.GROUP}`]]['name']) {
+            _add = false;
+            break;
+          }
+        }
+        if (_add) {
+          this.MODEL.GROUPED_CLIPS.push({ name: _fileTypes[_sortedClips[index][`clip_${this.MODEL.GROUP}`]]['name'], key: _fileTypes[_sortedClips[index][`clip_${this.MODEL.GROUP}`]]['name'], clips: [] });
+        }
+      }
+      _groupSort();
+    } else {
+      // その他
+      let _add = null;
+      for (let index in _sortedClips) {
+        _add = true;
+        for (let group_index in this.MODEL.GROUPED_CLIPS) {
+          if (this.MODEL.GROUPED_CLIPS[group_index]['name'] == _sortedClips[index][`clip_${this.MODEL.GROUP}`]) {
+            _add = false;
+            break;
+          }
+        }
+        if (_add) {
+          this.MODEL.GROUPED_CLIPS.push({ name: _sortedClips[index][`clip_${this.MODEL.GROUP}`], key: _sortedClips[index][`clip_${this.MODEL.GROUP}`], clips: [] });
+        }
+      }
+      _groupSort();
+    }
+
+    // クリップをグループに追加
+    if (this.MODEL.GROUP == 'none') {
+      // グループなし
+      for (let index in _sortedClips) {
+        this.MODEL.GROUPED_CLIPS[0]['clips'].push(_sortedClips[index]);
+      }
+    } else if (this.MODEL.GROUP.indexOf('_at') >= 0) {
+      // 日付系
+      let _push = null;
+      let _clipDate = null;
+      let _nowDate = new Date();
+      let _diffDate = [
+        new Date().setDate(_nowDate.getDate() - 7),
+        new Date().setMonth(_nowDate.getMonth() - 1),
+        new Date().setMonth(_nowDate.getMonth() - 3),
+        new Date().setMonth(_nowDate.getMonth() - 6),
+        new Date().setFullYear(_nowDate.getFullYear() - 1),
+      ];
+      for (let index in _sortedClips) {
+        _push = false;
+        _clipDate = new Date(_sortedClips[index][`clip_${this.MODEL.GROUP}`]);
+        _clipDate = new Date(_clipDate).setDate(_clipDate.getDate());
+        for (let group_index in _diffDate) {
+          if (_clipDate > _diffDate[group_index]) {
+            if (this.MODEL.SORT == this.MODEL.GROUP && this.MODEL.ORDER == 'desc') {
+              this.MODEL.GROUPED_CLIPS[5 - group_index]['clips'].push(_sortedClips[index]);
+            } else {
+              this.MODEL.GROUPED_CLIPS[group_index]['clips'].push(_sortedClips[index]);
+            }
+            _push = true;
+            break;
+          }
+        }
+        if (!_push) {
+          this.MODEL.GROUPED_CLIPS[5]['clips'].push(_sortedClips[index]);
+        }
+      }
+    } else if (this.MODEL.GROUP == 'tags') {
+      // タグ
+      for (let index in _sortedClips) {
+        for (let group_index in this.MODEL.GROUPED_CLIPS) {
+          if (_sortedClips[index][`clip_${this.MODEL.GROUP}`].includes(this.MODEL.GROUPED_CLIPS[group_index]['name'])) {
+            this.MODEL.GROUPED_CLIPS[group_index]['clips'].push(_sortedClips[index]);
+          }
+        }
+      }
+    } else if (this.MODEL.GROUP == 'type') {
+      // ファイルタイプ
+      for (let index in _sortedClips) {
+        for (let group_index in this.MODEL.GROUPED_CLIPS) {
+          if (this.MODEL.GROUPED_CLIPS[group_index]['name'] == _fileTypes[_sortedClips[index][`clip_${this.MODEL.GROUP}`]]['name']) {
+            this.MODEL.GROUPED_CLIPS[group_index]['clips'].push(_sortedClips[index]);
+            break;
+          }
+        }
+      }
+    } else {
+      // その他
+      for (let index in _sortedClips) {
+        for (let group_index in this.MODEL.GROUPED_CLIPS) {
+          if (this.MODEL.GROUPED_CLIPS[group_index]['name'] == _sortedClips[index][`clip_${this.MODEL.GROUP}`]) {
+            this.MODEL.GROUPED_CLIPS[group_index]['clips'].push(_sortedClips[index]);
+            break;
+          }
+        }
+      }
+    }
+
+    // クリップがないグループを削除
+    let _length = this.MODEL.GROUPED_CLIPS.length;
+    for (let index = 1; index <= _length; index ++) {
+      if (this.MODEL.GROUPED_CLIPS[_length - index]['clips'].length == 0) {
+        this.MODEL.GROUPED_CLIPS.splice(_length - index, 1);
+      }
+    }
 
     super.log('Grouped!', this.MODEL.GROUPED_CLIPS)();
     this.VIEW.generateGroups();
