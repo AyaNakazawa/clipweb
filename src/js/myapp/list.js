@@ -426,7 +426,11 @@ class ListController extends ClipwebController {
           }
         }
         if (_add) {
-          this.MODEL.GROUPED_CLIPS.push({ name: _sortedClips[index][`clip_${this.MODEL.GROUP}`], key: _sortedClips[index][`clip_${this.MODEL.GROUP}`], clips: [] });
+          if (this.MODEL.GROUP == 'owner_public' || this.MODEL.GROUP == 'clip_mode') {
+            this.MODEL.GROUPED_CLIPS.push({ name: LN.get(_sortedClips[index][`clip_${this.MODEL.GROUP}`]), key: _sortedClips[index][`clip_${this.MODEL.GROUP}`], clips: [] });
+          } else {
+            this.MODEL.GROUPED_CLIPS.push({ name: _sortedClips[index][`clip_${this.MODEL.GROUP}`], key: _sortedClips[index][`clip_${this.MODEL.GROUP}`], clips: [] });
+          }
         }
       }
       _groupSort();
@@ -492,9 +496,16 @@ class ListController extends ClipwebController {
       // その他
       for (let index in _sortedClips) {
         for (let group_index in this.MODEL.GROUPED_CLIPS) {
-          if (this.MODEL.GROUPED_CLIPS[group_index]['name'] == _sortedClips[index][`clip_${this.MODEL.GROUP}`]) {
-            this.MODEL.GROUPED_CLIPS[group_index]['clips'].push(_sortedClips[index]);
-            break;
+          if (this.MODEL.GROUP == 'owner_public' || this.MODEL.GROUP == 'clip_mode') {
+            if (this.MODEL.GROUPED_CLIPS[group_index]['name'] == LN.get(_sortedClips[index][`clip_${this.MODEL.GROUP}`])) {
+              this.MODEL.GROUPED_CLIPS[group_index]['clips'].push(_sortedClips[index]);
+              break;
+            }
+          } else {
+            if (this.MODEL.GROUPED_CLIPS[group_index]['name'] == _sortedClips[index][`clip_${this.MODEL.GROUP}`]) {
+              this.MODEL.GROUPED_CLIPS[group_index]['clips'].push(_sortedClips[index]);
+              break;
+            }
           }
         }
       }
