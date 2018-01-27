@@ -383,8 +383,8 @@ class ListController extends ClipwebController {
       let _add = null;
       let _add_tag = null;
       for (let index in _sortedClips) {
-        _add = true;
         for (let tag_index in _sortedClips[index]['clip_tags']) {
+          _add = true;
           for (let group_index in this.MODEL.GROUPED_CLIPS) {
             if (this.MODEL.GROUPED_CLIPS[group_index]['name'] == _sortedClips[index]['clip_tags'][tag_index]) {
               _add = false;
