@@ -606,7 +606,7 @@
           <div class="list-search-group-clips" style="display: none;">
             <% for (let clip_index in clips[index]['clips'] ) { %>
               <div class="list-search-clip">
-                <div class="list-search-clip-main">
+                <div class="list-search-clip-main" id="<%= clips[index]['clips'][clip_index]['clip_hash'] %>">
                   <div class="list-search-clip-name">
                     <%= clips[index]['clips'][clip_index]['clip_name'] %>
                   </div>
