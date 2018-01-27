@@ -402,6 +402,18 @@ class ListController extends ClipwebController {
       return 0;
     });
 
+    let _temp_tags = null;
+    for (let index in this.MODEL.SORTED_CLIPS) {
+      _temp_tags = this.MODEL.SORTED_CLIPS[index]['clip_tags'];
+      _temp_tags = _temp_tags.replace(/\s+/g, ' ');
+      _temp_tags = _temp_tags.replace(/,\s/g, ' ');
+      _temp_tags = _temp_tags.split(' ');
+      if (_temp_tags[0] == '' && _temp_tags.length == 1) {
+        _temp_tags = [];
+      }
+      this.MODEL.SORTED_CLIPS[index]['clip_tags'] = _temp_tags;
+    }
+
     super.log('Sorted!', this.MODEL.SORTED_CLIPS)();
     this.grouping();
   }
