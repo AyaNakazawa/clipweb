@@ -823,7 +823,7 @@ class ListController extends ClipwebController {
       return;
     }
     super.log(hash.substr(0, 14), 'setting', Log.ARROW_INPUT)();
-    CLIP.connectSetting(this.MODEL.TYPE.OPEN, hash);
+    CLIP.connectSetting(this.MODEL.TYPE.LOAD, hash);
   }
 
   // ----------------------------------------------------------------

@@ -309,7 +309,7 @@ class ClipController extends ClipwebController {
     const _TYPE = this.MODEL.TYPE.SETTING;
     const _FAILED = `failed_to_${type.toLowerCase()}_clip_setting`;
     let _success_message = null;
-    if (type == this.MODEL.TYPE.OPEN) {
+    if (type == this.MODEL.TYPE.LOAD) {
       if (hash == null) {
         Log.error(arguments)();
         return;
@@ -377,8 +377,8 @@ class ClipController extends ClipwebController {
 
     // Post
     this.post({
-      type: _TYPE,
-      data: this.getSendModel(_TYPE)
+      type: type,
+      data: this.getSendModel(type)
     });
   }
 
@@ -473,7 +473,7 @@ class ClipController extends ClipwebController {
         this.MODEL.HASH = this.getAjaxData({ key: 'hash' });
         break;
 
-      case this.MODEL.TYPE.OPEN:
+      case this.MODEL.TYPE.LOAD:
       case this.MODEL.TYPE.SETTING:
         // SETTING
         this.MODEL.CLIP = this.getAjaxData({ key: 'clip' });
@@ -514,13 +514,14 @@ class ClipController extends ClipwebController {
         _model['clip_mode'] = this.MODEL.CLIP_MODE;
         break;
 
-      case this.MODEL.TYPE.OPEN:
-        // OPEN
+      case this.MODEL.TYPE.LOAD:
+        // LOAD
         _model['hash'] = this.MODEL.HASH;
         break;
 
       case this.MODEL.TYPE.SETTING:
         // SETTING
+        _model['hash'] = this.MODEL.HASH;
         _model['filename'] = this.MODEL.FILENAME;
         _model['filetype'] = this.MODEL.FILETYPE;
         _model['tags'] = this.MODEL.TAGS;
