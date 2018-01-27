@@ -44,9 +44,9 @@ class ListModel extends ClipwebModel {
 
     // クリップ
     this.DOWNLOADED_CLIPS = {};
-    this.FILTERED_CLIPS = {};
-    this.GROUPED_CLIPS = {};
-    this.SORTED_CLIPS = {};
+    this.FILTERED_CLIPS = [];
+    this.GROUPED_CLIPS = [];
+    this.SORTED_CLIPS = [];
 
     // ----------------------------------------------------------------
     // テンプレート
@@ -336,8 +336,8 @@ class ListController extends ClipwebController {
     super.log('Grouping', this.MODEL.GROUP)();
     LocalStorage.setItem(this.MODEL.LS.GROUP, this.MODEL.GROUP);
 
-    super.log('Grouping...', this.MODEL.SORTED_CLIPS)();
-    this.MODEL.GROUPED_CLIPS = {};
+    super.log('Grouping...', this.MODEL.SORTED_CLIPS, Log.ARROW_INPUT)();
+    this.MODEL.GROUPED_CLIPS = [];
 
 
 
@@ -381,8 +381,8 @@ class ListController extends ClipwebController {
     LocalStorage.setItem(this.MODEL.LS.SORT, this.MODEL.SORT);
     LocalStorage.setItem(this.MODEL.LS.ORDER, this.MODEL.ORDER);
 
-    super.log('Sorting...', this.MODEL.FILTERED_CLIPS)();
-    this.MODEL.SORTED_CLIPS = {};
+    super.log('Sorting...', this.MODEL.FILTERED_CLIPS, Log.ARROW_INPUT)();
+    this.MODEL.SORTED_CLIPS = [];
 
 
 
@@ -404,11 +404,11 @@ class ListController extends ClipwebController {
     this.MODEL.SEARCH_OP = $(`${_SELECTOR_OP} option:selected`).val();
 
     // Filtering
-    super.log('Filtering', `${this.MODEL.SEARCH}`)();
+    super.log('Filtering', `${this.MODEL.SEARCH_OP.toUpperCase()}: ${this.MODEL.SEARCH}`)();
     LocalStorage.setItem(this.MODEL.LS.SEARCH, this.MODEL.SEARCH);
     LocalStorage.setItem(this.MODEL.LS.SEARCH_OP, this.MODEL.SEARCH_OP);
 
-    super.log('Filtering...', this.MODEL.DOWNLOADED_CLIPS)();
+    super.log('Filtering...', this.MODEL.DOWNLOADED_CLIPS, Log.ARROW_INPUT)();
 
     let _search = this.MODEL.SEARCH.replace(/\s+/, ' ');
     _search = _search.split(' ');
@@ -417,7 +417,7 @@ class ListController extends ClipwebController {
       _searchItems.push(_search[index]);
     }
 
-    this.MODEL.FILTERED_CLIPS = {};
+    this.MODEL.FILTERED_CLIPS = [];
     let _clips = this.MODEL.DOWNLOADED_CLIPS;
     let _types = FileTypes.get();
     let _add = null;
@@ -555,7 +555,7 @@ class ListController extends ClipwebController {
         }
       }
       if (_add) {
-        this.MODEL.FILTERED_CLIPS[_clips[clipIndex]['clip_hash']] = _clips[clipIndex];
+        this.MODEL.FILTERED_CLIPS.push(_clips[clipIndex]);
         break;
       }
     }
