@@ -949,6 +949,7 @@ class ListController extends ClipwebController {
         this.MODEL.DOWNLOADED_OWNERS = this.getAjaxData({ key: 'owners' });
 
         // オーナーを格納
+        this.MODEL.NAMED_CLIPS = {};
         for (let index in this.MODEL.DOWNLOADED_CLIPS) {
           if (this.MODEL.DOWNLOADED_CLIPS[index]['clip_owner_public'] == 'public' || this.MODEL.DOWNLOADED_CLIPS[index]['clip_owner_hash'] == USER.MODEL.HASH.USER) {
             this.MODEL.DOWNLOADED_CLIPS[index]['clip_owner'] = LN.get('unknown');
@@ -960,7 +961,9 @@ class ListController extends ClipwebController {
           } else {
             this.MODEL.DOWNLOADED_CLIPS[index]['clip_owner'] = LN.get('private');
           }
+          this.MODEL.NAMED_CLIPS[this.MODEL.DOWNLOADED_CLIPS[index]['clip_hash']] = _.cloneDeep(this.MODEL.DOWNLOADED_CLIPS[index]);
         }
+        super.log('Named!', this.MODEL.NAMED_CLIPS)();
 
         break;
 
