@@ -712,7 +712,9 @@ class CommonView extends CommonClass {
       Log.error(arguments)();
       return;
     }
-    super.log(selector, view, Log.ARROW_INPUT)();
+    if (Object.typeIs('String', selector)) {
+      super.log(selector, view, Log.ARROW_INPUT)();
+    }
 
     // skip
     this.skip(selector);
