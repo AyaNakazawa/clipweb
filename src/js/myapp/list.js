@@ -400,7 +400,7 @@ class ListController extends ClipwebController {
       return;
     }
 
-    this.MODEL.SEARCH = $(_SELECTOR).val();
+    this.MODEL.SEARCH = $(_SELECTOR).val().trim();
     this.MODEL.SEARCH_OP = $(`${_SELECTOR_OP} option:selected`).val();
 
     // Filtering
@@ -556,7 +556,6 @@ class ListController extends ClipwebController {
       }
       if (_add) {
         this.MODEL.FILTERED_CLIPS.push(_clips[clipIndex]);
-        break;
       }
     }
 
