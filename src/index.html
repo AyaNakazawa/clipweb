@@ -448,6 +448,11 @@
                 <% } else { %>
                   <option value="tags"><%= LN.get('tags') %></option>
                 <% } %>
+                <% if (group == 'owner') { %>
+                  <option value="owner" selected><%= LN.get('owner') %></option>
+                <% } else { %>
+                  <option value="owner"><%= LN.get('owner') %></option>
+                <% } %>
                 <% if (group == 'owner_public') { %>
                   <option value="owner_public" selected><%= LN.get('owner_public') %></option>
                 <% } else { %>
@@ -486,6 +491,11 @@
                     <option value="type" selected><%= LN.get('type') %></option>
                   <% } else { %>
                     <option value="type"><%= LN.get('type') %></option>
+                  <% } %>
+                  <% if (sort == 'owner') { %>
+                    <option value="owner" selected><%= LN.get('owner') %></option>
+                  <% } else { %>
+                    <option value="owner"><%= LN.get('owner') %></option>
                   <% } %>
                   <% if (sort == 'owner_public') { %>
                     <option value="owner_public" selected><%= LN.get('owner_public') %></option>
