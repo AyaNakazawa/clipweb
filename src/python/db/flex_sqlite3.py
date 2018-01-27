@@ -649,7 +649,7 @@ class FlexSQLite3:
 
                 # Slice " and "
                 if len(where.keys()) > 0:
-                    query_where = query_where[0:-5]
+                    query_where = query_where[0:-2 - len(where_type)]
 
             elif where is None:
                 # None
