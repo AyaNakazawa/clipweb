@@ -824,17 +824,26 @@ class ListController extends ClipwebController {
                 model: super.getErrorModel('fsql', _FAILED, _ERROR)
               });
             } else {
-              // 取得成功
-              this.MODEL.STATUS.GET = true;
-              this.CONTROLLER.applyReceiveModel(_TYPE);
-              this.open({
-                type: _TYPE,
-                model: {
-                  alertMessage:
-                    View.element({ content: LN.get('clip_list_got') })
-                },
-              });
-              this.filtering();
+              if (typeof this.getAjaxData({ key: 'owners' })['flex sqlite3 error'] != 'undefined') {
+                // Flex SQLite3 エラー
+                const _ERROR = this.getAjaxData({ key: 'owners' })['flex sqlite3 error'];
+                this.open({
+                  type: _TYPE,
+                  model: super.getErrorModel('fsql', _FAILED, _ERROR)
+                });
+              } else {
+                // 取得成功
+                this.MODEL.STATUS.GET = true;
+                this.CONTROLLER.applyReceiveModel(_TYPE);
+                this.open({
+                  type: _TYPE,
+                  model: {
+                    alertMessage:
+                      View.element({ content: LN.get('clip_list_got') })
+                  },
+                });
+                this.filtering();
+              }
             }
           }
         }
@@ -896,6 +905,7 @@ class ListController extends ClipwebController {
       case this.MODEL.TYPE.SEARCH:
         // SEARCH
         this.MODEL.DOWNLOADED_CLIPS = this.getAjaxData({ key: 'clips' });
+        this.MODEL.DOWNLOADED_OWNERS = this.getAjaxData({ key: 'owners' });
         break;
 
       default:
