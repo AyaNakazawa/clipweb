@@ -55,7 +55,6 @@
         margin: 0.2rem;
 
         .list-search-clip {
-          padding: 0.35rem 1rem;
           border-radius: 4px;
           cursor: pointer;
           @include border-c(all, #fff);
@@ -66,6 +65,7 @@
           }
 
           .list-search-clip-main {
+            padding: 0.35rem 1rem;
             display: flex;
             align-items: baseline;
 
@@ -76,6 +76,7 @@
 
           .list-search-clip-detail {
             margin-top: 0.4rem;
+            padding: 0 0.5rem;
 
             .list-search-clip-detail-control {
               margin-bottom: 0.4rem;

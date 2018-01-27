@@ -505,7 +505,6 @@ body:before {
     #list-area #list-search-clips .list-search-group .list-search-group-clips {
       margin: 0.2rem; }
       #list-area #list-search-clips .list-search-group .list-search-group-clips .list-search-clip {
-        padding: 0.35rem 1rem;
         border-radius: 4px;
         cursor: pointer;
         border: 2px solid #fff; }
@@ -513,12 +512,14 @@ body:before {
           background: #fffafa;
           border: 2px solid #888; }
         #list-area #list-search-clips .list-search-group .list-search-group-clips .list-search-clip .list-search-clip-main {
+          padding: 0.35rem 1rem;
           display: flex;
           align-items: baseline; }
           #list-area #list-search-clips .list-search-group .list-search-group-clips .list-search-clip .list-search-clip-main .list-search-clip-name {
             flex-grow: 1; }
         #list-area #list-search-clips .list-search-group .list-search-group-clips .list-search-clip .list-search-clip-detail {
-          margin-top: 0.4rem; }
+          margin-top: 0.4rem;
+          padding: 0 0.5rem; }
           #list-area #list-search-clips .list-search-group .list-search-group-clips .list-search-clip .list-search-clip-detail .list-search-clip-detail-control {
             margin-bottom: 0.4rem; }
         #list-area #list-search-clips .list-search-group .list-search-group-clips .list-search-clip .list-search-clip-date {
