@@ -52,6 +52,8 @@ class Language {
       setting: 'Setting',
       info: 'Info',
 
+      column: 'Column',
+      value: 'Value',
       none: 'None',
       all: 'All',
       name: 'Name',
@@ -62,6 +64,7 @@ class Language {
       clip_new_create: 'New clip',
       reload: 'Reload',
       update: 'Update',
+      create: 'Create',
       new: 'New',
       edit: 'Edit',
       delete: 'Delete',
@@ -242,6 +245,8 @@ class Language {
       setting: '設定',
       info: '情報',
 
+      column: 'カラム',
+      value: '値',
       none: 'なし',
       all: '全て',
       name: '名前',
@@ -252,6 +257,7 @@ class Language {
       clip_new_create: 'クリップの新規作成',
       reload: '再読込',
       update: '更新',
+      create: '作成',
       new: '新規',
       edit: '編集',
       delete: '削除',
