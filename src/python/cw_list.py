@@ -115,6 +115,37 @@ class List(cw_base.Base):
             cls.result["error"] = cls._error("clip_not_exists")
             return cls.result
 
+        _where_items = []
+        for _clip in cls.result["clips"]:
+            if _clip["clip_owner_public"] == "public":
+                _where_items.append(_clip["clip_owner_hash"])
+
+        _where_items = list(set(_where_items))
+
+        _where = ""
+        for _hash in _where_items:
+            _where += "hash = '{hash}' OR ".format(**{
+                "hash": _hash
+            })
+
+        if len(_where_items) > 0:
+            _where = _where[0:-4]
+
+        # ----------------------------------------------------------------
+        # select owner data
+        cls.result["owners"] = cls.DB.select(
+            table="owners",
+            column=[
+                "hash",
+                "username"
+            ],
+            where=_where
+        )
+
+        if len(cls.result["owners"]) == 0:
+            cls.result["error"] = cls._error("owner_not_exists")
+            return cls.result
+
         # ----------------------------------------------------------------
         # return
 
