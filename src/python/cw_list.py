@@ -116,6 +116,7 @@ class List(cw_base.Base):
             return cls.result
 
         _where_items = []
+        _where_items.append(user_hash)
         for _clip in cls.result["clips"]:
             if _clip["clip_owner_public"] == "public":
                 _where_items.append(_clip["clip_owner_hash"])
