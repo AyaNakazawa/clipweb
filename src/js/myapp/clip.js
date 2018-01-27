@@ -68,13 +68,14 @@ class ClipModel extends ClipwebModel {
 
     // 設定
     this.SELECTOR.SETTING = {};
-    this.SELECTOR.SETTING.EDIT = '#clip-setting-edit';
-    this.SELECTOR.SETTING.DELETE = '#clip-setting-delete';
-    this.SELECTOR.SETTING.NAME = '#clip-setting-name';
-    this.SELECTOR.SETTING.TYPE = '#clip-setting-type';
+    this.SELECTOR.SETTING.FILENAME = '#clip-setting-filename';
+    this.SELECTOR.SETTING.FILETYPE = '#clip-setting-filetype';
+    this.SELECTOR.SETTING.TAGS = '#clip-setting-tags';
     this.SELECTOR.SETTING.OWNER_PUBLIC = '#clip-setting-owner-public';
     this.SELECTOR.SETTING.CLIP_MODE = '#clip-setting-clip-mode';
     this.SELECTOR.SETTING.USERS = '#clip-setting-users';
+    this.SELECTOR.SETTING.EDIT = '#clip-setting-edit';
+    this.SELECTOR.SETTING.DELETE = '#clip-setting-delete';
     this.SELECTOR.SETTING.SAVE = '#clip-setting-save';
 
     // 権限設定
