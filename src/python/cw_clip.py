@@ -126,10 +126,10 @@ class Clip(cw_base.Base):
             return cls.result
 
         # ----------------------------------------------------------------
-        # check overlap user info
+        # check overlap clip info
 
         num_hash_overlap = cls.DB.count_records(table="clips", where={
-            "hash": user_hash
+            "hash": clip_hash
         })
 
         if num_hash_overlap > 0:
