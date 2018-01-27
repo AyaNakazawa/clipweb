@@ -164,9 +164,25 @@ class ClipEvent extends ClipwebEvent {
 
   setOnSetting () {
     super.setOn({
-      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.UPDATE}`,
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.EDIT}`,
       func: () => {
-        super.log('Clip', 'Update')();
+        super.log('Clip', 'Edit')();
+        this.CONTROLLER.edit();
+      }
+    });
+
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.DELETE}`,
+      func: () => {
+        super.log('Clip', 'Delete')();
+        this.CONTROLLER.delete();
+      }
+    });
+
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.SAVE}`,
+      func: () => {
+        super.log('Clip', 'Save')();
         this.CONTROLLER.connectSetting();
       }
     });
@@ -181,6 +197,10 @@ class ClipEvent extends ClipwebEvent {
         });
       }
     });
+
+    super.setValidate(
+      this.MODEL.SELECTOR.SETTING.FILENAME
+    );
   }
 }
 
