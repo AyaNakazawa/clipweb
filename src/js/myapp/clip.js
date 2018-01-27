@@ -355,7 +355,10 @@ class ClipController extends ClipwebController {
                 });
               } else {
                 // 取得成功
-                LIST.loadClip();
+                if (type == this.MODEL.TYPE.SETTING) {
+                  LIST.loadClip();
+                }
+                this.applyReceiveModel(type);
                 this.VIEW.move({
                   target: LIST.MODEL.SELECTOR.AREA,
                   mode: this.MODEL.COMMON.TYPE.AFTER
