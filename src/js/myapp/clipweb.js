@@ -51,6 +51,10 @@ class ClipwebModel extends CommonModel {
     this.TIMING.SUCCESS = 'success';
 
     // ----------------------------------------------------------------
+    // データ
+    this.FILETYPES = FileTypes.get();
+
+    // ----------------------------------------------------------------
     // 時間
     this.TIME = {};
     this.TIME.POST = new Date();

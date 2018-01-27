@@ -111,6 +111,7 @@ class ListView extends ClipwebView {
       selector: this.MODEL.SELECTOR.SEARCH.CLIPS,
       template: this.MODEL.TEMPLATE.SEARCH_CLIP,
       model: {
+        filetypes: this.MODEL.FILETYPES,
         clips: this.MODEL.GROUPED_CLIPS
       }
     });
@@ -362,7 +363,6 @@ class ListController extends ClipwebController {
     super.log('Grouping...', this.MODEL.SORTED_CLIPS, Log.ARROW_INPUT)();
     this.MODEL.GROUPED_CLIPS = [];
     let _sortedClips = _.cloneDeep(this.MODEL.SORTED_CLIPS);
-    let _fileTypes = FileTypes.get();
 
     let _groupSort = () => {
       this.MODEL.GROUPED_CLIPS.sort((a, b) => {
@@ -426,13 +426,13 @@ class ListController extends ClipwebController {
       for (let index in _sortedClips) {
         _add = true;
         for (let group_index in this.MODEL.GROUPED_CLIPS) {
-          if (this.MODEL.GROUPED_CLIPS[group_index]['name'] == _fileTypes[_sortedClips[index][`clip_${this.MODEL.GROUP}`]]['name']) {
+          if (this.MODEL.GROUPED_CLIPS[group_index]['name'] == this.MODEL.FILETYPES[_sortedClips[index][`clip_${this.MODEL.GROUP}`]]['name']) {
             _add = false;
             break;
           }
         }
         if (_add) {
-          this.MODEL.GROUPED_CLIPS.push({ name: _fileTypes[_sortedClips[index][`clip_${this.MODEL.GROUP}`]]['name'], key: _fileTypes[_sortedClips[index][`clip_${this.MODEL.GROUP}`]]['name'], clips: [] });
+          this.MODEL.GROUPED_CLIPS.push({ name: this.MODEL.FILETYPES[_sortedClips[index][`clip_${this.MODEL.GROUP}`]]['name'], key: this.MODEL.FILETYPES[_sortedClips[index][`clip_${this.MODEL.GROUP}`]]['name'], clips: [] });
         }
       }
       _groupSort();
@@ -508,7 +508,7 @@ class ListController extends ClipwebController {
       // ファイルタイプ
       for (let index in _sortedClips) {
         for (let group_index in this.MODEL.GROUPED_CLIPS) {
-          if (this.MODEL.GROUPED_CLIPS[group_index]['name'] == _fileTypes[_sortedClips[index][`clip_${this.MODEL.GROUP}`]]['name']) {
+          if (this.MODEL.GROUPED_CLIPS[group_index]['name'] == this.MODEL.FILETYPES[_sortedClips[index][`clip_${this.MODEL.GROUP}`]]['name']) {
             this.MODEL.GROUPED_CLIPS[group_index]['clips'].push(_sortedClips[index]);
             break;
           }
@@ -648,7 +648,6 @@ class ListController extends ClipwebController {
 
     this.MODEL.FILTERED_CLIPS = [];
     let _clips = _.cloneDeep(this.MODEL.DOWNLOADED_CLIPS);
-    let _types = FileTypes.get();
     let _add = null;
     let _temp = 0;
     let _temp2 = 0;
@@ -693,7 +692,7 @@ class ListController extends ClipwebController {
         for (let keyIndex in _defineKeys) {
           // クリップの項目ごとにまわす
           if (_defineKeys[keyIndex] == 'type') {
-            _item = _types[_clips[clipIndex]['clip_type']]['name'].toLowerCase();
+            _item = this.MODEL.FILETYPES[_clips[clipIndex]['clip_type']]['name'].toLowerCase();
           } else {
             _item = _clips[clipIndex][`clip_${_defineKeys[keyIndex]}`].toLowerCase();
           }

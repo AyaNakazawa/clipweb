@@ -596,7 +596,6 @@
     </script>
     <!-- list-search-clips -->
     <script type="text/template" id="list-search-clips-template">
-      <% let _types = FileTypes.get(); %>
       <% for (let index in clips ) { %>
         <div class="list-search-group">
           <div class="list-search-group-header">
@@ -637,7 +636,7 @@
                       </tr>
                       <tr>
                         <th scope="row"><%= LN.get('filetype') %></th>
-                        <td><%= _types[clips[index]['clips'][clip_index]['clip_type']]['name'] %></td>
+                        <td><%= filetypes[clips[index]['clips'][clip_index]['clip_type']]['name'] %></td>
                       </tr>
                       <tr>
                         <th scope="row"><%= LN.get('tags') %></th>

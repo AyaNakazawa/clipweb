@@ -419,7 +419,7 @@ class ClipController extends ClipwebController {
       case this.MODEL.TYPE.NEW:
         // NEW
         _result = {
-          filetypes: FileTypes.get(),
+          filetypes: this.MODEL.FILETYPES,
           defaultOwnerPublic: USER.MODEL.OWNER_PUBLIC,
           defaultClipMode: USER.MODEL.CLIP_MODE,
           length: {
@@ -435,9 +435,9 @@ class ClipController extends ClipwebController {
       case this.MODEL.TYPE.SETTING:
         // SETTING
         _result = {
+          filetypes: this.MODEL.FILETYPES,
           filename: this.MODEL.FILENAME,
           filetype: this.MODEL.FILETYPE,
-          filetypes: FileTypes.get(),
           ownerPublic: this.MODEL.OWNER_PUBLIC,
           clipMode: this.MODEL.CLIP_MODE,
           length: {
