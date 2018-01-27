@@ -1223,6 +1223,9 @@ class CommonEvent extends CommonClass {
       Log.error(arguments)();
       return;
     }
+    if (!Object.typeIs('String', selector)) {
+      return;
+    }
 
     if (type == 'all') {
       let elements = $(this.MODEL.COMMON.SELECTOR.POPOVER);
