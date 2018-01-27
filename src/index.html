@@ -610,7 +610,11 @@
                     <%= clips[index]['clips'][clip_index]['clip_name'] %>
                   </div>
                   <div class="list-search-clip-date">
-                    <%= clips[index]['clips'][clip_index]['clip_updated_at'] %>
+                    <% if (sort == 'created_at' || group == 'created_at') { %>
+                      <%= clips[index]['clips'][clip_index]['clip_created_at'] %>
+                    <% } else { %>
+                      <%= clips[index]['clips'][clip_index]['clip_updated_at'] %>
+                    <% } %>
                   </div>
                 </div>
                 <div class="list-search-clip-detail" style="display: none;">
