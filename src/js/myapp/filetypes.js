@@ -45,9 +45,13 @@ class FileTypes {
         name: 'Bro',
         extensions: ['bro']
       },
-      C_CPP: {
-        name: 'C and C++',
-        extensions: ['c', 'cpp']
+      C: {
+        name: 'C',
+        extensions: ['c']
+      },
+      CPP: {
+        name: 'C++',
+        extensions: ['cpp']
       },
       C9SEARCH: {
         name: 'C9Search',
