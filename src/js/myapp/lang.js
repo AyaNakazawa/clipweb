@@ -157,6 +157,7 @@ class Language {
       failed_to_create_new_clip: 'Failed to creating new clip.',
 
       failed_to_open_clip_setting: 'Failed to open clip setting.',
+      failed_to_load_clip_setting: 'Failed to load clip setting.',
       failed_to_update_clip_setting: 'Failed to update clip setting.',
 
       failed_connect_to_server: 'Failed connect to clipweb server.',
@@ -351,6 +352,7 @@ class Language {
       failed_to_create_new_clip: '新しいクリップの作成に失敗しました。',
 
       failed_to_open_clip_setting: 'クリップの設定を開くことができませんでした。',
+      failed_to_load_clip_setting: 'クリップの設定を読み込むことができませんでした。',
       failed_to_update_clip_setting: 'クリップの設定の更新に失敗しました。',
 
       failed_connect_to_server: 'clipwebサーバーとの通信に失敗しました。',
