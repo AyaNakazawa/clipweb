@@ -480,6 +480,51 @@ body:before {
     padding: .5rem;
     top: 0.2rem;
     right: 2.5rem; }
+  #list-area #list-search-clips .list-search-group {
+    padding: 0;
+    margin: 0.5rem 0;
+    border: 2px solid #eee;
+    border-radius: 4px; }
+    #list-area #list-search-clips .list-search-group .list-search-group-header {
+      background: #fefef8;
+      font-size: 1.15rem;
+      font-weight: 600;
+      text-align: center;
+      padding: 0.25rem;
+      cursor: pointer;
+      border-bottom: 2px solid #eee; }
+      #list-area #list-search-clips .list-search-group .list-search-group-header:hover {
+        background: #ffffd0;
+        border-bottom: 2px solid #888; }
+      #list-area #list-search-clips .list-search-group .list-search-group-header .list-search-group-toggle {
+        font-size: 1.25rem;
+        padding: 0.4rem;
+        position: relative;
+        top: -0.20rem;
+        right: 0.25rem; }
+    #list-area #list-search-clips .list-search-group .list-search-group-clips {
+      margin: 0.2rem; }
+      #list-area #list-search-clips .list-search-group .list-search-group-clips .list-search-clip {
+        padding: 0.35rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        border: 2px solid #fff; }
+        #list-area #list-search-clips .list-search-group .list-search-group-clips .list-search-clip:hover {
+          background: #fffafa;
+          border: 2px solid #888; }
+        #list-area #list-search-clips .list-search-group .list-search-group-clips .list-search-clip .list-search-clip-main {
+          display: flex;
+          align-items: baseline; }
+          #list-area #list-search-clips .list-search-group .list-search-group-clips .list-search-clip .list-search-clip-main .list-search-clip-name {
+            flex-grow: 1; }
+        #list-area #list-search-clips .list-search-group .list-search-group-clips .list-search-clip .list-search-clip-detail {
+          margin-top: 0.4rem; }
+          #list-area #list-search-clips .list-search-group .list-search-group-clips .list-search-clip .list-search-clip-detail .list-search-clip-detail-control {
+            margin-bottom: 0.4rem; }
+        #list-area #list-search-clips .list-search-group .list-search-group-clips .list-search-clip .list-search-clip-date {
+          font-family: sans-serif;
+          font-size: 0.8rem;
+          vertical-align: middle; }
 
 #clip-area {
   width: 448px; }
