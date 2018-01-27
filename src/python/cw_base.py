@@ -285,6 +285,12 @@ class Base:
                     "code": 801,
                     "message": "User data is corrupted. Please contact the administrator."
                 }
+            },
+            "corrupt_clipdata": {
+                "{} error".format(cls.NAME): {
+                    "code": 802,
+                    "message": "Clip data is corrupted. Please contact the administrator."
+                }
             }
         }
 
