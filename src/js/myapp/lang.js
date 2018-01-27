@@ -188,6 +188,7 @@ class Language {
 
       popover_clip_new_filename: 'Please enter the name of the clip.<br>If you include a file extension, the file type is automatically selected.',
       popover_clip_new_filetype: 'Please select a file type.<br>Syntax highlighting according to the file type is applied in the editor.',
+      popover_clip_new_tags: 'Please specify tags arbitrarily.<br>You can specify more than one blank separator.',
       popover_clip_new_owner_public: 'Please select the owner public setting of this clip.',
       popover_clip_new_clip_mode: 'Please select the clip share setting of this clip.',
 
@@ -383,6 +384,7 @@ class Language {
 
       popover_clip_new_filename: 'クリップの名前を入力してください。<br>拡張子を含めると、ファイル種別が自動で選択されます。',
       popover_clip_new_filetype: 'ファイル種別を選択してください。<br>エディタで、ファイル種別に応じたシンタックスハイライトが適用されます。',
+      popover_clip_new_tags: '任意でタグを指定してください。<br>空白区切りで複数指定できます。',
       popover_clip_new_owner_public: 'このクリップのオーナー公開設定を選択してください。',
       popover_clip_new_clip_mode: 'このクリップのクリップ共有設定を選択してください。',
 

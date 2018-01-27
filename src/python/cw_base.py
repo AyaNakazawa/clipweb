@@ -142,6 +142,12 @@ class Base:
                     "message": "[clip_mode] does not defined."
                 }
             },
+            "tags_not_defined": {
+                "{} error".format(cls.NAME): {
+                    "code": 116,
+                    "message": "[tags] does not defined."
+                }
+            },
             "hash_unknown_class": {
                 "{} error".format(cls.NAME): {
                     "code": 201,
@@ -230,6 +236,12 @@ class Base:
                 "{} error".format(cls.NAME): {
                     "code": 215,
                     "message": "[clip_mode] is unknown class"
+                }
+            },
+            "tags_unknown_class": {
+                "{} error".format(cls.NAME): {
+                    "code": 216,
+                    "message": "[tags] is unknown class"
                 }
             },
             "username_overlap": {

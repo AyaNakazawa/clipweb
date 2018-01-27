@@ -60,6 +60,7 @@ class ClipModel extends ClipwebModel {
     this.SELECTOR.NEW = {};
     this.SELECTOR.NEW.FILENAME = '#clip-new-filename';
     this.SELECTOR.NEW.FILETYPE = '#clip-new-filetype';
+    this.SELECTOR.NEW.TAGS = '#clip-new-tags';
     this.SELECTOR.NEW.OWNER_PUBLIC = '#clip-new-owner-public';
     this.SELECTOR.NEW.CLIP_MODE = '#clip-new-clip-mode';
     this.SELECTOR.NEW.CLOSE = '#clip-new-close';
@@ -212,17 +213,20 @@ class ClipController extends ClipwebController {
 
     const _NEW_NAME = this.MODEL.SELECTOR.NEW.FILENAME;
     const _NEW_TYPE = this.MODEL.SELECTOR.NEW.FILETYPE;
+    const _NEW_TAGS = this.MODEL.SELECTOR.NEW.TAGS;
     const _NEW_OWNER_PUBLIC = this.MODEL.SELECTOR.NEW.OWNER_PUBLIC;
     const _NEW_CLIP_MODE = this.MODEL.SELECTOR.NEW.CLIP_MODE;
 
     if (
       $(_NEW_NAME)[0].validity.valid &&
       $(_NEW_TYPE)[0].validity.valid &&
+      $(_NEW_TAGS)[0].validity.valid &&
       $(_NEW_OWNER_PUBLIC)[0].validity.valid &&
       $(_NEW_CLIP_MODE)[0].validity.valid
     ) {
       this.MODEL.FILENAME = $(_NEW_NAME).val();
       this.MODEL.FILETYPE = $(`${_NEW_TYPE} option:selected`).val();
+      this.MODEL.TAGS = $(_NEW_TAGS).val();
       this.MODEL.OWNER_PUBLIC = $(`${_NEW_OWNER_PUBLIC} option:selected`).val();
       this.MODEL.CLIP_MODE = $(`${_NEW_CLIP_MODE} option:selected`).val();
 
@@ -438,6 +442,7 @@ class ClipController extends ClipwebController {
           filetypes: this.MODEL.FILETYPES,
           filename: this.MODEL.FILENAME,
           filetype: this.MODEL.FILETYPE,
+          tags: this.MODEL.TAGS,
           ownerPublic: this.MODEL.OWNER_PUBLIC,
           clipMode: this.MODEL.CLIP_MODE,
           length: {
@@ -513,6 +518,7 @@ class ClipController extends ClipwebController {
         _model['hash'] = Random.hex();
         _model['filename'] = this.MODEL.FILENAME;
         _model['filetype'] = this.MODEL.FILETYPE;
+        _model['tags'] = this.MODEL.TAGS;
         _model['owner_public'] = this.MODEL.OWNER_PUBLIC;
         _model['clip_mode'] = this.MODEL.CLIP_MODE;
         break;

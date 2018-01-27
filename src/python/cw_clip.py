@@ -51,6 +51,7 @@ class Clip(cw_base.Base):
         clip_hash = cls.cgi.get("hash")
         clip_name = cls.cgi.get("filename")
         clip_type = cls.cgi.get("filetype")
+        clip_tags = cls.cgi.get("tags")
         clip_owner_public = cls.cgi.get("owner_public")
         clip_clip_mode = cls.cgi.get("clip_mode")
 
@@ -89,6 +90,13 @@ class Clip(cw_base.Base):
             model=clip_type,
             not_defined_error="type_not_defined",
             unknown_class_error="type_unknown_class"
+        ) is False:
+            return cls.result
+
+        if cls._check_str(
+            model=clip_tags,
+            not_defined_error="tags_not_defined",
+            unknown_class_error="tags_unknown_class"
         ) is False:
             return cls.result
 
@@ -152,6 +160,7 @@ class Clip(cw_base.Base):
                 "owner_hash": user_hash,
                 "name": clip_name,
                 "type": clip_type,
+                "tags": clip_tags,
                 "owner_public": clip_owner_public,
                 "clip_mode": clip_clip_mode,
                 "created_at": now,
