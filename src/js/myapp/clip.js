@@ -407,6 +407,25 @@ class ClipController extends ClipwebController {
   }
 
   // ----------------------------------------------------------------
+  // clip
+
+  edit (hash = this.MODEL.HASH) {
+    if (hash == null) {
+      Log.error(arguments)();
+      return;
+    }
+    super.log(hash.substr(0, 14), 'edit', Log.ARROW_INPUT)();
+  }
+
+  delete (hash = this.MODEL.HASH) {
+    if (hash == null) {
+      Log.error(arguments)();
+      return;
+    }
+    super.log(hash.substr(0, 14), 'delete', Log.ARROW_INPUT)();
+  }
+
+  // ----------------------------------------------------------------
   // file
 
   updateFile ({

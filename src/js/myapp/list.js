@@ -804,6 +804,7 @@ class ListController extends ClipwebController {
       return;
     }
     super.log(hash.substr(0, 14), 'edit', Log.ARROW_INPUT)();
+    CLIP.edit(hash);
   }
 
   delete ({
@@ -814,6 +815,7 @@ class ListController extends ClipwebController {
       return;
     }
     super.log(hash.substr(0, 14), 'delete', Log.ARROW_INPUT)();
+    CLIP.delete(hash);
   }
 
   setting ({
