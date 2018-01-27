@@ -947,7 +947,7 @@ class ListController extends ClipwebController {
 
         // オーナーを格納
         for (let index in this.MODEL.DOWNLOADED_CLIPS) {
-          if (this.MODEL.DOWNLOADED_CLIPS[index]['clip_owner_public'] == 'public') {
+          if (this.MODEL.DOWNLOADED_CLIPS[index]['clip_owner_public'] == 'public' || this.MODEL.DOWNLOADED_CLIPS[index]['clip_owner_hash'] == USER.MODEL.HASH.USER) {
             this.MODEL.DOWNLOADED_CLIPS[index]['clip_owner'] = LN.get('unknown');
             for (let owner_index in this.MODEL.DOWNLOADED_OWNERS) {
               if (this.MODEL.DOWNLOADED_CLIPS[index]['clip_owner_hash'] == this.MODEL.DOWNLOADED_OWNERS[owner_index]['hash']) {
