@@ -83,6 +83,13 @@ class Language {
       light: 'Light',
       dark: 'Dark',
 
+      within_1_week: 'Within a week',
+      within_1_month: 'Within a month',
+      within_3_month: 'Within 3 months',
+      within_6_month: 'Within 6 months',
+      within_1_year: 'Within a year',
+      over_1_year_ago: 'Over a year ago',
+
       header_user_register: 'Join clipweb',
       header_user_login: 'Login',
       header_user_logout: 'Logout',
@@ -263,6 +270,13 @@ class Language {
       share: '共有',
       light: 'ライト',
       dark: 'ダーク',
+
+      within_1_week: '１週間以内',
+      within_1_month: '１ヶ月以内',
+      within_3_month: '３ヶ月以内',
+      within_6_month: '６ヶ月以内',
+      within_1_year: '１年以内',
+      over_1_year_ago: '１年以上前',
 
       header_user_register: 'ユーザー登録',
       header_user_login: 'ログイン',
