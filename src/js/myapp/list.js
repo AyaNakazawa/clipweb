@@ -133,6 +133,8 @@ class ListEvent extends ClipwebEvent {
   setEvent () {
     this.setOnHide();
     this.setOnSearch();
+    this.setOnGroups();
+    this.setOnClips();
   }
 
   // ----------------------------------------------------------------
@@ -229,53 +231,70 @@ class ListEvent extends ClipwebEvent {
     });
   }
 
-  setOnClip (
-    hash = null
-  ) {
-    if (hash == null) {
-      Log.error(arguments, 'need hash of argument X(')();
-      return;
-    }
-    const _SELECTOR = `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.CLIPS} ${hash}`;
+  setOnGroups () {
     super.setOn({
-      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.SEARCH.CLIP.EDIT}`,
-      func: () => {
-        super.log(`clip ${hash}`, 'Edit')();
-        this.CONTROLLER.edit({ hash: hash });
-      }
-    });
-    super.setOn({
-      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.SEARCH.CLIP.DELETE}`,
-      func: () => {
-        super.log(`clip ${hash}`, 'Delete')();
-        this.CONTROLLER.delete({ hash: hash });
-      }
-    });
-    super.setOn({
-      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.SEARCH.CLIP.SETTING}`,
-      func: () => {
-        super.log(`clip ${hash}`, 'Setting')();
-        this.CONTROLLER.setting({ hash: hash });
+      selector: this.MODEL.SELECTOR.SEARCH.GROUP_HEADER,
+      func: function () {
+        const _CLIPS = $(this).parent().find(LIST.MODEL.SELECTOR.SEARCH.GROUP_CLIPS);
+        if (_CLIPS.is(':visible')) {
+          LIST.VIEW.hide({
+            selector: _CLIPS
+          });
+        } else {
+          LIST.VIEW.show({
+            selector: _CLIPS
+          });
+        }
       }
     });
   }
 
-  setOffClip (
-    hash = null
-  ) {
-    if (hash == null) {
-      Log.error(arguments, 'need hash of argument X(')();
-      return;
-    }
-    const _SELECTOR = `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SEARCH.CLIPS} ${hash}`;
-    super.setOff({
-      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.SEARCH.CLIP.EDIT}`
+  setOnClips () {
+    super.setOn({
+      selector: this.MODEL.SELECTOR.SEARCH.CLIP_MAIN,
+      func: function () {
+        const _DETAIL = $(this).parent().find(LIST.MODEL.SELECTOR.SEARCH.CLIP_DETAIL);
+        if (_DETAIL.is(':visible')) {
+          LIST.VIEW.hide({
+            selector: _DETAIL
+          });
+        } else {
+          LIST.VIEW.show({
+            selector: _DETAIL
+          });
+        }
+      }
     });
-    super.setOff({
-      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.SEARCH.CLIP.DELETE}`
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.SEARCH.CLIP_EDIT,
+      func: function () {
+        LIST.edit({ hash: $(this).parents(LIST.MODEL.SELECTOR.SEARCH.CLIP).find(LIST.MODEL.SELECTOR.SEARCH.CLIP_MAIN).attr('id') });
+      }
     });
-    super.setOff({
-      selector: `${_SELECTOR} ${this.MODEL.SELECTOR.SEARCH.CLIP.SETTING}`
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.SEARCH.CLIP_DELETE,
+      func: function () {
+        LIST.delete({ hash: $(this).parents(LIST.MODEL.SELECTOR.SEARCH.CLIP).find(LIST.MODEL.SELECTOR.SEARCH.CLIP_MAIN).attr('id') });
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.SEARCH.CLIP_SETTING,
+      func: function () {
+        LIST.setting({ hash: $(this).parents(LIST.MODEL.SELECTOR.SEARCH.CLIP).find(LIST.MODEL.SELECTOR.SEARCH.CLIP_MAIN).attr('id') });
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.SEARCH.CLIP_CLOSE,
+      func: function () {
+        const _DETAIL = $(this).parents(LIST.MODEL.SELECTOR.SEARCH.CLIP_DETAIL);
+        LIST.VIEW.hide({
+          selector: _DETAIL
+        });
+      }
     });
   }
 }
