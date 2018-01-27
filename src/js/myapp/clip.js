@@ -406,6 +406,24 @@ class ClipController extends ClipwebController {
     });
   }
 
+  deleteClip (hash = null) {
+    if (hash == null) {
+      Log.error(arguments)();
+      return;
+    }
+    Log.info(arguments)();
+
+  }
+
+  editClip (hash = null) {
+    if (hash == null) {
+      Log.error(arguments)();
+      return;
+    }
+    Log.info(arguments)();
+
+  }
+
   // ----------------------------------------------------------------
   // clip
 
