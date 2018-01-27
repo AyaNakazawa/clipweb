@@ -433,6 +433,7 @@ class ClipController extends ClipwebController {
       return;
     }
     super.log(hash.substr(0, 14), 'edit', Log.ARROW_INPUT)();
+    this.editClip(hash);
   }
 
   delete (hash = this.MODEL.HASH) {
