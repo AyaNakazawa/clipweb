@@ -274,6 +274,12 @@ class Base:
                     "message": "Your clip not exists."
                 }
             },
+            "owner_not_exists": {
+                "{} error".format(cls.NAME): {
+                    "code": 405,
+                    "message": "clip owner not exists."
+                }
+            },
             "corrupt_userdata": {
                 "{} error".format(cls.NAME): {
                     "code": 801,
