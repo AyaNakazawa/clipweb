@@ -442,6 +442,52 @@ class ClipController extends ClipwebController {
       return;
     }
     super.log(hash.substr(0, 14), 'delete', Log.ARROW_INPUT)();
+    new Confirm({
+      title: LN.get('delete_clip'),
+      content:
+        View.element({ clas: 'text-center', content: LN.get('delete_clip_confirm') }) +
+        View.element({ element: 'hr' }) +
+        View.element({ element: 'table',
+          clas: 'table table-striped table-hover',
+          content: View.element({ element: 'tbody', content:
+            View.element({ element: 'tr', content:
+              View.element({ attr: {scope: 'row'}, element: 'th', content: LN.get('filename') }) +
+              View.element({ element: 'td', content: LIST.MODEL.NAMED_CLIPS[hash]['clip_name'] })
+            }) +
+            View.element({ element: 'tr', content:
+              View.element({ attr: {scope: 'row'}, element: 'th', content: LN.get('filetype') }) +
+              View.element({ element: 'td', content: this.MODEL.FILETYPES[LIST.MODEL.NAMED_CLIPS[hash]['clip_type']]['name'] })
+            }) +
+            View.element({ element: 'tr', content:
+              View.element({ attr: {scope: 'row'}, element: 'th', content: LN.get('tags') }) +
+              View.element({ element: 'td', content: LIST.MODEL.NAMED_CLIPS[hash]['clip_tags'] })
+            }) +
+            View.element({ element: 'tr', content:
+              View.element({ attr: {scope: 'row'}, element: 'th', content: LN.get('owner') }) +
+              View.element({ element: 'td', content: LIST.MODEL.NAMED_CLIPS[hash]['clip_owner'] })
+            }) +
+            View.element({ element: 'tr', content:
+              View.element({ attr: {scope: 'row'}, element: 'th', content: LN.get('owner_public') }) +
+              View.element({ element: 'td', content: LN.get(LIST.MODEL.NAMED_CLIPS[hash]['clip_owner_public']) })
+            }) +
+            View.element({ element: 'tr', content:
+              View.element({ attr: {scope: 'row'}, element: 'th', content: LN.get('clip_mode') }) +
+              View.element({ element: 'td', content: LN.get(LIST.MODEL.NAMED_CLIPS[hash]['clip_clip_mode']) })
+            }) +
+            View.element({ element: 'tr', content:
+              View.element({ attr: {scope: 'row'}, element: 'th', content: LN.get('created_at') }) +
+              View.element({ element: 'td', content: LIST.MODEL.NAMED_CLIPS[hash]['clip_created_at'] })
+            }) +
+            View.element({ element: 'tr', content:
+              View.element({ attr: {scope: 'row'}, element: 'th', content: LN.get('updated_at') }) +
+              View.element({ element: 'td', content: LIST.MODEL.NAMED_CLIPS[hash]['clip_updated_at'] })
+            })
+          })
+        }),
+      functionYes: () => {
+        this.deleteClip(hash);
+      }
+    });
   }
 
   // ----------------------------------------------------------------
