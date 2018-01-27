@@ -52,6 +52,7 @@ class Language {
       info: 'Info',
 
       none: 'None',
+      all: 'All',
       name: 'Name',
       yes: 'Yes',
       no: 'No',
@@ -240,6 +241,7 @@ class Language {
       info: '情報',
 
       none: 'なし',
+      all: '全て',
       name: '名前',
       yes: 'はい',
       no: 'いいえ',
