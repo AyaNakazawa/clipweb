@@ -133,6 +133,8 @@ class Language {
       please_email_auth: 'Please Email authentication.',
       userdata_clear: 'Delete your data',
       userdata_clear_confirm: 'Delete user data saved in the browser?',
+      delete_clip: 'Delete the clip',
+      delete_clip_confirm: 'Are you sure you want to delete the clip?',
 
       please_all_inputs_correctly: 'Please enter all items correctly.',
       please_inputs_correctly: 'Please enter items correctly.',
@@ -159,6 +161,7 @@ class Language {
       failed_to_open_clip_setting: 'Failed to open clip setting.',
       failed_to_load_clip_setting: 'Failed to load clip setting.',
       failed_to_update_clip_setting: 'Failed to update clip setting.',
+      failed_to_setting_clip_setting: 'Failed to update clip setting.',
 
       failed_connect_to_server: 'Failed connect to clipweb server.',
       server_not_working: 'clipweb server is not working properly.',
@@ -191,6 +194,12 @@ class Language {
       popover_clip_new_tags: 'Please specify tags arbitrarily.<br>You can specify more than one blank separator.',
       popover_clip_new_owner_public: 'Please select the owner public setting of this clip.',
       popover_clip_new_clip_mode: 'Please select the clip share setting of this clip.',
+
+      popover_clip_setting_filename: 'You can change the name of the clip.<br>If you include a file extension, the file type is automatically selected.',
+      popover_clip_setting_filetype: 'You can change the file type.<br>Syntax highlighting according to the file type is applied in the editor.',
+      popover_clip_setting_tags: 'You can change tags.<br>You can specify more than one blank separator.',
+      popover_clip_setting_owner_public: 'You can change the owner public setting of this clip.',
+      popover_clip_setting_clip_mode: 'You can change the clip share setting of this clip.',
 
       clipweb_user_error_code: '{project} Error Code: {code}',
       clipweb_user_error_message: 'Message: {message}',
@@ -329,6 +338,8 @@ class Language {
       please_email_auth: 'メール認証をしてください。',
       userdata_clear: 'ユーザデータの削除',
       userdata_clear_confirm: 'ブラウザに保存されているユーザーデータを削除しますか？',
+      delete_clip: 'クリップの削除',
+      delete_clip_confirm: 'クリップを削除してもよろしいですか？',
 
       please_all_inputs_correctly: 'すべての項目を正しく入力してください。',
       please_inputs_correctly: '正しく入力してください。',
@@ -355,6 +366,7 @@ class Language {
       failed_to_open_clip_setting: 'クリップの設定を開くことができませんでした。',
       failed_to_load_clip_setting: 'クリップの設定を読み込むことができませんでした。',
       failed_to_update_clip_setting: 'クリップの設定の更新に失敗しました。',
+      failed_to_setting_clip_setting: 'クリップの設定の更新に失敗しました。',
 
       failed_connect_to_server: 'clipwebサーバーとの通信に失敗しました。',
       server_not_working: 'clipwebサーバーが正常に動作していません。',
@@ -387,6 +399,12 @@ class Language {
       popover_clip_new_tags: '任意でタグを指定してください。<br>空白区切りで複数指定できます。',
       popover_clip_new_owner_public: 'このクリップのオーナー公開設定を選択してください。',
       popover_clip_new_clip_mode: 'このクリップのクリップ共有設定を選択してください。',
+
+      popover_clip_setting_filename: 'クリップの名前を変更できます。<br>拡張子を含めると、ファイル種別が自動で選択されます。',
+      popover_clip_setting_filetype: 'ファイル種別を変更できます。<br>エディタで、ファイル種別に応じたシンタックスハイライトが適用されます。',
+      popover_clip_setting_tags: 'タグを変更できます。<br>空白区切りで複数指定できます。',
+      popover_clip_setting_owner_public: 'このクリップのオーナー公開設定を変更できます。',
+      popover_clip_setting_clip_mode: 'このクリップのクリップ共有設定を変更できます。',
 
       clipweb_user_error_code: '{project} エラーコード： {code}',
       clipweb_user_error_message: 'メッセージ： {message}',
