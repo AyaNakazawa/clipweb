@@ -81,11 +81,13 @@ class ListModel extends ClipwebModel {
     this.SELECTOR.SEARCH.GROUP_CLIPS = '.list-search-group-clips';
 
     // クリップ
+    this.SELECTOR.SEARCH.CLIP = '.list-search-clip';
     this.SELECTOR.SEARCH.CLIP_MAIN = '.list-search-clip-main';
     this.SELECTOR.SEARCH.CLIP_DETAIL = '.list-search-clip-detail';
     this.SELECTOR.SEARCH.CLIP_EDIT = '.list-search-clip-edit';
     this.SELECTOR.SEARCH.CLIP_DELETE = '.list-search-clip-delete';
     this.SELECTOR.SEARCH.CLIP_SETTING = '.list-search-clip-setting';
+    this.SELECTOR.SEARCH.CLIP_CLOSE = '.list-search-clip-close';
   }
 }
 
