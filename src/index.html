@@ -604,67 +604,67 @@
             <button class="close list-search-group-toggle"><i class="fas fa-caret-down"></i></button>
           </div>
           <div class="list-search-group-clips" style="display: none;">
-          <% for (let clip_index in clips[index]['clips'] ) { %>
-            <div class="list-search-clip">
-              <div class="list-search-clip-main">
-                <div class="list-search-clip-name">
-                  <%= clips[index]['clips'][clip_index]['clip_name'] %>
+            <% for (let clip_index in clips[index]['clips'] ) { %>
+              <div class="list-search-clip">
+                <div class="list-search-clip-main">
+                  <div class="list-search-clip-name">
+                    <%= clips[index]['clips'][clip_index]['clip_name'] %>
+                  </div>
+                  <div class="list-search-clip-date">
+                    <%= clips[index]['clips'][clip_index]['clip_updated_at'] %>
+                  </div>
                 </div>
-                <div class="list-search-clip-date">
-                  <%= clips[index]['clips'][clip_index]['clip_updated_at'] %>
+                <div class="list-search-clip-detail" style="display: none;">
+                  <div class="list-search-clip-detail-control btn-group float-right">
+                    <button id="list-search-clip-edit" class="btn btn-outline-primary">
+                      <i class="far fa-edit"></i> <%= LN.get('edit') %>
+                    </button>
+                    <button id="list-search-clip-setting" class="btn btn-outline-info">
+                      <i class="far fa-trash-alt"></i> <%= LN.get('setting') %>
+                    </button>
+                    <button id="list-search-clip-delete" class="btn btn-outline-danger">
+                      <i class="far fa-cog"></i> <%= LN.get('delete') %>
+                    </button>
+                  </div>
+                  <table class="list-search-clip-detail-table table table-sm table-bordered table-hover">
+                    <tbody>
+                      <tr>
+                        <th scope="row"><%= LN.get('name') %></th>
+                        <td><%= clips[index]['clips'][clip_index]['clip_name'] %></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><%= LN.get('filetype') %></th>
+                        <td><%= _types[clips[index]['clips'][clip_index]['clip_type']]['name'] %></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><%= LN.get('tags') %></th>
+                        <td><%= clips[index]['clips'][clip_index]['clip_tags'] %></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><%= LN.get('owner') %></th>
+                        <td><%= clips[index]['clips'][clip_index]['clip_owner'] %></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><%= LN.get('owner_public') %></th>
+                        <td><%= clips[index]['clips'][clip_index]['clip_owner_public'] %></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><%= LN.get('clip_mode') %></th>
+                        <td><%= clips[index]['clips'][clip_index]['clip_clip_mode'] %></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><%= LN.get('created_at') %></th>
+                        <td class="list-search-clip-date"><%= clips[index]['clips'][clip_index]['clip_created_at'] %></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><%= LN.get('updated_at') %></th>
+                        <td class="list-search-clip-date"><%= clips[index]['clips'][clip_index]['clip_updated_at'] %></td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
-              <div class="list-search-clip-detail" style="display: none;">
-                <div class="list-search-clip-detail-control btn-group float-right">
-                  <button id="list-search-clip-edit" class="btn btn-outline-primary">
-                    <i class="far fa-edit"></i> <%= LN.get('edit') %>
-                  </button>
-                  <button id="list-search-clip-setting" class="btn btn-outline-info">
-                    <i class="far fa-trash-alt"></i> <%= LN.get('setting') %>
-                  </button>
-                  <button id="list-search-clip-delete" class="btn btn-outline-danger">
-                    <i class="far fa-cog"></i> <%= LN.get('delete') %>
-                  </button>
-                </div>
-                <table class="list-search-clip-detail-table table table-sm table-bordered table-hover">
-                  <tbody>
-                    <tr>
-                      <th scope="row"><%= LN.get('name') %></th>
-                      <td><%= clips[index]['clips'][clip_index]['clip_name'] %></td>
-                    </tr>
-                    <tr>
-                      <th scope="row"><%= LN.get('filetype') %></th>
-                      <td><%= _types[clips[index]['clips'][clip_index]['clip_type']]['name'] %></td>
-                    </tr>
-                    <tr>
-                      <th scope="row"><%= LN.get('tags') %></th>
-                      <td><%= clips[index]['clips'][clip_index]['clip_tags'] %></td>
-                    </tr>
-                    <tr>
-                      <th scope="row"><%= LN.get('owner') %></th>
-                      <td><%= clips[index]['clips'][clip_index]['clip_owner'] %></td>
-                    </tr>
-                    <tr>
-                      <th scope="row"><%= LN.get('owner_public') %></th>
-                      <td><%= clips[index]['clips'][clip_index]['clip_owner_public'] %></td>
-                    </tr>
-                    <tr>
-                      <th scope="row"><%= LN.get('clip_mode') %></th>
-                      <td><%= clips[index]['clips'][clip_index]['clip_clip_mode'] %></td>
-                    </tr>
-                    <tr>
-                      <th scope="row"><%= LN.get('created_at') %></th>
-                      <td class="list-search-clip-date"><%= clips[index]['clips'][clip_index]['clip_created_at'] %></td>
-                    </tr>
-                    <tr>
-                      <th scope="row"><%= LN.get('updated_at') %></th>
-                      <td class="list-search-clip-date"><%= clips[index]['clips'][clip_index]['clip_updated_at'] %></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          <% } %>
+            <% } %>
           </div>
         </div>
       <% } %>
