@@ -335,13 +335,16 @@ class Base:
     ):
         if isinstance(model, type):
             if len(model) == 0:
+                if not_defined_error is not None:
+                    cls.result["error"] = cls._error(not_defined_error)
+                    return False
+        elif model is None:
+            if not_defined_error is not None:
                 cls.result["error"] = cls._error(not_defined_error)
                 return False
-        elif model is None:
-            cls.result["error"] = cls._error(not_defined_error)
-            return False
         else:
-            cls.result["error"] = cls._error(unknown_class_error)
-            return False
+            if unknown_class_error is not None:
+                cls.result["error"] = cls._error(unknown_class_error)
+                return False
 
         return True
