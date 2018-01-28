@@ -74,6 +74,7 @@ class ClipModel extends ClipwebModel {
     this.SELECTOR.SETTING.OWNER_PUBLIC = '#clip-setting-owner-public';
     this.SELECTOR.SETTING.CLIP_MODE = '#clip-setting-clip-mode';
     this.SELECTOR.SETTING.USERS = '#clip-setting-users';
+    this.SELECTOR.SETTING.CLOSE = '#clip-setting-close';
     this.SELECTOR.SETTING.EDIT = '#clip-setting-edit';
     this.SELECTOR.SETTING.DELETE = '#clip-setting-delete';
     this.SELECTOR.SETTING.SAVE = '#clip-setting-save';
@@ -163,6 +164,15 @@ class ClipEvent extends ClipwebEvent {
   }
 
   setOnSetting () {
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.CLOSE}`,
+      func: () => {
+        super.log('Clip', 'Close')();
+        this.VIEW.hide();
+        LIST.VIEW.scroll({ selector: `#${this.MODEL.HASH}`, offset: -120 });
+      }
+    });
+
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.EDIT}`,
       func: () => {
