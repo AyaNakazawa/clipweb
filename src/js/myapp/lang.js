@@ -52,6 +52,7 @@ class Language {
       setting: 'Setting',
       info: 'Info',
 
+      license: 'License',
       column: 'Column',
       value: 'Value',
       none: 'None',
@@ -257,6 +258,7 @@ class Language {
       setting: '設定',
       info: '情報',
 
+      license: 'ライセンス',
       column: 'カラム',
       value: '値',
       none: 'なし',
