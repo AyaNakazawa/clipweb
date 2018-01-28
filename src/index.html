@@ -775,7 +775,97 @@
     <!-- clip-setting -->
     <script type="text/template" id="clip-setting-template">
       <div class="content-item-area">
+        <!-- File name -->
         <div class="content-item">
+          <label for="clip-setting-filename"><%= LN.get('filename') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <input id="clip-setting-filename" type="text" minLength="<%- length.min.filename %>" maxLength="<%- length.max.filename %>" required class="form-control" placeholder="" value="<%- filename %>" tabindex="200">
+            <span class="content-input-valid"></span>
+            <i class="content-input-icon fas fa-file"></i>
+            <span class="content-input-valid-message"></span>
+          </div>
+        </div>
+        <!-- File type -->
+        <div class="content-item">
+          <label for="clip-setting-filetype"><%= LN.get('filetype') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <select id="clip-setting-filetype" class="custom-select" required tabindex="200">
+              <% for (let type of Object.keys(filetypes)) { %>
+                <% if (type == filetype) { %>
+                  <option value="<%- type %>" selected><%- filetypes[type]['name'] %></option>
+                <% } else { %>
+                  <option value="<%- type %>"><%- filetypes[type]['name'] %></option>
+                <% } %>
+              <% } %>
+            </select>
+            <i class="content-input-icon content-select-icon fas fa-file-code"></i>
+          </div>
+        </div>
+        <!-- Tags -->
+        <div class="content-item">
+          <label for="clip-setting-tags"><%= LN.get('tags') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <input id="clip-setting-tags" type="text" required class="form-control" placeholder="" value="" tabindex="200">
+            <i class="content-input-icon fas fa-tag"></i>
+          </div>
+        </div>
+        <!-- Owner public -->
+        <div class="content-item">
+          <label for="clip-setting-owner-public"><%= LN.get('owner_public') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <select id="clip-setting-owner-public" class="custom-select" required tabindex="200">
+              <% if (ownerPublic == 'private') { %>
+                <option value="private" selected><%= LN.get('private') %></option>
+              <% } else { %>
+                <option value="private"><%= LN.get('private') %></option>
+              <% } %>
+              <% if (ownerPublic == 'public') { %>
+                <option value="public" selected><%= LN.get('public') %></option>
+              <% } else { %>
+                <option value="public"><%= LN.get('public') %></option>
+              <% } %>
+            </select>
+            <i class="content-input-icon content-select-icon fas fa-user-circle"></i>
+          </div>
+        </div>
+        <!-- clip mode -->
+        <div class="content-item">
+          <label for="clip-setting-clip-mode"><%= LN.get('clip_mode') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <select id="clip-setting-clip-mode" class="custom-select" required tabindex="200">
+              <% if (clipMode == 'private') { %>
+                <option value="private" selected><%= LN.get('private') %></option>
+              <% } else { %>
+                <option value="private"><%= LN.get('private') %></option>
+              <% } %>
+              <% if (clipMode == 'public') { %>
+                <option value="public" selected><%= LN.get('public') %></option>
+              <% } else { %>
+                <option value="public"><%= LN.get('public') %></option>
+              <% } %>
+              <% if (clipMode == 'share') { %>
+                <option value="share" selected><%= LN.get('share') %></option>
+              <% } else { %>
+                <option value="share"><%= LN.get('share') %></option>
+              <% } %>
+            </select>
+            <i class="content-input-icon content-select-icon fas fa-share-alt"></i>
+          </div>
+        </div>
+      </div>
+      <div class="content-item-area">
+        <div class="content-item d-flex justify-content-between">
+          <button id="clip-setting-close" class="btn btn-link" tabindex="210"><%= LN.get('close') %> <i class="far fa-times"></i></button>
+          <div class="btn-group">
+            <button id="clip-setting-edit" class="btn btn-outline-info" tabindex="200"><%= LN.get('edit') %> <i class="fal fa-edit"></i></button>
+            <button id="clip-setting-delete" class="btn btn-outline-danger" tabindex="200"><%= LN.get('delete') %> <i class="fal fa-trash-alt"></i></button>
+            <button id="clip-setting-save" class="btn btn-outline-primary" tabindex="200"><%= LN.get('save') %> <i class="fal fa-save"></i></button>
+          </div>
         </div>
       </div>
     </script>
@@ -786,6 +876,18 @@
     </script>
     <!-- license -->
     <script type="text/template" id="license-template">
+      <div class="license-item">
+        <div class="license-item-header">
+          <button class="btn btn-link">
+            <a href="https://github.com/ayatec/clipweb/blob/work/LICENSE" target="_blank">
+              clipweb
+            </a>
+          </button>
+          <div class="license-license badge badge-info">MIT license</div>
+        </div>
+        <div class="license-description"><i class="fal fa-copyright"></i> 2018 by ayatec</div>
+      </div>
+      <hr>
       <div class="license-item">
         <div class="license-item-header">
           <button class="btn btn-link">
