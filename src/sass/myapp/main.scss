@@ -1,5 +1,26 @@
 @charset "utf-8";
 
+footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.license-area {
+  .license-button {
+    text-align: center;
+  }
+  .license-description {
+    padding: 0 1rem;
+  }
+  .license-license {
+    padding: 0 1rem;
+  }
+
+  &:last-child {
+    margin-bottom: 1rem;
+  }
+}
+
 #user-area {
   width: 448px;
 }

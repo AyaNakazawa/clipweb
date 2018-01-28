@@ -469,6 +469,19 @@ body:before {
 @media (min-width: 1200px) {
   body:before {
     content: '- Large -'; } }
+footer {
+  display: flex;
+  justify-content: space-between; }
+
+.license-area .license-button {
+  text-align: center; }
+.license-area .license-description {
+  padding: 0 1rem; }
+.license-area .license-license {
+  padding: 0 1rem; }
+.license-area:last-child {
+  margin-bottom: 1rem; }
+
 #user-area {
   width: 448px; }
 
