@@ -1,6 +1,8 @@
 @charset "utf-8";
 
+// ----------------------------------------------------------------
 // font
+
 @font-face {
   font-family: "ProximaSoft-Regular";
   src: url("../webfonts/ProximaSoft-Regular.eot");
@@ -42,6 +44,7 @@
   src: url("../webfonts/fa-brands-400.eot?#iefix") format("embedded-opentype"), url("../webfonts/fa-brands-400.woff2") format("woff2"), url("../webfonts/fa-brands-400.woff") format("woff"), url("../webfonts/fa-brands-400.ttf") format("truetype"), url("../webfonts/fa-brands-400.svg#fontawesome") format("svg");
 }
 
+// ----------------------------------------------------------------
 // body
 
 body {
@@ -56,6 +59,7 @@ body {
   font-weight: 500;
 }
 
+// ----------------------------------------------------------------
 // common
 
 * {
@@ -93,6 +97,7 @@ textarea {
   font-weight: 700;
 }
 
+// ----------------------------------------------------------------
 // header
 
 .header-area {
@@ -151,6 +156,7 @@ textarea {
   }
 }
 
+// ----------------------------------------------------------------
 // footer
 
 .footer-area {
@@ -179,6 +185,7 @@ textarea {
   }
 }
 
+// ----------------------------------------------------------------
 // navbar
 
 .nav-area {
@@ -243,7 +250,9 @@ textarea {
   }
 }
 
+// ----------------------------------------------------------------
 // modal
+
 .modal {
   .modal-dialog {
     .modal-content {
@@ -278,5 +287,61 @@ textarea {
 
       }
     }
+  }
+}
+
+// ----------------------------------------------------------------
+// Tablet
+
+@include media($size-tablet) {
+
+  #list-area {
+    width: 722px !important;
+  }
+
+  // nav
+
+  .nav-area {
+
+    .navbar {
+      padding: 4px 16px;
+
+      .navbar-nav {
+        margin: 0;
+      }
+    }
+  }
+}
+
+// ----------------------------------------------------------------
+// Medium desktop
+
+@include media($size-medium) {
+
+}
+
+// ----------------------------------------------------------------
+// Large desktop
+
+@include media($size-large) {
+
+  // header
+
+  header .header-wrapper {
+    width: 1200px;
+    @include margin-auto;
+  }
+
+  // footer
+
+  footer {
+    width: 1062px;
+    @include margin-auto;
+  }
+
+  // nav
+
+  nav {
+    width: 1200px;
   }
 }
