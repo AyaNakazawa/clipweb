@@ -1,5 +1,6 @@
 
 やること
+  list-search-clip-controlsにshareボタンつける
   #list-search-clips-template完成させる
   tabindexをエリアごとに分ける
   addAlertかupdateAlertをCommonViewにつくる
