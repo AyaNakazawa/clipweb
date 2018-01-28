@@ -95,7 +95,6 @@ class Clip(cw_base.Base):
 
         if cls._check_str(
             model=clip_tags,
-            not_defined_error="tags_not_defined",
             unknown_class_error="tags_unknown_class"
         ) is False:
             return cls.result
@@ -153,19 +152,23 @@ class Clip(cw_base.Base):
         # ----------------------------------------------------------------
         # insert new clip
 
+        value = {
+            "hash": clip_hash,
+            "owner_hash": user_hash,
+            "name": clip_name,
+            "type": clip_type,
+            "owner_public": clip_owner_public,
+            "clip_mode": clip_clip_mode,
+            "created_at": now,
+            "updated_at": now
+        }
+        if isinstance(clip_tags, str):
+            if len(clip_tags) > 0:
+                value["tags"] = clip_tags
+
         cls.result["new_clip"] = cls.DB.insert(
             table="clips",
-            value={
-                "hash": clip_hash,
-                "owner_hash": user_hash,
-                "name": clip_name,
-                "type": clip_type,
-                "tags": clip_tags,
-                "owner_public": clip_owner_public,
-                "clip_mode": clip_clip_mode,
-                "created_at": now,
-                "updated_at": now
-            }
+            value=value
         )
 
         # ----------------------------------------------------------------
