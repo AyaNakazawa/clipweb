@@ -473,13 +473,16 @@ footer {
   display: flex;
   justify-content: space-between; }
 
-.license-area .license-button {
-  text-align: center; }
-.license-area .license-description {
-  padding: 0 1rem; }
-.license-area .license-license {
-  padding: 0 1rem; }
-.license-area:last-child {
+.license-item .license-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline; }
+  .license-item .license-item-header .license-license {
+    text-align: right;
+    height: 1rem; }
+.license-item .license-description {
+  padding: 0 2rem; }
+.license-item:last-child {
   margin-bottom: 1rem; }
 
 #user-area {

@@ -5,15 +5,20 @@ footer {
   justify-content: space-between;
 }
 
-.license-area {
-  .license-button {
-    text-align: center;
+.license-item {
+  .license-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    .license-license {
+      text-align: right;
+      height: 1rem;
+    }
   }
+
   .license-description {
-    padding: 0 1rem;
-  }
-  .license-license {
-    padding: 0 1rem;
+    padding: 0 2rem;
   }
 
   &:last-child {
