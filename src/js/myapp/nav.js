@@ -170,6 +170,7 @@ class NavEvent extends ClipwebEvent {
 
   setEvent () {
     this.setClickHeader();
+    this.setClickFooter();
     this.setClickNavSearch();
     this.setOpenLogin();
     this.setOpenSetting();
@@ -207,6 +208,29 @@ class NavEvent extends ClipwebEvent {
             LocalStorage.clear();
             location.reload();
           }
+        });
+      }
+    });
+  }
+
+
+  setClickFooter () {
+    super.setOn({
+      selector: this.MODEL.SELECTOR.FOOTER.CLIPWEB,
+      func: () => {
+        window.open('https://github.com/ayatec/clipweb/', '_blank');
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.FOOTER.LICENSE,
+      func: () => {
+        new Confirm({
+          title: LN.get('license'),
+          content: View.getTemplate({
+            template: this.MODEL.TEMPLATE.LICENSE
+          }),
+          type: Confirm.TYPE_EMPTY
         });
       }
     });
