@@ -164,12 +164,17 @@ textarea {
     text-align: right;
     text-shadow: 1px 1px 1px $main-text-shadow-color;
 
-    span {
+    > div {
       background: $fotter-back;
       padding: .5rem 1rem;
       box-shadow: 2px 2px 1px 1px $main-box-shadow-color;
       @include border;
       border-radius: 24px;
+      cursor: pointer;
+
+      &:hover {
+        background: $fotter-back-hover;
+      }
     }
   }
 }

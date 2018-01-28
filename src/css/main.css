@@ -119,12 +119,15 @@ textarea {
     padding: 40px 60px;
     text-align: right;
     text-shadow: 1px 1px 1px #ccccc0; }
-    .footer-area footer span {
-      background: #fffbfb;
+    .footer-area footer > div {
+      background: #fffdfd;
       padding: .5rem 1rem;
       box-shadow: 2px 2px 1px 1px #dcdcd0;
       border: 2px solid #eee;
-      border-radius: 24px; }
+      border-radius: 24px;
+      cursor: pointer; }
+      .footer-area footer > div:hover {
+        background: #fff8f0; }
 
 .nav-area {
   margin: 0;
