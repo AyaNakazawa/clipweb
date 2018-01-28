@@ -163,7 +163,7 @@ class NavEvent extends ClipwebEvent {
   }
 
   setEvent () {
-    this.setClickHeaderClear();
+    this.setClickHeader();
     this.setClickNavSearch();
     this.setOpenLogin();
     this.setOpenSetting();
@@ -174,7 +174,7 @@ class NavEvent extends ClipwebEvent {
     this.setOpenHelp();
   }
 
-  setClickHeaderClear () {
+  setClickHeader () {
     super.setOn({
       selector: this.MODEL.SELECTOR.HEADER.CLEAR,
       func: () => {
