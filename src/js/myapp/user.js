@@ -416,39 +416,6 @@ class UserController extends ClipwebController {
   }
 
   // ----------------------------------------------------------------
-  // open
-
-  openLogin (
-    model = {}
-  ) {
-    this.open({ type: this.MODEL.TYPE.LOGIN, model: model });
-  }
-
-  openSetting (
-    model = {}
-  ) {
-    this.open({ type: this.MODEL.TYPE.SETTING, model: model });
-  }
-
-  openInfo (
-    model = {}
-  ) {
-    this.open({ type: this.MODEL.TYPE.INFO, model: model });
-  }
-
-  openLogout (
-    model = {}
-  ) {
-    this.open({ type: this.MODEL.TYPE.LOGOUT, model: model });
-  }
-
-  openRegister (
-    model = {}
-  ) {
-    this.open({ type: this.MODEL.TYPE.REGISTER, model: model });
-  }
-
-  // ----------------------------------------------------------------
   // submit
 
   submitRegister () {
