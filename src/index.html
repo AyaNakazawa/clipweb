@@ -623,15 +623,27 @@
                 </div>
                 <div class="list-search-clip-detail" style="display: none;">
                   <div class="list-search-clip-detail-control btn-group float-right">
-                    <button class="list-search-clip-edit btn btn-outline-info">
-                      <i class="far fa-edit"></i> <%= LN.get('edit') %>
-                    </button>
-                    <button class="list-search-clip-setting btn btn-outline-primary">
-                      <i class="far fa-cog"></i> <%= LN.get('setting') %>
-                    </button>
-                    <button class="list-search-clip-delete btn btn-outline-danger">
-                      <i class="far fa-trash-alt"></i> <%= LN.get('delete') %>
-                    </button>
+                    <% if (clips[index]['clips'][clip_index]['clip_owner_hash'] == USER.MODEL.HASH.USER) { %>
+                      <button class="list-search-clip-edit btn btn-outline-info">
+                        <i class="far fa-edit"></i> <%= LN.get('edit') %>
+                      </button>
+                      <button class="list-search-clip-setting btn btn-outline-primary">
+                        <i class="far fa-cog"></i> <%= LN.get('setting') %>
+                      </button>
+                      <button class="list-search-clip-delete btn btn-outline-danger">
+                        <i class="far fa-trash-alt"></i> <%= LN.get('delete') %>
+                      </button>
+                    <% } else { %>
+                      <% if (clips[index]['clips'][clip_index]['clip_clip_mode'] == 'public') { %>
+                        <button class="list-search-clip-show btn btn-outline-info">
+                          <i class="far fa-eye"></i> <%= LN.get('show') %>
+                        </button>
+                      <% } else if (clips[index]['clips'][clip_index]['clip_clip_mode'] == 'share') { %>
+                        <button class="list-search-clip-edit btn btn-outline-info">
+                          <i class="far fa-edit"></i> <%= LN.get('edit') %>
+                        </button>
+                      <% } %>
+                    <% } %>
                     <button class="list-search-clip-close btn btn-outline-secondary">
                       <i class="far fa-times"></i> <%= LN.get('close') %>
                     </button>
