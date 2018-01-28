@@ -653,6 +653,8 @@ class UserController extends ClipwebController {
             LocalStorage.removeItem(this.MODEL.LS.AUTO.HASH.DECRYPT_CRYPTO);
             this.CONTROLLER.applyReceiveModel(_TYPE);
             this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
+            LIST.open();
+            CLIP.open();
             this.open({
               type: this.MODEL.TYPE.LOGIN,
               model: {
