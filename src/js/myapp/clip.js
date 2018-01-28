@@ -416,16 +416,69 @@ class ClipController extends ClipwebController {
     });
   }
 
-  deleteClip (hash = null) {
+  deleteClip (hash = this.MODEL.HASH) {
     if (hash == null) {
       Log.error(arguments)();
       return;
     }
-    Log.info(arguments)();
+    const _TYPE = this.MODEL.TYPE.DELETE;
+    const _FAILED = 'failed_to_delete_clip';
 
+    this.EVENT.setOnLoading({
+      type: _TYPE,
+      successFunction: () => {
+        if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
+          // resultが取得できない
+          this.open({
+            type: _TYPE,
+            model: super.getErrorModel('result', _FAILED)
+          });
+        } else {
+          if (this.getAjaxData({ key: 'result' }) == false) {
+            // 新規作成できていない
+            if (typeof this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`] != 'undefined') {
+              const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
+              this.open({
+                type: _TYPE,
+                model: super.getErrorModel('clipweb', _FAILED, _ERROR)
+              });
+            }
+          } else {
+            if (typeof this.getAjaxData({ key: 'hash' }) == 'undefined') {
+              // 未知のエラー
+              this.open({
+                type: _TYPE,
+                model: super.getErrorModel('result', _FAILED)
+              });
+            } else {
+              if (typeof this.getAjaxData({ key: 'hash' })['flex sqlite3 error'] != 'undefined') {
+                // Flex SQLite3 エラー
+                const _ERROR = this.getAjaxData({ key: 'hash' })['flex sqlite3 error'];
+                this.open({
+                  type: _TYPE,
+                  model: super.getErrorModel('fsql', _FAILED, _ERROR)
+                });
+              } else {
+                // 取得成功
+                LIST.loadList();
+                this.open();
+              }
+            }
+          }
+        }
+      },
+      errorOpenType: _TYPE,
+      errorModel: super.getErrorModel('server', _FAILED)
+    });
+
+    // Post
+    this.post({
+      type: _TYPE,
+      data: this.getSendModel(_TYPE)
+    });
   }
 
-  editClip (hash = null) {
+  editClip (hash = this.MODEL.HASH) {
     if (hash == null) {
       Log.error(arguments)();
       return;
@@ -636,6 +689,11 @@ class ClipController extends ClipwebController {
 
       case this.MODEL.TYPE.LOAD:
         // LOAD
+        _model['hash'] = this.MODEL.HASH;
+        break;
+
+      case this.MODEL.TYPE.DELETE:
+        // DELETE
         _model['hash'] = this.MODEL.HASH;
         break;
 
