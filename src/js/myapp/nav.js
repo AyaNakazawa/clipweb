@@ -13,6 +13,8 @@ class NavModel extends ClipwebModel {
   ) {
     super(initSetting);
 
+    this.TEMPLATE.LICENSE = '#license-template';
+
     this.SELECTOR = {};
 
     this.SELECTOR.AREA = {};
@@ -37,6 +39,10 @@ class NavModel extends ClipwebModel {
 
     this.SELECTOR.HEADER = {};
     this.SELECTOR.HEADER.CLEAR = '#header-clear';
+
+    this.SELECTOR.FOOTER = {};
+    this.SELECTOR.FOOTER.LICENSE = '#footer-license';
+    this.SELECTOR.FOOTER.CLIPWEB = '#footer-clipweb';
 
   }
 }
