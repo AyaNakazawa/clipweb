@@ -630,6 +630,11 @@
                       <button class="list-search-clip-setting btn btn-outline-primary">
                         <i class="far fa-cog"></i> <%= LN.get('setting') %>
                       </button>
+                      <% if (clips[index]['clips'][clip_index]['clip_clip_mode'] == 'public' || clips[index]['clips'][clip_index]['clip_clip_mode'] == 'share') { %>
+                        <button class="list-search-clip-share btn btn-outline-primary">
+                          <i class="far fa-share-alt"></i> <%= LN.get('share') %>
+                        </button>
+                      <% } %>
                       <button class="list-search-clip-delete btn btn-outline-danger">
                         <i class="far fa-trash-alt"></i> <%= LN.get('delete') %>
                       </button>
@@ -641,6 +646,11 @@
                       <% } else if (clips[index]['clips'][clip_index]['clip_clip_mode'] == 'share') { %>
                         <button class="list-search-clip-edit btn btn-outline-info">
                           <i class="far fa-edit"></i> <%= LN.get('edit') %>
+                        </button>
+                      <% } %>
+                      <% if (clips[index]['clips'][clip_index]['clip_clip_mode'] == 'public' || clips[index]['clips'][clip_index]['clip_clip_mode'] == 'share') { %>
+                        <button class="list-search-clip-share btn btn-outline-primary">
+                          <i class="far fa-share-alt"></i> <%= LN.get('share') %>
                         </button>
                       <% } %>
                     <% } %>
@@ -875,6 +885,9 @@
           <button id="clip-setting-close" class="btn btn-link" tabindex="210"><%= LN.get('close') %> <i class="far fa-times"></i></button>
           <div class="btn-group">
             <button id="clip-setting-edit" class="btn btn-outline-info" tabindex="200"><%= LN.get('edit') %> <i class="fal fa-edit"></i></button>
+            <% if (clipMode == 'public' || clipMode == 'share') { %>
+              <button id="clip-setting-share" class="btn btn-outline-primary" tabindex="200"><%= LN.get('share') %> <i class="fal fa-share-alt"></i></button>
+            <% } %>
             <button id="clip-setting-delete" class="btn btn-outline-danger" tabindex="200"><%= LN.get('delete') %> <i class="fal fa-trash-alt"></i></button>
             <button id="clip-setting-save" class="btn btn-outline-primary" tabindex="200"><%= LN.get('save') %> <i class="fal fa-save"></i></button>
           </div>
