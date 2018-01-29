@@ -1,6 +1,8 @@
 
 やること
-  list-search-clip-controlsにshareボタンつける
+  shareでSNS系追加する
+  ajax系を楽にする
+    elseifでつなぐ？
   #list-search-clips-template完成させる
   tabindexをエリアごとに分ける
   addAlertかupdateAlertをCommonViewにつくる
