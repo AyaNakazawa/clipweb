@@ -806,14 +806,15 @@ class ListController extends ClipwebController {
   // clip
 
   edit ({
-    hash = null
+    hash = null,
+    edit = true
   } = {}) {
     if (hash == null) {
       Log.error(arguments)();
       return;
     }
     super.log(hash.substr(0, 14), 'Edit', Log.ARROW_INPUT)();
-    CLIP.edit(hash);
+    CLIP.edit(hash, edit);
   }
 
   delete ({
