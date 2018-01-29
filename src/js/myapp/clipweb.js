@@ -114,6 +114,8 @@ class ClipwebView extends CommonView {
   generateArea ({
     type = null,
     view = false,
+    scroll = true,
+    callback = null,
     header = null,
     headerButton = 'fas fa-times',
     alertType = this.MODEL.ALERT_SUCCESS,
@@ -196,7 +198,7 @@ class ClipwebView extends CommonView {
     this.EVENT.setOnPopover({ selector: this.MODEL.SELECTOR.AREA, type: 'all' });
 
     // View
-    this.setView({ view: view, scroll: true });
+    this.setView({ view: view, scroll: scroll, callback: callback });
 
     Log.log('Area generated', Log.ALIGN_CENTER)();
     super.log()();
