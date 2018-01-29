@@ -37,6 +37,7 @@ class ClipwebModel extends CommonModel {
     this.TYPE.SEARCH = 'search';
     this.TYPE.HISTORY = 'history';
     this.TYPE.SHARE = 'share';
+    this.TYPE.EDITOR = 'editor';
     this.TYPE.LIST = 'list';
     this.TYPE.LOAD = 'load';
     this.TYPE.OPEN = 'open';
