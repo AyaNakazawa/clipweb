@@ -483,6 +483,15 @@ class ClipController extends ClipwebController {
     CODE.loadCode(hash);
   }
 
+  share (hash = this.MODEL.HASH) {
+    if (hash == null) {
+      Log.error(arguments)();
+      return;
+    }
+    super.log(hash.substr(0, 14), 'Share', Log.ARROW_INPUT)();
+    CODE.share(hash);
+  }
+
   delete (hash = this.MODEL.HASH) {
     if (hash == null) {
       Log.error(arguments)();
