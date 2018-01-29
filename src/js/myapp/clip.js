@@ -429,46 +429,38 @@ class ClipController extends ClipwebController {
       successFunction: () => {
         if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
           // resultが取得できない
-          this.open({
-            type: _TYPE,
-            model: super.getErrorModel('result', _FAILED)
-          });
+          this.VIEW.toast(super.getErrorModel('toast/result', _FAILED));
+          this.open({ model: { scroll: false } });
         } else {
           if (this.getAjaxData({ key: 'result' }) == false) {
             // 新規作成できていない
             if (typeof this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`] != 'undefined') {
               const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
-              this.open({
-                type: _TYPE,
-                model: super.getErrorModel('clipweb', _FAILED, _ERROR)
-              });
+              this.VIEW.toast(super.getErrorModel('toast/clipweb', _FAILED, _ERROR));
+              this.open({ model: { scroll: false } });
             }
           } else {
             if (typeof this.getAjaxData({ key: 'hash' }) == 'undefined') {
               // 未知のエラー
-              this.open({
-                type: _TYPE,
-                model: super.getErrorModel('result', _FAILED)
-              });
+              this.VIEW.toast(super.getErrorModel('toast/result', _FAILED));
+              this.open({ model: { scroll: false } });
             } else {
               if (typeof this.getAjaxData({ key: 'hash' })['flex sqlite3 error'] != 'undefined') {
                 // Flex SQLite3 エラー
                 const _ERROR = this.getAjaxData({ key: 'hash' })['flex sqlite3 error'];
-                this.open({
-                  type: _TYPE,
-                  model: super.getErrorModel('fsql', _FAILED, _ERROR)
-                });
+                this.VIEW.toast(super.getErrorModel('toast/fsql', _FAILED, _ERROR));
+                this.open({ model: { scroll: false } });
               } else {
                 // 取得成功
                 LIST.loadList();
-                this.open();
+                this.open({ model: { scroll: false } });
               }
             }
           }
         }
       },
       errorOpenType: _TYPE,
-      errorModel: super.getErrorModel('server', _FAILED)
+      errorToastModel: super.getErrorModel('toast/server', _FAILED)
     });
 
     // Post
