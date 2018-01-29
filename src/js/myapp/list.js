@@ -839,6 +839,17 @@ class ListController extends ClipwebController {
     CLIP.connectSetting(this.MODEL.TYPE.LOAD, hash);
   }
 
+  share ({
+    hash = null
+  } = {}) {
+    if (hash == null) {
+      Log.error(arguments)();
+      return;
+    }
+    super.log(hash.substr(0, 14), 'Share', Log.ARROW_INPUT)();
+    CLIP.share(hash);
+  }
+
   // ----------------------------------------------------------------
   // ajax
 
