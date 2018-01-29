@@ -227,10 +227,9 @@ class NavEvent extends ClipwebEvent {
       func: () => {
         new Confirm({
           title: LN.get('license'),
-          content: View.getTemplate({
-            template: this.MODEL.TEMPLATE.LICENSE
-          }),
-          type: Confirm.TYPE_EMPTY
+          template: this.MODEL.TEMPLATE.LICENSE,
+          type: Confirm.TYPE_YES,
+          yes: LN.get('close')
         });
       }
     });
