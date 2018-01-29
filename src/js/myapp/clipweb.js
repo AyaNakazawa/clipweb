@@ -339,7 +339,8 @@ class ClipwebController extends CommonController {
 
     this.open({
       model: {
-        loadingHeader: LN.get(`loading_header_${this.MODEL.KEY.toLowerCase()}_${type.toLowerCase()}`)
+        loadingHeader: LN.get(`loading_header_${this.MODEL.KEY.toLowerCase()}_${type.toLowerCase()}`),
+        scroll: false
       }
     });
   }
