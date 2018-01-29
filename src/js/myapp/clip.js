@@ -76,6 +76,7 @@ class ClipModel extends ClipwebModel {
     this.SELECTOR.SETTING.USERS = '#clip-setting-users';
     this.SELECTOR.SETTING.CLOSE = '#clip-setting-close';
     this.SELECTOR.SETTING.EDIT = '#clip-setting-edit';
+    this.SELECTOR.SETTING.SHARE = '#clip-setting-share';
     this.SELECTOR.SETTING.DELETE = '#clip-setting-delete';
     this.SELECTOR.SETTING.SAVE = '#clip-setting-save';
 
