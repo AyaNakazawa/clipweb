@@ -124,6 +124,9 @@ class Language {
 
       loading_header_clip_new: 'New clip',
       loading_header_clip_setting: 'Setting of clip',
+      loading_header_clip_delete: 'Delete of clip',
+
+      loading_header_code_load: 'Load of Code',
 
       user_registered: 'Registered you.',
       user_logined: 'You logined.',
@@ -163,10 +166,13 @@ class Language {
       failed_to_get_clip_list: 'Failed to getting your clips.',
       failed_to_create_new_clip: 'Failed to creating new clip.',
 
-      failed_to_open_clip_setting: 'Failed to open clip setting.',
-      failed_to_load_clip_setting: 'Failed to load clip setting.',
-      failed_to_update_clip_setting: 'Failed to update clip setting.',
-      failed_to_setting_clip_setting: 'Failed to update clip setting.',
+      failed_to_open_clip_setting: 'Failed to open the clip setting.',
+      failed_to_load_clip_setting: 'Failed to load the clip setting.',
+      failed_to_update_clip_setting: 'Failed to update the clip setting.',
+      failed_to_setting_clip_setting: 'Failed to update the clip setting.',
+      failed_to_delete_clip: 'Failed to delete the clip.',
+
+      failed_to_load_code: 'Failed to load the clip.',
 
       failed_connect_to_server: 'Failed connect to clipweb server.',
       server_not_working: 'clipweb server is not working properly.',
@@ -332,8 +338,11 @@ class Language {
 
       loading_header_list_search: 'クリップ一覧を取得中',
 
-      loading_header_clip_new: 'クリップ一覧を取得中',
-      loading_header_clip_setting: 'クリップ一覧を取得中',
+      loading_header_clip_new: 'クリップを作成中',
+      loading_header_clip_setting: 'クリップを設定中',
+      loading_header_clip_delete: 'クリップを削除中',
+
+      loading_header_code_load: 'コードを読み込み中',
 
       user_registered: 'ユーザーを登録しました。',
       user_logined: 'ログインしました。',
@@ -377,6 +386,9 @@ class Language {
       failed_to_load_clip_setting: 'クリップの設定を読み込むことができませんでした。',
       failed_to_update_clip_setting: 'クリップの設定の更新に失敗しました。',
       failed_to_setting_clip_setting: 'クリップの設定の更新に失敗しました。',
+      failed_to_delete_clip: 'クリップの削除に失敗しました。',
+
+      failed_to_load_code: 'クリップの読み込みに失敗しました。',
 
       failed_connect_to_server: 'clipwebサーバーとの通信に失敗しました。',
       server_not_working: 'clipwebサーバーが正常に動作していません。',
