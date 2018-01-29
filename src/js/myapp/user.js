@@ -315,7 +315,9 @@ class UserEvent extends ClipwebEvent {
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.INFO.SETTING}`,
       func: () => {
         super.log('User Setting', 'Open')();
-        this.CONTROLLER.open({ type: this.MODEL.TYPE.SETTING });
+        this.CONTROLLER.open({ type: this.MODEL.TYPE.SETTING, model: {
+          scroll: true
+        }});
       }
     });
 
@@ -356,7 +358,9 @@ class UserEvent extends ClipwebEvent {
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.INFO}`,
       func: () => {
         super.log('User Info', 'Open')();
-        this.CONTROLLER.open({ type: this.MODEL.TYPE.INFO });
+        this.CONTROLLER.open({ type: this.MODEL.TYPE.INFO, model: {
+          scroll: true
+        }});
       }
     });
 
@@ -590,7 +594,7 @@ class UserController extends ClipwebController {
               }
               LocalStorage.setItem(this.MODEL.LS.LOGIN, 'true');
               this.MODEL.STATUS.LOGIN = true;
-              this.open();
+              this.open({ model: { scroll: false } });;
               LIST.loadList();
             }
           }
