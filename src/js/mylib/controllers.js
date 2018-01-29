@@ -7,6 +7,8 @@
  * @param  {String}         id            id of confirm selector
  * @param  {String}         title         Title of modal
  * @param  {String}         content       Content of modal
+ * @param  {String}         template      template of underscore
+ * @param  {Object}         model         model of template
  * @param  {Number}         type          Type of button number (0, 1, 2)
  * @param  {Boolean}        show          Show modal when init
  * @param  {Boolean|String} backdrop      Includes backdrop (true, false, 'static')
@@ -20,6 +22,7 @@
  * @param  {Function}       functionYes   Function run when Yes pressed
  * @param  {Function}       functionNo    Function run when No pressed
  * @param  {Function}       functionClose Function run when closed
+ * @param  {Function}       functionOpen  Function run when opening
  * @return {Confirm}                      Extends ConfirmController, CommonController, Commonclass
 **/
 
@@ -36,6 +39,8 @@ class Confirm extends ConfirmController {
       // id: '',
       // title: '',
       // content: '',
+      // template: null,
+      // model: {},
       // type: Confirm.TYPE_1,
       // show: true,
       // backdrop: true,
@@ -48,7 +53,8 @@ class Confirm extends ConfirmController {
       // no: 'Close',
       // functionYes: null,
       // functionNo: null,
-      // functionClose: null
+      // functionClose: null,
+      // functionOpen: null
     }
   ) {
     super(_model);

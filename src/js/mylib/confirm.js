@@ -12,6 +12,8 @@ class ConfirmModel extends CommonModel {
       id: null,
       title: '',
       content: '',
+      template: null,
+      model: {},
       type: Confirm.TYPE_YES_NO,
       show: true,
       backdrop: true,
@@ -24,7 +26,8 @@ class ConfirmModel extends CommonModel {
       no: LN.get('close'),
       functionYes: null,
       functionNo: null,
-      functionClose: null
+      functionClose: null,
+      functionOpen: null
     }
   ) {
     super(_initSetting);
@@ -250,6 +253,10 @@ class ConfirmController extends CommonController {
   openConfirm () {
     super.log(this.MODEL.id, 'Open', Log.ARROW_INPUT)();
     $(this.MODEL.SELECTOR.ID).modal();
+    if (Object.getType(this.MODEL.functionOpen) == 'Function') {
+      super.log('Open', 'Exec', Log.ARROW_INPUT)();
+      this.MODEL.functionOpen();
+    }
   }
 
   selectYes () {
