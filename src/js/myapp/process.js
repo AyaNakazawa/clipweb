@@ -16,6 +16,7 @@ class Process extends CommonProcess {
     this.SELECTOR.CONTENT.LIST = 'list-area';
     this.SELECTOR.CONTENT.CLIP = 'clip-area';
     this.SELECTOR.CONTENT.HELP = 'help-area';
+    this.SELECTOR.CONTENT.HELP = 'code-area';
 
     this.run();
   }
@@ -46,6 +47,7 @@ class Process extends CommonProcess {
     USER = new UserController();
     LIST = new ListController();
     CLIP = new ClipController();
+    CODE = new CodeController();
   }
 
   show () {
