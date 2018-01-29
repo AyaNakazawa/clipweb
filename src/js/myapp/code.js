@@ -24,12 +24,14 @@ class CodeModel extends ClipwebModel {
     // LocalStorageキー
 
     // ----------------------------------------------------------------
-    // 情報
+    // ステータス
+    this.STATUS.LOAD = false;
 
+    // ----------------------------------------------------------------
     // クリップ
     this.HASH = '';
-    this.FILENAME = '';
-    this.FILETYPE = '';
+    this.FILENAME = 'test.js';
+    this.FILETYPE = 'JavaScript';
     this.DATA = '';
 
     this.DL_DATA = null;
@@ -42,10 +44,12 @@ class CodeModel extends ClipwebModel {
     // セレクタ
 
     // エリア
-    this.SELECTOR.AREA = '#code-editor-area';
+    this.SELECTOR.AREA = '#code-area';
 
     // 新規作成
     this.SELECTOR.EDITOR = {};
+    this.SELECTOR.EDITOR.EDITOR = '#code-editor-editor';
+    this.SELECTOR.EDITOR.CLOSE = '#code-editor-close';
     this.SELECTOR.EDITOR.SHARE = '#code-editor-share';
     this.SELECTOR.EDITOR.SETTING = '#code-editor-setting';
 
