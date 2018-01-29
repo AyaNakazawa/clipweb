@@ -39,6 +39,7 @@ class CodeModel extends ClipwebModel {
     // ----------------------------------------------------------------
     // テンプレート
     this.TEMPLATE.EDITOR = '#code-editor-template';
+    this.TEMPLATE.SHARE = '#code-share-template';
 
     // ----------------------------------------------------------------
     // セレクタ
@@ -46,13 +47,17 @@ class CodeModel extends ClipwebModel {
     // エリア
     this.SELECTOR.AREA = '#code-area';
 
-    // 新規作成
+    // エディタ
     this.SELECTOR.EDITOR = {};
     this.SELECTOR.EDITOR.EDITOR = '#code-editor-editor';
     this.SELECTOR.EDITOR.CLOSE = '#code-editor-close';
     this.SELECTOR.EDITOR.SHARE = '#code-editor-share';
     this.SELECTOR.EDITOR.SETTING = '#code-editor-setting';
 
+    // シェア
+    this.SELECTOR.SHARE = {};
+    this.SELECTOR.SHARE.LINK = '#code-share-link';
+    this.SELECTOR.SHARE.COPY = '#code-share-copy';
   }
 }
 
