@@ -83,6 +83,7 @@ class CodeEvent extends ClipwebEvent {
 
   setEvent () {
     this.setOnHide();
+    this.setOnEditor();
   }
 
   // ----------------------------------------------------------------
@@ -100,7 +101,13 @@ class CodeEvent extends ClipwebEvent {
   // type
 
   setOnEditor () {
-
+    super.setOn({
+      selector: this.MODEL.SELECTOR.EDITOR.CLOSE,
+      func: () => {
+        this.trigger({ trigger: this.MODEL.TRIGGER.VIEW.HIDE });
+        $(this.MODEL.COMMON.SELECTOR.BODY).css('overflow', 'auto');
+      }
+    });
   }
 }
 
