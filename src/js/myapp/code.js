@@ -139,6 +139,7 @@ class CodeController extends ClipwebController {
   // code
 
   decrypto () {
+    super.log(this.MODEL.HASH.substr(0, 14), 'Decrypto', Log.ARROW_INPUT)();
     this.MODEL.DATA = this.MODEL.DL_DATA;
   }
 
