@@ -5,7 +5,7 @@
 // ----------------------------------------------------------------
 // Model
 
-class CodeModel extends CodewebModel {
+class CodeModel extends ClipwebModel {
   constructor (
     initSetting = {
       NAME: 'Code Object'
@@ -55,7 +55,7 @@ class CodeModel extends CodewebModel {
 // ----------------------------------------------------------------
 // View
 
-class CodeView extends CodewebView {
+class CodeView extends ClipwebView {
   constructor (
     initSetting = {
       NAME: 'Code View'
@@ -68,7 +68,7 @@ class CodeView extends CodewebView {
 // ----------------------------------------------------------------
 // Event
 
-class CodeEvent extends CodewebEvent {
+class CodeEvent extends ClipwebEvent {
   constructor (
     initSetting = {
       NAME: 'Code Event'
@@ -103,7 +103,7 @@ class CodeEvent extends CodewebEvent {
 // ----------------------------------------------------------------
 // Controller
 
-class CodeController extends CodewebController {
+class CodeController extends ClipwebController {
   constructor (
     model = {},
     initSetting = {
