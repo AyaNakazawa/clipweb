@@ -495,7 +495,7 @@ class ClipController extends ClipwebController {
       Log.error(arguments)();
       return;
     }
-    super.log(hash.substr(0, 14), 'edit', Log.ARROW_INPUT)();
+    super.log(hash.substr(0, 14), 'Edit', Log.ARROW_INPUT)();
     this.editClip(hash);
   }
 
@@ -504,7 +504,7 @@ class ClipController extends ClipwebController {
       Log.error(arguments)();
       return;
     }
-    super.log(hash.substr(0, 14), 'delete', Log.ARROW_INPUT)();
+    super.log(hash.substr(0, 14), 'Delete', Log.ARROW_INPUT)();
     new Confirm({
       title: LN.get('delete_clip'),
       content:

@@ -803,7 +803,7 @@ class ListController extends ClipwebController {
       Log.error(arguments)();
       return;
     }
-    super.log(hash.substr(0, 14), 'edit', Log.ARROW_INPUT)();
+    super.log(hash.substr(0, 14), 'Edit', Log.ARROW_INPUT)();
     CLIP.edit(hash);
   }
 
@@ -814,7 +814,7 @@ class ListController extends ClipwebController {
       Log.error(arguments)();
       return;
     }
-    super.log(hash.substr(0, 14), 'delete', Log.ARROW_INPUT)();
+    super.log(hash.substr(0, 14), 'Delete', Log.ARROW_INPUT)();
     CLIP.delete(hash);
   }
 
@@ -825,7 +825,7 @@ class ListController extends ClipwebController {
       Log.error(arguments)();
       return;
     }
-    super.log(hash.substr(0, 14), 'setting', Log.ARROW_INPUT)();
+    super.log(hash.substr(0, 14), 'Setting', Log.ARROW_INPUT)();
     CLIP.connectSetting(this.MODEL.TYPE.LOAD, hash);
   }
 
