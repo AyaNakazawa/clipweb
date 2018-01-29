@@ -478,15 +478,6 @@ class ClipController extends ClipwebController {
     });
   }
 
-  editClip (hash = this.MODEL.HASH) {
-    if (hash == null) {
-      Log.error(arguments)();
-      return;
-    }
-    Log.info(arguments)();
-
-  }
-
   // ----------------------------------------------------------------
   // clip
 
@@ -496,7 +487,7 @@ class ClipController extends ClipwebController {
       return;
     }
     super.log(hash.substr(0, 14), 'Edit', Log.ARROW_INPUT)();
-    this.editClip(hash);
+    CODE.loadCode(hash);
   }
 
   delete (hash = this.MODEL.HASH) {
