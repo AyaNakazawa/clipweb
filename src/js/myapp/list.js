@@ -43,6 +43,7 @@ class ListModel extends ClipwebModel {
     this.ORDER = 'asc';
 
     // クリップ
+    this.NAMED_CLIPS = {};
     this.DOWNLOADED_CLIPS = {};
     this.FILTERED_CLIPS = [];
     this.GROUPED_CLIPS = [];
