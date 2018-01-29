@@ -229,6 +229,7 @@ class ClipwebEvent extends CommonEvent {
     errorOpenMode = this.MODEL.KEY,
     errorOpenType = null,
     errorModel = {},
+    errorToastModel = null,
     errorFunction = () => {}
   } = {}) {
     if (type == null) {
@@ -264,6 +265,10 @@ class ClipwebEvent extends CommonEvent {
             type: errorOpenType,
             model: errorModel
           });
+        if (errorToastModel != null) {
+          errorToastModel['type'] = 'error';
+          this.VIEW.toast(errorToastModel);
+          this.CONTROLLER.open({ model: { scroll: false } });
         }
         errorFunction();
       }
