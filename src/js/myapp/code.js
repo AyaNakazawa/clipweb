@@ -138,6 +138,35 @@ class CodeController extends ClipwebController {
   // ----------------------------------------------------------------
   // code
 
+  start () {
+    $(this.MODEL.COMMON.SELECTOR.BODY).css('overflow', 'hidden');
+    this.open({ type: this.MODEL.TYPE.EDITOR, model: { scroll: false, callback: () => {
+      this.MODEL.EDITOR = ace.edit(this.MODEL.SELECTOR.EDITOR.EDITOR.replace('#', ''));
+      this.MODEL.EDITOR.$blockScrolling = Infinity;
+      this.MODEL.EDITOR.setTheme(`ace/theme/${USER.MODEL.THEME}`);
+      this.MODEL.EDITOR.session.setMode(`ace/mode/${this.MODEL.FILETYPE.toLowerCase()}`);
+      this.MODEL.EDITOR.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: true
+      });
+    }}});
+  }
+
+  edit (hash = this.MODEL.HASH) {
+    this.MODEL.HASH = hash;
+    super.log(this.MODEL.HASH.substr(0, 14), 'Edit', Log.ARROW_INPUT)();
+    if (!this.MODEL.STATUS.LOAD) {
+      super.log('Script', 'Load', Log.ARROW_INPUT)();
+      this.MODEL.STATUS.LOAD = true;
+      $.getScript('js/lib/ace/ext-language_tools.js', () => {
+        this.start();
+      });
+    } else {
+      this.start();
+    }
+  }
+
   decrypto () {
     super.log(this.MODEL.HASH.substr(0, 14), 'Decrypto', Log.ARROW_INPUT)();
     this.MODEL.DATA = this.MODEL.DL_DATA;
