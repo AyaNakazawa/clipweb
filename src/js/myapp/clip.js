@@ -183,6 +183,14 @@ class ClipEvent extends ClipwebEvent {
     });
 
     super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.SHARE}`,
+      func: () => {
+        super.log('Clip', 'Share')();
+        this.CONTROLLER.share();
+      }
+    });
+
+    super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.DELETE}`,
       func: () => {
         super.log('Clip', 'Delete')();
