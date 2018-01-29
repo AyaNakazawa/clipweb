@@ -111,6 +111,8 @@ class Language {
       header_clip_new: 'New clip',
       header_clip_setting: 'clip setting',
 
+      header_code_editor: null,
+
       loading_header_user_register: 'Registering to clipweb',
       loading_header_user_login: 'Login to clipweb',
       loading_header_user_logout: 'Logout from clipweb',
@@ -318,6 +320,8 @@ class Language {
 
       header_clip_new: '新規クリップ',
       header_clip_setting: 'クリップ設定',
+
+      header_code_editor: null,
 
       loading_header_user_register: 'clipweb に登録中',
       loading_header_user_login: 'ログイン中',
