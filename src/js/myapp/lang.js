@@ -143,6 +143,11 @@ class Language {
       userdata_clear_confirm: 'Delete user data saved in the browser?',
       delete_clip: 'Delete the clip',
       delete_clip_confirm: 'Are you sure you want to delete the clip?',
+      share_clip: 'Share the clip',
+      share_clip_message: 'Please share this URL',
+
+      copied: 'Copied',
+      copied_share_link: 'Copied the share URL',
 
       please_all_inputs_correctly: 'Please enter all items correctly.',
       please_inputs_correctly: 'Please enter items correctly.',
@@ -359,6 +364,11 @@ class Language {
       userdata_clear_confirm: 'ブラウザに保存されているユーザーデータを削除しますか？',
       delete_clip: 'クリップの削除',
       delete_clip_confirm: 'クリップを削除してもよろしいですか？',
+      share_clip: 'クリップの共有',
+      share_clip_message: 'このURLを共有してください。',
+
+      copied: 'コピーしました。',
+      copied_share_link: '共有リンクをコピーしました。',
 
       please_all_inputs_correctly: 'すべての項目を正しく入力してください。',
       please_inputs_correctly: '正しく入力してください。',
