@@ -274,8 +274,8 @@ class CodeController extends ClipwebController {
     }
   }
 
-  decrypto () {
-    super.log(this.MODEL.HASH.substr(0, 14), 'Decrypto', Log.ARROW_INPUT)();
+  decrypt () {
+    super.log(this.MODEL.HASH.substr(0, 14), 'Decrypt', Log.ARROW_INPUT)();
     this.MODEL.DATA = this.MODEL.DL_DATA;
   }
 
@@ -334,7 +334,7 @@ class CodeController extends ClipwebController {
       case this.MODEL.TYPE.LOAD:
         // LOAD
         this.MODEL.DL_DATA = this.getAjaxData({ key: 'data' });
-        this.decrypto();
+        this.decrypt();
         this.MODEL.FILENAME = this.getAjaxData({ key: 'filename' });
         this.MODEL.FILETYPE = this.getAjaxData({ key: 'filetype' });
         break;
@@ -342,7 +342,7 @@ class CodeController extends ClipwebController {
       case this.MODEL.TYPE.SAVE:
         // SAVE
         this.MODEL.DL_DATA = this.getAjaxData({ key: 'data' });
-        this.decrypto();
+        this.decrypt();
         break;
 
       default:
