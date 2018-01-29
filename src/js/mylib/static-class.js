@@ -302,6 +302,8 @@ class Log {
         this.STYLE_ARROW,
         styleContent
       );
+    } else {
+      return () => {};
     }
   }
 
@@ -353,6 +355,8 @@ class Log {
         result = this.CHAR_STYLE + result;
       }
       return console.log.bind(console, result, this.STYLE_TIMESTAMP, groupStyle, obj);
+    } else {
+      return () => {};
     }
   }
 
@@ -380,6 +384,8 @@ class Log {
         style: style,
         groupStyle: groupStyle
       });
+    } else {
+      return () => {};
     }
   }
 
@@ -410,6 +416,8 @@ class Log {
         group: group,
         groupStyle: groupStyle
       });
+    } else {
+      return () => {};
     }
   }
 
@@ -449,6 +457,8 @@ class Log {
         group: group,
         groupStyle: groupStyle
       });
+    } else {
+      return () => {};
     }
   }
 
@@ -524,6 +534,8 @@ class Log {
       } else {
         return console.log.bind(console, result, this.STYLE_TIMESTAMP, groupStyle, style, groupStyle);
       }
+    } else {
+      return () => {};
     }
   }
 
@@ -544,6 +556,8 @@ class Log {
         group: group,
         groupStyle: style
       });
+    } else {
+      return () => {};
     }
   }
 
