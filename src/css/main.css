@@ -485,8 +485,6 @@ footer {
     height: 1rem; }
 .license-item .license-description {
   padding: 0 2rem; }
-.license-item:last-child {
-  margin-bottom: 1rem; }
 
 #user-area {
   width: 448px; }
@@ -550,7 +548,7 @@ footer {
           vertical-align: middle; }
 
 #clip-area {
-  width: 448px; }
+  width: 568px; }
 
 #code-area {
   width: 100%;
