@@ -91,7 +91,7 @@ class UserModel extends ClipwebModel {
     this.ENCRYPT.CRYPTO = null;
 
     // ユーザ設定
-    this.THEME = 'light';
+    this.THEME = 'monokai';
     this.OWNER_PUBLIC = 'public';
     this.CLIP_MODE = 'private';
 
