@@ -135,6 +135,65 @@ class CodeController extends ClipwebController {
   // ----------------------------------------------------------------
   // ajax
 
+  loadCode (hash = this.MODEL.HASH) {
+    this.MODEL.HASH = hash;
+    if (this.MODEL.HASH == null) {
+      Log.error(arguments)();
+      return;
+    }
+    const _TYPE = this.MODEL.TYPE.LOAD;
+    const _FAILED = 'failed_to_load_code';
+
+    this.EVENT.setOnLoading({
+      type: _TYPE,
+      successFunction: () => {
+        if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
+          // resultが取得できない
+          this.VIEW.toast(super.getErrorModel('toast/result', _FAILED));
+          this.open({ model: { scroll: false } });
+        } else {
+          if (this.getAjaxData({ key: 'result' }) == false) {
+            // 新規作成できていない
+            if (typeof this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`] != 'undefined') {
+              const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
+              this.VIEW.toast(super.getErrorModel('toast/clipweb', _FAILED, _ERROR));
+              this.open({ model: { scroll: false } });
+            }
+          } else {
+            if (typeof this.getAjaxData({ key: 'data' }) == 'undefined') {
+              // 未知のエラー
+              this.VIEW.toast(super.getErrorModel('toast/result', _FAILED));
+              this.open({ model: { scroll: false } });
+            } else {
+              if (typeof this.getAjaxData({ key: 'data' })['flex sqlite3 error'] != 'undefined') {
+                // Flex SQLite3 エラー
+                const _ERROR = this.getAjaxData({ key: 'data' })['flex sqlite3 error'];
+                this.VIEW.toast(super.getErrorModel('toast/fsql', _FAILED, _ERROR));
+                this.open({ model: { scroll: false } });
+              } else {
+                // 取得成功
+                this.edit();
+              }
+            }
+          }
+        }
+      },
+      errorOpenType: _TYPE,
+      errorToastModel: super.getErrorModel('toast/server', _FAILED)
+    });
+
+    // Post
+    this.post({
+      type: _TYPE,
+      data: this.getSendModel(_TYPE)
+    });
+  }
+
+  saveData (hash = this.MODEL.HASH) {
+    this.MODEL.HASH = hash;
+
+  }
+
   // ----------------------------------------------------------------
   // code
 
