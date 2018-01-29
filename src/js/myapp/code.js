@@ -288,7 +288,21 @@ class CodeController extends ClipwebController {
   }
 
   share (hash = this.MODEL.HASH) {
+    this.MODEL.HASH = hash;
+    this.MODEL.FILENAME = LIST.MODEL.NAMED_CLIPS[hash]['clip_name'];
+    this.MODEL.FILETYPE = LIST.MODEL.NAMED_CLIPS[hash]['clip_type'];
     super.log(this.MODEL.HASH.substr(0, 14), 'Share', Log.ARROW_INPUT)();
+    new Confirm({
+      title: LN.get('share_clip'),
+      template: this.MODEL.TEMPLATE.SHARE,
+      model: {
+        hash: this.MODEL.HASH,
+        filename: this.MODEL.FILENAME,
+        filetype: this.MODEL.FILETYPE
+      },
+      type: Confirm.TYPE_YES,
+      yes: LN.get('close')
+    });
   }
 
   setting (hash = this.MODEL.HASH) {
