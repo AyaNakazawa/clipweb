@@ -392,6 +392,12 @@ class ClipwebController extends CommonController {
           alertType: View.ALERT_DANGER
         };
         break;
+      case 'toast/result':
+        _result = {
+          type: 'error',
+          message: LN.get(localization)
+        };
+        break;
       case 'clipweb':
         _result = {
           alertMessage:
@@ -407,6 +413,12 @@ class ClipwebController extends CommonController {
           alertType: View.ALERT_WARNING
         };
         break;
+      case 'toast/clipweb':
+        _result = {
+          type: 'error',
+          message: LN.get(localization)
+        };
+        break;
       case 'fsql':
         _result = {
           alertMessage:
@@ -418,6 +430,12 @@ class ClipwebController extends CommonController {
           alertType: View.ALERT_WARNING
         };
         break;
+      case 'toast/fsql':
+        _result = {
+          type: 'error',
+          message: LN.get(localization)
+        };
+        break;
       case 'server':
         _result = {
           alertMessage: (
@@ -426,6 +444,12 @@ class ClipwebController extends CommonController {
             View.element({ content: LN.get(localization) })
           ),
           alertType: View.ALERT_DANGER
+        };
+        break;
+      case 'toast/server':
+        _result = {
+          type: 'error',
+          message: LN.get(localization)
         };
         break;
     }
