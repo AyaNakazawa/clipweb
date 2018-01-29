@@ -141,6 +141,8 @@ class CommonModel extends CommonClass {
 
     this.COMMON.SELECTOR = {};
     this.COMMON.SELECTOR.ROOT = document;
+    this.COMMON.SELECTOR.BODY = this.COMMON.BODY;
+    this.COMMON.SELECTOR.MAIN = this.COMMON.MAIN;
     this.COMMON.SELECTOR.AREA = '#area';
     this.COMMON.SELECTOR.POPOVER = '.content-popover';
 
