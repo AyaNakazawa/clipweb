@@ -1074,6 +1074,18 @@ class CommonView extends CommonClass {
     // Method chain
     return this;
   }
+
+  toast (model = null) {
+    if (model == null) {
+      Log.error(arguments)();
+      return;
+    }
+    if (typeof model['type'] == 'undefined') {
+      iziToast.show(model);
+    } else {
+      iziToast[model['type']](model);
+    }
+  }
 }
 
 // ----------------------------------------------------------------
