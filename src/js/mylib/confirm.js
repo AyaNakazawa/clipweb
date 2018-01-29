@@ -65,6 +65,12 @@ class ConfirmView extends CommonView {
   }
 
   generateModal () {
+    if (this.MODEL.template != null) {
+      this.MODEL.content = View.getTemplate({
+        template: this.MODEL.template,
+        model: this.MODEL.model
+      });
+    }
     $(this.MODEL.SELECTOR.AREA).html(View.getTemplate({
       template: $(this.MODEL.SELECTOR.TEMPLATE),
       model: {
