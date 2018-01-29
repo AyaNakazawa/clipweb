@@ -244,11 +244,13 @@ class ClipwebEvent extends CommonEvent {
     super.setOn({
       trigger: this.MODEL.TRIGGER.POST.SUCCESS,
       func: () => {
-        this.CONTROLLER.open({
-          mode: successOpenMode,
-          type: successOpenType,
-          model: successModel
-        });
+        if (successOpenType != null) {
+          this.CONTROLLER.open({
+            mode: successOpenMode,
+            type: successOpenType,
+            model: successModel
+          });
+        }
         successFunction();
       }
     });
@@ -256,11 +258,13 @@ class ClipwebEvent extends CommonEvent {
     super.setOn({
       trigger: this.MODEL.TRIGGER.POST.ERROR,
       func: () => {
-        this.CONTROLLER.open({
-          mode: errorOpenMode,
-          type: errorOpenType,
-          model: errorModel
-        });
+        if (errorOpenType != null) {
+          this.CONTROLLER.open({
+            mode: errorOpenMode,
+            type: errorOpenType,
+            model: errorModel
+          });
+        }
         errorFunction();
       }
     });
