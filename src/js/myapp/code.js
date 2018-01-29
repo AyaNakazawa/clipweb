@@ -163,8 +163,8 @@ class CodeController extends ClipwebController {
     }
     let _result = {};
     switch (type) {
-      case this.MODEL.TYPE.OPEN:
-        // OPEN
+      case this.MODEL.TYPE.EDITOR:
+        // EDITOR
         _result = {
           hash: this.MODEL.HASH,
           filename: this.MODEL.FILENAME,
@@ -194,8 +194,8 @@ class CodeController extends ClipwebController {
     }
 
     switch (type) {
-      case this.MODEL.TYPE.OPEN:
-        // OPEN
+      case this.MODEL.TYPE.LOAD:
+        // LOAD
         this.MODEL.DL_DATA = this.getAjaxData({ key: 'data' });
         this.decrypto();
         this.MODEL.FILENAME = this.getAjaxData({ key: 'filename' });
@@ -225,8 +225,8 @@ class CodeController extends ClipwebController {
     _model['owner_hash'] = USER.MODEL.HASH.USER;
     _model['password_hash'] = USER.MODEL.HASH.PASSWORD;
     switch (type) {
-      case this.MODEL.TYPE.OPEN:
-        // OPEN
+      case this.MODEL.TYPE.LOAD:
+        // LOAD
         _model['hash'] = this.MODEL.HASH;
         break;
 
