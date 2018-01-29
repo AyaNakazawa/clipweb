@@ -4,12 +4,14 @@
 
 class Log {
   // Common line setting
-  static get LENGTH () { return 96; }
+  static get LENGTH () { return 88; }
   static get LINE () { return '─'; }
   static get SPACE () { return ' '; }
   static get CHAR_STYLE () { return '%c'; }
   static get MARGIN () { return 2; }
   static get FILL () { return false; }
+  static get TIMESTAMP () { return true; }
+  static get NOWSTAMP () { return new Date().formatString('%M:%S.%MS '); }
 
   // Group character setting
   static get GROUP_NONE () { return ['', '']; }
@@ -63,6 +65,7 @@ class Log {
   static get STYLE_GROUP () { return 'color:#888'; }
 
   static get STYLE_TIME () { return 'color:#333;font-weight:bold;'; }
+  static get STYLE_TIMESTAMP () { return 'color:#333;font-weight:bold;'; }
 
   static get STYLE_CLASS () { return 'color:#222;'; }
   static get STYLE_KEY () { return 'color:#c2c;'; }
@@ -193,6 +196,13 @@ class Log {
       this.log({
         text: type,
         align: this.ALIGN_CENTER,
+        style: styleHeader,
+        group: this.GROUP_IN,
+        groupStyle: styleLine
+      })();
+      this.log({
+        text: new Date().formatString(),
+        align: this.ALIGN_RIGHT,
         style: styleHeader,
         group: this.GROUP_IN,
         groupStyle: styleLine
@@ -337,7 +347,12 @@ class Log {
       for (let i = 0; i < this.MARGIN - group[0].length - 1; i++) {
         result += this.SPACE;
       }
-      return console.log.bind(console, result, groupStyle, obj);
+      if (this.TIMESTAMP) {
+        result = this.CHAR_STYLE + this.NOWSTAMP + result;
+      } else {
+        result = this.CHAR_STYLE + result;
+      }
+      return console.log.bind(console, result, this.STYLE_TIMESTAMP, groupStyle, obj);
     }
   }
 
@@ -471,38 +486,43 @@ class Log {
         arrow: arrow,
         fill: fill
       });
+      if (this.TIMESTAMP) {
+        result = this.CHAR_STYLE + this.NOWSTAMP + result;
+      } else {
+        result = this.CHAR_STYLE + result;
+      }
       if (clas != this.NULL) {
         if (key != this.NULL) {
           if (value != this.NULL) {
             // class + key + value
             if (Object.typeIs(['Object', 'Array'], value)) {
-              return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, keyStyle, this.STYLE_ARROW, value);
+              return console.log.bind(console, result, this.STYLE_TIMESTAMP, groupStyle, classStyle, this.STYLE_COLON, keyStyle, this.STYLE_ARROW, value);
             } else {
-              return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, keyStyle, this.STYLE_ARROW, valueStyle, groupStyle);
+              return console.log.bind(console, result, this.STYLE_TIMESTAMP, groupStyle, classStyle, this.STYLE_COLON, keyStyle, this.STYLE_ARROW, valueStyle, groupStyle);
             }
           } else {
             // class + key
             if (Object.typeIs(['Object', 'Array'], key)) {
-              return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, key);
+              return console.log.bind(console, result, this.STYLE_TIMESTAMP, groupStyle, classStyle, this.STYLE_COLON, key);
             } else {
-              return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, keyStyle, groupStyle);
+              return console.log.bind(console, result, this.STYLE_TIMESTAMP, groupStyle, classStyle, this.STYLE_COLON, keyStyle, groupStyle);
             }
           }
         } else {
           if (value != this.NULL) {
             // class + value
             if (Object.typeIs(['Object', 'Array'], value)) {
-              return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, value);
+              return console.log.bind(console, result, this.STYLE_TIMESTAMP, groupStyle, classStyle, this.STYLE_COLON, value);
             } else {
-              return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, valueStyle, groupStyle);
+              return console.log.bind(console, result, this.STYLE_TIMESTAMP, groupStyle, classStyle, this.STYLE_COLON, valueStyle, groupStyle);
             }
           } else {
             // class
-            return console.log.bind(console, result, groupStyle, classStyle, this.STYLE_COLON, groupStyle);
+            return console.log.bind(console, result, this.STYLE_TIMESTAMP, groupStyle, classStyle, this.STYLE_COLON, groupStyle);
           }
         }
       } else {
-        return console.log.bind(console, result, groupStyle, style, groupStyle);
+        return console.log.bind(console, result, this.STYLE_TIMESTAMP, groupStyle, style, groupStyle);
       }
     }
   }
