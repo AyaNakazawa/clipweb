@@ -110,8 +110,25 @@ class CodeEvent extends ClipwebEvent {
     super.setOn({
       selector: this.MODEL.SELECTOR.EDITOR.CLOSE,
       func: () => {
+        super.log('Code', 'Close')();
         this.trigger({ trigger: this.MODEL.TRIGGER.VIEW.HIDE });
         $(this.MODEL.COMMON.SELECTOR.BODY).css('overflow', 'auto');
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.EDITOR.SHARE,
+      func: () => {
+        super.log('Code', 'Share')();
+        this.CONTROLLER.share();
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.EDITOR.SETTING,
+      func: () => {
+        super.log('Code', 'Setting')();
+        this.CONTROLLER.setting();
       }
     });
   }
