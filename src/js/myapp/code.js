@@ -249,6 +249,9 @@ class CodeController extends ClipwebController {
     $(this.MODEL.COMMON.SELECTOR.BODY).css('overflow', 'hidden');
     this.open({ type: this.MODEL.TYPE.EDITOR, model: { scroll: false, callback: () => {
       this.MODEL.EDITOR = ace.edit(this.MODEL.SELECTOR.EDITOR.EDITOR.replace('#', ''));
+      if (!edit) {
+        this.MODEL.EDITOR.setReadOnly(true);
+      }
       this.MODEL.EDITOR.$blockScrolling = Infinity;
       this.MODEL.EDITOR.setTheme(`ace/theme/${USER.MODEL.THEME}`);
       this.MODEL.EDITOR.session.setMode(`ace/mode/${this.MODEL.FILETYPE.toLowerCase()}`);
