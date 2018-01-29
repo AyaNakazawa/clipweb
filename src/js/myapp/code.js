@@ -280,6 +280,10 @@ class CodeController extends ClipwebController {
   }
 
   share () {
+  encrypt () {
+    super.log(this.MODEL.HASH.substr(0, 14), 'Encrypt', Log.ARROW_INPUT)();
+    this.MODEL.SEND_DATA = this.MODEL.DATA;
+  }
     super.log(this.MODEL.HASH.substr(0, 14), 'Share', Log.ARROW_INPUT)();
   }
 
@@ -370,7 +374,7 @@ class CodeController extends ClipwebController {
       case this.MODEL.TYPE.SAVE:
         // SAVE
         _model['hash'] = this.MODEL.HASH;
-        _model['data'] = this.MODEL.DATA;
+        _model['data'] = this.MODEL.SEND_DATA;
         break;
 
       default:
