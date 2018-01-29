@@ -183,7 +183,7 @@ class CodeController extends ClipwebController {
   // ----------------------------------------------------------------
   // ajax
 
-  loadCode (hash = this.MODEL.HASH) {
+  loadCode (hash = this.MODEL.HASH, edit = true) {
     this.MODEL.HASH = hash;
     if (this.MODEL.HASH == null) {
       Log.error(arguments)();
@@ -220,7 +220,7 @@ class CodeController extends ClipwebController {
                 this.open({ model: { scroll: false } });
               } else {
                 // 取得成功
-                this.edit();
+                this.edit(this.MODEL.HASH, edit);
               }
             }
           }
@@ -245,7 +245,7 @@ class CodeController extends ClipwebController {
   // ----------------------------------------------------------------
   // code
 
-  start () {
+  start (edit = true) {
     $(this.MODEL.COMMON.SELECTOR.BODY).css('overflow', 'hidden');
     this.open({ type: this.MODEL.TYPE.EDITOR, model: { scroll: false, callback: () => {
       this.MODEL.EDITOR = ace.edit(this.MODEL.SELECTOR.EDITOR.EDITOR.replace('#', ''));
@@ -260,17 +260,17 @@ class CodeController extends ClipwebController {
     }}});
   }
 
-  edit (hash = this.MODEL.HASH) {
+  edit (hash = this.MODEL.HASH, edit = false) {
     this.MODEL.HASH = hash;
     super.log(this.MODEL.HASH.substr(0, 14), 'Edit', Log.ARROW_INPUT)();
     if (!this.MODEL.STATUS.LOAD) {
       super.log('Script', 'Load', Log.ARROW_INPUT)();
       this.MODEL.STATUS.LOAD = true;
       $.getScript('js/lib/ace/ext-language_tools.js', () => {
-        this.start();
+        this.start(edit);
       });
     } else {
-      this.start();
+      this.start(edit);
     }
   }
 
@@ -279,15 +279,17 @@ class CodeController extends ClipwebController {
     this.MODEL.DATA = this.MODEL.DL_DATA;
   }
 
-  share () {
   encrypt () {
     super.log(this.MODEL.HASH.substr(0, 14), 'Encrypt', Log.ARROW_INPUT)();
     this.MODEL.SEND_DATA = this.MODEL.DATA;
   }
+
+  share (hash = this.MODEL.HASH) {
     super.log(this.MODEL.HASH.substr(0, 14), 'Share', Log.ARROW_INPUT)();
   }
 
-  setting () {
+  setting (hash = this.MODEL.HASH) {
+    this.MODEL.HASH = hash;
     super.log(this.MODEL.HASH.substr(0, 14), 'Setting', Log.ARROW_INPUT)();
     CLIP.connectSetting(this.MODEL.TYPE.LOAD, this.MODEL.HASH);
   }
