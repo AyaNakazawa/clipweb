@@ -973,10 +973,6 @@ class ListController extends ClipwebController {
     }
   }
 
-  clearModel () {
-    this.MODEL.CLIPS = null;
-  }
-
   getSendModel (
     type = null
   ) {
