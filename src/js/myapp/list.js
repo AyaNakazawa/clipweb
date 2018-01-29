@@ -86,6 +86,7 @@ class ListModel extends ClipwebModel {
     this.SELECTOR.SEARCH.CLIP_MAIN = '.list-search-clip-main';
     this.SELECTOR.SEARCH.CLIP_DETAIL = '.list-search-clip-detail';
     this.SELECTOR.SEARCH.CLIP_EDIT = '.list-search-clip-edit';
+    this.SELECTOR.SEARCH.CLIP_VIEW = '.list-search-clip-view';
     this.SELECTOR.SEARCH.CLIP_DELETE = '.list-search-clip-delete';
     this.SELECTOR.SEARCH.CLIP_SETTING = '.list-search-clip-setting';
     this.SELECTOR.SEARCH.CLIP_CLOSE = '.list-search-clip-close';
@@ -274,6 +275,13 @@ class ListEvent extends ClipwebEvent {
       selector: this.MODEL.SELECTOR.SEARCH.CLIP_EDIT,
       func: function () {
         LIST.edit({ hash: $(this).parents(LIST.MODEL.SELECTOR.SEARCH.CLIP).find(LIST.MODEL.SELECTOR.SEARCH.CLIP_MAIN).attr('id') });
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.SEARCH.CLIP_VIEW,
+      func: function () {
+        LIST.edit({ hash: $(this).parents(LIST.MODEL.SELECTOR.SEARCH.CLIP).find(LIST.MODEL.SELECTOR.SEARCH.CLIP_MAIN).attr('id'), edit: false });
       }
     });
 
