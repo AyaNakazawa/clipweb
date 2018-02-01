@@ -121,6 +121,8 @@ class CodeEvent extends ClipwebEvent {
       selector: this.MODEL.SELECTOR.EDITOR.SETTING,
       func: () => {
         super.log('Code', 'Setting')();
+        this.CONTROLLER.close();
+        $(this.MODEL.COMMON.SELECTOR.BODY).css('overflow', 'auto');
         this.CONTROLLER.setting();
       }
     });
