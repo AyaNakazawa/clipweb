@@ -222,7 +222,7 @@ class ClipwebEvent extends CommonEvent {
   // ----------------------------------------------------------------
   // set on with loading
 
-  setOnLoading ({
+  setLoading ({
     type = null,
     successOpenMode = this.MODEL.KEY,
     successOpenType = null,
