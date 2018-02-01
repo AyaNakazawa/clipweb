@@ -374,7 +374,7 @@ class ClipController extends ClipwebController {
     }
   }
 
-  connectSetting (type = this.MODEL.TYPE.SETTING, hash = null) {
+  connectSetting (type = this.MODEL.TYPE.SETTING, hash = this.MODEL.HASH) {
     if (type == null) {
       Log.error(arguments)();
       return this.MODEL.ERROR;
