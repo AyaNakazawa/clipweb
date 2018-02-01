@@ -483,6 +483,105 @@ class ClipwebController extends CommonController {
     return _result;
   }
 
+  checkSuccess ({
+    errorMessage = null,
+    errorType = 'open',
+    errorOpen = null,
+    errorClose = false,
+    check = [],
+    functionSuccess = () => {}
+  } = {}) {
+    super.log('Check', 'CGI')();
+    if (this.getAjaxData({ key: 'result' }) == this.MODEL.ERROR) {
+      // resultが取得できない
+      super.log('Error', 'Not defined')();
+      if (errorType == 'open') {
+        this.open({
+          type: errorOpen,
+          model: this.getErrorModel('result', LN.get(errorMessage))
+        });
+      } else {
+        this.VIEW.toast({ type: 'error', message: LN.get(errorMessage) });
+      }
+      Log.error(arguments)();
+    } else if (this.getAjaxData({ key: 'result' }) == false) {
+      // clipwebエラーが出ているとき
+      super.log('Error', 'clipweb')();
+      if (this.getAjaxData({ key: 'error', key2: `${Project.NAME} ${this.MODEL.KEY} error` }) != this.MODEL.ERROR) {
+        if (errorType == 'open') {
+          const _ERROR = this.getAjaxData({ key: 'error', key2: `${Project.NAME} ${this.MODEL.KEY} error` });
+          this.open({
+            type: errorOpen,
+            model: this.getErrorModel('clipweb', LN.get(errorMessage), _ERROR)
+          });
+        } else {
+          this.VIEW.toast({ type: 'error', message: LN.get(errorMessage) });
+        }
+      }
+      Log.error(arguments)();
+    } else {
+      let _error = false;
+      for (let index = 0; index < check.length; index ++) {
+        if (Object.typeIs('String', check[index])) {
+          if (this.getAjaxData({ key: check[index] }) == this.MODEL.ERROR) {
+            // 未実装
+            super.log('Error', 'Unimplemented')();
+            if (errorType == 'open') {
+              this.open({
+                type: errorOpen,
+                model: this.getErrorModel('result', LN.get(errorMessage))
+              });
+              _error = true;
+            } else {
+              this.VIEW.toast({ type: 'error', message: LN.get(errorMessage) });
+              _error = true;
+            }
+          } else if (this.getAjaxData({ key: check[index], key2: 'flex sqlite3 error' }) != this.MODEL.ERROR) {
+            // Flex SQLite3 エラー
+            super.log('Error', 'FlexSQLite3')();
+            if (errorType == 'open') {
+              const _ERROR = this.getAjaxData({ key: check[index], key2: 'flex sqlite3 error' });
+              Log.obj(_ERROR)();
+              this.open({
+                type: errorOpen,
+                model: this.getErrorModel('fsql', LN.get(errorMessage), _ERROR)
+              });
+              _error = true;
+            } else {
+              this.VIEW.toast({ type: 'error', message: LN.get(errorMessage) });
+              _error = true;
+            }
+          }
+        } else {
+          if (this.getAjaxData({ key: check[index][0], key2: check[index][1] }) == this.MODEL.ERROR) {
+            // 未実装
+            super.log('Error', 'Unimplemented')();
+            if (errorType == 'open') {
+              this.open({
+                type: errorOpen,
+                model: this.getErrorModel('result', LN.get(errorMessage))
+              });
+              _error = true;
+            } else {
+              this.VIEW.toast({ type: 'error', message: LN.get(errorMessage) });
+              _error = true;
+            }
+          }
+        }
+        if (_error) {
+          if (errorClose) {
+            this.close();
+          }
+          Log.error(arguments)();
+          return this.MODEL.ERROR;
+        }
+      }
+      // 成功
+      super.log('Success', 'CGI')();
+      functionSuccess();
+    }
+  }
+
   // ----------------------------------------------------------------
   // post
 
