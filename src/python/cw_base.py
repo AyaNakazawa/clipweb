@@ -303,6 +303,12 @@ class Base:
                     "code": 802,
                     "message": "Clip data is corrupted. Please contact the administrator."
                 }
+            },
+            "permission_denied": {
+                "{} error".format(cls.NAME): {
+                    "code": 901,
+                    "message": "Permission denied."
+                }
             }
         }
 
