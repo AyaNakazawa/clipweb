@@ -228,7 +228,7 @@ class ClipwebEvent extends CommonEvent {
     successOpenMode = this.MODEL.KEY,
     successOpenType = null,
     successModel = {},
-    successFunction = () => {},
+    functionSuccess = () => {},
     errorOpenMode = this.MODEL.KEY,
     errorOpenType = null,
     errorModel = {},
@@ -258,9 +258,9 @@ class ClipwebEvent extends CommonEvent {
           type: successOpenType,
           model: successModel
         });
-        successFunction();
         super.setOff({ trigger: this.MODEL.TRIGGER.POST.SUCCESS });
         super.setOff({ trigger: this.MODEL.TRIGGER.POST.ERROR });
+        functionSuccess();
       }
     });
     // Error
