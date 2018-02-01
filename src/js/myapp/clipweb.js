@@ -256,6 +256,8 @@ class ClipwebEvent extends CommonEvent {
           model: successModel
         });
         successFunction();
+        super.setOff({ trigger: this.MODEL.TRIGGER.POST.SUCCESS });
+        super.setOff({ trigger: this.MODEL.TRIGGER.POST.ERROR });
       }
     });
     // Error
@@ -275,6 +277,8 @@ class ClipwebEvent extends CommonEvent {
           this.VIEW.toast(errorToastModel);
           this.CONTROLLER.open({ model: { scroll: false } });
         }
+        super.setOff({ trigger: this.MODEL.TRIGGER.POST.SUCCESS });
+        super.setOff({ trigger: this.MODEL.TRIGGER.POST.ERROR });
         errorFunction();
       }
     });
@@ -283,8 +287,6 @@ class ClipwebEvent extends CommonEvent {
       trigger: this.MODEL.TRIGGER.POST.COMPLETE,
       func: () => {
         super.log(type.capitalize(), 'Complete')();
-        super.setOff({ trigger: this.MODEL.TRIGGER.POST.SUCCESS });
-        super.setOff({ trigger: this.MODEL.TRIGGER.POST.ERROR });
         super.setOff({ trigger: this.MODEL.TRIGGER.POST.COMPLETE });
       }
     });
