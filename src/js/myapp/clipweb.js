@@ -224,6 +224,7 @@ class ClipwebEvent extends CommonEvent {
 
   setLoading ({
     type = null,
+    loading = true,
     successOpenMode = this.MODEL.KEY,
     successOpenType = null,
     successModel = {},
@@ -241,7 +242,9 @@ class ClipwebEvent extends CommonEvent {
     super.log(type.capitalize(), 'Loading')();
 
     // Loading
-    this.CONTROLLER.openLoading(type);
+    if (loading) {
+      this.CONTROLLER.openLoading(type);
+    }
 
     // Success
     super.setOn({
