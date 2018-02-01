@@ -713,7 +713,7 @@ class ClipController extends ClipwebController {
     switch (type) {
       case this.MODEL.TYPE.NEW:
         // NEW
-        _model['hash'] = Random.hex();
+        _model['hash'] = this.MODEL.HASH;
         _model['filename'] = this.MODEL.FILENAME;
         _model['filetype'] = this.MODEL.FILETYPE;
         _model['tags'] = this.MODEL.TAGS;
