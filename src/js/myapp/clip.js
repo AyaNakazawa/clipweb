@@ -121,6 +121,7 @@ class ClipEvent extends ClipwebEvent {
     this.setOnHide();
     this.setOnNew();
     this.setOnSetting();
+    this.setOnShare();
   }
 
   // ----------------------------------------------------------------
@@ -227,6 +228,32 @@ class ClipEvent extends ClipwebEvent {
       this.MODEL.SELECTOR.SETTING.FILENAME
     );
   }
+
+  // ----------------------------------------------------------------
+  // share
+
+  setOnShare () {
+    super.setOn({
+      selector: this.MODEL.SELECTOR.SHARE.LINK,
+      trigger: 'focus',
+      func: () => {
+        $(this.MODEL.SELECTOR.SHARE.LINK).select();
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.SHARE.COPY,
+      func: () => {
+        $(this.MODEL.SELECTOR.SHARE.LINK).select();
+        document.execCommand('copy');
+        this.VIEW.toast({
+          message: LN.get('copied_share_link'),
+          type: 'success'
+        });
+      }
+    });
+  }
+
 }
 
 // ----------------------------------------------------------------
