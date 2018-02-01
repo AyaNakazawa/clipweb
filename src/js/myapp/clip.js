@@ -530,7 +530,18 @@ class ClipController extends ClipwebController {
       return this.MODEL.ERROR;
     }
     super.log(hash.substr(0, 14), 'Share', Log.ARROW_INPUT)();
-    CODE.share(hash);
+
+    new Confirm({
+      title: LN.get('share_clip'),
+      template: this.MODEL.TEMPLATE.SHARE,
+      model: {
+        hash: hash,
+        filename: LIST.MODEL.NAMED_CLIPS[hash]['clip_name'],
+        filetype: LIST.MODEL.NAMED_CLIPS[hash]['clip_type']
+      },
+      type: Confirm.TYPE_YES,
+      yes: LN.get('close')
+    });
   }
 
   delete (hash = this.MODEL.HASH) {
