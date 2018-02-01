@@ -243,7 +243,7 @@ class Log {
             }
             for (let key of Object.keys(args[i])) {
               this.class({
-                clas: `arguments[${i}][${key}]`,
+                clas: `${i} > ${key}`,
                 key: args[i][key],
                 group: this.GROUP_IN,
                 groupStyle: styleLine
