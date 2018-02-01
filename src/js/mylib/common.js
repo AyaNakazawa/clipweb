@@ -604,7 +604,8 @@ class CommonView extends CommonClass {
     type = this.MODEL.COMMON.EFFECT.DEFAULT.HIDE,
     speed = this.MODEL.COMMON.SPEED.CLEAR,
     delay = this.MODEL.COMMON.DELAY.CLEAR,
-    easing = this.MODEL.COMMON.EASING.CLEAR
+    easing = this.MODEL.COMMON.EASING.CLEAR,
+    callback = null
   } = {}) {
     selector = Object.getArg(arguments, 0, 'String', selector);
     type = Object.getArg(arguments, 1, 'String', type);
@@ -623,7 +624,8 @@ class CommonView extends CommonClass {
         type: type,
         speed: speed,
         delay: delay,
-        easing: easing
+        easing: easing,
+        callback: callback
       });
     }
 
@@ -639,7 +641,8 @@ class CommonView extends CommonClass {
     speed = this.MODEL.COMMON.SPEED.SHOW,
     delay = this.MODEL.COMMON.DELAY.SHOW,
     scroll = this.MODEL.COMMON.EFFECT.DEFAULT.SCROLL,
-    easing = this.MODEL.COMMON.EASING.SHOW
+    easing = this.MODEL.COMMON.EASING.SHOW,
+    callback = null
   } = {}) {
     selector = Object.getArg(arguments, 0, 'String', selector);
     type = Object.getArg(arguments, 1, 'String', type);
@@ -660,7 +663,8 @@ class CommonView extends CommonClass {
       speed: speed,
       delay: delay,
       scroll: scroll,
-      easing: easing
+      easing: easing,
+      callback: callback
     });
   }
 
@@ -669,7 +673,8 @@ class CommonView extends CommonClass {
     type = this.MODEL.COMMON.EFFECT.DEFAULT.HIDE,
     speed = this.MODEL.COMMON.SPEED.HIDE,
     delay = this.MODEL.COMMON.DELAY.HIDE,
-    easing = this.MODEL.COMMON.EASING.HIDE
+    easing = this.MODEL.COMMON.EASING.HIDE,
+    callback = null
   } = {}) {
     selector = Object.getArg(arguments, 0, 'String', selector);
     type = Object.getArg(arguments, 1, 'String', type);
@@ -688,7 +693,8 @@ class CommonView extends CommonClass {
       type: type,
       speed: speed,
       delay: delay,
-      easing: easing
+      easing: easing,
+      callback: callback
     });
   }
 
