@@ -869,54 +869,25 @@ class ListController extends ClipwebController {
     this.EVENT.setLoading({
       type: _TYPE,
       functionSuccess: () => {
-        if (this.getAjaxData({ key: 'result' }) == this.MODEL.ERROR) {
-          // resultが取得できない
-          this.open({
-            type: _TYPE,
-            model: super.getErrorModel('result', _FAILED)
-          });
-        } else {
-          if (this.getAjaxData({ key: 'result' }) == false) {
-            // 新規登録できていない(clipweb user error)
-            if (typeof this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`] != 'undefined') {
-              const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
-              this.open({
-                type: _TYPE,
-                model: super.getErrorModel('clipweb', _FAILED, _ERROR)
-              });
-            }
-          } else {
-            if (typeof this.getAjaxData({ key: 'clips' })['flex sqlite3 error'] != 'undefined') {
-              // Flex SQLite3 エラー
-              const _ERROR = this.getAjaxData({ key: 'clips' })['flex sqlite3 error'];
-              this.open({
-                type: _TYPE,
-                model: super.getErrorModel('fsql', _FAILED, _ERROR)
-              });
-            } else {
-              if (typeof this.getAjaxData({ key: 'owners' })['flex sqlite3 error'] != 'undefined') {
-                // Flex SQLite3 エラー
-                const _ERROR = this.getAjaxData({ key: 'owners' })['flex sqlite3 error'];
-                this.open({
-                  type: _TYPE,
-                  model: super.getErrorModel('fsql', _FAILED, _ERROR)
-                });
-              } else {
-                // 取得成功
-                this.MODEL.STATUS.GET = true;
-                this.CONTROLLER.applyReceiveModel(_TYPE);
-                this.open({
-                  type: _TYPE,
-                  model: {
-                    alertMessage:
-                      View.element({ content: LN.get('clip_list_got') })
-                  },
-                });
-                this.filtering();
-              }
-            }
+        this.checkSuccess({
+          errorMessage: _FAILED,
+          check: [
+            'clips',
+            'owners'
+          ],
+          functionSuccess: () => {
+            this.MODEL.STATUS.GET = true;
+            this.CONTROLLER.applyReceiveModel(_TYPE);
+            this.open({
+              type: _TYPE,
+              model: {
+                alertMessage:
+                  View.element({ content: LN.get('clip_list_got') })
+              },
+            });
+            this.filtering();
           }
-        }
+        });
       },
       errorOpenType: _TYPE,
       errorModel: super.getErrorModel('server', _FAILED)

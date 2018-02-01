@@ -450,47 +450,25 @@ class UserController extends ClipwebController {
       this.EVENT.setLoading({
         type: _TYPE,
         functionSuccess: () => {
-          if (this.getAjaxData({ key: 'result' }) == this.MODEL.ERROR) {
-            // resultが取得できない
-            this.open({
-              type: _TYPE,
-              model: super.getErrorModel('result', _FAILED)
-            });
-          } else {
-            if (this.getAjaxData({ key: 'result' }) == false) {
-              // 新規登録できていない(clipweb user error)
-              if (typeof this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`] != 'undefined') {
-                const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
-                this.open({
-                  type: _TYPE,
-                  model: super.getErrorModel('clipweb', _FAILED, _ERROR)
-                });
-              }
-            } else {
-              if (this.getAjaxData({ key: 'new_user' }) != true) {
-                // 新規登録できていない(flex sqlite3 error)
-                if (typeof this.getAjaxData({ key: 'new_user' })['flex sqlite3 error'] != 'undefined') {
-                  const _ERROR = this.getAjaxData({ key: 'new_user' })['flex sqlite3 error'];
-                  this.open({
-                    type: _TYPE,
-                    model: super.getErrorModel('fsql', _FAILED, _ERROR)
-                  });
-                }
-              } else {
-                // 登録成功
-                this.CONTROLLER.applyReceiveModel(_TYPE);
-                this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
-                this.open({
-                  type: this.MODEL.TYPE.LOGIN,
-                  model: {
-                    alertMessage:
-                      View.element({ content: LN.get('user_registered') }) +
-                      View.element({ content: LN.get('please_email_auth') })
-                  },
-                });
-              }
+          this.checkSuccess({
+            errorMessage: _FAILED,
+            check: [
+              'new_user'
+            ],
+            functionSuccess: () => {
+              // 登録成功
+              this.CONTROLLER.applyReceiveModel(_TYPE);
+              this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
+              this.open({
+                type: this.MODEL.TYPE.LOGIN,
+                model: {
+                  alertMessage:
+                    View.element({ content: LN.get('user_registered') }) +
+                    View.element({ content: LN.get('please_email_auth') })
+                },
+              });
             }
-          }
+          });
         },
         errorOpenType: _TYPE,
         errorModel: super.getErrorModel('server', _FAILED)
@@ -542,47 +520,20 @@ class UserController extends ClipwebController {
       this.EVENT.setLoading({
         type: _TYPE,
         functionSuccess: () => {
-          if (this.getAjaxData({ key: 'result' }) == this.MODEL.ERROR) {
-            // resultが取得できない
-            this.open({
-              type: _TYPE,
-              model: super.getErrorModel('result', _FAILED)
-            });
-          } else {
-            if (this.getAjaxData({ key: 'result' }) == false) {
-              // ログインできていない(clipweb user error)
-              if (typeof this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`] != 'undefined') {
-                const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
-                this.open({
-                  type: _TYPE,
-                  model: super.getErrorModel('clipweb', _FAILED, _ERROR)
-                });
-              }
-            } else {
-              const _INFO = [
-                'hash',
-                'username',
-                'encrypted_crypto_hash',
-                'email_authentication',
-                'theme',
-                'default_owner_public',
-                'default_clip_mode',
-                'created_at',
-                'updated_at',
-              ];
-              for (let i_info = 0; i_info < _INFO.length; i_info++) {
-                if (Object.getType(this.getAjaxData({ key: _INFO[i_info] })) != 'String') {
-                  // ログイン情報を取得できていない(flex sqlite3 error)
-                  if (this.getAjaxData({ key: _INFO[i_info] }) != this.MODEL.ERROR) {
-                    const _ERROR = this.getAjaxData({ key: _INFO[i_info] })['flex sqlite3 error'];
-                    this.open({
-                      type: _TYPE,
-                      model: super.getErrorModel('fsql', _FAILED, _ERROR)
-                    });
-                    return this.MODEL.ERROR;
-                  }
-                }
-              }
+          this.checkSuccess({
+            errorMessage: _FAILED,
+            check: [
+              'hash',
+              'username',
+              'encrypted_crypto_hash',
+              'email_authentication',
+              'theme',
+              'default_owner_public',
+              'default_clip_mode',
+              'created_at',
+              'updated_at',
+            ],
+            functionSuccess: () => {
               // Login成功
               NAV.login();
               this.CONTROLLER.applyReceiveModel(_TYPE);
@@ -597,7 +548,7 @@ class UserController extends ClipwebController {
               this.close();
               LIST.loadList();
             }
-          }
+          });
         },
         errorOpenType: _TYPE,
         errorModel: super.getErrorModel('server', _FAILED)
@@ -630,23 +581,10 @@ class UserController extends ClipwebController {
     this.EVENT.setLoading({
       type: _TYPE,
       functionSuccess: () => {
-        if (this.getAjaxData({ key: 'result' }) == this.MODEL.ERROR) {
-          // resultが取得できない
-          this.open({
-            type: _TYPE,
-            model: super.getErrorModel('result', _FAILED)
-          });
-        } else {
-          if (this.getAjaxData({ key: 'result' }) == false) {
-            // ログアウトできていない(clipweb user error)
-            if (typeof this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`] != 'undefined') {
-              const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
-              this.open({
-                type: _TYPE,
-                model: super.getErrorModel('clipweb', _FAILED, _ERROR)
-              });
-            }
-          } else {
+        this.checkSuccess({
+          errorMessage: _FAILED,
+          check: [],
+          functionSuccess: () => {
             // Logout成功
             NAV.logout();
             LIST.VIEW.hide();
@@ -667,7 +605,7 @@ class UserController extends ClipwebController {
               },
             });
           }
-        }
+        });
       },
       errorOpenType: _TYPE,
       errorModel: super.getErrorModel('server', _FAILED)
@@ -720,70 +658,32 @@ class UserController extends ClipwebController {
       this.EVENT.setLoading({
         type: _TYPE,
         functionSuccess: () => {
-          if (this.getAjaxData({ key: 'result' }) == this.MODEL.ERROR) {
-            // resultが取得できない
-            this.open({
-              type: _TYPE,
-              model: super.getErrorModel('result', _FAILED)
-            });
-          } else {
-            if (this.getAjaxData({ key: 'result' }) == false) {
-              // 設定変更できていない(clipweb user error)
-              if (typeof this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`] != 'undefined') {
-                const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
-                this.open({
-                  type: _TYPE,
-                  model: super.getErrorModel('clipweb', _FAILED, _ERROR)
-                });
+          this.checkSuccess({
+            errorMessage: _FAILED,
+            check: [
+              'username',
+              'email_address',
+              'encrypted_crypto_hash',
+              'updated_at',
+            ],
+            functionSuccess: () => {
+              // 情報変更成功
+              this.CONTROLLER.applyReceiveModel(_TYPE);
+              this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
+              if (this.MODEL.STATUS.AUTO) {
+                LocalStorage.setItem(this.MODEL.LS.AUTO.HASH.PASSWORD, this.MODEL.HASH.PASSWORD);
+                LocalStorage.setItem(this.MODEL.LS.AUTO.EMAIL, this.MODEL.EMAIL);
+                LocalStorage.setItem(this.MODEL.LS.AUTO.HASH.DECRYPT_CRYPTO, this.MODEL.HASH.DECRYPT_CRYPTO);
               }
-            } else {
-              if (this.getAjaxData({ key: 'update_info' }) != true) {
-                // 設定変更できていない(flex sqlite3 error)
-                if (typeof this.getAjaxData({ key: 'update_info' })['flex sqlite3 error'] != 'undefined') {
-                  const _ERROR = this.getAjaxData({ key: 'update_info' })['flex sqlite3 error'];
-                  this.open({
-                    type: _TYPE,
-                    model: super.getErrorModel('fsql', _FAILED, _ERROR)
-                  });
+              this.open({
+                type: _TYPE,
+                model: {
+                  alertMessage:
+                    View.element({ content: LN.get('user_update_info') })
                 }
-              } else {
-                const _INFO = [
-                  'username',
-                  'email_address',
-                  'encrypted_crypto_hash',
-                  'updated_at',
-                ];
-                for (let i_info = 0; i_info < _INFO.length; i_info++) {
-                  if (Object.getType(this.getAjaxData({ key: _INFO[i_info] })) != 'String') {
-                    // ログイン情報を取得できていない(flex sqlite3 error)
-                    if (this.getAjaxData({ key: _INFO[i_info] }) != this.MODEL.ERROR) {
-                      const _ERROR = this.getAjaxData({ key: _INFO[i_info] })['flex sqlite3 error'];
-                      this.open({
-                        type: _TYPE,
-                        model: super.getErrorModel('fsql', _FAILED, _ERROR)
-                      });
-                      return this.MODEL.ERROR;
-                    }
-                  }
-                }
-                // 情報変更成功
-                this.CONTROLLER.applyReceiveModel(_TYPE);
-                this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
-                if (this.MODEL.STATUS.AUTO) {
-                  LocalStorage.setItem(this.MODEL.LS.AUTO.HASH.PASSWORD, this.MODEL.HASH.PASSWORD);
-                  LocalStorage.setItem(this.MODEL.LS.AUTO.EMAIL, this.MODEL.EMAIL);
-                  LocalStorage.setItem(this.MODEL.LS.AUTO.HASH.DECRYPT_CRYPTO, this.MODEL.HASH.DECRYPT_CRYPTO);
-                }
-                this.open({
-                  type: _TYPE,
-                  model: {
-                    alertMessage:
-                      View.element({ content: LN.get('user_update_info') })
-                  }
-                });
-              }
+              });
             }
-          }
+          });
         },
         errorOpenType: _TYPE,
         errorModel: super.getErrorModel('server', _FAILED)
@@ -835,65 +735,27 @@ class UserController extends ClipwebController {
       this.EVENT.setLoading({
         type: _TYPE,
         functionSuccess: () => {
-          if (this.getAjaxData({ key: 'result' }) == this.MODEL.ERROR) {
-            // resultが取得できない
-            this.open({
-              type: _TYPE,
-              model: super.getErrorModel('result', _FAILED)
-            });
-          } else {
-            if (this.getAjaxData({ key: 'result' }) == false) {
-              // 設定変更できていない(clipweb user error)
-              if (typeof this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`] != 'undefined') {
-                const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
-                this.open({
-                  type: _TYPE,
-                  model: super.getErrorModel('clipweb', _FAILED, _ERROR)
-                });
-              }
-            } else {
-              if (this.getAjaxData({ key: 'update_setting' }) != true) {
-                // 設定変更できていない(flex sqlite3 error)
-                if (typeof this.getAjaxData({ key: 'update_setting' })['flex sqlite3 error'] != 'undefined') {
-                  const _ERROR = this.getAjaxData({ key: 'update_setting' })['flex sqlite3 error'];
-                  this.open({
-                    type: _TYPE,
-                    model: super.getErrorModel('fsql', _FAILED, _ERROR)
-                  });
+          this.checkSuccess({
+            errorMessage: _FAILED,
+            check: [
+              'theme',
+              'default_owner_public',
+              'default_clip_mode',
+              'updated_at',
+            ],
+            functionSuccess: () => {
+              // 設定更新成功
+              this.CONTROLLER.applyReceiveModel(_TYPE);
+              this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
+              this.open({
+                type: _TYPE,
+                model: {
+                  alertMessage:
+                    View.element({ content: LN.get('user_update_setting') })
                 }
-              } else {
-                const _SETTING = [
-                  'theme',
-                  'default_owner_public',
-                  'default_clip_mode',
-                  'updated_at',
-                ];
-                for (let i_info = 0; i_info < _SETTING.length; i_info++) {
-                  if (Object.getType(this.getAjaxData({ key: _SETTING[i_info] })) != 'String') {
-                    // ログイン情報を取得できていない(flex sqlite3 error)
-                    if (this.getAjaxData({ key: _SETTING[i_info] }) != this.MODEL.ERROR) {
-                      const _ERROR = this.getAjaxData({ key: _SETTING[i_info] })['flex sqlite3 error'];
-                      this.open({
-                        type: _TYPE,
-                        model: super.getErrorModel('fsql', _FAILED, _ERROR)
-                      });
-                      return this.MODEL.ERROR;
-                    }
-                  }
-                }
-                // 設定更新成功
-                this.CONTROLLER.applyReceiveModel(_TYPE);
-                this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
-                this.open({
-                  type: _TYPE,
-                  model: {
-                    alertMessage:
-                      View.element({ content: LN.get('user_update_setting') })
-                  }
-                });
-              }
+              });
             }
-          }
+          });
         },
         errorOpenType: _TYPE,
         errorModel: super.getErrorModel('server', _FAILED)
