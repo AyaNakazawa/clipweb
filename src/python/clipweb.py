@@ -22,6 +22,7 @@ from db import flex_sqlite3
 import cw_user
 import cw_clip
 import cw_list
+import cw_code
 import cw_share
 
 TIME = {}
@@ -64,6 +65,9 @@ class Clipweb:
 
         elif _type[0] == "clip":
             cls.check_clip(_type[1])
+
+        elif _type[0] == "code":
+            cls.check_code(_type[1])
 
         elif _type[0] == "share":
             cls.check_share(_type[1])
@@ -121,6 +125,19 @@ class Clipweb:
 
         elif _type == "delete":
             cls.result["clip"] = CLIP.delete()
+
+        else:
+            cls.result["error"] = {}
+            cls.result["error"]["message"] = "check_clip: {0}".format(_type)
+
+    def check_code(cls, _type=None):
+        CODE = cw_code.Code()
+        CODE.set_cgi(cls.cgi)
+        if _type == "load":
+            cls.result["code"] = CODE.load()
+
+        elif _type == "save":
+            cls.result["code"] = CODE.save()
 
         else:
             cls.result["error"] = {}
