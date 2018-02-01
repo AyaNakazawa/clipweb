@@ -361,58 +361,31 @@ class ClipController extends ClipwebController {
 
     this.EVENT.setLoading({
       type: _TYPE,
-      successFunction: () => {
-        if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
-          // resultが取得できない
-          this.open({
-            type: _TYPE,
-            model: super.getErrorModel('result', _FAILED)
-          });
-        } else {
-          if (this.getAjaxData({ key: 'result' }) == false) {
-            // Resultエラー
-            if (typeof this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`] != 'undefined') {
-              const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
-              this.open({
-                type: _TYPE,
-                model: super.getErrorModel('clipweb', _FAILED, _ERROR)
-              });
+      functionSuccess: () => {
+        this.checkSuccess({
+          errorMessage: _FAILED,
+          check: [
+            'clip'
+          ],
+          functionSuccess: () => {
+            // 取得成功
+            super.log('取得成功')();
+            if (type == this.MODEL.TYPE.SETTING) {
+              LIST.loadClip();
             }
-          } else {
-            if (typeof this.getAjaxData({ key: 'clip' }) == 'undefined') {
-              // 未知のエラー
-              this.open({
-                type: _TYPE,
-                model: super.getErrorModel('result', _FAILED)
-              });
-            } else {
-              if (typeof this.getAjaxData({ key: 'clip' })['flex sqlite3 error'] != 'undefined') {
-                // Flex SQLite3 エラー
-                const _ERROR = this.getAjaxData({ key: 'clip' })['flex sqlite3 error'];
-                this.open({
-                  type: _TYPE,
-                  model: super.getErrorModel('fsql', _FAILED, _ERROR)
-                });
-              } else {
-                // 取得成功
-                if (type == this.MODEL.TYPE.SETTING) {
-                  LIST.loadClip();
-                }
-                this.applyReceiveModel(type);
-                this.VIEW.move({
-                  target: LIST.MODEL.SELECTOR.AREA,
-                  mode: this.MODEL.COMMON.TYPE.AFTER
-                });
-                this.open({
-                  type: this.MODEL.TYPE.SETTING,
-                  model: {
-                    alertMessage: _success_message
-                  }
-                });
+            this.applyReceiveModel(type);
+            this.VIEW.move({
+              target: LIST.MODEL.SELECTOR.AREA,
+              mode: this.MODEL.COMMON.TYPE.AFTER
+            });
+            this.open({
+              type: this.MODEL.TYPE.SETTING,
+              model: {
+                alertMessage: _success_message
               }
-            }
+            });
           }
-        }
+        });
       },
       errorOpenType: _TYPE,
       errorModel: super.getErrorModel('server', _FAILED)
