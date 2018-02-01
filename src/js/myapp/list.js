@@ -868,8 +868,8 @@ class ListController extends ClipwebController {
 
     this.EVENT.setLoading({
       type: _TYPE,
-        if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
       functionSuccess: () => {
+        if (this.getAjaxData({ key: 'result' }) == this.MODEL.ERROR) {
           // resultが取得できない
           this.open({
             type: _TYPE,

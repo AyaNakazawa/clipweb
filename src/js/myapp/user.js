@@ -449,8 +449,8 @@ class UserController extends ClipwebController {
     if (_validUsername && _validEmail && _validPassword && _validPasswordRe) {
       this.EVENT.setLoading({
         type: _TYPE,
-          if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
         functionSuccess: () => {
+          if (this.getAjaxData({ key: 'result' }) == this.MODEL.ERROR) {
             // resultが取得できない
             this.open({
               type: _TYPE,
@@ -541,8 +541,8 @@ class UserController extends ClipwebController {
     if ( _validEmail && _validPassword) {
       this.EVENT.setLoading({
         type: _TYPE,
-          if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
         functionSuccess: () => {
+          if (this.getAjaxData({ key: 'result' }) == this.MODEL.ERROR) {
             // resultが取得できない
             this.open({
               type: _TYPE,
@@ -573,7 +573,7 @@ class UserController extends ClipwebController {
               for (let i_info = 0; i_info < _INFO.length; i_info++) {
                 if (Object.getType(this.getAjaxData({ key: _INFO[i_info] })) != 'String') {
                   // ログイン情報を取得できていない(flex sqlite3 error)
-                  if (typeof this.getAjaxData({ key: _INFO[i_info] }) != 'undefined') {
+                  if (this.getAjaxData({ key: _INFO[i_info] }) != this.MODEL.ERROR) {
                     const _ERROR = this.getAjaxData({ key: _INFO[i_info] })['flex sqlite3 error'];
                     this.open({
                       type: _TYPE,
@@ -594,7 +594,7 @@ class UserController extends ClipwebController {
               }
               LocalStorage.setItem(this.MODEL.LS.LOGIN, 'true');
               this.MODEL.STATUS.LOGIN = true;
-              this.open({ model: { scroll: false } });
+              this.close();
               LIST.loadList();
             }
           }
@@ -629,8 +629,8 @@ class UserController extends ClipwebController {
 
     this.EVENT.setLoading({
       type: _TYPE,
-        if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
       functionSuccess: () => {
+        if (this.getAjaxData({ key: 'result' }) == this.MODEL.ERROR) {
           // resultが取得できない
           this.open({
             type: _TYPE,
@@ -719,8 +719,8 @@ class UserController extends ClipwebController {
     if (_validUsername && _validEmail && _validPassword && _validNewPassword && _validNewPasswordRe) {
       this.EVENT.setLoading({
         type: _TYPE,
-          if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
         functionSuccess: () => {
+          if (this.getAjaxData({ key: 'result' }) == this.MODEL.ERROR) {
             // resultが取得できない
             this.open({
               type: _TYPE,
@@ -756,7 +756,7 @@ class UserController extends ClipwebController {
                 for (let i_info = 0; i_info < _INFO.length; i_info++) {
                   if (Object.getType(this.getAjaxData({ key: _INFO[i_info] })) != 'String') {
                     // ログイン情報を取得できていない(flex sqlite3 error)
-                    if (typeof this.getAjaxData({ key: _INFO[i_info] }) != 'undefined') {
+                    if (this.getAjaxData({ key: _INFO[i_info] }) != this.MODEL.ERROR) {
                       const _ERROR = this.getAjaxData({ key: _INFO[i_info] })['flex sqlite3 error'];
                       this.open({
                         type: _TYPE,
@@ -834,8 +834,8 @@ class UserController extends ClipwebController {
     if (_validTheme && _validOwnerPublic && _validClipMode) {
       this.EVENT.setLoading({
         type: _TYPE,
-          if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
         functionSuccess: () => {
+          if (this.getAjaxData({ key: 'result' }) == this.MODEL.ERROR) {
             // resultが取得できない
             this.open({
               type: _TYPE,
@@ -871,7 +871,7 @@ class UserController extends ClipwebController {
                 for (let i_info = 0; i_info < _SETTING.length; i_info++) {
                   if (Object.getType(this.getAjaxData({ key: _SETTING[i_info] })) != 'String') {
                     // ログイン情報を取得できていない(flex sqlite3 error)
-                    if (typeof this.getAjaxData({ key: _SETTING[i_info] }) != 'undefined') {
+                    if (this.getAjaxData({ key: _SETTING[i_info] }) != this.MODEL.ERROR) {
                       const _ERROR = this.getAjaxData({ key: _SETTING[i_info] })['flex sqlite3 error'];
                       this.open({
                         type: _TYPE,
