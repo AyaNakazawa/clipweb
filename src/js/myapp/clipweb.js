@@ -369,7 +369,8 @@ class ClipwebController extends CommonController {
 
   getAjaxData ({
     type = this.MODEL.KEY,
-    key = null
+    key = null,
+    key2 = null
   } = {}) {
     if (key == null) {
       return this.MODEL.OBJECT.AJAX[type];
@@ -379,9 +380,18 @@ class ClipwebController extends CommonController {
       return this.MODEL.ERROR;
     }
     if (typeof this.MODEL.OBJECT.AJAX[type][key] != 'undefined') {
-      return this.MODEL.OBJECT.AJAX[type][key];
+      if (key2 == null) {
+        return this.MODEL.OBJECT.AJAX[type][key];
+      } else {
+        if (typeof this.MODEL.OBJECT.AJAX[type][key][key2] != 'undefined') {
+          return this.MODEL.OBJECT.AJAX[type][key][key2];
+        } else {
+          // Log.error(arguments, 'key2 undefined', this.MODEL.OBJECT.AJAX)();
+          return this.MODEL.ERROR;
+        }
+      }
     } else {
-      Log.error(arguments, 'key undefined', this.MODEL.OBJECT.AJAX)();
+      // Log.error(arguments, 'key undefined', this.MODEL.OBJECT.AJAX)();
       return this.MODEL.ERROR;
     }
   }
