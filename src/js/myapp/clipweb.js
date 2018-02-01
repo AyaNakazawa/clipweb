@@ -340,6 +340,12 @@ class ClipwebController extends CommonController {
     }
   }
 
+  close ({
+    scroll = false
+  } = {}) {
+    this.VIEW.generateArea({ scroll: scroll });
+  }
+
   openLoading (
     type = null
   ) {
