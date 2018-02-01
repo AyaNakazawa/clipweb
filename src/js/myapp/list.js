@@ -372,7 +372,7 @@ class ListController extends ClipwebController {
       this.MODEL.GROUP = $(`${_SELECTOR} option:selected`).val();
     } else {
       Log.error(arguments, 'select is invalid X(')();
-      return;
+      return this.MODEL.ERROR;
     }
 
     // Grouping
@@ -577,7 +577,7 @@ class ListController extends ClipwebController {
       this.MODEL.SORT = $(`${_SELECTOR} option:selected`).val();
     } else {
       Log.error(arguments, 'select is invalid X(')();
-      return;
+      return this.MODEL.ERROR;
     }
 
     switch (type) {
@@ -645,7 +645,7 @@ class ListController extends ClipwebController {
 
     if (!_VALID) {
       Log.error(arguments, 'input is invalid X(')();
-      return;
+      return this.MODEL.ERROR;
     }
 
     this.MODEL.SEARCH = $(_SELECTOR).val().trim();
@@ -702,7 +702,7 @@ class ListController extends ClipwebController {
           break;
         default:
           Log.error(arguments, 'unknown search op', this.MODEL.SEARCH_OP)();
-          return;
+          return this.MODEL.ERROR;
       }
       for (let searchIndex of Object.keys(_searchItems)) {
         // 空白区切りの検索ごとにまわす
@@ -755,7 +755,7 @@ class ListController extends ClipwebController {
               break;
             default:
               Log.error(arguments, 'unknown search op', this.MODEL.SEARCH_OP)();
-              return;
+              return this.MODEL.ERROR;
           }
         }
         switch (this.MODEL.SEARCH_OP) {
@@ -790,7 +790,7 @@ class ListController extends ClipwebController {
             break;
           default:
             Log.error(arguments, 'unknown search op', this.MODEL.SEARCH_OP)();
-            return;
+            return this.MODEL.ERROR;
         }
         if (_skip) {
           break;
@@ -819,7 +819,7 @@ class ListController extends ClipwebController {
   } = {}) {
     if (hash == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
     super.log(hash.substr(0, 14), 'Edit', Log.ARROW_INPUT)();
     CLIP.edit(hash, edit);
@@ -830,7 +830,7 @@ class ListController extends ClipwebController {
   } = {}) {
     if (hash == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
     super.log(hash.substr(0, 14), 'Delete', Log.ARROW_INPUT)();
     CLIP.delete(hash);
@@ -841,7 +841,7 @@ class ListController extends ClipwebController {
   } = {}) {
     if (hash == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
     super.log(hash.substr(0, 14), 'Setting', Log.ARROW_INPUT)();
     CLIP.connectSetting(this.MODEL.TYPE.LOAD, hash);
@@ -852,7 +852,7 @@ class ListController extends ClipwebController {
   } = {}) {
     if (hash == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
     super.log(hash.substr(0, 14), 'Share', Log.ARROW_INPUT)();
     CLIP.share(hash);
@@ -866,7 +866,7 @@ class ListController extends ClipwebController {
     const _FAILED = 'failed_to_get_clip_list';
     this.MODEL.STATUS.GET = false;
 
-    this.EVENT.setOnLoading({
+    this.EVENT.setLoading({
       type: _TYPE,
       successFunction: () => {
         if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
@@ -937,7 +937,7 @@ class ListController extends ClipwebController {
   ) {
     if (type == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
     let _result = {};
     switch (type) {
@@ -953,7 +953,7 @@ class ListController extends ClipwebController {
         break;
       default:
         Log.error(arguments, 'unknown type X(')();
-        return;
+        return this.MODEL.ERROR;
     }
     return _result;
   }
@@ -964,11 +964,11 @@ class ListController extends ClipwebController {
     super.log(type.capitalize(), 'Apply')();
     if (type == null) {
       Log.error(arguments);
-      return;
+      return this.MODEL.ERROR;
     }
     if (type != this.getAjaxData({ key: 'type' })) {
       Log.error(arguments, 'type mismatch X(')();
-      return;
+      return this.MODEL.ERROR;
     }
 
     switch (type) {
@@ -998,7 +998,7 @@ class ListController extends ClipwebController {
 
       default:
         Log.error(arguments, 'unknown type X(')();
-        return;
+        return this.MODEL.ERROR;
     }
   }
 
@@ -1007,7 +1007,7 @@ class ListController extends ClipwebController {
   ) {
     if (type == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
     let _model = {};
     _model['hash'] = USER.MODEL.HASH.USER;
@@ -1019,7 +1019,7 @@ class ListController extends ClipwebController {
 
       default:
         Log.error(arguments, 'unknown type X(')();
-        return;
+        return this.MODEL.ERROR;
     }
     return _model;
   }

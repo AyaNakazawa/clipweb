@@ -187,7 +187,7 @@ class CodeController extends ClipwebController {
     this.MODEL.HASH = hash;
     if (this.MODEL.HASH == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
     const _TYPE = this.MODEL.TYPE.LOAD;
     const _FAILED = 'failed_to_load_code';
@@ -319,7 +319,7 @@ class CodeController extends ClipwebController {
   ) {
     if (type == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
     let _result = {};
     switch (type) {
@@ -335,7 +335,7 @@ class CodeController extends ClipwebController {
 
       default:
         Log.error(arguments, 'unknown type X(')();
-        return;
+        return this.MODEL.ERROR;
     }
     return _result;
   }
@@ -346,11 +346,11 @@ class CodeController extends ClipwebController {
     super.log(type.capitalize(), 'Apply')();
     if (type == null) {
       Log.error(arguments);
-      return;
+      return this.MODEL.ERROR;
     }
     if (type != this.getAjaxData({ key: 'type' })) {
       Log.error(arguments, 'type mismatch X(')();
-      return;
+      return this.MODEL.ERROR;
     }
 
     switch (type) {
@@ -370,7 +370,7 @@ class CodeController extends ClipwebController {
 
       default:
         Log.error(arguments, 'unknown type X(')();
-        return;
+        return this.MODEL.ERROR;
     }
   }
 
@@ -379,7 +379,7 @@ class CodeController extends ClipwebController {
   ) {
     if (type == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
     let _model = {};
     _model['owner_hash'] = USER.MODEL.HASH.USER;
@@ -398,7 +398,7 @@ class CodeController extends ClipwebController {
 
       default:
         Log.error(arguments, 'unknown type X(')();
-        return;
+        return this.MODEL.ERROR;
     }
     return _model;
   }

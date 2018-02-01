@@ -237,7 +237,7 @@ class ClipwebEvent extends CommonEvent {
   } = {}) {
     if (type == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
     super.log(type.capitalize(), 'Loading')();
 
@@ -336,7 +336,7 @@ class ClipwebController extends CommonController {
       CODE.open({ type: type, model: model });
     } else {
       Log.error(arguments, 'unknown mode')();
-      return;
+      return this.MODEL.ERROR;
     }
   }
 
@@ -351,7 +351,7 @@ class ClipwebController extends CommonController {
   ) {
     if (type == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
 
     this.open({
@@ -376,13 +376,13 @@ class ClipwebController extends CommonController {
     }
     if (typeof this.MODEL.OBJECT.AJAX[type] == 'undefined') {
       Log.error(arguments, 'type undefined', this.MODEL.OBJECT.AJAX)();
-      return;
+      return this.MODEL.ERROR;
     }
     if (typeof this.MODEL.OBJECT.AJAX[type][key] != 'undefined') {
       return this.MODEL.OBJECT.AJAX[type][key];
     } else {
       Log.error(arguments, 'key undefined', this.MODEL.OBJECT.AJAX)();
-      return;
+      return this.MODEL.ERROR;
     }
   }
 
@@ -396,7 +396,7 @@ class ClipwebController extends CommonController {
     error = Object.getArg(arguments, 2, 'Object', error);
     if (type == null || localization == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
     let _result = '';
     switch (type) {
@@ -487,7 +487,7 @@ class ClipwebController extends CommonController {
   } = {}) {
     if (type == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
 
     super.log()();

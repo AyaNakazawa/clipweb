@@ -412,7 +412,7 @@ class UserController extends ClipwebController {
           // データがあるとき
           this.MODEL.STATUS.LS_LOAD = true;
           this.submitLogin(true);
-          return;
+          return this.MODEL.ERROR;
         }
       }
     }
@@ -579,7 +579,7 @@ class UserController extends ClipwebController {
                       type: _TYPE,
                       model: super.getErrorModel('fsql', _FAILED, _ERROR)
                     });
-                    return;
+                    return this.MODEL.ERROR;
                   }
                 }
               }
@@ -762,7 +762,7 @@ class UserController extends ClipwebController {
                         type: _TYPE,
                         model: super.getErrorModel('fsql', _FAILED, _ERROR)
                       });
-                      return;
+                      return this.MODEL.ERROR;
                     }
                   }
                 }
@@ -877,7 +877,7 @@ class UserController extends ClipwebController {
                         type: _TYPE,
                         model: super.getErrorModel('fsql', _FAILED, _ERROR)
                       });
-                      return;
+                      return this.MODEL.ERROR;
                     }
                   }
                 }
@@ -927,7 +927,7 @@ class UserController extends ClipwebController {
   ) {
     if (type == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
     let _result = {};
     switch (type) {
@@ -1008,7 +1008,7 @@ class UserController extends ClipwebController {
         break;
       default:
         Log.error(arguments, 'unknown type X(')();
-        return;
+        return this.MODEL.ERROR;
     }
     return _result;
   }
@@ -1019,7 +1019,7 @@ class UserController extends ClipwebController {
   ) {
     if (type == null || timing == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
 
     if (type == this.MODEL.TYPE.REGISTER) {
@@ -1104,7 +1104,7 @@ class UserController extends ClipwebController {
 
     } else {
       Log.error(arguments, 'unknown type.')();
-      return;
+      return this.MODEL.ERROR;
     }
   }
 
@@ -1124,11 +1124,11 @@ class UserController extends ClipwebController {
     super.log(type.capitalize(), 'Apply')();
     if (type == null) {
       Log.error(arguments);
-      return;
+      return this.MODEL.ERROR;
     }
     if (type != this.getAjaxData({ key: 'type' })) {
       Log.error(arguments, 'type mismatch')();
-      return;
+      return this.MODEL.ERROR;
     }
 
     if (type == this.MODEL.TYPE.REGISTER) {
@@ -1174,7 +1174,7 @@ class UserController extends ClipwebController {
 
     } else {
       Log.error(arguments, 'unknown type.');
-      return;
+      return this.MODEL.ERROR;
     }
   }
 
@@ -1193,7 +1193,7 @@ class UserController extends ClipwebController {
   ) {
     if (type == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
     let _model = {};
     if (type == this.MODEL.TYPE.REGISTER) {
@@ -1241,7 +1241,7 @@ class UserController extends ClipwebController {
 
     } else {
       Log.error(arguments, 'unknown type.')();
-      return;
+      return this.MODEL.ERROR;
     }
 
     return _model;

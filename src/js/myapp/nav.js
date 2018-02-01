@@ -72,7 +72,7 @@ class NavView extends ClipwebView {
   } = {}) {
     if (id == null || name == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
 
     if ($(`${this.MODEL.SELECTOR.NAV.BAR} #${id}`).length > 0) {
@@ -100,7 +100,7 @@ class NavView extends ClipwebView {
   } = {}) {
     if (id == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
 
     $(`${this.MODEL.SELECTOR.NAV.BAR} #${id}`).each((_index, _element) => {

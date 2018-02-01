@@ -344,7 +344,7 @@ class ClipController extends ClipwebController {
   connectSetting (type = this.MODEL.TYPE.SETTING, hash = null) {
     if (type == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
     const _TYPE = this.MODEL.TYPE.SETTING;
     const _FAILED = `failed_to_${type.toLowerCase()}_clip_setting`;
@@ -352,7 +352,7 @@ class ClipController extends ClipwebController {
     if (type == this.MODEL.TYPE.LOAD) {
       if (hash == null) {
         Log.error(arguments)();
-        return;
+        return this.MODEL.ERROR;
       }
       this.MODEL.HASH = hash;
     } else {
@@ -428,7 +428,7 @@ class ClipController extends ClipwebController {
   deleteClip (hash = this.MODEL.HASH) {
     if (hash == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
     const _TYPE = this.MODEL.TYPE.DELETE;
     const _FAILED = 'failed_to_delete_clip';
@@ -485,7 +485,7 @@ class ClipController extends ClipwebController {
   edit (hash = this.MODEL.HASH, edit = true) {
     if (hash == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
     super.log(hash.substr(0, 14), 'Edit', Log.ARROW_INPUT)();
     CODE.loadCode(hash, edit);
@@ -494,7 +494,7 @@ class ClipController extends ClipwebController {
   share (hash = this.MODEL.HASH) {
     if (hash == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
     super.log(hash.substr(0, 14), 'Share', Log.ARROW_INPUT)();
     CODE.share(hash);
@@ -503,7 +503,7 @@ class ClipController extends ClipwebController {
   delete (hash = this.MODEL.HASH) {
     if (hash == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
     super.log(hash.substr(0, 14), 'Delete', Log.ARROW_INPUT)();
     new Confirm({
@@ -563,7 +563,7 @@ class ClipController extends ClipwebController {
   } = {}) {
     if (name == null || type == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
     const _FILENAME = $(name).val();
     const _FILETYPE = File.getExtension(_FILENAME);
@@ -581,7 +581,7 @@ class ClipController extends ClipwebController {
   ) {
     if (type == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
     let _result = {};
     switch (type) {
@@ -622,7 +622,7 @@ class ClipController extends ClipwebController {
         break;
       default:
         Log.error(arguments, 'unknown type X(')();
-        return;
+        return this.MODEL.ERROR;
     }
     return _result;
   }
@@ -633,11 +633,11 @@ class ClipController extends ClipwebController {
     super.log(type.capitalize(), 'Apply')();
     if (type == null) {
       Log.error(arguments);
-      return;
+      return this.MODEL.ERROR;
     }
     if (type != this.getAjaxData({ key: 'type' })) {
       Log.error(arguments, 'type mismatch X(')();
-      return;
+      return this.MODEL.ERROR;
     }
 
     switch (type) {
@@ -663,7 +663,7 @@ class ClipController extends ClipwebController {
 
       default:
         Log.error(arguments, 'unknown type X(')();
-        return;
+        return this.MODEL.ERROR;
     }
   }
 
@@ -672,7 +672,7 @@ class ClipController extends ClipwebController {
   ) {
     if (type == null) {
       Log.error(arguments)();
-      return;
+      return this.MODEL.ERROR;
     }
     let _model = {};
     _model['owner_hash'] = USER.MODEL.HASH.USER;
@@ -710,7 +710,7 @@ class ClipController extends ClipwebController {
 
       default:
         Log.error(arguments, 'unknown type X(')();
-        return;
+        return this.MODEL.ERROR;
     }
     return _model;
   }
