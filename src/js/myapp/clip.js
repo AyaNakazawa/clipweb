@@ -303,54 +303,21 @@ class ClipController extends ClipwebController {
       this.MODEL.OWNER_PUBLIC = $(`${_NEW_OWNER_PUBLIC} option:selected`).val();
       this.MODEL.CLIP_MODE = $(`${_NEW_CLIP_MODE} option:selected`).val();
 
+      this.MODEL.HASH = Random.hex();
+
       this.EVENT.setLoading({
         type: _TYPE,
-        successFunction: () => {
-          if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
-            // resultが取得できない
-            this.open({
-              type: _TYPE,
-              model: super.getErrorModel('result', _FAILED)
-            });
-          } else {
-            if (this.getAjaxData({ key: 'result' }) == false) {
-              // 新規作成できていない
-              if (typeof this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`] != 'undefined') {
-                const _ERROR = this.getAjaxData({ key: 'error' })[`${Project.NAME} ${this.MODEL.KEY} error`];
-                this.open({
-                  type: _TYPE,
-                  model: super.getErrorModel('clipweb', _FAILED, _ERROR)
-                });
-              }
-            } else {
-              if (typeof this.getAjaxData({ key: 'hash' }) == 'undefined') {
-                // 未知のエラー
-                this.open({
-                  type: _TYPE,
-                  model: super.getErrorModel('result', _FAILED)
-                });
-              } else {
-                if (typeof this.getAjaxData({ key: 'hash' })['flex sqlite3 error'] != 'undefined') {
-                  // Flex SQLite3 エラー
-                  const _ERROR = this.getAjaxData({ key: 'hash' })['flex sqlite3 error'];
-                  this.open({
-                    type: _TYPE,
-                    model: super.getErrorModel('fsql', _FAILED, _ERROR)
-                  });
-                } else {
-                  // 取得成功
-                  LIST.loadList();
-                  this.open({
-                    type: this.MODEL.TYPE.SETTING,
-                    model: {
-                      alertMessage:
-                        View.element({ content: LN.get('created_new_clip') })
-                    }
-                  });
-                }
-              }
+        functionSuccess: () => {
+          this.checkSuccess({
+            errorMessage: _FAILED,
+            check: [
+              'hash'
+            ],
+            functionSuccess: () => {
+              LIST.loadList();
+              CLIP.connectSetting(this.MODEL.TYPE.LOAD);
             }
-          }
+          });
         },
         errorOpenType: _TYPE,
         errorModel: super.getErrorModel('server', _FAILED)
