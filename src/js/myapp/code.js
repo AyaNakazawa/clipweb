@@ -104,7 +104,7 @@ class CodeEvent extends ClipwebEvent {
       selector: this.MODEL.SELECTOR.EDITOR.CLOSE,
       func: () => {
         super.log('Code', 'Close')();
-        this.trigger({ trigger: this.MODEL.TRIGGER.VIEW.HIDE });
+        this.VIEW.hide();
         $(this.MODEL.COMMON.SELECTOR.BODY).css('overflow', 'auto');
       }
     });
@@ -121,9 +121,10 @@ class CodeEvent extends ClipwebEvent {
       selector: this.MODEL.SELECTOR.EDITOR.SETTING,
       func: () => {
         super.log('Code', 'Setting')();
-        this.CONTROLLER.close();
-        $(this.MODEL.COMMON.SELECTOR.BODY).css('overflow', 'auto');
-        this.CONTROLLER.setting();
+        this.VIEW.hide({ callback: () => {
+          $(this.MODEL.COMMON.SELECTOR.BODY).css('overflow', 'auto');
+          this.CONTROLLER.setting();
+        }});
       }
     });
   }
