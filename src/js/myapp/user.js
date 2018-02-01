@@ -447,10 +447,10 @@ class UserController extends ClipwebController {
     }
 
     if (_validUsername && _validEmail && _validPassword && _validPasswordRe) {
-      this.EVENT.setOnLoading({
+      this.EVENT.setLoading({
         type: _TYPE,
-        successFunction: () => {
           if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
+        functionSuccess: () => {
             // resultが取得できない
             this.open({
               type: _TYPE,
@@ -539,10 +539,10 @@ class UserController extends ClipwebController {
     }
 
     if ( _validEmail && _validPassword) {
-      this.EVENT.setOnLoading({
+      this.EVENT.setLoading({
         type: _TYPE,
-        successFunction: () => {
           if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
+        functionSuccess: () => {
             // resultが取得できない
             this.open({
               type: _TYPE,
@@ -627,10 +627,10 @@ class UserController extends ClipwebController {
     const _TYPE = this.MODEL.TYPE.LOGOUT;
     const _FAILED = 'failed_to_logout';
 
-    this.EVENT.setOnLoading({
+    this.EVENT.setLoading({
       type: _TYPE,
-      successFunction: () => {
         if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
+      functionSuccess: () => {
           // resultが取得できない
           this.open({
             type: _TYPE,
@@ -717,10 +717,10 @@ class UserController extends ClipwebController {
     }
 
     if (_validUsername && _validEmail && _validPassword && _validNewPassword && _validNewPasswordRe) {
-      this.EVENT.setOnLoading({
+      this.EVENT.setLoading({
         type: _TYPE,
-        successFunction: () => {
           if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
+        functionSuccess: () => {
             // resultが取得できない
             this.open({
               type: _TYPE,
@@ -832,10 +832,10 @@ class UserController extends ClipwebController {
     }
 
     if (_validTheme && _validOwnerPublic && _validClipMode) {
-      this.EVENT.setOnLoading({
+      this.EVENT.setLoading({
         type: _TYPE,
-        successFunction: () => {
           if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
+        functionSuccess: () => {
             // resultが取得できない
             this.open({
               type: _TYPE,

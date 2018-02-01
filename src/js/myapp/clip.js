@@ -270,7 +270,7 @@ class ClipController extends ClipwebController {
       this.MODEL.OWNER_PUBLIC = $(`${_NEW_OWNER_PUBLIC} option:selected`).val();
       this.MODEL.CLIP_MODE = $(`${_NEW_CLIP_MODE} option:selected`).val();
 
-      this.EVENT.setOnLoading({
+      this.EVENT.setLoading({
         type: _TYPE,
         successFunction: () => {
           if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
@@ -359,7 +359,7 @@ class ClipController extends ClipwebController {
       _success_message = View.element({ content: LN.get('updated_clip_setting') });
     }
 
-    this.EVENT.setOnLoading({
+    this.EVENT.setLoading({
       type: _TYPE,
       successFunction: () => {
         if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {

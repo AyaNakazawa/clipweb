@@ -192,7 +192,7 @@ class CodeController extends ClipwebController {
     const _TYPE = this.MODEL.TYPE.LOAD;
     const _FAILED = 'failed_to_load_code';
 
-    this.EVENT.setOnLoading({
+    this.EVENT.setLoading({
       type: _TYPE,
       successFunction: () => {
         if (typeof this.getAjaxData({ key: 'result' }) == 'undefined') {
