@@ -167,21 +167,17 @@ class CodeController extends ClipwebController {
     this.EVENT.setLoading({
       type: _TYPE,
       loading: false,
+      errorMessage: _FAILED,
+      errorType: 'toast',
+      check: [
+        'data'
+      ],
       functionSuccess: () => {
-        this.checkSuccess({
-          errorMessage: _FAILED,
-          errorType: 'toast',
-          check: [
-            'data'
-          ],
-          functionSuccess: () => {
-            // 取得成功
-            this.edit(this.MODEL.HASH, edit);
-          }
-        });
+        // 取得成功
+        this.edit(this.MODEL.HASH, edit);
       },
-      errorOpenType: _TYPE,
-      errorToastModel: super.getErrorModel('toast/server', _FAILED)
+      connectionErrorOpenType: _TYPE,
+      connectionErrorToastModel: super.getErrorModel('toast/server', _FAILED)
     });
 
     // Post

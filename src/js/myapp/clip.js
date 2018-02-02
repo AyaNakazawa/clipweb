@@ -307,20 +307,16 @@ class ClipController extends ClipwebController {
 
       this.EVENT.setLoading({
         type: _TYPE,
+        errorMessage: _FAILED,
+        check: [
+          'hash'
+        ],
         functionSuccess: () => {
-          this.checkSuccess({
-            errorMessage: _FAILED,
-            check: [
-              'hash'
-            ],
-            functionSuccess: () => {
-              LIST.loadList();
-              CLIP.connectSetting(this.MODEL.TYPE.LOAD);
-            }
-          });
+          LIST.loadList();
+          CLIP.connectSetting(this.MODEL.TYPE.LOAD);
         },
-        errorOpenType: _TYPE,
-        errorModel: super.getErrorModel('server', _FAILED)
+        connectionErrorOpenType: _TYPE,
+        connectionErrorModel: super.getconnectionErrorModel('server', _FAILED)
       });
 
       // Post
@@ -328,6 +324,7 @@ class ClipController extends ClipwebController {
         type: _TYPE,
         data: this.getSendModel(_TYPE)
       });
+
     } else {
       this.open({
         type: _TYPE,
@@ -387,8 +384,8 @@ class ClipController extends ClipwebController {
           }
         });
       },
-      errorOpenType: _TYPE,
-      errorModel: super.getErrorModel('server', _FAILED)
+      connectionErrorOpenType: _TYPE,
+      connectionErrorModel: super.getconnectionErrorModel('server', _FAILED)
     });
 
     // Post
@@ -424,8 +421,8 @@ class ClipController extends ClipwebController {
           }
         });
       },
-      errorOpenType: _TYPE,
-      errorToastModel: super.getErrorModel('toast/server', _FAILED)
+      connectionErrorOpenType: _TYPE,
+      connectionErrorToastModel: super.getconnectionErrorModel('toast/server', _FAILED)
     });
 
     // Post

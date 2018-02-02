@@ -225,15 +225,20 @@ class ClipwebEvent extends CommonEvent {
   setLoading ({
     type = null,
     loading = true,
-    successOpenMode = this.MODEL.KEY,
-    successOpenType = null,
-    successModel = {},
+    connectionSuccessOpenMode = this.MODEL.KEY,
+    connectionSuccessOpenType = null,
+    connectionSuccessModel = {},
+    errorMessage = null,
+    errorType = 'open',
+    errorOpen = null,
+    errorClose = false,
+    check = [],
     functionSuccess = () => {},
-    errorOpenMode = this.MODEL.KEY,
-    errorOpenType = null,
-    errorModel = {},
-    errorToastModel = null,
-    errorFunction = () => {}
+    connectionErrorOpenMode = this.MODEL.KEY,
+    connectionErrorOpenType = null,
+    connectionErrorModel = {},
+    connectionErrorToastModel = null,
+    connectionErrorFunction = () => {}
   } = {}) {
     if (type == null) {
       Log.error(arguments)();
@@ -250,39 +255,46 @@ class ClipwebEvent extends CommonEvent {
     super.setOn({
       trigger: this.MODEL.TRIGGER.POST.SUCCESS,
       func: () => {
-        if (typeof successModel['scroll'] == 'undefined') {
-          successModel['scroll'] = false;
+        if (typeof connectionSuccessModel['scroll'] == 'undefined') {
+          connectionSuccessModel['scroll'] = false;
         }
         this.CONTROLLER.open({
-          mode: successOpenMode,
-          type: successOpenType,
-          model: successModel
+          mode: connectionSuccessOpenMode,
+          type: connectionSuccessOpenType,
+          model: connectionSuccessModel
         });
         super.setOff({ trigger: this.MODEL.TRIGGER.POST.SUCCESS });
         super.setOff({ trigger: this.MODEL.TRIGGER.POST.ERROR });
-        functionSuccess();
+        this.CONTROLLER.checkSuccess({
+          errorMessage: errorMessage,
+          errorType: errorType,
+          errorOpen: errorOpen,
+          errorClose: errorClose,
+          check: check,
+          functionSuccess: functionSuccess
+        });
       }
     });
     // Error
     super.setOn({
       trigger: this.MODEL.TRIGGER.POST.ERROR,
       func: () => {
-        if (typeof errorModel['scroll'] == 'undefined') {
-          errorModel['scroll'] = false;
+        if (typeof connectionErrorModel['scroll'] == 'undefined') {
+          connectionErrorModel['scroll'] = false;
         }
         this.CONTROLLER.open({
-          mode: errorOpenMode,
-          type: errorOpenType,
-          model: errorModel
+          mode: connectionErrorOpenMode,
+          type: connectionErrorOpenType,
+          model: connectionErrorModel
         });
-        if (errorToastModel != null) {
-          errorToastModel['type'] = 'error';
-          this.VIEW.toast(errorToastModel);
+        if (connectionErrorToastModel != null) {
+          connectionErrorToastModel['type'] = 'error';
+          this.VIEW.toast(connectionErrorToastModel);
           this.CONTROLLER.open({ model: { scroll: false } });
         }
         super.setOff({ trigger: this.MODEL.TRIGGER.POST.SUCCESS });
         super.setOff({ trigger: this.MODEL.TRIGGER.POST.ERROR });
-        errorFunction();
+        connectionErrorFunction();
       }
     });
     // Complete

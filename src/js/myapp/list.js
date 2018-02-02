@@ -889,8 +889,8 @@ class ListController extends ClipwebController {
           }
         });
       },
-      errorOpenType: _TYPE,
-      errorModel: super.getErrorModel('server', _FAILED)
+      connectionErrorOpenType: _TYPE,
+      connectionErrorModel: super.getErrorModel('server', _FAILED)
     });
 
     // Post
