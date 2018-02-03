@@ -433,5 +433,77 @@ class Clip(cw_base.Base):
     def delete(cls):
         cls.result["type"] = sys._getframe().f_code.co_name
         cls.result["result"] = False
+
+        # ----------------------------------------------------------------
+        # cgi get
+
+        user_hash = cls.cgi.get("owner_hash")
+        user_password_hash = cls.cgi.get("password_hash")
+        clip_hash = cls.cgi.get("hash")
+
+        # ----------------------------------------------------------------
+        # cgi get strings check
+
+        if cls._check_str(
+            model=user_hash,
+            not_defined_error="owner_hash_not_defined",
+            unknown_class_error="owner_hash_unknown_class"
+        ) is False:
+            return cls.result
+
+        if cls._check_str(
+            model=user_password_hash,
+            not_defined_error="password_hash_not_defined",
+            unknown_class_error="password_hash_unknown_class"
+        ) is False:
+            return cls.result
+
+        if cls._check_str(
+            model=clip_hash,
+            not_defined_error="hash_not_defined",
+            unknown_class_error="hash_unknown_class"
+        ) is False:
+            return cls.result
+
+        # ----------------------------------------------------------------
+        # count user
+
+        num_user_data = cls.DB.count_records(
+            table="owners",
+            where={
+                "hash": user_hash,
+                "password_hash": user_password_hash
+            }
+        )
+
+        if num_user_data > 1:
+            cls.result["error"] = cls._error("corrupt_userdata")
+            return cls.result
+
+        if num_user_data < 1:
+            cls.result["error"] = cls._error("user_not_found")
+            return cls.result
+
+        # ----------------------------------------------------------------
+        # delete data
+
+        cls.result["delete_clip"] = cls.DB.delete(
+            table="clips",
+            where={
+                "hash": clip_hash,
+                "owner_hash": user_hash
+            }
+        )
+
+        cls.result["delete_share"] = cls.DB.delete(
+            table="shares",
+            where={
+                "clip_hash": clip_hash
+            }
+        )
+
+        # ----------------------------------------------------------------
+        # return
+
         cls.result["result"] = True
         return cls.result
