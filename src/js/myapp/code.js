@@ -176,7 +176,6 @@ class CodeController extends ClipwebController {
         // 取得成功
         this.edit(this.MODEL.HASH, edit);
       },
-      connectionErrorOpenType: _TYPE,
       connectionErrorToastModel: super.getErrorModel('toast/server', _FAILED)
     });
 

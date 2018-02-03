@@ -451,7 +451,6 @@ class ClipController extends ClipwebController {
           }
         });
       },
-      connectionErrorOpenType: _TYPE,
       connectionErrorToastModel: super.getErrorModel('toast/server', _FAILED)
     });
 
