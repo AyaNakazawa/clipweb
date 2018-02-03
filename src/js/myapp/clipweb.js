@@ -513,7 +513,7 @@ class ClipwebController extends CommonController {
           model: this.getErrorModel('result', errorMessage)
         });
       } else {
-        this.VIEW.toast({ type: 'error', message: errorMessage });
+        this.VIEW.toast({ type: 'error', message: LN.get(errorMessage) });
       }
       Log.error(arguments)();
     } else if (this.getAjaxData({ key: 'result' }) == false) {
@@ -527,7 +527,7 @@ class ClipwebController extends CommonController {
             model: this.getErrorModel('clipweb', errorMessage, _ERROR)
           });
         } else {
-          this.VIEW.toast({ type: 'error', message: errorMessage });
+          this.VIEW.toast({ type: 'error', message: LN.get(errorMessage) });
         }
       }
       Log.error(arguments)();
@@ -545,7 +545,7 @@ class ClipwebController extends CommonController {
               });
               _error = true;
             } else {
-              this.VIEW.toast({ type: 'error', message: errorMessage });
+              this.VIEW.toast({ type: 'error', message: LN.get(errorMessage) });
               _error = true;
             }
           } else if (this.getAjaxData({ key: check[index], key2: 'flex sqlite3 error' }) != this.MODEL.ERROR) {
@@ -560,7 +560,7 @@ class ClipwebController extends CommonController {
               });
               _error = true;
             } else {
-              this.VIEW.toast({ type: 'error', message: errorMessage });
+              this.VIEW.toast({ type: 'error', message: LN.get(errorMessage) });
               _error = true;
             }
           }
@@ -575,7 +575,7 @@ class ClipwebController extends CommonController {
               });
               _error = true;
             } else {
-              this.VIEW.toast({ type: 'error', message: errorMessage });
+              this.VIEW.toast({ type: 'error', message: LN.get(errorMessage) });
               _error = true;
             }
           }
