@@ -402,9 +402,7 @@ class ClipController extends ClipwebController {
               target: LIST.MODEL.SELECTOR.AREA,
               mode: this.MODEL.COMMON.TYPE.AFTER
             });
-            if (type == this.MODEL.TYPE.SETTING) {
-              LIST.loadList();
-            }
+            LIST.loadList();
             this.open({
               type: this.MODEL.TYPE.SETTING,
               model: {
