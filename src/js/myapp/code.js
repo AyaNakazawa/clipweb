@@ -310,7 +310,9 @@ class CodeController extends ClipwebController {
           hash: this.MODEL.HASH,
           filename: this.MODEL.FILENAME,
           filetype: this.MODEL.FILETYPE,
-          filetypes: this.MODEL.FILETYPES,
+          clip_mode: this.MODEL.CLIP_MODE,
+          owner_hash: this.MODEL.OWNER_HASH,
+          filetypes: this.MODEL.FILETYPES
         };
         break;
 
