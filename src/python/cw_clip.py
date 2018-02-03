@@ -302,14 +302,6 @@ class Clip(cw_base.Base):
             }
         )
 
-        cls.result["send"] = {
-            "name": clip_filename,
-            "type": clip_filetype,
-            "tags": clip_tags,
-            "owner_public": clip_owner_public,
-            "clip_mode": clip_clip_mode
-        }
-
         # ----------------------------------------------------------------
         # select clip data
 
