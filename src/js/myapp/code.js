@@ -219,6 +219,7 @@ class CodeController extends ClipwebController {
         enableSnippets: true,
         enableLiveAutocompletion: true
       });
+      this.MODEL.EDITOR.setValue(this.MODEL.DATA);
     }}});
   }
 
