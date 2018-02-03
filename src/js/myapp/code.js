@@ -196,9 +196,39 @@ class CodeController extends ClipwebController {
     });
   }
 
-  saveData (hash = this.MODEL.HASH) {
+  saveCode (hash = this.MODEL.HASH) {
     this.MODEL.HASH = hash;
+    if (this.MODEL.HASH == null) {
+      Log.error(arguments)();
+      return this.MODEL.ERROR;
+    }
+    const _TYPE = this.MODEL.TYPE.SAVE;
+    const _FAILED = 'failed_to_save_code';
 
+    this.MODEL.DATA = this.MODEL.EDITOR.getValue();
+
+    this.EVENT.setLoading({
+      type: _TYPE,
+      loading: false,
+      errorMessage: _FAILED,
+      errorType: 'toast',
+      check: [
+        'save'
+      ],
+      functionSuccess: () => {
+        // 取得成功
+        this.applyReceiveModel(_TYPE);
+        $(this.MODEL.COMMON.SELECTOR.BODY).css('overflow', 'auto');
+        this.VIEW.toast({ type: 'success', message: LN.get('saved_clip') });
+      },
+      connectionErrorToastModel: super.getErrorModel('toast/server', _FAILED)
+    });
+
+    // Post
+    this.post({
+      type: _TYPE,
+      data: this.getSendModel(_TYPE)
+    });
   }
 
   // ----------------------------------------------------------------
