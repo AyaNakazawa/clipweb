@@ -316,7 +316,7 @@ class ClipController extends ClipwebController {
           CLIP.connectSetting(this.MODEL.TYPE.LOAD);
         },
         connectionErrorOpenType: _TYPE,
-        connectionErrorModel: super.getconnectionErrorModel('server', _FAILED)
+        connectionErrorModel: super.getErrorModel('server', _FAILED)
       });
 
       // Post
@@ -385,7 +385,7 @@ class ClipController extends ClipwebController {
         });
       },
       connectionErrorOpenType: _TYPE,
-      connectionErrorModel: super.getconnectionErrorModel('server', _FAILED)
+      connectionErrorModel: super.getErrorModel('server', _FAILED)
     });
 
     // Post
@@ -422,7 +422,7 @@ class ClipController extends ClipwebController {
         });
       },
       connectionErrorOpenType: _TYPE,
-      connectionErrorToastModel: super.getconnectionErrorModel('toast/server', _FAILED)
+      connectionErrorToastModel: super.getErrorModel('toast/server', _FAILED)
     });
 
     // Post
