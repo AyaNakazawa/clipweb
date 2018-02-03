@@ -101,6 +101,8 @@ class Code(cw_base.Base):
             column=[
                 "owner_hash",
                 "clip_mode",
+                "name",
+                "type",
                 "data"
             ],
             where={
@@ -122,7 +124,11 @@ class Code(cw_base.Base):
                 cls.result["error"] = cls._error("permission_denied")
                 return cls.result
 
+        cls.result["filename"] = data["name"]
+        cls.result["filetype"] = data["type"]
         cls.result["data"] = data["data"]
+        cls.result["clip_mode"] = data["clip_mode"]
+        cls.result["owner_hash"] = data["owner_hash"]
 
         # ----------------------------------------------------------------
         # return
