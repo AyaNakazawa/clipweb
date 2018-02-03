@@ -312,7 +312,6 @@ class ClipController extends ClipwebController {
           'hash'
         ],
         functionSuccess: () => {
-          LIST.loadList();
           CLIP.connectSetting(this.MODEL.TYPE.LOAD);
         },
         connectionErrorOpenType: _TYPE,
