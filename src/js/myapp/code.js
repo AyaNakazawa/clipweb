@@ -183,6 +183,7 @@ class CodeController extends ClipwebController {
       ],
       functionSuccess: () => {
         // 取得成功
+        this.applyReceiveModel(_TYPE);
         this.edit(this.MODEL.HASH, edit);
       },
       connectionErrorToastModel: super.getErrorModel('toast/server', _FAILED)
