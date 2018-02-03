@@ -148,6 +148,12 @@ class Base:
                     "message": "[tags] does not defined."
                 }
             },
+            "data_not_defined": {
+                "{} error".format(cls.NAME): {
+                    "code": 117,
+                    "message": "[data] does not defined."
+                }
+            },
             "hash_unknown_class": {
                 "{} error".format(cls.NAME): {
                     "code": 201,
@@ -242,6 +248,12 @@ class Base:
                 "{} error".format(cls.NAME): {
                     "code": 216,
                     "message": "[tags] is unknown class"
+                }
+            },
+            "data_unknown_class": {
+                "{} error".format(cls.NAME): {
+                    "code": 217,
+                    "message": "[data] is unknown class"
                 }
             },
             "username_overlap": {
