@@ -346,14 +346,47 @@ class ClipController extends ClipwebController {
     const _TYPE = this.MODEL.TYPE.SETTING;
     const _FAILED = `failed_to_${type.toLowerCase()}_clip_setting`;
     let _success_message = null;
+    let _check_data = null;
     if (type == this.MODEL.TYPE.LOAD) {
       if (hash == null) {
         Log.error(arguments)();
         return this.MODEL.ERROR;
       }
       this.MODEL.HASH = hash;
+      _check_data = ['clip'];
     } else {
+      _check_data = ['update', 'clip'];
       _success_message = View.element({ content: LN.get('updated_clip_setting') });
+
+      const _NEW_NAME = this.MODEL.SELECTOR.SETTING.FILENAME;
+      const _NEW_TYPE = this.MODEL.SELECTOR.SETTING.FILETYPE;
+      const _NEW_TAGS = this.MODEL.SELECTOR.SETTING.TAGS;
+      const _NEW_OWNER_PUBLIC = this.MODEL.SELECTOR.SETTING.OWNER_PUBLIC;
+      const _NEW_CLIP_MODE = this.MODEL.SELECTOR.SETTING.CLIP_MODE;
+
+      if (
+        $(_NEW_NAME)[0].validity.valid &&
+        $(_NEW_TYPE)[0].validity.valid &&
+        $(_NEW_TAGS)[0].validity.valid &&
+        $(_NEW_OWNER_PUBLIC)[0].validity.valid &&
+        $(_NEW_CLIP_MODE)[0].validity.valid
+      ) {
+        this.MODEL.FILENAME = $(_NEW_NAME).val();
+        this.MODEL.FILETYPE = $(`${_NEW_TYPE} option:selected`).val();
+        this.MODEL.TAGS = $(_NEW_TAGS).val();
+        this.MODEL.OWNER_PUBLIC = $(`${_NEW_OWNER_PUBLIC} option:selected`).val();
+        this.MODEL.CLIP_MODE = $(`${_NEW_CLIP_MODE} option:selected`).val();
+      } else {
+        this.open({
+          type: _TYPE,
+          model: {
+            alertMessage: (
+              View.element({ content: LN.get('please_all_inputs_correctly') })
+            ),
+            alertType: View.ALERT_WARNING
+          }
+        });
+      }
     }
 
     this.EVENT.setLoading({
@@ -361,20 +394,18 @@ class ClipController extends ClipwebController {
       functionSuccess: () => {
         this.checkSuccess({
           errorMessage: _FAILED,
-          check: [
-            'clip'
-          ],
+          check: _check_data,
           functionSuccess: () => {
             // 取得成功
             super.log('取得成功')();
-            if (type == this.MODEL.TYPE.SETTING) {
-              LIST.loadClip();
-            }
             this.applyReceiveModel(type);
             this.VIEW.move({
               target: LIST.MODEL.SELECTOR.AREA,
               mode: this.MODEL.COMMON.TYPE.AFTER
             });
+            if (type == this.MODEL.TYPE.SETTING) {
+              LIST.loadList();
+            }
             this.open({
               type: this.MODEL.TYPE.SETTING,
               model: {
