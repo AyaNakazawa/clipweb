@@ -312,6 +312,7 @@ class ClipController extends ClipwebController {
           'hash'
         ],
         functionSuccess: () => {
+          LIST.loadList();
           CLIP.connectSetting(this.MODEL.TYPE.LOAD);
         },
         connectionErrorOpenType: _TYPE,
@@ -402,7 +403,9 @@ class ClipController extends ClipwebController {
               target: LIST.MODEL.SELECTOR.AREA,
               mode: this.MODEL.COMMON.TYPE.AFTER
             });
-            LIST.loadList();
+            if (type == this.MODEL.TYPE.SETTING) {
+              LIST.loadList();
+            }
             this.open({
               type: this.MODEL.TYPE.SETTING,
               model: {
