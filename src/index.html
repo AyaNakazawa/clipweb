@@ -919,6 +919,9 @@
         <span id="code-editor-filetype" class="badge badge-info"><%= filetype %></span>
         <span id="code-editor-filename"><%= filename %></span>
         <div class="btn-group">
+          <% if (clip_mode == 'share') { %>
+            <button id="code-editor-save" class="btn btn-sm btn-outline-info"><%= LN.get('save') %></button>
+          <% } %>
           <button id="code-editor-share" class="btn btn-sm btn-outline-info"><%= LN.get('share') %></button>
           <button id="code-editor-setting" class="btn btn-sm btn-outline-info"><%= LN.get('setting') %></button>
           <button id="code-editor-close" class="btn btn-sm btn-outline-info"><%= LN.get('close') %></button>
