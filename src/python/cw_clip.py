@@ -283,28 +283,6 @@ class Clip(cw_base.Base):
         cls.result["clip"] = cls.result["clip"][0]
 
         # ----------------------------------------------------------------
-        # select owner data
-        if cls.result["clip"]["owner_public"] == "public" or user_hash == cls.result["clip"]["owner_hash"]:
-            owner = cls.DB.select(
-                table="owners",
-                column=[
-                    "username"
-                ],
-                where={
-                    "hash": cls.result["clip"]["owner_hash"]
-                }
-            )
-
-            if len(owner) == 0:
-                cls.result["error"] = cls._error("owner_not_exists")
-                return cls.result
-            else:
-                cls.result["clip"]["owner"] = owner[0]["username"]
-
-        else:
-            cls.result["clip"]["owner"] = ""
-
-        # ----------------------------------------------------------------
         # return
 
         cls.result["result"] = True
