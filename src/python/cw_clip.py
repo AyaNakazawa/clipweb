@@ -194,6 +194,156 @@ class Clip(cw_base.Base):
     def setting(cls):
         cls.result["type"] = sys._getframe().f_code.co_name
         cls.result["result"] = False
+
+        # ----------------------------------------------------------------
+        # cgi get
+
+        user_hash = cls.cgi.get("owner_hash")
+        user_password_hash = cls.cgi.get("password_hash")
+        clip_hash = cls.cgi.get("hash")
+        clip_filename = cls.cgi.get("filename")
+        clip_filetype = cls.cgi.get("filetype")
+        clip_tags = cls.cgi.get("tags")
+        clip_owner_public = cls.cgi.get("owner_public")
+        clip_clip_mode = cls.cgi.get("clip_mode")
+
+        # ----------------------------------------------------------------
+        # cgi get strings check
+
+        if cls._check_str(
+            model=user_hash,
+            not_defined_error="owner_hash_not_defined",
+            unknown_class_error="owner_hash_unknown_class"
+        ) is False:
+            return cls.result
+
+        if cls._check_str(
+            model=user_password_hash,
+            not_defined_error="password_hash_not_defined",
+            unknown_class_error="password_hash_unknown_class"
+        ) is False:
+            return cls.result
+
+        if cls._check_str(
+            model=clip_hash,
+            not_defined_error="hash_not_defined",
+            unknown_class_error="hash_unknown_class"
+        ) is False:
+            return cls.result
+
+        if cls._check_str(
+            model=clip_filename,
+            not_defined_error="filename_not_defined",
+            unknown_class_error="filename_unknown_class"
+        ) is False:
+            return cls.result
+
+        if cls._check_str(
+            model=clip_filetype,
+            not_defined_error="filetype_not_defined",
+            unknown_class_error="filetype_unknown_class"
+        ) is False:
+            return cls.result
+
+        if cls._check_str(
+            model=clip_tags,
+            unknown_class_error="tags_unknown_class"
+        ) is False:
+            return cls.result
+
+        if cls._check_str(
+            model=clip_owner_public,
+            not_defined_error="owner_public_not_defined",
+            unknown_class_error="owner_public_unknown_class"
+        ) is False:
+            return cls.result
+
+        if cls._check_str(
+            model=clip_clip_mode,
+            not_defined_error="clip_mode_not_defined",
+            unknown_class_error="clip_mode_unknown_class"
+        ) is False:
+            return cls.result
+
+        # ----------------------------------------------------------------
+        # count user
+
+        num_user_data = cls.DB.count_records(
+            table="owners",
+            where={
+                "hash": user_hash,
+                "password_hash": user_password_hash
+            }
+        )
+
+        if num_user_data > 1:
+            cls.result["error"] = cls._error("corrupt_userdata")
+            return cls.result
+
+        if num_user_data < 1:
+            cls.result["error"] = cls._error("user_not_found")
+            return cls.result
+
+        # ----------------------------------------------------------------
+        # update data
+
+        cls.result["update"] = cls.DB.update(
+            table="clips",
+            value={
+                "name": clip_filename,
+                "type": clip_filetype,
+                "tags": clip_tags,
+                "owner_public": clip_owner_public,
+                "clip_mode": clip_clip_mode
+            },
+            where={
+                "hash": clip_hash,
+                "owner_hash": user_hash
+            }
+        )
+
+        cls.result["send"] = {
+            "name": clip_filename,
+            "type": clip_filetype,
+            "tags": clip_tags,
+            "owner_public": clip_owner_public,
+            "clip_mode": clip_clip_mode
+        }
+
+        # ----------------------------------------------------------------
+        # select clip data
+
+        cls.result["clip"] = cls.DB.select(
+            table="clips",
+            column=[
+                "hash",
+                "name",
+                "type",
+                "tags",
+                "owner_hash",
+                "owner_public",
+                "clip_mode",
+                "created_at",
+                "updated_at"
+            ],
+            where={
+                "hash": clip_hash
+            }
+        )
+
+        if len(cls.result["clip"]) > 1:
+            cls.result["error"] = cls._error("corrupt_clipdata")
+            return cls.result
+
+        if len(cls.result["clip"]) < 1:
+            cls.result["error"] = cls._error("clip_not_exists")
+            return cls.result
+
+        cls.result["clip"] = cls.result["clip"][0]
+
+        # ----------------------------------------------------------------
+        # return
+
         cls.result["result"] = True
         return cls.result
 
