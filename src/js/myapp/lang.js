@@ -140,6 +140,8 @@ class Language {
       updated_clip_setting: 'Updated clip setting.',
       deleted_clip: 'Deleted the clip.',
 
+      saved_clip: 'saved this clip.',
+
       please_email_auth: 'Please Email authentication.',
       userdata_clear: 'Delete your data',
       userdata_clear_confirm: 'Delete user data saved in the browser?',
@@ -180,6 +182,7 @@ class Language {
       failed_to_delete_clip: 'Failed to delete the clip.',
 
       failed_to_load_code: 'Failed to load the clip.',
+      failed_to_save_code: 'Failed to save the clip.',
 
       failed_connect_to_server: 'Failed connect to clipweb server.',
       server_not_working: 'clipweb server is not working properly.',
@@ -363,6 +366,8 @@ class Language {
       updated_clip_setting: 'クリップの設定を更新しました。',
       deleted_clip: 'クリップを削除しました。',
 
+      saved_clip: 'クリップを保存しました。',
+
       please_email_auth: 'メール認証をしてください。',
       userdata_clear: 'ユーザデータの削除',
       userdata_clear_confirm: 'ブラウザに保存されているユーザーデータを削除しますか？',
@@ -403,6 +408,7 @@ class Language {
       failed_to_delete_clip: 'クリップの削除に失敗しました。',
 
       failed_to_load_code: 'クリップの読み込みに失敗しました。',
+      failed_to_save_code: 'クリップの保存に失敗しました。',
 
       failed_connect_to_server: 'clipwebサーバーとの通信に失敗しました。',
       server_not_working: 'clipwebサーバーが正常に動作していません。',
