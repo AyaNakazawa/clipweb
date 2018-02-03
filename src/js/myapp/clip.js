@@ -441,11 +441,13 @@ class ClipController extends ClipwebController {
           errorMessage: _FAILED,
           errorType: 'toast',
           check: [
-            'clip'
+            'delete_clip',
+            'delete_share'
           ],
           functionSuccess: () => {
             // 取得成功
             LIST.loadList();
+            this.VIEW.toast({ type: 'success', message: LN.get('deleted_clip') });
           }
         });
       },
