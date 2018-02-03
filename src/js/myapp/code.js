@@ -374,6 +374,7 @@ class CodeController extends ClipwebController {
       case this.MODEL.TYPE.SAVE:
         // SAVE
         _model['hash'] = this.MODEL.HASH;
+        this.encrypt();
         _model['data'] = this.MODEL.SEND_DATA;
         break;
 
