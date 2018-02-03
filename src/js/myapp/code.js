@@ -339,10 +339,13 @@ class CodeController extends ClipwebController {
     switch (type) {
       case this.MODEL.TYPE.LOAD:
         // LOAD
+        Log.obj(this.getAjaxData())();
         this.MODEL.DL_DATA = this.getAjaxData({ key: 'data' });
         this.decrypt();
         this.MODEL.FILENAME = this.getAjaxData({ key: 'filename' });
         this.MODEL.FILETYPE = this.getAjaxData({ key: 'filetype' });
+        this.MODEL.CLIP_MODE = this.getAjaxData({ key: 'clip_mode' });
+        this.MODEL.OWNER_HASH = this.getAjaxData({ key: 'owner_hash' });
         break;
 
       case this.MODEL.TYPE.SAVE:
