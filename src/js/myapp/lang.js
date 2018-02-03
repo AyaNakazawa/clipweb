@@ -138,6 +138,7 @@ class Language {
       clip_list_got: 'Got your clips.',
       created_new_clip: 'Created new clip.',
       updated_clip_setting: 'Updated clip setting.',
+      deleted_clip: 'Deleted the clip.',
 
       please_email_auth: 'Please Email authentication.',
       userdata_clear: 'Delete your data',
@@ -360,6 +361,7 @@ class Language {
       clip_list_got: 'クリップ一覧を取得しました。',
       created_new_clip: '新しいクリップを作成しました。',
       updated_clip_setting: 'クリップの設定を更新しました。',
+      deleted_clip: 'クリップを削除しました。',
 
       please_email_auth: 'メール認証をしてください。',
       userdata_clear: 'ユーザデータの削除',
