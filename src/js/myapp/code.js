@@ -50,6 +50,7 @@ class CodeModel extends ClipwebModel {
     this.SELECTOR.EDITOR = {};
     this.SELECTOR.EDITOR.EDITOR = '#code-editor-editor';
     this.SELECTOR.EDITOR.CLOSE = '#code-editor-close';
+    this.SELECTOR.EDITOR.SAVE = '#code-editor-save';
     this.SELECTOR.EDITOR.SHARE = '#code-editor-share';
     this.SELECTOR.EDITOR.SETTING = '#code-editor-setting';
   }
@@ -106,6 +107,14 @@ class CodeEvent extends ClipwebEvent {
         super.log('Code', 'Close')();
         this.VIEW.hide();
         $(this.MODEL.COMMON.SELECTOR.BODY).css('overflow', 'auto');
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.EDITOR.SAVE,
+      func: () => {
+        super.log('Code', 'Save')();
+        this.CONTROLLER.saveCode();
       }
     });
 
