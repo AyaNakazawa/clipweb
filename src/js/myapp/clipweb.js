@@ -510,10 +510,10 @@ class ClipwebController extends CommonController {
       if (errorType == 'open') {
         this.open({
           type: errorOpen,
-          model: this.getErrorModel('result', LN.get(errorMessage))
+          model: this.getErrorModel('result', errorMessage)
         });
       } else {
-        this.VIEW.toast({ type: 'error', message: LN.get(errorMessage) });
+        this.VIEW.toast({ type: 'error', message: errorMessage });
       }
       Log.error(arguments)();
     } else if (this.getAjaxData({ key: 'result' }) == false) {
@@ -524,10 +524,10 @@ class ClipwebController extends CommonController {
           const _ERROR = this.getAjaxData({ key: 'error', key2: `${Project.NAME} ${this.MODEL.KEY} error` });
           this.open({
             type: errorOpen,
-            model: this.getErrorModel('clipweb', LN.get(errorMessage), _ERROR)
+            model: this.getErrorModel('clipweb', errorMessage, _ERROR)
           });
         } else {
-          this.VIEW.toast({ type: 'error', message: LN.get(errorMessage) });
+          this.VIEW.toast({ type: 'error', message: errorMessage });
         }
       }
       Log.error(arguments)();
@@ -541,11 +541,11 @@ class ClipwebController extends CommonController {
             if (errorType == 'open') {
               this.open({
                 type: errorOpen,
-                model: this.getErrorModel('result', LN.get(errorMessage))
+                model: this.getErrorModel('result', errorMessage)
               });
               _error = true;
             } else {
-              this.VIEW.toast({ type: 'error', message: LN.get(errorMessage) });
+              this.VIEW.toast({ type: 'error', message: errorMessage });
               _error = true;
             }
           } else if (this.getAjaxData({ key: check[index], key2: 'flex sqlite3 error' }) != this.MODEL.ERROR) {
@@ -556,11 +556,11 @@ class ClipwebController extends CommonController {
               Log.obj(_ERROR)();
               this.open({
                 type: errorOpen,
-                model: this.getErrorModel('fsql', LN.get(errorMessage), _ERROR)
+                model: this.getErrorModel('fsql', errorMessage, _ERROR)
               });
               _error = true;
             } else {
-              this.VIEW.toast({ type: 'error', message: LN.get(errorMessage) });
+              this.VIEW.toast({ type: 'error', message: errorMessage });
               _error = true;
             }
           }
@@ -571,11 +571,11 @@ class ClipwebController extends CommonController {
             if (errorType == 'open') {
               this.open({
                 type: errorOpen,
-                model: this.getErrorModel('result', LN.get(errorMessage))
+                model: this.getErrorModel('result', errorMessage)
               });
               _error = true;
             } else {
-              this.VIEW.toast({ type: 'error', message: LN.get(errorMessage) });
+              this.VIEW.toast({ type: 'error', message: errorMessage });
               _error = true;
             }
           }
