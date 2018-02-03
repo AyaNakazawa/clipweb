@@ -868,6 +868,7 @@ class ListController extends ClipwebController {
 
     this.EVENT.setLoading({
       type: _TYPE,
+      loading: false,
       functionSuccess: () => {
         this.checkSuccess({
           errorMessage: _FAILED,
@@ -882,7 +883,8 @@ class ListController extends ClipwebController {
               type: _TYPE,
               model: {
                 alertMessage:
-                  View.element({ content: LN.get('clip_list_got') })
+                  View.element({ content: LN.get('clip_list_got') }),
+                scroll: false
               },
             });
             this.filtering();
