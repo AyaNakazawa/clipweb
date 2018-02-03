@@ -55,6 +55,9 @@ class Clip(cw_base.Base):
         clip_owner_public = cls.cgi.get("owner_public")
         clip_clip_mode = cls.cgi.get("clip_mode")
 
+        if clip_tags is None:
+            clip_tags = ""
+
         # ----------------------------------------------------------------
         # cgi get strings check
 
@@ -206,6 +209,9 @@ class Clip(cw_base.Base):
         clip_tags = cls.cgi.get("tags")
         clip_owner_public = cls.cgi.get("owner_public")
         clip_clip_mode = cls.cgi.get("clip_mode")
+
+        if clip_tags is None:
+            clip_tags = ""
 
         # ----------------------------------------------------------------
         # cgi get strings check
