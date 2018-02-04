@@ -40,6 +40,29 @@ class Base:
     def set_cgi(cls, cgi=None):
         cls.cgi = cgi
 
+    def check_user(
+        cls,
+        user_hash=None,
+        user_password_hash=None
+    ):
+        _num_user_data = cls.DB.count_records(
+            table="owners",
+            where={
+                "hash": user_hash,
+                "password_hash": user_password_hash
+            }
+        )
+
+        if _num_user_data > 1:
+            cls.result["error"] = cls._error("corrupt_userdata")
+            return False
+
+        if _num_user_data < 1:
+            cls.result["error"] = cls._error("user_not_found")
+            return False
+
+        return True
+
     # ----------------------------------------------------------------
     # Inner Function
     # ----------------------------------------------------------------
