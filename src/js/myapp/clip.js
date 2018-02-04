@@ -502,13 +502,13 @@ class ClipController extends ClipwebController {
   // ----------------------------------------------------------------
   // clip
 
-  edit (hash = this.MODEL.HASH, edit = true) {
+  edit (hash = this.MODEL.HASH) {
     if (hash == null) {
       Log.error(arguments)();
       return this.MODEL.ERROR;
     }
     super.log(hash.substr(0, 14), 'Edit', Log.ARROW_INPUT)();
-    CODE.loadCode(hash, edit);
+    CODE.loadCode(hash);
   }
 
   share (hash = this.MODEL.HASH) {

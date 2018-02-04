@@ -164,7 +164,7 @@ class CodeController extends ClipwebController {
   // ----------------------------------------------------------------
   // ajax
 
-  loadCode (hash = this.MODEL.HASH, edit = true) {
+  loadCode (hash = this.MODEL.HASH) {
     this.MODEL.HASH = hash;
     if (this.MODEL.HASH == null) {
       Log.error(arguments)();
@@ -184,7 +184,7 @@ class CodeController extends ClipwebController {
       functionSuccess: () => {
         // 取得成功
         this.applyReceiveModel(_TYPE);
-        this.edit(this.MODEL.HASH, edit);
+        this.edit(this.MODEL.HASH);
       },
       connectionErrorToastModel: super.getErrorModel('toast/server', _FAILED)
     });
@@ -260,17 +260,17 @@ class CodeController extends ClipwebController {
     }}});
   }
 
-  edit (hash = this.MODEL.HASH, edit = false) {
+  edit (hash = this.MODEL.HASH) {
     this.MODEL.HASH = hash;
     super.log(this.MODEL.HASH.substr(0, 14), 'Edit', Log.ARROW_INPUT)();
     if (!this.MODEL.STATUS.LOAD) {
       super.log('Script', 'Load', Log.ARROW_INPUT)();
       this.MODEL.STATUS.LOAD = true;
       $.getScript('js/lib/ace/ext-language_tools.js', () => {
-        this.start(edit);
+        this.start(this.MODEL.EDIT);
       });
     } else {
-      this.start(edit);
+      this.start(this.MODEL.EDIT);
     }
   }
 
@@ -353,6 +353,10 @@ class CodeController extends ClipwebController {
         this.MODEL.FILETYPE = this.getAjaxData({ key: 'filetype' });
         this.MODEL.CLIP_MODE = this.getAjaxData({ key: 'clip_mode' });
         this.MODEL.OWNER_HASH = this.getAjaxData({ key: 'owner_hash' });
+        this.MODEL.EDIT = false;
+        if (this.MODEL.CLIP_MODE == 'share' || this.MODEL.OWNER_HASH == USER.MODEL.HASH.USER) {
+          this.MODEL.EDIT = true;
+        }
         break;
 
       case this.MODEL.TYPE.SAVE:
