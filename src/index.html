@@ -332,15 +332,12 @@
           <span class="content-popover content-help"></span>
           <div class="content-input">
             <select id="user-setting-theme" class="custom-select" required tabindex="200">
-              <% if (theme == 'light') { %>
-                <option value="light" selected><%= LN.get('light') %></option>
-              <% } else { %>
-                <option value="light"><%= LN.get('light') %></option>
-              <% } %>
-              <% if (theme == 'dark') { %>
-                <option value="dark" selected><%= LN.get('dark') %></option>
-              <% } else { %>
-                <option value="dark"><%= LN.get('dark') %></option>
+              <% for (let type of Object.keys(themes)) { %>
+                <% if (type == theme) { %>
+                  <option value="<%- type %>" selected><%- themes[type]['caption'] %></option>
+                <% } else { %>
+                  <option value="<%- type %>"><%- themes[type]['caption'] %></option>
+                <% } %>
               <% } %>
             </select>
             <i class="content-input-icon content-select-icon fas fa-th-list"></i>

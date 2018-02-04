@@ -816,6 +816,7 @@ class UserController extends ClipwebController {
       case this.MODEL.TYPE.SETTING:
         // SETTING
         _result = {
+          themes: this.MODEL.THEME_LIST['themesByName'],
           theme: this.MODEL.THEME,
           ownerPublic: this.MODEL.OWNER_PUBLIC,
           clipMode: this.MODEL.CLIP_MODE
