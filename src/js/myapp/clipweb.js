@@ -20,8 +20,13 @@ class ClipwebModel extends CommonModel {
     super.addMessage(303, 'hash_alreay_exist');
     super.addMessage(401, 'email_password_incorrect');
     super.addMessage(402, 'password_incorrect');
+    super.addMessage(403, 'user_not_found');
     super.addMessage(404, 'clip_not_exists');
+    super.addMessage(405, 'owner_not_exists');
     super.addMessage(801, 'corrupt_userdata');
+    super.addMessage(802, 'corrupt_clipdata');
+    super.addMessage(901, 'permission_denied');
+    super.addMessage(902, 'permission_denied_or_clip_not_found');
 
     // ----------------------------------------------------------------
     // 識別子
