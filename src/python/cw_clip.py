@@ -459,5 +459,99 @@ class Clip(cw_base.Base):
     def share(cls):
         cls.result["type"] = sys._getframe().f_code.co_name
         cls.result["result"] = False
+
+        # ----------------------------------------------------------------
+        # cgi get
+
+        user_hash = cls.cgi.get("owner_hash")
+        user_password_hash = cls.cgi.get("password_hash")
+        clip_hash = cls.cgi.get("hash")
+
+        # ----------------------------------------------------------------
+        # cgi get strings check
+
+        if cls._check_str(
+            model=user_hash,
+            not_defined_error="owner_hash_not_defined",
+            unknown_class_error="owner_hash_unknown_class"
+        ) is False:
+            return cls.result
+
+        if cls._check_str(
+            model=user_password_hash,
+            not_defined_error="password_hash_not_defined",
+            unknown_class_error="password_hash_unknown_class"
+        ) is False:
+            return cls.result
+
+        if cls._check_str(
+            model=clip_hash,
+            not_defined_error="hash_not_defined",
+            unknown_class_error="hash_unknown_class"
+        ) is False:
+            return cls.result
+
+        # ----------------------------------------------------------------
+        # check user
+
+        if cls.check_user(user_hash, user_password_hash) is False:
+            return cls.result
+
+        # ----------------------------------------------------------------
+        # check clip
+
+        clip = cls.DB.select(
+            table="clips",
+            column=[
+                "clip_mode"
+            ],
+            where={
+                "hash": clip_hash
+            }
+        )
+
+        if len(clip) > 1:
+            cls.result["error"] = cls._error("corrupt_clipdata")
+            return cls.result
+
+        if len(clip) < 1:
+            cls.result["error"] = cls._error("clip_not_exists")
+            cls.result["error"] = cls._error("permission_denied_or_clip_not_found")
+            return cls.result
+
+        clip = clip[0]
+        if clip["clip_mode"] is 'private':
+            cls.result["error"] = cls._error("permission_denied")
+            cls.result["error"] = cls._error("permission_denied_or_clip_not_found")
+            return cls.result
+
+        # ----------------------------------------------------------------
+        # check share
+
+        num_share = cls.DB.count_records(
+            table="shares",
+            where={
+                "owner_hash": user_hash,
+                "clip_hash": clip_hash
+            }
+        )
+
+        # ----------------------------------------------------------------
+        # insert new share
+
+        if num_share == 0:
+            cls.result["new_share"] = cls.DB.insert(
+                table="shares",
+                value={
+                    "owner_hash": user_hash,
+                    "clip_hash": clip_hash,
+                    "created_at": cls.get_date(),
+                    "updated_at": cls.get_date()
+                }
+            )
+
+        # ----------------------------------------------------------------
+        # return
+
         cls.result["result"] = True
         return cls.result
