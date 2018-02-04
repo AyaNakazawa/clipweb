@@ -14,7 +14,6 @@ clipweb Clip
 # ----------------------------------------------------------------
 
 import sys
-import datetime
 from db import flex_sqlite3
 import cw_base
 
@@ -134,12 +133,6 @@ class Clip(cw_base.Base):
             return cls.result
 
         # ----------------------------------------------------------------
-        # generate datetime
-
-        now = datetime.datetime.now()
-        now = now.strftime("%Y/%m/%d %H:%M:%S")
-
-        # ----------------------------------------------------------------
         # insert new clip
 
         value = {
@@ -149,8 +142,8 @@ class Clip(cw_base.Base):
             "type": clip_type,
             "owner_public": clip_owner_public,
             "clip_mode": clip_clip_mode,
-            "created_at": now,
-            "updated_at": now
+            "created_at": cls.get_date(),
+            "updated_at": cls.get_date()
         }
         if isinstance(clip_tags, str):
             if len(clip_tags) > 0:
@@ -169,8 +162,8 @@ class Clip(cw_base.Base):
             value={
                 "owner_hash": user_hash,
                 "clip_hash": clip_hash,
-                "created_at": now,
-                "updated_at": now
+                "created_at": cls.get_date(),
+                "updated_at": cls.get_date()
             }
         )
 
@@ -274,7 +267,8 @@ class Clip(cw_base.Base):
                 "type": clip_filetype,
                 "tags": clip_tags,
                 "owner_public": clip_owner_public,
-                "clip_mode": clip_clip_mode
+                "clip_mode": clip_clip_mode,
+                "updated_at": cls.get_date()
             },
             where={
                 "hash": clip_hash,

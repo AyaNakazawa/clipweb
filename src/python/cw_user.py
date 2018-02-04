@@ -16,7 +16,6 @@ clipweb User
 import sys
 import hashlib
 import binascii
-import datetime
 from db import flex_sqlite3
 import cw_base
 
@@ -123,12 +122,6 @@ class User(cw_base.Base):
         user_email_authentication_hash = binascii.hexlify(dk).decode()
 
         # ----------------------------------------------------------------
-        # generate datetime
-
-        now = datetime.datetime.now()
-        now = now.strftime("%Y/%m/%d %H:%M:%S")
-
-        # ----------------------------------------------------------------
         # insert new user
 
         cls.result["new_user"] = cls.DB.insert(
@@ -140,8 +133,8 @@ class User(cw_base.Base):
                 "encrypted_crypto_hash": user_encrypted_crypto_hash,
                 "email_authentication_hash": user_email_authentication_hash,
                 "password_hash": user_password_hash,
-                "created_at": now,
-                "updated_at": now
+                "created_at": cls.get_date(),
+                "updated_at": cls.get_date()
             }
         )
 
@@ -281,12 +274,6 @@ class User(cw_base.Base):
             return cls.result
 
         # ----------------------------------------------------------------
-        # generate datetime
-
-        now = datetime.datetime.now()
-        now = now.strftime("%Y/%m/%d %H:%M:%S")
-
-        # ----------------------------------------------------------------
         # update user data
 
         cls.result["update_setting"] = cls.DB.update(
@@ -295,7 +282,7 @@ class User(cw_base.Base):
                 "theme": user_theme,
                 "default_owner_public": user_default_owner_public,
                 "default_clip_mode": user_default_clip_mode,
-                "updated_at": now
+                "updated_at": cls.get_date()
             },
             where={
                 "hash": user_hash,
@@ -388,19 +375,13 @@ class User(cw_base.Base):
             return cls.result
 
         # ----------------------------------------------------------------
-        # generate datetime
-
-        now = datetime.datetime.now()
-        now = now.strftime("%Y/%m/%d %H:%M:%S")
-
-        # ----------------------------------------------------------------
         # update user data
 
         user_values = {
             "username": user_username,
             "email_address": user_email_address,
             "encrypted_crypto_hash": user_encrypted_crypto_hash,
-            "updated_at": now
+            "updated_at": cls.get_date()
         }
         if user_password_hash_new is not None:
             user_values["password_hash"] = user_password_hash_new
