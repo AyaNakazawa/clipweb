@@ -580,6 +580,7 @@ class ClipController extends ClipwebController {
           })
         }),
       functionYes: () => {
+        CODE.VIEW.hide();
         this.deleteClip(hash);
       }
     });
