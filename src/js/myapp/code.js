@@ -241,9 +241,10 @@ class CodeController extends ClipwebController {
       if (!edit) {
         this.MODEL.EDITOR.setReadOnly(true);
       }
+      $(this.MODEL.SELECTOR.EDITOR.EDITOR).css('font-size', '14px');
       this.MODEL.EDITOR.$blockScrolling = Infinity;
       this.MODEL.EDITOR.setTheme(`ace/theme/${USER.MODEL.THEME}`);
-      this.MODEL.EDITOR.session.setMode(`ace/mode/${this.MODEL.FILETYPE.mini()}`);
+      this.MODEL.EDITOR.session.setMode(`ace/mode/${this.MODEL.FILETYPE}`);
       this.MODEL.EDITOR.setOptions({
         enableBasicAutocompletion: true,
         enableSnippets: true,

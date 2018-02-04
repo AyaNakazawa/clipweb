@@ -578,6 +578,16 @@ footer {
     right: 6px;
     bottom: 6px;
     left: 6px; }
+    #code-area #code-editor-editor * {
+      -webkit-transition-property: none;
+      -o-transition-property: none;
+      transition-property: none;
+      -webkit-transition-duration: 0;
+      -o-transition-duration: 0;
+      transition-duration: 0;
+      -webkit-transition-timing-function: cubic-bezier(0.2, 0.6, 0.4, 0.8);
+      -o-transition-timing-function: cubic-bezier(0.2, 0.6, 0.4, 0.8);
+      transition-timing-function: cubic-bezier(0.2, 0.6, 0.4, 0.8); }
 
 @media (min-width: 768px) {
   #list-area {

@@ -167,6 +167,10 @@ footer {
     right: 6px;
     bottom: 6px;
     left: 6px;
+
+    * {
+      @include transition(none, 0);
+    }
   }
 }
 
