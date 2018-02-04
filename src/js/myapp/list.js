@@ -385,8 +385,8 @@ class ListController extends ClipwebController {
 
     let _groupSort = () => {
       this.MODEL.GROUPED_CLIPS.sort((a, b) => {
-        const _KEY_A = a['key'].toLowerCase();
-        const _KEY_B = b['key'].toLowerCase();
+        const _KEY_A = a['key'].mini();
+        const _KEY_B = b['key'].mini();
 
         if (_KEY_A > _KEY_B) {
           if (this.MODEL.SORT == this.MODEL.GROUP && this.MODEL.ORDER == 'desc') {
