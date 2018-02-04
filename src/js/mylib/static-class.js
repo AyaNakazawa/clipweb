@@ -1108,3 +1108,6 @@ class File {
     return filename.split(/(?=\.[^.]+$)/);
   }
 }
+
+class Web {
+}
