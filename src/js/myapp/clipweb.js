@@ -113,7 +113,6 @@ class ClipwebModel extends CommonModel {
         _result[_extensions[index].mini()] = type;
       }
     }
-    super.log(_result)();
     return _result;
   }
 }
