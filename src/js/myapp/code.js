@@ -52,6 +52,7 @@ class CodeModel extends ClipwebModel {
     this.SELECTOR.EDITOR.CLOSE = '#code-editor-close';
     this.SELECTOR.EDITOR.SAVE = '#code-editor-save';
     this.SELECTOR.EDITOR.SHARE = '#code-editor-share';
+    this.SELECTOR.EDITOR.DELETE = '#code-editor-delete';
     this.SELECTOR.EDITOR.SETTING = '#code-editor-setting';
   }
 }
@@ -104,7 +105,7 @@ class CodeEvent extends ClipwebEvent {
     super.setOn({
       selector: this.MODEL.SELECTOR.EDITOR.CLOSE,
       func: () => {
-        super.log('Code', 'Close')();
+        super.log('Editor', 'Close')();
         this.VIEW.hide();
         $(this.MODEL.COMMON.SELECTOR.BODY).css('overflow', 'auto');
       }
@@ -113,7 +114,7 @@ class CodeEvent extends ClipwebEvent {
     super.setOn({
       selector: this.MODEL.SELECTOR.EDITOR.SAVE,
       func: () => {
-        super.log('Code', 'Save')();
+        super.log('Editor', 'Save')();
         this.CONTROLLER.saveCode();
       }
     });
@@ -121,15 +122,23 @@ class CodeEvent extends ClipwebEvent {
     super.setOn({
       selector: this.MODEL.SELECTOR.EDITOR.SHARE,
       func: () => {
-        super.log('Code', 'Share')();
+        super.log('Editor', 'Share')();
         this.CONTROLLER.share();
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.EDITOR.DELETE,
+      func: () => {
+        super.log('Editor', 'Delete')();
+        CLIP.delete(this.MODEL.HASH);
       }
     });
 
     super.setOn({
       selector: this.MODEL.SELECTOR.EDITOR.SETTING,
       func: () => {
-        super.log('Code', 'Setting')();
+        super.log('Editor', 'Setting')();
         this.VIEW.hide({ callback: () => {
           $(this.MODEL.COMMON.SELECTOR.BODY).css('overflow', 'auto');
           this.CONTROLLER.setting();
