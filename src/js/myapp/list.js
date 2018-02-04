@@ -604,8 +604,8 @@ class ListController extends ClipwebController {
     this.MODEL.SORTED_CLIPS = _.cloneDeep(this.MODEL.FILTERED_CLIPS);
 
     this.MODEL.SORTED_CLIPS.sort((a, b) => {
-      const _KEY_A = a[`clip_${this.MODEL.SORT}`].toLowerCase();
-      const _KEY_B = b[`clip_${this.MODEL.SORT}`].toLowerCase();
+      const _KEY_A = a[`clip_${this.MODEL.SORT}`].mini();
+      const _KEY_B = b[`clip_${this.MODEL.SORT}`].mini();
 
       if (_KEY_A > _KEY_B) {
         if (this.MODEL.ORDER == 'desc') {
@@ -706,14 +706,14 @@ class ListController extends ClipwebController {
       }
       for (let searchIndex of Object.keys(_searchItems)) {
         // 空白区切りの検索ごとにまわす
-        let _searchItem = _searchItems[searchIndex].toLowerCase();
+        let _searchItem = _searchItems[searchIndex].mini();
         _temp = 0;
         for (let keyIndex in _defineKeys) {
           // クリップの項目ごとにまわす
           if (_defineKeys[keyIndex] == 'type') {
             _item = this.MODEL.FILETYPES[_clips[clipIndex]['clip_type']]['name'].toLowerCase();
           } else {
-            _item = _clips[clipIndex][`clip_${_defineKeys[keyIndex]}`].toLowerCase();
+            _item = _clips[clipIndex][`clip_${_defineKeys[keyIndex]}`].mini();
           }
           switch (this.MODEL.SEARCH_OP) {
             case 'or':

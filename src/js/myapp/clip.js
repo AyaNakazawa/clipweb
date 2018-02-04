@@ -344,7 +344,7 @@ class ClipController extends ClipwebController {
       return this.MODEL.ERROR;
     }
     const _TYPE = this.MODEL.TYPE.SETTING;
-    const _FAILED = `failed_to_${type.toLowerCase()}_clip_setting`;
+    const _FAILED = `failed_to_${type.mini()}_clip_setting`;
     let _success_message = null;
     let _check_data = null;
     if (type == this.MODEL.TYPE.LOAD) {

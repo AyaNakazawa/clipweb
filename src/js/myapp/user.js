@@ -916,7 +916,7 @@ class UserController extends ClipwebController {
             this.MODEL.HASH.DECRYPT_CRYPTO
           );
         }
-        this.MODEL.HASH.GRAVATAR = MD5.getHash(this.MODEL.EMAIL.toLowerCase().trim());
+        this.MODEL.HASH.GRAVATAR = MD5.getHash(this.MODEL.EMAIL.mini());
       }
 
     } else if (type == this.MODEL.TYPE.LOGOUT) {
@@ -959,7 +959,7 @@ class UserController extends ClipwebController {
           this.MODEL.ENCRYPT.CRYPTO,
           this.MODEL.HASH.DECRYPT_CRYPTO
         );
-        this.MODEL.HASH.GRAVATAR = MD5.getHash(this.MODEL.EMAIL.toLowerCase().trim());
+        this.MODEL.HASH.GRAVATAR = MD5.getHash(this.MODEL.EMAIL.mini());
       }
     } else if (type == this.MODEL.TYPE.SETTING) {
       // SETTING

@@ -150,7 +150,7 @@ class ClipwebView extends CommonView {
 
     if (type != null) {
       if (header == null) {
-        header = LN.get(`header_${this.MODEL.KEY.toLowerCase()}_${type.toLowerCase()}`);
+        header = LN.get(`header_${this.MODEL.KEY.mini()}_${type.mini()}`);
       }
       _mainTemplate = this.MODEL.TEMPLATE[type.toUpperCase()];
       _mainModel = this.CONTROLLER.getAreaModel(type);
@@ -368,7 +368,7 @@ class ClipwebController extends CommonController {
 
     this.open({
       model: {
-        loadingHeader: LN.get(`loading_header_${this.MODEL.KEY.toLowerCase()}_${type.toLowerCase()}`),
+        loadingHeader: LN.get(`loading_header_${this.MODEL.KEY.mini()}_${type.mini()}`),
         scroll: false
       }
     });
@@ -613,9 +613,9 @@ class ClipwebController extends CommonController {
 
     super.log()();
     Log.log('Post', Log.ALIGN_CENTER)();
-    super.log('post', `${mode.toLowerCase()}.${type.toLowerCase()}`)();
+    super.log('post', `${mode.mini()}.${type.mini()}`)();
 
-    data['type'] = `${mode.toLowerCase()}.${type.toLowerCase()}`;
+    data['type'] = `${mode.mini()}.${type.mini()}`;
 
     super.log('data')(data);
 
