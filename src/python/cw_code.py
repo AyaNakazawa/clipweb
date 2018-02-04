@@ -14,7 +14,6 @@ clipweb Code
 # ----------------------------------------------------------------
 
 import sys
-import datetime
 from db import flex_sqlite3
 import cw_base
 
@@ -200,7 +199,8 @@ class Code(cw_base.Base):
         cls.result["save"] = cls.DB.update(
             table="clips",
             value={
-                "data": clip_data
+                "data": clip_data,
+                "updated_at": cls.get_date()
             },
             where={
                 "hash": clip_hash
