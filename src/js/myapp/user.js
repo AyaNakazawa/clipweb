@@ -449,25 +449,21 @@ class UserController extends ClipwebController {
     if (_validUsername && _validEmail && _validPassword && _validPasswordRe) {
       this.EVENT.setLoading({
         type: _TYPE,
+        errorMessage: _FAILED,
+        check: [
+          'new_user'
+        ],
         functionSuccess: () => {
-          this.checkSuccess({
-            errorMessage: _FAILED,
-            check: [
-              'new_user'
-            ],
-            functionSuccess: () => {
-              // 登録成功
-              this.CONTROLLER.applyReceiveModel(_TYPE);
-              this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
-              this.open({
-                type: this.MODEL.TYPE.LOGIN,
-                model: {
-                  alertMessage:
-                    View.element({ content: LN.get('user_registered') }) +
-                    View.element({ content: LN.get('please_email_auth') })
-                },
-              });
-            }
+          // 登録成功
+          this.CONTROLLER.applyReceiveModel(_TYPE);
+          this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
+          this.open({
+            type: this.MODEL.TYPE.LOGIN,
+            model: {
+              alertMessage:
+                View.element({ content: LN.get('user_registered') }) +
+                View.element({ content: LN.get('please_email_auth') })
+            },
           });
         },
         connectionErrorOpenType: _TYPE,
@@ -519,36 +515,33 @@ class UserController extends ClipwebController {
     if ( _validEmail && _validPassword) {
       this.EVENT.setLoading({
         type: _TYPE,
+        errorMessage: _FAILED,
+        check: [
+          'hash',
+          'username',
+          'encrypted_crypto_hash',
+          'email_authentication',
+          'theme',
+          'default_owner_public',
+          'default_clip_mode',
+          'created_at',
+          'updated_at',
+        ],
         functionSuccess: () => {
-          this.checkSuccess({
-            errorMessage: _FAILED,
-            check: [
-              'hash',
-              'username',
-              'encrypted_crypto_hash',
-              'email_authentication',
-              'theme',
-              'default_owner_public',
-              'default_clip_mode',
-              'created_at',
-              'updated_at',
-            ],
-            functionSuccess: () => {
-              // Login成功
-              NAV.login();
-              this.CONTROLLER.applyReceiveModel(_TYPE);
-              this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
-              if (this.MODEL.STATUS.AUTO) {
-                LocalStorage.setItem(this.MODEL.LS.AUTO.HASH.PASSWORD, this.MODEL.HASH.PASSWORD);
-                LocalStorage.setItem(this.MODEL.LS.AUTO.EMAIL, this.MODEL.EMAIL);
-                LocalStorage.setItem(this.MODEL.LS.AUTO.HASH.DECRYPT_CRYPTO, this.MODEL.HASH.DECRYPT_CRYPTO);
-              }
-              LocalStorage.setItem(this.MODEL.LS.LOGIN, 'true');
-              this.MODEL.STATUS.LOGIN = true;
-              this.close();
-              LIST.loadList();
-            }
-          });
+          // Login成功
+          super.log(Web.getParam('share'))();
+          NAV.login();
+          this.CONTROLLER.applyReceiveModel(_TYPE);
+          this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
+          if (this.MODEL.STATUS.AUTO) {
+            LocalStorage.setItem(this.MODEL.LS.AUTO.HASH.PASSWORD, this.MODEL.HASH.PASSWORD);
+            LocalStorage.setItem(this.MODEL.LS.AUTO.EMAIL, this.MODEL.EMAIL);
+            LocalStorage.setItem(this.MODEL.LS.AUTO.HASH.DECRYPT_CRYPTO, this.MODEL.HASH.DECRYPT_CRYPTO);
+          }
+          LocalStorage.setItem(this.MODEL.LS.LOGIN, 'true');
+          this.MODEL.STATUS.LOGIN = true;
+          this.close();
+          LIST.loadList();
         },
         connectionErrorOpenType: _TYPE,
         connectionErrorModel: super.getErrorModel('server', _FAILED)
@@ -580,31 +573,27 @@ class UserController extends ClipwebController {
 
     this.EVENT.setLoading({
       type: _TYPE,
+      errorMessage: _FAILED,
+      check: [],
       functionSuccess: () => {
-        this.checkSuccess({
-          errorMessage: _FAILED,
-          check: [],
-          functionSuccess: () => {
-            // Logout成功
-            NAV.logout();
-            LIST.VIEW.hide();
-            LocalStorage.setItem(this.MODEL.LS.LOGIN, 'false');
-            this.MODEL.STATUS.LOGIN = false;
-            LocalStorage.removeItem(this.MODEL.LS.AUTO.HASH.PASSWORD);
-            LocalStorage.removeItem(this.MODEL.LS.AUTO.EMAIL);
-            LocalStorage.removeItem(this.MODEL.LS.AUTO.HASH.DECRYPT_CRYPTO);
-            this.CONTROLLER.applyReceiveModel(_TYPE);
-            this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
-            LIST.open();
-            CLIP.open();
-            this.open({
-              type: this.MODEL.TYPE.LOGIN,
-              model: {
-                alertMessage:
-                  View.element({ content: LN.get('user_logouted') })
-              },
-            });
-          }
+        // Logout成功
+        NAV.logout();
+        LIST.VIEW.hide();
+        LocalStorage.setItem(this.MODEL.LS.LOGIN, 'false');
+        this.MODEL.STATUS.LOGIN = false;
+        LocalStorage.removeItem(this.MODEL.LS.AUTO.HASH.PASSWORD);
+        LocalStorage.removeItem(this.MODEL.LS.AUTO.EMAIL);
+        LocalStorage.removeItem(this.MODEL.LS.AUTO.HASH.DECRYPT_CRYPTO);
+        this.CONTROLLER.applyReceiveModel(_TYPE);
+        this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
+        LIST.open();
+        CLIP.open();
+        this.open({
+          type: this.MODEL.TYPE.LOGIN,
+          model: {
+            alertMessage:
+              View.element({ content: LN.get('user_logouted') })
+          },
         });
       },
       connectionErrorOpenType: _TYPE,
@@ -657,31 +646,27 @@ class UserController extends ClipwebController {
     if (_validUsername && _validEmail && _validPassword && _validNewPassword && _validNewPasswordRe) {
       this.EVENT.setLoading({
         type: _TYPE,
+        errorMessage: _FAILED,
+        check: [
+          'username',
+          'email_address',
+          'encrypted_crypto_hash',
+          'updated_at',
+        ],
         functionSuccess: () => {
-          this.checkSuccess({
-            errorMessage: _FAILED,
-            check: [
-              'username',
-              'email_address',
-              'encrypted_crypto_hash',
-              'updated_at',
-            ],
-            functionSuccess: () => {
-              // 情報変更成功
-              this.CONTROLLER.applyReceiveModel(_TYPE);
-              this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
-              if (this.MODEL.STATUS.AUTO) {
-                LocalStorage.setItem(this.MODEL.LS.AUTO.HASH.PASSWORD, this.MODEL.HASH.PASSWORD);
-                LocalStorage.setItem(this.MODEL.LS.AUTO.EMAIL, this.MODEL.EMAIL);
-                LocalStorage.setItem(this.MODEL.LS.AUTO.HASH.DECRYPT_CRYPTO, this.MODEL.HASH.DECRYPT_CRYPTO);
-              }
-              this.open({
-                type: _TYPE,
-                model: {
-                  alertMessage:
-                    View.element({ content: LN.get('user_update_info') })
-                }
-              });
+          // 情報変更成功
+          this.CONTROLLER.applyReceiveModel(_TYPE);
+          this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
+          if (this.MODEL.STATUS.AUTO) {
+            LocalStorage.setItem(this.MODEL.LS.AUTO.HASH.PASSWORD, this.MODEL.HASH.PASSWORD);
+            LocalStorage.setItem(this.MODEL.LS.AUTO.EMAIL, this.MODEL.EMAIL);
+            LocalStorage.setItem(this.MODEL.LS.AUTO.HASH.DECRYPT_CRYPTO, this.MODEL.HASH.DECRYPT_CRYPTO);
+          }
+          this.open({
+            type: _TYPE,
+            model: {
+              alertMessage:
+                View.element({ content: LN.get('user_update_info') })
             }
           });
         },
@@ -734,26 +719,22 @@ class UserController extends ClipwebController {
     if (_validTheme && _validOwnerPublic && _validClipMode) {
       this.EVENT.setLoading({
         type: _TYPE,
+        errorMessage: _FAILED,
+        check: [
+          'theme',
+          'default_owner_public',
+          'default_clip_mode',
+          'updated_at',
+        ],
         functionSuccess: () => {
-          this.checkSuccess({
-            errorMessage: _FAILED,
-            check: [
-              'theme',
-              'default_owner_public',
-              'default_clip_mode',
-              'updated_at',
-            ],
-            functionSuccess: () => {
-              // 設定更新成功
-              this.CONTROLLER.applyReceiveModel(_TYPE);
-              this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
-              this.open({
-                type: _TYPE,
-                model: {
-                  alertMessage:
-                    View.element({ content: LN.get('user_update_setting') })
-                }
-              });
+          // 設定更新成功
+          this.CONTROLLER.applyReceiveModel(_TYPE);
+          this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
+          this.open({
+            type: _TYPE,
+            model: {
+              alertMessage:
+                View.element({ content: LN.get('user_update_setting') })
             }
           });
         },
