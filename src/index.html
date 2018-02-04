@@ -669,10 +669,12 @@
                         <th scope="row"><%= LN.get('tags') %></th>
                         <td><%= clips[index]['clips'][clip_index]['clip_tags'] %></td>
                       </tr>
-                      <tr>
-                        <th scope="row"><%= LN.get('owner') %></th>
-                        <td><%= clips[index]['clips'][clip_index]['clip_owner'] %></td>
-                      </tr>
+                      <% if (clips[index]['clips'][clip_index]['clip_owner_public'] == 'public' || clips[index]['clips'][clip_index]['clip_owner_hash'] ==  USER.MODEL.HASH.USER) { %>
+                        <tr>
+                          <th scope="row"><%= LN.get('owner') %></th>
+                          <td><%= clips[index]['clips'][clip_index]['clip_owner'] %></td>
+                        </tr>
+                      <% } %>
                       <tr>
                         <th scope="row"><%= LN.get('owner_public') %></th>
                         <td><%= LN.get(clips[index]['clips'][clip_index]['clip_owner_public']) %></td>
