@@ -1,19 +1,20 @@
 
 やること
-  共有
+  tabindexをエリアごとに分ける
+  共有中のユーザー管理
+  ダウンロード・アップロード
   編集履歴
     バックアップ
     リストア
     共有ごと
-  ダウンロード・アップロード
-  共有中のユーザー管理
+  同時編集
   shareでSNS系追加する
-  tabindexをエリアごとに分ける
   addAlertかupdateAlertをCommonViewにつくる
-  →headerとかloadingも？
+    headerとかloadingも？
 
 
 やったこと
+  共有
   ajax系を楽にする
     elseifでつなぐ？
   #list-search-clips-template完成させる
