@@ -117,22 +117,9 @@ class Clip(cw_base.Base):
             return cls.result
 
         # ----------------------------------------------------------------
-        # count user
+        # check user
 
-        num_user_data = cls.DB.count_records(
-            table="owners",
-            where={
-                "hash": user_hash,
-                "password_hash": user_password_hash
-            }
-        )
-
-        if num_user_data > 1:
-            cls.result["error"] = cls._error("corrupt_userdata")
-            return cls.result
-
-        if num_user_data < 1:
-            cls.result["error"] = cls._error("user_not_found")
+        if cls.check_user(user_hash, user_password_hash) is False:
             return cls.result
 
         # ----------------------------------------------------------------
@@ -272,22 +259,9 @@ class Clip(cw_base.Base):
             return cls.result
 
         # ----------------------------------------------------------------
-        # count user
+        # check user
 
-        num_user_data = cls.DB.count_records(
-            table="owners",
-            where={
-                "hash": user_hash,
-                "password_hash": user_password_hash
-            }
-        )
-
-        if num_user_data > 1:
-            cls.result["error"] = cls._error("corrupt_userdata")
-            return cls.result
-
-        if num_user_data < 1:
-            cls.result["error"] = cls._error("user_not_found")
+        if cls.check_user(user_hash, user_password_hash) is False:
             return cls.result
 
         # ----------------------------------------------------------------
@@ -381,22 +355,9 @@ class Clip(cw_base.Base):
             return cls.result
 
         # ----------------------------------------------------------------
-        # count user
+        # check user
 
-        num_user_data = cls.DB.count_records(
-            table="owners",
-            where={
-                "hash": user_hash,
-                "password_hash": user_password_hash
-            }
-        )
-
-        if num_user_data > 1:
-            cls.result["error"] = cls._error("corrupt_userdata")
-            return cls.result
-
-        if num_user_data < 1:
-            cls.result["error"] = cls._error("user_not_found")
+        if cls.check_user(user_hash, user_password_hash) is False:
             return cls.result
 
         # ----------------------------------------------------------------
@@ -472,22 +433,9 @@ class Clip(cw_base.Base):
             return cls.result
 
         # ----------------------------------------------------------------
-        # count user
+        # check user
 
-        num_user_data = cls.DB.count_records(
-            table="owners",
-            where={
-                "hash": user_hash,
-                "password_hash": user_password_hash
-            }
-        )
-
-        if num_user_data > 1:
-            cls.result["error"] = cls._error("corrupt_userdata")
-            return cls.result
-
-        if num_user_data < 1:
-            cls.result["error"] = cls._error("user_not_found")
+        if cls.check_user(user_hash, user_password_hash) is False:
             return cls.result
 
         # ----------------------------------------------------------------
