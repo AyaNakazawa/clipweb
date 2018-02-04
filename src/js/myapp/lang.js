@@ -139,6 +139,7 @@ class Language {
       created_new_clip: 'Created new clip.',
       updated_clip_setting: 'Updated clip setting.',
       deleted_clip: 'Deleted the clip.',
+      shared_clip: 'Shared the clip.',
 
       saved_clip: 'saved this clip.',
 
@@ -153,6 +154,7 @@ class Language {
       copied: 'Copied',
       copied_share_link: 'Copied the share URL',
 
+      need_login_to_share: 'Login is required to share.',
       please_all_inputs_correctly: 'Please enter all items correctly.',
       please_inputs_correctly: 'Please enter items correctly.',
       please_selects_correctly: 'Please select items correctly.',
@@ -185,6 +187,7 @@ class Language {
       failed_to_update_clip_setting: 'Failed to update the clip setting.',
       failed_to_setting_clip_setting: 'Failed to update the clip setting.',
       failed_to_delete_clip: 'Failed to delete the clip.',
+      failed_to_get_share_clip: 'Failed to share the clip.',
 
       failed_to_load_code: 'Failed to load the clip.',
       failed_to_save_code: 'Failed to save the clip.',
@@ -370,6 +373,7 @@ class Language {
       created_new_clip: '新しいクリップを作成しました。',
       updated_clip_setting: 'クリップの設定を更新しました。',
       deleted_clip: 'クリップを削除しました。',
+      shared_clip: 'クリップを共有しました。',
 
       saved_clip: 'クリップを保存しました。',
 
@@ -384,6 +388,7 @@ class Language {
       copied: 'コピーしました。',
       copied_share_link: '共有リンクをコピーしました。',
 
+      need_login_to_share: '共有するにはログインが必要です。',
       please_all_inputs_correctly: 'すべての項目を正しく入力してください。',
       please_inputs_correctly: '正しく入力してください。',
       please_selects_correctly: '正しく選択してください。',
@@ -416,6 +421,7 @@ class Language {
       failed_to_update_clip_setting: 'クリップの設定の更新に失敗しました。',
       failed_to_setting_clip_setting: 'クリップの設定の更新に失敗しました。',
       failed_to_delete_clip: 'クリップの削除に失敗しました。',
+      failed_to_get_share_clip: 'クリップの共有に失敗しました。',
 
       failed_to_load_code: 'クリップの読み込みに失敗しました。',
       failed_to_save_code: 'クリップの保存に失敗しました。',
