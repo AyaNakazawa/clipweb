@@ -154,21 +154,14 @@ main {
 
     .content-split {
       display: flex;
+      flex-wrap: wrap;
 
       .content-split-full {
         flex-grow: 100;
       }
 
       .content-split-item {
-        padding: 0 8px;
-
-        &:first-child {
-          padding-left: 0;
-        }
-
-        &:last-child {
-          padding-right: 0;
-        }
+        padding: 8px;
       }
     }
 
@@ -343,6 +336,25 @@ main {
 // Tablet
 
 @include media($size-tablet) {
+  main {
+    .content {
+      .content-split {
+        flex-direction: row;
+
+        .content-split-item {
+          padding: 0 8px;
+
+          &:first-child {
+            padding-left: 0;
+          }
+
+          &:last-child {
+            padding-right: 0;
+          }
+        }
+      }
+    }
+  }
 }
 
 // ----------------------------------------------------------------

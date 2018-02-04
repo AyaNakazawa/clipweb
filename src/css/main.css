@@ -290,15 +290,12 @@ main {
         top: 0rem;
         cursor: pointer; }
     main .content .content-split {
-      display: flex; }
+      display: flex;
+      flex-wrap: wrap; }
       main .content .content-split .content-split-full {
         flex-grow: 100; }
       main .content .content-split .content-split-item {
-        padding: 0 8px; }
-        main .content .content-split .content-split-item:first-child {
-          padding-left: 0; }
-        main .content .content-split .content-split-item:last-child {
-          padding-right: 0; }
+        padding: 8px; }
     main .content .content-nav {
       width: 100%;
       background: #fff;
@@ -453,6 +450,15 @@ main {
     box-shadow: 0em -2.6em 0em 0em rgba(255, 220, 142, 0.2), 1.8em -1.8em 0 0em rgba(255, 220, 142, 0.2), 2.5em 0em 0 0em rgba(255, 220, 142, 0.2), 1.75em 1.75em 0 0em rgba(255, 220, 142, 0.2), 0em 2.5em 0 0em rgba(255, 220, 142, 0.5), -1.8em 1.8em 0 0em rgba(255, 220, 142, 0.7), -2.6em 0em 0 0em #ffdc8e, -1.8em -1.8em 0 0em rgba(255, 220, 142, 0.2); }
   87.5% {
     box-shadow: 0em -2.6em 0em 0em rgba(255, 220, 142, 0.2), 1.8em -1.8em 0 0em rgba(255, 220, 142, 0.2), 2.5em 0em 0 0em rgba(255, 220, 142, 0.2), 1.75em 1.75em 0 0em rgba(255, 220, 142, 0.2), 0em 2.5em 0 0em rgba(255, 220, 142, 0.2), -1.8em 1.8em 0 0em rgba(255, 220, 142, 0.5), -2.6em 0em 0 0em rgba(255, 220, 142, 0.7), -1.8em -1.8em 0 0em #ffdc8e; } }
+@media (min-width: 768px) {
+  main .content .content-split {
+    flex-direction: row; }
+    main .content .content-split .content-split-item {
+      padding: 0 8px; }
+      main .content .content-split .content-split-item:first-child {
+        padding-left: 0; }
+      main .content .content-split .content-split-item:last-child {
+        padding-right: 0; } }
 body:before {
   content: '- Mobile -';
   font-size: 1rem;
