@@ -138,6 +138,12 @@ footer {
 
 #clip-area {
   width: 568px;
+
+  .clip-setting-control {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
 }
 
 // ----------------------------------------------------------------

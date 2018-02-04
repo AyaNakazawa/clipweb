@@ -556,6 +556,10 @@ footer {
 
 #clip-area {
   width: 568px; }
+  #clip-area .clip-setting-control {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between; }
 
 #code-area {
   width: 100%;
