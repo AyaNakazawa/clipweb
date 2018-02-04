@@ -101,6 +101,7 @@ footer {
           .list-search-clip-main {
             padding: 0.35rem 1rem;
             display: flex;
+            flex-wrap: wrap;
             align-items: baseline;
 
             .list-search-clip-name {

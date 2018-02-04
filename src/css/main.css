@@ -540,6 +540,7 @@ footer {
         #list-area #list-search-clips .list-search-group .list-search-group-clips .list-search-clip .list-search-clip-main {
           padding: 0.35rem 1rem;
           display: flex;
+          flex-wrap: wrap;
           align-items: baseline; }
           #list-area #list-search-clips .list-search-group .list-search-group-clips .list-search-clip .list-search-clip-main .list-search-clip-name {
             flex-grow: 1; }
