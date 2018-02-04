@@ -102,13 +102,29 @@ class List(cw_base.Base):
             cls.result["error"] = cls._error("clip_not_exists")
             return cls.result
 
+        _delete_index = []
         _where_items = []
         _where_items.append(user_hash)
-        for _clip in cls.result["clips"]:
-            if _clip["clip_owner_public"] == "public":
-                _where_items.append(_clip["clip_owner_hash"])
+        for index in range(len(cls.result["clips"])):
+            # 他のユーザーのPrivateなら返さない
+            # もしPrivateを解除したときのために、DBからは消さない
+            if cls.result["clips"][index]["clip_clip_mode"] == "private":
+                if cls.result["clips"][index]["clip_owner_hash"] != user_hash:
+                    _delete_index.append(index)
+
+            # 公開ならオーナーリストに追加
+            if cls.result["clips"][index]["clip_owner_public"] == "public":
+                _where_items.append(cls.result["clips"][index]["clip_owner_hash"])
+
+            else:
+                # オーナー非公開のときは、オーナーハッシュ返さない
+                if cls.result["clips"][index]["clip_owner_hash"] != user_hash:
+                    cls.result["clips"][index]["clip_owner_hash"] = ""
 
         _where_items = list(set(_where_items))
+
+        for index in reversed(range(len(_delete_index))):
+            cls.result["clips"].pop(_delete_index[index])
 
         _where = ""
         for _hash in _where_items:
