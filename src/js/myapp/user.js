@@ -532,9 +532,11 @@ class UserController extends ClipwebController {
         ],
         functionSuccess: () => {
           // Login成功
-          super.log(Web.getParam('share'))();
-          NAV.login();
           this.CONTROLLER.applyReceiveModel(_TYPE);
+          NAV.login();
+          if (Web.getParam('share') != null) {
+            CLIP.getShareClip(Web.getParam('share'));
+          }
           this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
           if (this.MODEL.STATUS.AUTO) {
             LocalStorage.setItem(this.MODEL.LS.AUTO.HASH.PASSWORD, this.MODEL.HASH.PASSWORD);
