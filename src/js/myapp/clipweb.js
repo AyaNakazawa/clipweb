@@ -56,6 +56,8 @@ class ClipwebModel extends CommonModel {
     // ----------------------------------------------------------------
     // データ
     this.FILETYPES = FileTypes.get();
+    this.THEME_LIST = ace.require('ace/ext/themelist');
+    this.MODE_LIST = ace.require('ace/ext/modelist');
 
     // ----------------------------------------------------------------
     // 時間
