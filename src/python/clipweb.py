@@ -126,6 +126,9 @@ class Clipweb:
         elif _type == "delete":
             cls.result["clip"] = CLIP.delete()
 
+        elif _type == "share":
+            cls.result["clip"] = CLIP.share()
+
         else:
             cls.result["error"] = {}
             cls.result["error"]["message"] = "check_clip: {0}".format(_type)

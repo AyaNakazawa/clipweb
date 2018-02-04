@@ -455,3 +455,9 @@ class Clip(cw_base.Base):
 
         cls.result["result"] = True
         return cls.result
+
+    def share(cls):
+        cls.result["type"] = sys._getframe().f_code.co_name
+        cls.result["result"] = False
+        cls.result["result"] = True
+        return cls.result
