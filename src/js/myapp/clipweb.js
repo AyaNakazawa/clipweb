@@ -58,6 +58,7 @@ class ClipwebModel extends CommonModel {
     this.FILETYPES = FileTypes.get();
     this.THEME_LIST = ace.require('ace/ext/themelist');
     this.MODE_LIST = ace.require('ace/ext/modelist');
+    this.EXTENSION_LIST = this.setExtensions();
 
     // ----------------------------------------------------------------
     // 時間
@@ -100,6 +101,21 @@ class ClipwebModel extends CommonModel {
     // エリア
     this.SELECTOR.AREA = '#clipweb-area';
 
+  }
+
+  setExtensions () {
+    let _types = this.MODE_LIST['modesByName'];
+    let _result = {};
+    let _extensions = [];
+    for (let type of Object.keys(_types)) {
+      _extensions = _types[type]['extensions'].split('|');
+      for (let index = 0; index < _extensions.length; index ++) {
+        _extensions[index] = _extensions[index].replace('^', '');
+        _result[_extensions[index].mini()] = type;
+      }
+    }
+    super.log(_result)();
+    return _result;
   }
 }
 
