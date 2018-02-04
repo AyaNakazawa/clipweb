@@ -666,7 +666,7 @@
                       </tr>
                       <tr>
                         <th scope="row"><%= LN.get('filetype') %></th>
-                        <td><%= filetypes[clips[index]['clips'][clip_index]['clip_type']]['name'] %></td>
+                        <td><%= filetypes[clips[index]['clips'][clip_index]['clip_type']]['caption'] %></td>
                       </tr>
                       <tr>
                         <th scope="row"><%= LN.get('tags') %></th>
@@ -722,10 +722,10 @@
           <div class="content-input">
             <select id="clip-new-filetype" class="custom-select" required tabindex="200">
               <% for (let type of Object.keys(filetypes)) { %>
-                <% if (type == 'TEXT') { %>
-                  <option value="<%- type %>" selected><%- filetypes[type]['name'] %></option>
+                <% if (type == 'text') { %>
+                  <option value="<%- type %>" selected><%- filetypes[type]['caption'] %></option>
                 <% } else { %>
-                  <option value="<%- type %>"><%- filetypes[type]['name'] %></option>
+                  <option value="<%- type %>"><%- filetypes[type]['caption'] %></option>
                 <% } %>
               <% } %>
             </select>
@@ -816,9 +816,9 @@
             <select id="clip-setting-filetype" class="custom-select" required tabindex="200">
               <% for (let type of Object.keys(filetypes)) { %>
                 <% if (type == filetype) { %>
-                  <option value="<%- type %>" selected><%- filetypes[type]['name'] %></option>
+                  <option value="<%- type %>" selected><%- filetypes[type]['caption'] %></option>
                 <% } else { %>
-                  <option value="<%- type %>"><%- filetypes[type]['name'] %></option>
+                  <option value="<%- type %>"><%- filetypes[type]['caption'] %></option>
                 <% } %>
               <% } %>
             </select>
@@ -916,7 +916,7 @@
     <!-- code-editor -->
     <script type="text/template" id="code-editor-template">
       <div class="d-flex justify-content-between align-items-baseline">
-        <span id="code-editor-filetype" class="badge badge-info"><%= filetype %></span>
+        <span id="code-editor-filetype" class="badge badge-info"><%= filetypes[filetype]['caption'] %></span>
         <span id="code-editor-filename"><%= filename %></span>
         <div class="btn-group">
           <% if (clip_mode == 'share' || owner_hash == USER.MODEL.HASH.USER) { %>

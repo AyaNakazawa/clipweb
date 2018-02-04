@@ -516,7 +516,7 @@ class ClipController extends ClipwebController {
             }) +
             View.element({ element: 'tr', content:
               View.element({ attr: {scope: 'row'}, element: 'th', content: LN.get('filetype') }) +
-              View.element({ element: 'td', content: this.MODEL.FILETYPES[LIST.MODEL.NAMED_CLIPS[hash]['clip_type']]['name'] })
+              View.element({ element: 'td', content: this.MODEL.MODE_LIST['modesByName'][LIST.MODEL.NAMED_CLIPS[hash]['clip_type']]['caption'] })
             }) +
             View.element({ element: 'tr', content:
               View.element({ attr: {scope: 'row'}, element: 'th', content: LN.get('tags') }) +
@@ -563,9 +563,8 @@ class ClipController extends ClipwebController {
     }
     const _FILENAME = $(name).val();
     const _FILETYPE = File.getExtension(_FILENAME);
-    const _TYPES = FileTypes.getExtensions();
-    if (typeof _TYPES[_FILETYPE] != 'undefined') {
-      $(type).val(_TYPES[_FILETYPE]);
+    if (typeof this.MODEL.EXTENSION_LIST[_FILETYPE] != 'undefined') {
+      $(type).val(this.MODEL.EXTENSION_LIST[_FILETYPE]);
     }
   }
 
@@ -584,7 +583,7 @@ class ClipController extends ClipwebController {
       case this.MODEL.TYPE.NEW:
         // NEW
         _result = {
-          filetypes: this.MODEL.FILETYPES,
+          filetypes: this.MODEL.MODE_LIST['modesByName'],
           defaultOwnerPublic: USER.MODEL.OWNER_PUBLIC,
           defaultClipMode: USER.MODEL.CLIP_MODE,
           length: {
@@ -600,7 +599,7 @@ class ClipController extends ClipwebController {
       case this.MODEL.TYPE.SETTING:
         // SETTING
         _result = {
-          filetypes: this.MODEL.FILETYPES,
+          filetypes: this.MODEL.MODE_LIST['modesByName'],
           filename: this.MODEL.FILENAME,
           filetype: this.MODEL.FILETYPE,
           tags: this.MODEL.TAGS,
