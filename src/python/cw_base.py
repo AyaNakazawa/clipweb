@@ -348,6 +348,12 @@ class Base:
                     "code": 901,
                     "message": "Permission denied."
                 }
+            },
+            "permission_denied_or_clip_not_found": {
+                "{} error".format(cls.NAME): {
+                    "code": 902,
+                    "message": "Permission denied or clip does not exist."
+                }
             }
         }
 
