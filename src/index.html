@@ -922,10 +922,8 @@
           <% if (clip_mode != 'private') { %>
             <button id="code-editor-share" class="btn btn-sm btn-outline-primary"><i class="fas fa-share-alt"></i></button>
           <% } %>
-          <% if (clip_mode == 'share' || owner_hash == USER.MODEL.HASH.USER) { %>
-            <button id="code-editor-setting" class="btn btn-sm btn-outline-primary"><i class="fas fa-cog"></i></button>
-          <% } %>
           <% if (owner_hash == USER.MODEL.HASH.USER) { %>
+            <button id="code-editor-setting" class="btn btn-sm btn-outline-primary"><i class="fas fa-cog"></i></button>
             <button id="code-editor-delete" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
           <% } %>
           <button id="code-editor-close" class="btn btn-sm btn-outline-secondary"><i class="fas fa-times"></i></button>
