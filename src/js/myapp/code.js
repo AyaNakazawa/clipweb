@@ -206,6 +206,7 @@ class CodeController extends ClipwebController {
     const _FAILED = 'failed_to_save_code';
 
     this.MODEL.DATA = this.MODEL.EDITOR.getValue();
+    this.VIEW.hide();
 
     this.EVENT.setLoading({
       type: _TYPE,
