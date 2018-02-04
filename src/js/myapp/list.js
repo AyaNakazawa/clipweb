@@ -376,10 +376,10 @@ class ListController extends ClipwebController {
     }
 
     // Grouping
-    super.log('Grouping', this.MODEL.GROUP)();
+    // super.log('Grouping', this.MODEL.GROUP)();
     LocalStorage.setItem(this.MODEL.LS.GROUP, this.MODEL.GROUP);
 
-    super.log('Grouping...', this.MODEL.SORTED_CLIPS, Log.ARROW_INPUT)();
+    // super.log('Grouping...', this.MODEL.SORTED_CLIPS, Log.ARROW_INPUT)();
     this.MODEL.GROUPED_CLIPS = [];
     let _sortedClips = _.cloneDeep(this.MODEL.SORTED_CLIPS);
 
@@ -560,7 +560,7 @@ class ListController extends ClipwebController {
       }
     }
 
-    super.log('Grouped!', this.MODEL.GROUPED_CLIPS)();
+    // super.log('Grouped!', this.MODEL.GROUPED_CLIPS)();
     this.VIEW.generateGroups();
   }
 
@@ -596,11 +596,11 @@ class ListController extends ClipwebController {
     }
 
     // Sorting
-    super.log('Sorting', `${this.MODEL.SORT} ${this.MODEL.ORDER.capitalize()}`)();
+    // super.log('Sorting', `${this.MODEL.SORT} ${this.MODEL.ORDER.capitalize()}`)();
     LocalStorage.setItem(this.MODEL.LS.SORT, this.MODEL.SORT);
     LocalStorage.setItem(this.MODEL.LS.ORDER, this.MODEL.ORDER);
 
-    super.log('Sorting...', this.MODEL.FILTERED_CLIPS, Log.ARROW_INPUT)();
+    // super.log('Sorting...', this.MODEL.FILTERED_CLIPS, Log.ARROW_INPUT)();
     this.MODEL.SORTED_CLIPS = _.cloneDeep(this.MODEL.FILTERED_CLIPS);
 
     this.MODEL.SORTED_CLIPS.sort((a, b) => {
@@ -634,7 +634,7 @@ class ListController extends ClipwebController {
       this.MODEL.SORTED_CLIPS[index]['clip_tags'] = _temp_tags;
     }
 
-    super.log('Sorted!', this.MODEL.SORTED_CLIPS)();
+    // super.log('Sorted!', this.MODEL.SORTED_CLIPS)();
     this.grouping();
   }
 
@@ -652,11 +652,11 @@ class ListController extends ClipwebController {
     this.MODEL.SEARCH_OP = $(`${_SELECTOR_OP} option:selected`).val();
 
     // Filtering
-    super.log('Filtering', `${this.MODEL.SEARCH_OP.toUpperCase()}: ${this.MODEL.SEARCH}`)();
+    // super.log('Filtering', `${this.MODEL.SEARCH_OP.toUpperCase()}: ${this.MODEL.SEARCH}`)();
     LocalStorage.setItem(this.MODEL.LS.SEARCH, this.MODEL.SEARCH);
     LocalStorage.setItem(this.MODEL.LS.SEARCH_OP, this.MODEL.SEARCH_OP);
 
-    super.log('Filtering...', this.MODEL.DOWNLOADED_CLIPS, Log.ARROW_INPUT)();
+    // super.log('Filtering...', this.MODEL.DOWNLOADED_CLIPS, Log.ARROW_INPUT)();
 
     let _search = this.MODEL.SEARCH.replace(/\s+/, ' ');
     _search = _search.split(' ');
@@ -806,7 +806,7 @@ class ListController extends ClipwebController {
       }
     }
 
-    super.log('Filtered!', this.MODEL.FILTERED_CLIPS)();
+    // super.log('Filtered!', this.MODEL.FILTERED_CLIPS)();
     this.sorting({ type: this.MODEL.ORDER });
   }
 
