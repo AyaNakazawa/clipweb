@@ -51,6 +51,10 @@ EX.String.count = function (target) {
   return this.split(target).length - 1;
 };
 
+EX.String.mini = function () {
+  return this.toLowerCase().trim();
+};
+
 /**
  * Object.prototype.getType
  * @param  {Object} obj  Inspect Object or Optional (using this)
