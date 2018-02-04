@@ -1110,4 +1110,35 @@ class File {
 }
 
 class Web {
+  static getParam (paramName = null) {
+    if (paramName == null) {
+      Log.error(arguments, 'Need paramName of argument. X(')();
+      return null;
+    }
+    if (1 < document.location.search.length) {
+      let _query = document.location.search.substring(1);
+      let _params = _query.split('&');
+
+      for (let index = 0; index < _params.length; index ++) {
+        let _param = _params[index].split('=');
+        let _paramName = decodeURIComponent(_param[0]);
+        if (paramName.mini() == _paramName.mini()) {
+          return decodeURIComponent(_param[1]);
+        }
+      }
+      // Log.error(arguments,
+      //   'The parameter could not be found. X(',
+      //   `Your search value: ${paramName}`,
+      //   'Parameter List: ',
+      //   _params
+      // )();
+      return null;
+    } else {
+      // Log.error(arguments,
+      //   'Parameters does not exist. X(',
+      //   `Your search value: ${paramName}`
+      // )();
+      return null;
+    }
+  }
 }
