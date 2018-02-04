@@ -464,6 +464,41 @@ class ClipController extends ClipwebController {
     });
   }
 
+  getShareClip (hash = this.MODEL.HASH) {
+    if (hash == null) {
+      Log.error(arguments)();
+      return this.MODEL.ERROR;
+    }
+    const _TYPE = this.MODEL.TYPE.SHARE;
+    const _FAILED = 'failed_to_get_share_clip';
+
+    this.MODEL.HASH = hash;
+
+    this.EVENT.setLoading({
+      type: _TYPE,
+      loading: false,
+      functionSuccess: () => {
+        this.checkSuccess({
+          errorMessage: _FAILED,
+          errorType: 'toast',
+          functionSuccess: () => {
+            // 取得成功
+            LIST.loadList();
+            this.VIEW.toast({ type: 'success', message: LN.get('shared_clip') });
+            CODE.loadCode(hash);
+          }
+        });
+      },
+      connectionErrorToastModel: super.getErrorModel('toast/server', _FAILED)
+    });
+
+    // Post
+    this.post({
+      type: _TYPE,
+      data: this.getSendModel(_TYPE)
+    });
+  }
+
   // ----------------------------------------------------------------
   // clip
 
@@ -690,6 +725,11 @@ class ClipController extends ClipwebController {
 
       case this.MODEL.TYPE.DELETE:
         // DELETE
+        _model['hash'] = this.MODEL.HASH;
+        break;
+
+      case this.MODEL.TYPE.SHARE:
+        // SHARE
         _model['hash'] = this.MODEL.HASH;
         break;
 
