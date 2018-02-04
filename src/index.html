@@ -878,15 +878,15 @@
         </div>
       </div>
       <div class="content-item-area">
-        <div class="content-item d-flex justify-content-between">
+        <div class="content-item clip-setting-control">
           <button id="clip-setting-close" class="btn btn-link" tabindex="210"><%= LN.get('close') %> <i class="far fa-times"></i></button>
           <div class="btn-group">
-            <button id="clip-setting-edit" class="btn btn-outline-info" tabindex="200"><%= LN.get('edit') %> <i class="fal fa-edit"></i></button>
+            <button id="clip-setting-edit" class="btn btn-outline-info" tabindex="200"><i class="fas fa-edit"></i></button>
             <% if (clipMode == 'public' || clipMode == 'share') { %>
-              <button id="clip-setting-share" class="btn btn-outline-primary" tabindex="200"><%= LN.get('share') %> <i class="fal fa-share-alt"></i></button>
+              <button id="clip-setting-share" class="btn btn-outline-primary" tabindex="200"><i class="fas fa-share-alt"></i></button>
             <% } %>
-            <button id="clip-setting-delete" class="btn btn-outline-danger" tabindex="200"><%= LN.get('delete') %> <i class="fal fa-trash-alt"></i></button>
-            <button id="clip-setting-save" class="btn btn-outline-primary" tabindex="200"><%= LN.get('save') %> <i class="fal fa-save"></i></button>
+            <button id="clip-setting-delete" class="btn btn-outline-danger" tabindex="200"><i class="fas fa-trash-alt"></i></button>
+            <button id="clip-setting-save" class="btn btn-outline-primary" tabindex="200"><%= LN.get('save') %> <i class="far fa-save"></i></button>
           </div>
         </div>
       </div>
