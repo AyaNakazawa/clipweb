@@ -57,6 +57,7 @@ class ClipwebModel extends CommonModel {
     this.TIMING.BEFORE = 'before';
     this.TIMING.ERROR = 'error';
     this.TIMING.SUCCESS = 'success';
+    this.TIMING.TIMEOUT = 10000;
 
     // ----------------------------------------------------------------
     // データ
@@ -455,7 +456,11 @@ class ClipwebController extends CommonController {
       case 'toast/result':
         _result = {
           type: 'error',
-          message: LN.get(localization)
+          timeout: this.MODEL.TIMING.TIMEOUT,
+          message:
+            View.element({ element: 'h5', content: LN.get('server_not_working') }) +
+            View.element({ element: 'hr' }) +
+            View.element({ content: LN.get(localization) })
         };
         break;
       case 'clipweb':
@@ -476,7 +481,17 @@ class ClipwebController extends CommonController {
       case 'toast/clipweb':
         _result = {
           type: 'error',
-          message: LN.get(localization)
+          timeout: this.MODEL.TIMING.TIMEOUT,
+          message:
+            View.element({ element: 'h5', content: LN.get(localization) }) +
+            View.element({ element: 'hr' }) +
+            View.element({ content: LN.get(`clipweb_${this.MODEL.KEY}_error_code`, {
+              project: Project.NAME,
+              code: error['code']
+            }) }) +
+            View.element({ content: LN.get(`clipweb_${this.MODEL.KEY}_error_message`, {
+              message: this.MODEL.getMessage(error['code'], error['message'], true)
+            }) })
         };
         break;
       case 'fsql':
@@ -493,23 +508,32 @@ class ClipwebController extends CommonController {
       case 'toast/fsql':
         _result = {
           type: 'error',
-          message: LN.get(localization)
+          timeout: this.MODEL.TIMING.TIMEOUT,
+          message:
+            View.element({ element: 'h5', content: LN.get(localization) }) +
+            View.element({ element: 'hr' }) +
+            View.element({ content: LN.get('flex_sqlite3_error_code', { code: error['code'] }) }) +
+            View.element({ content: LN.get('flex_sqlite3_error_mode', { mode: error['mode'] }) }) +
+            View.element({ content: LN.get('flex_sqlite3_error_message', { message: error['message'] }) })
         };
         break;
       case 'server':
         _result = {
-          alertMessage: (
+          alertMessage:
             View.element({ element: 'h5', content: LN.get('failed_connect_to_server') }) +
             View.element({ element: 'hr' }) +
-            View.element({ content: LN.get(localization) })
-          ),
+            View.element({ content: LN.get(localization) }),
           alertType: View.ALERT_DANGER
         };
         break;
       case 'toast/server':
         _result = {
           type: 'error',
-          message: LN.get(localization)
+          timeout: this.MODEL.TIMING.TIMEOUT,
+          message:
+            View.element({ element: 'h5', content: LN.get('failed_connect_to_server') }) +
+            View.element({ element: 'hr' }) +
+            View.element({ content: LN.get(localization) })
         };
         break;
     }
