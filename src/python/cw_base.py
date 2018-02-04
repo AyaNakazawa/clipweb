@@ -14,6 +14,7 @@ clipweb Base
 # ----------------------------------------------------------------
 
 import sys
+import datetime
 from db import flex_sqlite3
 
 AUTO_GENERATE = None
@@ -62,6 +63,9 @@ class Base:
             return False
 
         return True
+
+    def get_date(cls):
+        return datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
 
     # ----------------------------------------------------------------
     # Inner Function
