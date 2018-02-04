@@ -677,8 +677,8 @@ class ClipwebController extends CommonController {
         super.log()();
         Log.log('Post Before Send', Log.ALIGN_CENTER)();
         super.log('post', 'Send')();
-        super.log('settings')(settings);
-        // super.log('jqXHR')(jqXHR);
+        super.log('settings', settings)();
+        // super.log('jqXHR', jqXHR)();
       },
       success: (data, textStatus, jqXHR) => {
         this.MODEL.TIME.RETURN = new Date();
