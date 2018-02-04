@@ -638,7 +638,7 @@ class ClipwebController extends CommonController {
 
     data['type'] = `${mode.mini()}.${type.mini()}`;
 
-    super.log('data')(data);
+    super.log('data', data)();
 
     this.MODEL.TIME.POST = new Date();
 
