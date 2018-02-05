@@ -1512,6 +1512,27 @@ class CommonController extends CommonClass {
     // Method chain
     return this;
   }
+
+  downloadText (
+    filename = null,
+    text = null
+  ) {
+    const _BLOB = new Blob([text], {type: 'text/plain'});
+
+    if(window.navigator.msSaveBlob) {
+      // IEのみ独自関数を使用
+      window.navigator.msSaveBlob(_BLOB, filename);
+
+    } else {
+      let a = document.createElement('a');
+      a.href = URL.createObjectURL(_BLOB);
+      a.target = '_blank';
+      a.download = filename;
+      a.click();
+      // URL.revokeObjectURL();
+    }
+  }
+
 }
 
 // ----------------------------------------------------------------
