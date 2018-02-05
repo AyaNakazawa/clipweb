@@ -182,19 +182,24 @@ class CodeController extends ClipwebController {
   // ----------------------------------------------------------------
   // ajax
 
-  loadCode (hash = this.MODEL.HASH) {
+  loadCode (hash = this.MODEL.HASH, type = this.MODEL.TYPE.LOAD) {
     this.MODEL.HASH = hash;
     if (this.MODEL.HASH == null) {
       Log.error(arguments)();
       return this.MODEL.ERROR;
     }
     const _TYPE = this.MODEL.TYPE.LOAD;
-    const _FAILED = 'failed_to_load_code';
+    let _failed = null;
+    if (type == this.MODEL.TYPE.LOAD) {
+      _failed = 'failed_to_load_code';
+    } else if (type == this.MODEL.TYPE.DOWNLOAD) {
+      _failed = 'failed_to_download_code';
+    }
 
     this.EVENT.setLoading({
       type: _TYPE,
       loading: false,
-      errorMessage: _FAILED,
+      errorMessage: _failed,
       errorType: 'toast',
       check: [
         'data'
@@ -202,9 +207,14 @@ class CodeController extends ClipwebController {
       functionSuccess: () => {
         // 取得成功
         this.applyReceiveModel(_TYPE);
-        this.edit(this.MODEL.HASH);
+        if (type == this.MODEL.TYPE.LOAD) {
+          this.edit(this.MODEL.HASH);
+        } else if (type == this.MODEL.TYPE.DOWNLOAD) {
+          super.downloadText(this.MODEL.FILENAME, this.MODEL.DATA);
+          this.VIEW.toast({ type: 'success', message: LN.get('downloaded_clip') });
+        }
       },
-      connectionErrorToastModel: super.getErrorModel('toast/server', _FAILED)
+      connectionErrorToastModel: super.getErrorModel('toast/server', _failed)
     });
 
     // Post
