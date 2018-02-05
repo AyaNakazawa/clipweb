@@ -424,8 +424,8 @@
       <div class="content-item-area">
         <div class="content-item">
           <div class="btn-group content-input">
-            <button id="list-search-new" class="btn btn-outline-info" tabindex="200"><i class="far fa-plus-circle"></i> <%= LN.get('new') %></button>
-            <button id="list-search-refresh" class="btn btn-outline-info" tabindex="200"><i class="far fa-sync"></i> <%= LN.get('update') %></button>
+            <button id="list-search-new" class="btn btn-outline-info" tabindex="300"><i class="far fa-plus-circle"></i> <%= LN.get('new') %></button>
+            <button id="list-search-refresh" class="btn btn-outline-info" tabindex="300"><i class="far fa-sync"></i> <%= LN.get('update') %></button>
           </div>
         </div>
         <div class="content-item content-split">
@@ -433,7 +433,7 @@
             <label for="list-search-group"><%= LN.get('group') %></label>
             <span class="content-popover content-help"></span>
             <div class="content-input">
-              <select id="list-search-group" class="custom-select" required tabindex="200">
+              <select id="list-search-group" class="custom-select" required tabindex="300">
                 <% if (group == 'none') { %>
                   <option value="none" selected><%= LN.get('none') %></option>
                 <% } else { %>
@@ -482,7 +482,7 @@
             <span class="content-popover content-help"></span>
             <div class="content-input">
               <div class="input-group">
-                <select id="list-search-sort" class="custom-select" required tabindex="200">
+                <select id="list-search-sort" class="custom-select" required tabindex="300">
                   <% if (sort == 'name') { %>
                     <option value="name" selected><%= LN.get('name') %></option>
                   <% } else { %>
@@ -521,22 +521,22 @@
                 </select>
                 <div class="input-group-append">
                   <% if (order == 'asc') { %>
-                    <button id="list-search-sort-asc" class="btn btn-outline-info active">
+                    <button id="list-search-sort-asc" class="btn btn-outline-info active" tabindex="300">
                       <i class="fas fa-sort-alpha-down"></i>
                     </button>
                   <% } else { %>
-                    <button id="list-search-sort-asc" class="btn btn-outline-info">
+                    <button id="list-search-sort-asc" class="btn btn-outline-info" tabindex="300">
                       <i class="fas fa-sort-alpha-down"></i>
                     </button>
                   <% } %>
                 </div>
                 <div class="input-group-append">
                   <% if (order == 'desc') { %>
-                    <button id="list-search-sort-desc" class="btn btn-outline-info active">
+                    <button id="list-search-sort-desc" class="btn btn-outline-info active" tabindex="300">
                       <i class="fas fa-sort-alpha-up"></i>
                     </button>
                   <% } else { %>
-                    <button id="list-search-sort-desc" class="btn btn-outline-info">
+                    <button id="list-search-sort-desc" class="btn btn-outline-info" tabindex="300">
                       <i class="fas fa-sort-alpha-up"></i>
                     </button>
                   <% } %>
@@ -550,7 +550,7 @@
             <label for="list-search-search-type"><%= LN.get('search_type') %></label>
             <span class="content-popover content-help"></span>
             <div class="content-input">
-              <select id="list-search-search-op" class="custom-select" required tabindex="200">
+              <select id="list-search-search-op" class="custom-select" required tabindex="300">
                 <% if (op == 'or') { %>
                   <option value="or" selected>OR</option>
                 <% } else { %>
@@ -583,7 +583,7 @@
             <label for="list-search-search"><%= LN.get('search_query') %></label>
             <span class="content-popover content-help"></span>
             <div class="content-input">
-              <input id="list-search-search" class="form-control" type="text" placeholder="<%= LN.get('search') %>" value="<%- search %>" tabindex="200">
+              <input id="list-search-search" class="form-control" type="text" placeholder="<%= LN.get('search') %>" value="<%- search %>" tabindex="300">
               <i class="content-input-icon fas fa-search"></i>
               <i id="list-search-search-clear" class="fas fa-times"></i>
             </div>
@@ -717,7 +717,7 @@
           <label for="clip-new-filename"><%= LN.get('filename') %></label>
           <span class="content-popover content-help"></span>
           <div class="content-input">
-            <input id="clip-new-filename" type="text" minLength="<%- length.min.filename %>" maxLength="<%- length.max.filename %>" required class="form-control" placeholder="" value="" tabindex="200">
+            <input id="clip-new-filename" type="text" minLength="<%- length.min.filename %>" maxLength="<%- length.max.filename %>" required class="form-control" placeholder="" value="" tabindex="400">
             <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-file"></i>
             <span class="content-input-valid-message"></span>
@@ -728,7 +728,7 @@
           <label for="clip-new-filetype"><%= LN.get('filetype') %></label>
           <span class="content-popover content-help"></span>
           <div class="content-input">
-            <select id="clip-new-filetype" class="custom-select" required tabindex="200">
+            <select id="clip-new-filetype" class="custom-select" required tabindex="400">
               <% for (let type of Object.keys(filetypes)) { %>
                 <% if (type == 'text') { %>
                   <option value="<%- type %>" selected><%- filetypes[type]['caption'] %></option>
@@ -745,7 +745,7 @@
           <label for="clip-new-tags"><%= LN.get('tags') %></label>
           <span class="content-popover content-help"></span>
           <div class="content-input">
-            <input id="clip-new-tags" type="text" class="form-control" placeholder="" value="" tabindex="200">
+            <input id="clip-new-tags" type="text" class="form-control" placeholder="" value="" tabindex="400">
             <i class="content-input-icon fas fa-tag"></i>
           </div>
         </div>
@@ -754,7 +754,7 @@
           <label for="clip-new-owner-public"><%= LN.get('owner_public') %></label>
           <span class="content-popover content-help"></span>
           <div class="content-input">
-            <select id="clip-new-owner-public" class="custom-select" required tabindex="200">
+            <select id="clip-new-owner-public" class="custom-select" required tabindex="400">
               <% if (defaultOwnerPublic == 'private') { %>
                 <option value="private" selected><%= LN.get('private') %></option>
               <% } else { %>
@@ -774,7 +774,7 @@
           <label for="clip-new-clip-mode"><%= LN.get('clip_mode') %></label>
           <span class="content-popover content-help"></span>
           <div class="content-input">
-            <select id="clip-new-clip-mode" class="custom-select" required tabindex="200">
+            <select id="clip-new-clip-mode" class="custom-select" required tabindex="400">
               <% if (defaultClipMode == 'private') { %>
                 <option value="private" selected><%= LN.get('private') %></option>
               <% } else { %>
@@ -797,8 +797,8 @@
       </div>
       <div class="content-item-area">
         <div class="content-item d-flex justify-content-between">
-          <button id="clip-new-close" class="btn btn-link" tabindex="210"><%= LN.get('close') %> <i class="far fa-times"></i></button>
-          <button id="clip-new-create" class="btn btn-primary" tabindex="200"><i class="fal fa-plus-circle"></i> <%= LN.get('new_create') %></button>
+          <button id="clip-new-close" class="btn btn-link" tabindex="410"><%= LN.get('close') %> <i class="far fa-times"></i></button>
+          <button id="clip-new-create" class="btn btn-primary" tabindex="400"><i class="fal fa-plus-circle"></i> <%= LN.get('new_create') %></button>
         </div>
       </div>
     </script>
@@ -810,7 +810,7 @@
           <label for="clip-setting-filename"><%= LN.get('filename') %></label>
           <span class="content-popover content-help"></span>
           <div class="content-input">
-            <input id="clip-setting-filename" type="text" minLength="<%- length.min.filename %>" maxLength="<%- length.max.filename %>" required class="form-control" placeholder="" value="<%- filename %>" tabindex="200">
+            <input id="clip-setting-filename" type="text" minLength="<%- length.min.filename %>" maxLength="<%- length.max.filename %>" required class="form-control" placeholder="" value="<%- filename %>" tabindex="400">
             <span class="content-input-valid"></span>
             <i class="content-input-icon fas fa-file"></i>
             <span class="content-input-valid-message"></span>
@@ -821,7 +821,7 @@
           <label for="clip-setting-filetype"><%= LN.get('filetype') %></label>
           <span class="content-popover content-help"></span>
           <div class="content-input">
-            <select id="clip-setting-filetype" class="custom-select" required tabindex="200">
+            <select id="clip-setting-filetype" class="custom-select" required tabindex="400">
               <% for (let type of Object.keys(filetypes)) { %>
                 <% if (type == filetype) { %>
                   <option value="<%- type %>" selected><%- filetypes[type]['caption'] %></option>
@@ -838,7 +838,7 @@
           <label for="clip-setting-tags"><%= LN.get('tags') %></label>
           <span class="content-popover content-help"></span>
           <div class="content-input">
-            <input id="clip-setting-tags" type="text" class="form-control" placeholder="" value="<%- tags %>" tabindex="200">
+            <input id="clip-setting-tags" type="text" class="form-control" placeholder="" value="<%- tags %>" tabindex="400">
             <i class="content-input-icon fas fa-tag"></i>
           </div>
         </div>
@@ -847,7 +847,7 @@
           <label for="clip-setting-owner-public"><%= LN.get('owner_public') %></label>
           <span class="content-popover content-help"></span>
           <div class="content-input">
-            <select id="clip-setting-owner-public" class="custom-select" required tabindex="200">
+            <select id="clip-setting-owner-public" class="custom-select" required tabindex="400">
               <% if (ownerPublic == 'private') { %>
                 <option value="private" selected><%= LN.get('private') %></option>
               <% } else { %>
@@ -867,7 +867,7 @@
           <label for="clip-setting-clip-mode"><%= LN.get('clip_mode') %></label>
           <span class="content-popover content-help"></span>
           <div class="content-input">
-            <select id="clip-setting-clip-mode" class="custom-select" required tabindex="200">
+            <select id="clip-setting-clip-mode" class="custom-select" required tabindex="400">
               <% if (clipMode == 'private') { %>
                 <option value="private" selected><%= LN.get('private') %></option>
               <% } else { %>
@@ -890,14 +890,14 @@
       </div>
       <div class="content-item-area">
         <div class="content-item clip-setting-control">
-          <button id="clip-setting-close" class="btn btn-link" tabindex="210"><%= LN.get('close') %> <i class="far fa-times"></i></button>
+          <button id="clip-setting-close" class="btn btn-link" tabindex="410"><%= LN.get('close') %> <i class="far fa-times"></i></button>
           <div class="btn-group">
-            <button id="clip-setting-edit" class="btn btn-outline-info" tabindex="200"><i class="fas fa-edit"></i></button>
+            <button id="clip-setting-edit" class="btn btn-outline-info" tabindex="400"><i class="fas fa-edit"></i></button>
             <% if (clipMode == 'public' || clipMode == 'share') { %>
-              <button id="clip-setting-share" class="btn btn-outline-primary" tabindex="200"><i class="fas fa-share-alt"></i></button>
+              <button id="clip-setting-share" class="btn btn-outline-primary" tabindex="400"><i class="fas fa-share-alt"></i></button>
             <% } %>
-            <button id="clip-setting-delete" class="btn btn-outline-danger" tabindex="200"><i class="fas fa-trash-alt"></i></button>
-            <button id="clip-setting-save" class="btn btn-outline-primary" tabindex="200"><%= LN.get('save') %> <i class="far fa-save"></i></button>
+            <button id="clip-setting-delete" class="btn btn-outline-danger" tabindex="400"><i class="fas fa-trash-alt"></i></button>
+            <button id="clip-setting-save" class="btn btn-outline-primary" tabindex="400"><%= LN.get('save') %> <i class="far fa-save"></i></button>
           </div>
         </div>
       </div>
@@ -928,17 +928,17 @@
         <span id="code-editor-filename"><%= filename %></span>
         <div class="btn-group">
           <% if (clip_mode == 'share' || owner_hash == USER.MODEL.HASH.USER) { %>
-            <button id="code-editor-save" class="btn btn-sm btn-outline-primary"><i class="fas fa-save"></i></button>
+            <button id="code-editor-save" class="btn btn-sm btn-outline-primary" tabindex="500"><i class="fas fa-save"></i></button>
           <% } %>
-          <button id="code-editor-download" class="btn btn-sm btn-outline-primary"><i class="fas fa-download"></i></button>
+          <button id="code-editor-download" class="btn btn-sm btn-outline-primary" tabindex="500"><i class="fas fa-download"></i></button>
           <% if (clip_mode != 'private') { %>
-            <button id="code-editor-share" class="btn btn-sm btn-outline-primary"><i class="fas fa-share-alt"></i></button>
+            <button id="code-editor-share" class="btn btn-sm btn-outline-primary" tabindex="500"><i class="fas fa-share-alt"></i></button>
           <% } %>
           <% if (owner_hash == USER.MODEL.HASH.USER) { %>
-            <button id="code-editor-setting" class="btn btn-sm btn-outline-primary"><i class="fas fa-cog"></i></button>
-            <button id="code-editor-delete" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
+            <button id="code-editor-setting" class="btn btn-sm btn-outline-primary" tabindex="500"><i class="fas fa-cog"></i></button>
+            <button id="code-editor-delete" class="btn btn-sm btn-outline-danger" tabindex="500"><i class="fas fa-trash-alt"></i></button>
           <% } %>
-          <button id="code-editor-close" class="btn btn-sm btn-outline-secondary"><i class="fas fa-times"></i></button>
+          <button id="code-editor-close" class="btn btn-sm btn-outline-secondary" tabindex="500"><i class="fas fa-times"></i></button>
         </div>
       </div>
       <pre id="code-editor-editor"></pre>
