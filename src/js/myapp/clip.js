@@ -397,7 +397,6 @@ class ClipController extends ClipwebController {
           check: _check_data,
           functionSuccess: () => {
             // 取得成功
-            super.log('取得成功')();
             this.applyReceiveModel(type);
             this.VIEW.move({
               target: LIST.MODEL.SELECTOR.AREA,
