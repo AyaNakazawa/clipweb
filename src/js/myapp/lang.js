@@ -141,7 +141,8 @@ class Language {
       deleted_clip: 'Deleted the clip.',
       shared_clip: 'Shared the clip.',
 
-      saved_clip: 'saved this clip.',
+      saved_clip: 'Saved this clip.',
+      downloaded_clip: 'Downloaded the clip.',
 
       please_email_auth: 'Please Email authentication.',
       userdata_clear: 'Delete your data',
@@ -378,6 +379,7 @@ class Language {
       shared_clip: 'クリップを共有しました。',
 
       saved_clip: 'クリップを保存しました。',
+      downloaded_clip: 'クリップをダウンロードしました。',
 
       please_email_auth: 'メール認証をしてください。',
       userdata_clear: 'ユーザデータの削除',
