@@ -192,7 +192,7 @@ class ClipwebView extends CommonView {
       super.generateHeader({
         header: header,
         buttonIcon: headerButton,
-        buttonTabindex: 290
+        buttonTabindex: 990
       });
     }
 
