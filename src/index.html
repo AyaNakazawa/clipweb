@@ -624,6 +624,9 @@
                       <button class="list-search-clip-edit btn btn-outline-info">
                         <i class="fas fa-edit"></i>
                       </button>
+                      <button class="list-search-clip-download btn btn-outline-primary">
+                        <i class="fas fa-download"></i>
+                      </button>
                       <button class="list-search-clip-setting btn btn-outline-primary">
                         <i class="fas fa-cog"></i>
                       </button>
@@ -640,9 +643,15 @@
                         <button class="list-search-clip-view btn btn-outline-info">
                           <i class="fas fa-eye"></i>
                         </button>
+                        <button class="list-search-clip-download btn btn-outline-primary">
+                          <i class="fas fa-download"></i>
+                        </button>
                       <% } else if (clips[index]['clips'][clip_index]['clip_clip_mode'] == 'share') { %>
                         <button class="list-search-clip-edit btn btn-outline-info">
                           <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="list-search-clip-download btn btn-outline-primary">
+                          <i class="fas fa-download"></i>
                         </button>
                       <% } %>
                       <% if (clips[index]['clips'][clip_index]['clip_clip_mode'] == 'public' || clips[index]['clips'][clip_index]['clip_clip_mode'] == 'share') { %>
@@ -921,6 +930,7 @@
           <% if (clip_mode == 'share' || owner_hash == USER.MODEL.HASH.USER) { %>
             <button id="code-editor-save" class="btn btn-sm btn-outline-primary"><i class="fas fa-save"></i></button>
           <% } %>
+          <button id="code-editor-download" class="btn btn-sm btn-outline-primary"><i class="fas fa-download"></i></button>
           <% if (clip_mode != 'private') { %>
             <button id="code-editor-share" class="btn btn-sm btn-outline-primary"><i class="fas fa-share-alt"></i></button>
           <% } %>
