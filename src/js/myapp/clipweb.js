@@ -549,7 +549,8 @@ class ClipwebController extends CommonController {
     errorOpen = null,
     errorClose = false,
     check = [],
-    functionSuccess = () => {}
+    functionSuccess = () => {},
+    functionError = () => {}
   } = {}) {
     super.log('Check', 'CGI')();
     if (this.getAjaxData({ key: 'result' }) == this.MODEL.ERROR) {
@@ -564,6 +565,8 @@ class ClipwebController extends CommonController {
         this.VIEW.toast(this.getErrorModel('toast/result', errorMessage));
       }
       Log.error(arguments)();
+      functionError();
+      return this.MODEL.ERROR;
     } else if (this.getAjaxData({ key: 'result' }) == false) {
       // clipwebエラーが出ているとき
       super.log('Error', 'clipweb')();
@@ -579,6 +582,8 @@ class ClipwebController extends CommonController {
         }
       }
       Log.error(arguments)();
+      functionError();
+      return this.MODEL.ERROR;
     } else {
       let _error = false;
       for (let index = 0; index < check.length; index ++) {
@@ -633,6 +638,7 @@ class ClipwebController extends CommonController {
             this.close();
           }
           Log.error(arguments)();
+          functionError();
           return this.MODEL.ERROR;
         }
       }
