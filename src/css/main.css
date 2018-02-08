@@ -559,10 +559,6 @@ footer {
           padding: 0 0.5rem; }
           #list-area #list-search-clips .list-search-group .list-search-group-clips .list-search-clip .list-search-clip-detail .list-search-clip-detail-control {
             margin-bottom: 0.4rem; }
-        #list-area #list-search-clips .list-search-group .list-search-group-clips .list-search-clip .list-search-clip-date {
-          font-family: sans-serif;
-          font-size: 0.8rem;
-          vertical-align: middle; }
 
 #clip-area {
   width: 568px; }
