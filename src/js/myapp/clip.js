@@ -355,16 +355,19 @@ class ClipController extends ClipwebController {
         Log.error(arguments)();
         return this.MODEL.ERROR;
       }
+
       this.MODEL.HASH = hash;
       _failed = 'failed_to_load_clip_setting';
       _check_data = ['clip'];
+
     } else if (type == this.MODEL.TYPE.BAN) {
       this.MODEL.BAN = hash;
       _failed = 'failed_to_stop_share';
-      _check_data = ['clip'];
+      _check_data = ['clip', 'ban'];
       _success_message = View.element({ content: LN.get('stopped_share_to_user', {
         ban_username: this.MODEL.USERS[hash]['user_name']
       }) });
+
     } else if (type == this.MODEL.TYPE.SETTING) {
       _failed = 'failed_to_setting_clip_setting';
       _check_data = ['update', 'clip'];
