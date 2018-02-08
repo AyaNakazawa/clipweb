@@ -71,6 +71,28 @@ class Base:
     def get_md5(cls, string=None):
         return str(hashlib.md5(string.encode('utf-8')).hexdigest())
 
+    def get_share_users(cls, clip_hash):
+        result =  cls.DB.select(
+            table="shares",
+            column=[
+                "owners.hash AS user_hash",
+                "owners.username AS user_name",
+                "owners.email_address AS user_gravatar",
+                "shares.created_at AS share_created_at",
+                "shares.updated_at AS share_updated_at"
+            ],
+            where={
+                "clip_hash": clip_hash
+            },
+            join_table="owners",
+            join_key="hash"
+        )
+
+        for index in range(len(result)):
+            result[index]["user_gravatar"] = cls.get_md5(result[index]["user_gravatar"])
+
+        return result
+
     # ----------------------------------------------------------------
     # Inner Function
     # ----------------------------------------------------------------
