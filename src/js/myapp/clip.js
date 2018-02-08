@@ -347,7 +347,7 @@ class ClipController extends ClipwebController {
       return this.MODEL.ERROR;
     }
     const _TYPE = this.MODEL.TYPE.SETTING;
-    const _FAILED = `failed_to_${type.mini()}_clip_setting`;
+    let _failed = null;
     let _success_message = null;
     let _check_data = null;
     if (type == this.MODEL.TYPE.LOAD) {
@@ -356,8 +356,17 @@ class ClipController extends ClipwebController {
         return this.MODEL.ERROR;
       }
       this.MODEL.HASH = hash;
+      _failed = 'failed_to_load_clip_setting';
       _check_data = ['clip'];
-    } else {
+    } else if (type == this.MODEL.TYPE.BAN) {
+      this.MODEL.BAN = hash;
+      _failed = 'failed_to_stop_share';
+      _check_data = ['clip'];
+      _success_message = View.element({ content: LN.get('stopped_share_to_user', {
+        ban_username: this.MODEL.USERS[hash]['user_name']
+      }) });
+    } else if (type == this.MODEL.TYPE.SETTING) {
+      _failed = 'failed_to_setting_clip_setting';
       _check_data = ['update', 'clip'];
       _success_message = View.element({ content: LN.get('updated_clip_setting') });
 
@@ -394,31 +403,28 @@ class ClipController extends ClipwebController {
 
     this.EVENT.setLoading({
       type: _TYPE,
+      errorMessage: _failed,
+      errorOpen: _TYPE,
+      check: _check_data,
       functionSuccess: () => {
-        this.checkSuccess({
-          errorMessage: _FAILED,
-          check: _check_data,
-          functionSuccess: () => {
-            // 取得成功
-            this.applyReceiveModel(type);
-            this.VIEW.move({
-              target: LIST.MODEL.SELECTOR.AREA,
-              mode: this.MODEL.COMMON.TYPE.AFTER
-            });
-            if (type == this.MODEL.TYPE.SETTING) {
-              LIST.loadList();
-            }
-            this.open({
-              type: this.MODEL.TYPE.SETTING,
-              model: {
-                alertMessage: _success_message
-              }
-            });
+        // 取得成功
+        this.applyReceiveModel(type);
+        this.VIEW.move({
+          target: LIST.MODEL.SELECTOR.AREA,
+          mode: this.MODEL.COMMON.TYPE.AFTER
+        });
+        if (type == this.MODEL.TYPE.SETTING) {
+          LIST.loadList();
+        }
+        this.open({
+          type: _TYPE,
+          model: {
+            alertMessage: _success_message
           }
         });
       },
       connectionErrorOpenType: _TYPE,
-      connectionErrorModel: super.getErrorModel('server', _FAILED)
+      connectionErrorModel: super.getErrorModel('server', _failed)
     });
 
     // Post
