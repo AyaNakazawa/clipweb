@@ -117,6 +117,24 @@ class Code(cw_base.Base):
         cls.result["owner_hash"] = data["owner_hash"]
 
         # ----------------------------------------------------------------
+        # share date update
+
+        _share_update = cls.DB.update(
+            table="shares",
+            value={
+                "updated_at": cls.get_date()
+            },
+            where={
+                "owner_hash": user_hash,
+                "clip_hash": clip_hash
+            }
+        )
+
+        if _share_update is False:
+            cls.result["error"] = cls._error("failed_update_share")
+            return cls.result
+
+        # ----------------------------------------------------------------
         # return
 
         cls.result["result"] = True
