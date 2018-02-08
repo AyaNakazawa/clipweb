@@ -579,11 +579,11 @@ class ClipController extends ClipwebController {
             }) +
             View.element({ element: 'tr', content:
               View.element({ attr: {scope: 'row'}, element: 'th', content: LN.get('created_at') }) +
-              View.element({ element: 'td', content: LIST.MODEL.NAMED_CLIPS[hash]['clip_created_at'] })
+              View.element({ element: 'td', clas: 'date', content: LIST.MODEL.NAMED_CLIPS[hash]['clip_created_at'] })
             }) +
             View.element({ element: 'tr', content:
               View.element({ attr: {scope: 'row'}, element: 'th', content: LN.get('updated_at') }) +
-              View.element({ element: 'td', content: LIST.MODEL.NAMED_CLIPS[hash]['clip_updated_at'] })
+              View.element({ element: 'td', clas: 'date', content: LIST.MODEL.NAMED_CLIPS[hash]['clip_updated_at'] })
             })
           })
         }),
