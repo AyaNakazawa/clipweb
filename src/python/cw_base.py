@@ -93,6 +93,25 @@ class Base:
 
         return result
 
+    def get_clip(cls, clip_hash):
+        return cls.DB.select(
+            table="clips",
+            column=[
+                "hash",
+                "name",
+                "type",
+                "tags",
+                "owner_hash",
+                "owner_public",
+                "clip_mode",
+                "created_at",
+                "updated_at"
+            ],
+            where={
+                "hash": clip_hash
+            }
+        )
+
     # ----------------------------------------------------------------
     # Inner Function
     # ----------------------------------------------------------------
