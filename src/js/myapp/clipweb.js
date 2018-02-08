@@ -259,6 +259,7 @@ class ClipwebEvent extends CommonEvent {
     errorClose = false,
     check = [],
     functionSuccess = () => {},
+    functionError = () => {},
     connectionErrorOpenMode = this.MODEL.KEY,
     connectionErrorOpenType = null,
     connectionErrorModel = {},
@@ -296,7 +297,8 @@ class ClipwebEvent extends CommonEvent {
           errorOpen: errorOpen,
           errorClose: errorClose,
           check: check,
-          functionSuccess: functionSuccess
+          functionSuccess: functionSuccess,
+          functionError: functionError
         });
       }
     });
