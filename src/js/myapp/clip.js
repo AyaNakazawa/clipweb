@@ -98,6 +98,7 @@ class ClipView extends ClipwebView {
   ) {
     super(initSetting);
   }
+
 }
 
 // ----------------------------------------------------------------
