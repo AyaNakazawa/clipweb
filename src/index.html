@@ -610,7 +610,7 @@
                   <div class="list-search-clip-name">
                     <%= clips[index]['clips'][clip_index]['clip_name'] %>
                   </div>
-                  <div class="list-search-clip-date">
+                  <div class="date">
                     <% if (sort == 'created_at' || group == 'created_at') { %>
                       <%= clips[index]['clips'][clip_index]['clip_created_at'] %>
                     <% } else { %>
@@ -694,11 +694,11 @@
                       </tr>
                       <tr>
                         <th scope="row"><%= LN.get('created_at') %></th>
-                        <td class="list-search-clip-date"><%= clips[index]['clips'][clip_index]['clip_created_at'] %></td>
+                        <td class="date"><%= clips[index]['clips'][clip_index]['clip_created_at'] %></td>
                       </tr>
                       <tr>
                         <th scope="row"><%= LN.get('updated_at') %></th>
-                        <td class="list-search-clip-date"><%= clips[index]['clips'][clip_index]['clip_updated_at'] %></td>
+                        <td class="date"><%= clips[index]['clips'][clip_index]['clip_updated_at'] %></td>
                       </tr>
                     </tbody>
                   </table>
