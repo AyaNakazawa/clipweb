@@ -14,6 +14,7 @@ clipweb Base
 # ----------------------------------------------------------------
 
 import sys
+import hashlib
 import datetime
 from db import flex_sqlite3
 
@@ -66,6 +67,9 @@ class Base:
 
     def get_date(cls):
         return datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+
+    def get_md5(cls, string=None):
+        return str(hashlib.md5(string.encode('utf-8')).hexdigest())
 
     # ----------------------------------------------------------------
     # Inner Function
