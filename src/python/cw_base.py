@@ -376,6 +376,12 @@ class Base:
                     "message": "clip owner not exists."
                 }
             },
+            "failed_update_share": {
+                "{} error".format(cls.NAME): {
+                    "code": 406,
+                    "message": "Failed to update share date."
+                }
+            },
             "corrupt_userdata": {
                 "{} error".format(cls.NAME): {
                     "code": 801,
