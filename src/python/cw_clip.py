@@ -279,23 +279,7 @@ class Clip(cw_base.Base):
         # ----------------------------------------------------------------
         # select clip data
 
-        cls.result["clip"] = cls.DB.select(
-            table="clips",
-            column=[
-                "hash",
-                "name",
-                "type",
-                "tags",
-                "owner_hash",
-                "owner_public",
-                "clip_mode",
-                "created_at",
-                "updated_at"
-            ],
-            where={
-                "hash": clip_hash
-            }
-        )
+        cls.result["clip"] = cls.get_clip(clip_hash)
 
         if len(cls.result["clip"]) > 1:
             cls.result["error"] = cls._error("corrupt_clipdata")
@@ -306,6 +290,11 @@ class Clip(cw_base.Base):
             return cls.result
 
         cls.result["clip"] = cls.result["clip"][0]
+
+        # ----------------------------------------------------------------
+        # select user data
+
+        cls.result["users"] = cls.get_share_users(clip_hash)
 
         # ----------------------------------------------------------------
         # return
@@ -357,23 +346,7 @@ class Clip(cw_base.Base):
         # ----------------------------------------------------------------
         # select clip data
 
-        cls.result["clip"] = cls.DB.select(
-            table="clips",
-            column=[
-                "hash",
-                "name",
-                "type",
-                "tags",
-                "owner_hash",
-                "owner_public",
-                "clip_mode",
-                "created_at",
-                "updated_at"
-            ],
-            where={
-                "hash": clip_hash
-            }
-        )
+        cls.result["clip"] = cls.get_clip(clip_hash)
 
         if len(cls.result["clip"]) > 1:
             cls.result["error"] = cls._error("corrupt_clipdata")
@@ -384,6 +357,11 @@ class Clip(cw_base.Base):
             return cls.result
 
         cls.result["clip"] = cls.result["clip"][0]
+
+        # ----------------------------------------------------------------
+        # select user data
+
+        cls.result["users"] = cls.get_share_users(clip_hash)
 
         # ----------------------------------------------------------------
         # return
