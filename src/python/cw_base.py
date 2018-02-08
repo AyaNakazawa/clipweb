@@ -455,22 +455,23 @@ class Base:
     def _check_str(
         cls,
         model=None,
-        type=str,
+        model_type=None,
         not_defined_error=None,
         unknown_class_error=None
     ):
-        if isinstance(model, type):
-            if len(model) == 0:
-                if not_defined_error is not None:
-                    cls.result["error"] = cls._error(not_defined_error)
-                    return False
-        elif model is None:
-            if not_defined_error is not None:
-                cls.result["error"] = cls._error(not_defined_error)
-                return False
+        if model is None:
+            cls.result["error"] = cls._error("model_not_defined")
+            return False
+        if model_type is None:
+            cls.result["error"] = cls._error("model_type_not_defined")
+            return False
+
+        if model is None:
+            cls.result["error"] = cls._error("{type}_not_defined".format(**{"type": model_type}))
+            return False
         else:
-            if unknown_class_error is not None:
-                cls.result["error"] = cls._error(unknown_class_error)
+            if isinstance(model, str) is False:
+                cls.result["error"] = cls._error("{type}_unknown_class".format(**{"type": model_type}))
                 return False
 
         return True
