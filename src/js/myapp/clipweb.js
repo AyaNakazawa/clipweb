@@ -53,6 +53,7 @@ class ClipwebModel extends CommonModel {
     this.TYPE.SAVE = 'save';
     this.TYPE.DELETE = 'delete';
     this.TYPE.DOWNLOAD = 'download';
+    this.TYPE.BAN = 'ban';
 
     this.TIMING = {};
     this.TIMING.AFTER = 'after';
