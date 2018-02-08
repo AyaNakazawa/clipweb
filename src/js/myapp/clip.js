@@ -821,7 +821,7 @@ class ClipController extends ClipwebController {
 
       case this.MODEL.TYPE.BAN:
         // BAN
-        _model['ban'] = this.MODEL.BAN;
+        _model['ban_hash'] = this.MODEL.BAN;
         break;
 
       case this.MODEL.TYPE.SETTING:
