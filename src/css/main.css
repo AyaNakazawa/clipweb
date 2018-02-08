@@ -562,6 +562,11 @@ footer {
 
 #clip-area {
   width: 568px; }
+  #clip-area #clip-setting-user-table * {
+    vertical-align: middle; }
+  #clip-area #clip-setting-user-table .clip-setting-user-ban {
+    height: 32px;
+    line-height: 18px; }
   #clip-area .clip-setting-control {
     display: flex;
     align-items: baseline;
