@@ -72,7 +72,7 @@ class Base:
         return str(hashlib.md5(string.encode('utf-8')).hexdigest())
 
     def get_share_users(cls, clip_hash):
-        result =  cls.DB.select(
+        result = cls.DB.select(
             table="shares",
             column=[
                 "owners.hash AS user_hash",
