@@ -23,6 +23,7 @@ class ClipwebModel extends CommonModel {
     super.addMessage(403, 'user_not_found');
     super.addMessage(404, 'clip_not_exists');
     super.addMessage(405, 'owner_not_exists');
+    super.addMessage(406, 'failed_update_share');
     super.addMessage(801, 'corrupt_userdata');
     super.addMessage(802, 'corrupt_clipdata');
     super.addMessage(901, 'permission_denied');
