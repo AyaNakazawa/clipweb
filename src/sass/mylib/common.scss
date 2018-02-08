@@ -97,6 +97,18 @@ textarea {
   font-weight: 700;
 }
 
+.date {
+  font-family: sans-serif;
+  font-size: 0.8rem;
+  vertical-align: middle !important;
+}
+
+.avatar {
+  box-shadow: 2px 2px 1px 1px $main-box-shadow-color;
+  @include border();
+  border-radius: 50%;
+}
+
 // ----------------------------------------------------------------
 // header
 
