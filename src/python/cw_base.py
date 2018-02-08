@@ -226,6 +226,24 @@ class Base:
                     "message": "[data] does not defined."
                 }
             },
+            "ban_user_hash_not_defined": {
+                "{} error".format(cls.NAME): {
+                    "code": 118,
+                    "message": "[ban_user_hash] does not defined."
+                }
+            },
+            "model_not_defined": {
+                "{} error".format(cls.NAME): {
+                    "code": 151,
+                    "message": "[sys] _check_str model does not defined."
+                }
+            },
+            "model_type_not_defined": {
+                "{} error".format(cls.NAME): {
+                    "code": 152,
+                    "message": "[sys] _check_str model_type does not defined."
+                }
+            },
             "hash_unknown_class": {
                 "{} error".format(cls.NAME): {
                     "code": 201,
@@ -326,6 +344,12 @@ class Base:
                 "{} error".format(cls.NAME): {
                     "code": 217,
                     "message": "[data] is unknown class"
+                }
+            },
+            "ban_user_hash_unknown_class": {
+                "{} error".format(cls.NAME): {
+                    "code": 218,
+                    "message": "[ban_user_hash] is unknown class"
                 }
             },
             "username_overlap": {
