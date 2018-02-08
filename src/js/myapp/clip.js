@@ -44,7 +44,6 @@ class ClipModel extends ClipwebModel {
     // テンプレート
     this.TEMPLATE.NEW = '#clip-new-template';
     this.TEMPLATE.SETTING = '#clip-setting-template';
-    this.TEMPLATE.SETTING_USER = '#clip-setting-user-template';
     this.TEMPLATE.SHARE = '#code-share-template';
 
     // ----------------------------------------------------------------
@@ -74,16 +73,12 @@ class ClipModel extends ClipwebModel {
     this.SELECTOR.SETTING.TAGS = '#clip-setting-tags';
     this.SELECTOR.SETTING.OWNER_PUBLIC = '#clip-setting-owner-public';
     this.SELECTOR.SETTING.CLIP_MODE = '#clip-setting-clip-mode';
-    this.SELECTOR.SETTING.USERS = '#clip-setting-users';
     this.SELECTOR.SETTING.CLOSE = '#clip-setting-close';
     this.SELECTOR.SETTING.EDIT = '#clip-setting-edit';
     this.SELECTOR.SETTING.SHARE = '#clip-setting-share';
     this.SELECTOR.SETTING.DELETE = '#clip-setting-delete';
     this.SELECTOR.SETTING.SAVE = '#clip-setting-save';
-
-    // 権限設定
-    this.SELECTOR.USER = {};
-    this.SELECTOR.USER.TYPE = '#clip-user-permit';
+    this.SELECTOR.SETTING.USER_BAN = '.clip-setting-user-ban';
 
     // シェア
     this.SELECTOR.SHARE = {};
