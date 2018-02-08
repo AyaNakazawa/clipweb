@@ -439,5 +439,69 @@ class Clip(cw_base.Base):
     def ban(cls):
         cls.result["type"] = sys._getframe().f_code.co_name
         cls.result["result"] = False
+
+        # ----------------------------------------------------------------
+        # cgi get
+
+        user_hash = cls.cgi.get("owner_hash")
+        user_password_hash = cls.cgi.get("password_hash")
+        clip_hash = cls.cgi.get("hash")
+        ban_hash = cls.cgi.get("ban_hash")
+
+        # ----------------------------------------------------------------
+        # cgi get strings check
+
+        if cls._check_str(user_hash, "owner_hash") is False:
+            return cls.result
+
+        if cls._check_str(user_password_hash, "password_hash") is False:
+            return cls.result
+
+        if cls._check_str(clip_hash, "hash") is False:
+            return cls.result
+
+        if cls._check_str(ban_hash, "ban_user_hash") is False:
+            return cls.result
+
+        # ----------------------------------------------------------------
+        # check user
+
+        if cls.check_user(user_hash, user_password_hash) is False:
+            return cls.result
+
+        # ----------------------------------------------------------------
+        # ban user
+
+        cls.result["ban"] = cls.DB.delete(
+            table="shares",
+            where={
+                "owner_hash": ban_hash,
+                "clip_hash": clip_hash
+            }
+        )
+
+        # ----------------------------------------------------------------
+        # select clip data
+
+        cls.result["clip"] = cls.get_clip(clip_hash)
+
+        if len(cls.result["clip"]) > 1:
+            cls.result["error"] = cls._error("corrupt_clipdata")
+            return cls.result
+
+        if len(cls.result["clip"]) < 1:
+            cls.result["error"] = cls._error("clip_not_exists")
+            return cls.result
+
+        cls.result["clip"] = cls.result["clip"][0]
+
+        # ----------------------------------------------------------------
+        # select user data
+
+        cls.result["users"] = cls.get_share_users(clip_hash)
+
+        # ----------------------------------------------------------------
+        # return
+
         cls.result["result"] = True
         return cls.result
