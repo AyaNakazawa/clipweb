@@ -673,6 +673,7 @@ class ClipController extends ClipwebController {
         break;
 
       case this.MODEL.TYPE.LOAD:
+      case this.MODEL.TYPE.BAN:
       case this.MODEL.TYPE.SETTING:
         // SETTING
         this.MODEL.CLIP = this.getAjaxData({ key: 'clip' });
