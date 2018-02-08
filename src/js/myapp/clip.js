@@ -594,6 +594,77 @@ class ClipController extends ClipwebController {
     });
   }
 
+  banShare (owner_hash = null) {
+    if (owner_hash == null) {
+      Log.error(arguments)();
+      return this.MODEL.ERROR;
+    }
+    Log.obj(owner_hash)();
+    super.log(owner_hash.substr(0, 14), 'Ban', Log.ARROW_INPUT)();
+    new Confirm({
+      title: LN.get('stop_share_user'),
+      content:
+        View.element({ clas: 'text-center', content: LN.get('stop_share_user_confirm') }) +
+        View.element({ element: 'hr' }) +
+        View.element({ clas: 'text-center', content:
+          View.element({ element: 'img', clas: 'avatar', attr: {
+            src: `https://www.gravatar.com/avatar/${this.MODEL.USERS[owner_hash]['user_gravatar']}?s=48`,
+            alt: `${this.MODEL.USERS[owner_hash]['user_name']}'s avatar`,
+            style: 'margin-bottom: 1rem;'
+          }}) +
+          View.element({ element: 'span', clas: 'user-name', attr: {
+            style: `
+              margin: 1rem;
+              font-size: 2rem;
+              height: 2rem;
+              line-height: 5rem;
+              font-weight: 700;
+            `
+          }, content: ` ${this.MODEL.USERS[owner_hash]['user_name']}` })
+        }) +
+        View.element({ element: 'hr' }) +
+        View.element({ clas: 'text-center', content: LN.get('clip_info') }) +
+        View.element({ element: 'hr' }) +
+        View.element({ element: 'table',
+          clas: 'table table-striped table-hover table-sm',
+          content: View.element({ element: 'tbody', content:
+            View.element({ element: 'tr', content:
+              View.element({ attr: {scope: 'row'}, element: 'th', content: LN.get('filename') }) +
+              View.element({ element: 'td', content: this.MODEL.FILENAME })
+            }) +
+            View.element({ element: 'tr', content:
+              View.element({ attr: {scope: 'row'}, element: 'th', content: LN.get('filetype') }) +
+              View.element({ element: 'td', content: this.MODEL.MODE_LIST['modesByName'][this.MODEL.FILETYPE]['caption'] })
+            }) +
+            View.element({ element: 'tr', content:
+              View.element({ attr: {scope: 'row'}, element: 'th', content: LN.get('tags') }) +
+              View.element({ element: 'td', content: this.MODEL.TAGS })
+            }) +
+            View.element({ element: 'tr', content:
+              View.element({ attr: {scope: 'row'}, element: 'th', content: LN.get('owner_public') }) +
+              View.element({ element: 'td', content: LN.get(this.MODEL.OWNER_PUBLIC) })
+            }) +
+            View.element({ element: 'tr', content:
+              View.element({ attr: {scope: 'row'}, element: 'th', content: LN.get('clip_mode') }) +
+              View.element({ element: 'td', content: LN.get(this.MODEL.CLIP_MODE) })
+            }) +
+            View.element({ element: 'tr', content:
+              View.element({ attr: {scope: 'row'}, element: 'th', content: LN.get('created_at') }) +
+              View.element({ element: 'td', clas: 'date', content: this.MODEL.CREATED_AT })
+            }) +
+            View.element({ element: 'tr', content:
+              View.element({ attr: {scope: 'row'}, element: 'th', content: LN.get('updated_at') }) +
+              View.element({ element: 'td', clas: 'date', content: this.MODEL.UPDATED_AT })
+            })
+          })
+        }),
+      functionYes: () => {
+        CODE.VIEW.hide();
+        this.connectSetting(this.MODEL.TYPE.BAN, owner_hash);
+      }
+    });
+  }
+
   // ----------------------------------------------------------------
   // file
 
