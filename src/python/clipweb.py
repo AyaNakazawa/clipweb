@@ -129,6 +129,9 @@ class Clipweb:
         elif _type == "share":
             cls.result["clip"] = CLIP.share()
 
+        elif _type == "ban":
+            cls.result["clip"] = CLIP.ban()
+
         else:
             cls.result["error"] = {}
             cls.result["error"]["message"] = "check_clip: {0}".format(_type)
