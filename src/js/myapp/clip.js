@@ -726,6 +726,11 @@ class ClipController extends ClipwebController {
         // SHARE
         break;
 
+      case this.MODEL.TYPE.BAN:
+        // BAN
+        _model['ban'] = this.MODEL.BAN;
+        break;
+
       case this.MODEL.TYPE.SETTING:
         // SETTING
         _model['filename'] = this.MODEL.FILENAME;
