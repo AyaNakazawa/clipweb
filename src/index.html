@@ -888,6 +888,43 @@
           </div>
         </div>
       </div>
+      <!-- privilege -->
+      <% if (Object.keys(users).length > 1) { %>
+        <div class="content-item-area">
+          <div class="content-item">
+            <label for="clip_setting_share_list"><%= LN.get('share_list') %></label>
+            <span class="content-popover content-help"></span>
+          </div>
+          <div class="content-item">
+            <table class="table table-sm table-hover" id="clip-setting-user-table">
+              <thead class="text-center">
+                <tr>
+                  <th scope="col" colspan="2"><%= LN.get('user') %></th>
+                  <th scope="col"><%= LN.get('share') %></th>
+                  <th scope="col"><%= LN.get('access') %></th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for (let user_hash of Object.keys(users)) { %>
+                  <% if (user_hash != USER.MODEL.HASH.USER) { %>
+                    <tr>
+                      <td>
+                        <img src="https://www.gravatar.com/avatar/<%- users[user_hash]['user_gravatar'] %>?s=32" alt="<%- users[user_hash]['user_name'] %>'s avatar" class="avatar">
+                      </td>
+                      <td><%- users[user_hash]['user_name'] %></td>
+                      <td class="date"><%- users[user_hash]['share_created_at'] %></td>
+                      <td class="date"><%- users[user_hash]['share_updated_at'] %></td>
+                      <td><button class="clip-setting-user-ban btn btn-outline-danger" data-user-hash="<%- users[user_hash]['user_hash'] %>"><i class="fas fa-ban"></i></button></td>
+                    </tr>
+                  <% } %>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      <% } %>
+      <!-- control -->
       <div class="content-item-area">
         <div class="content-item clip-setting-control">
           <button id="clip-setting-close" class="btn btn-link" tabindex="410"><%= LN.get('close') %> <i class="far fa-times"></i></button>
