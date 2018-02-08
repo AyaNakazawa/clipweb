@@ -60,59 +60,28 @@ class Clip(cw_base.Base):
         # ----------------------------------------------------------------
         # cgi get strings check
 
-        if cls._check_str(
-            model=user_hash,
-            not_defined_error="owner_hash_not_defined",
-            unknown_class_error="owner_hash_unknown_class"
-        ) is False:
+        if cls._check_str(user_hash, "owner_hash") is False:
             return cls.result
 
-        if cls._check_str(
-            model=user_password_hash,
-            not_defined_error="password_hash_not_defined",
-            unknown_class_error="password_hash_unknown_class"
-        ) is False:
+        if cls._check_str(user_password_hash, "password_hash") is False:
             return cls.result
 
-        if cls._check_str(
-            model=clip_hash,
-            not_defined_error="hash_not_defined",
-            unknown_class_error="hash_unknown_class"
-        ) is False:
+        if cls._check_str(clip_hash, "hash") is False:
             return cls.result
 
-        if cls._check_str(
-            model=clip_name,
-            not_defined_error="name_not_defined",
-            unknown_class_error="name_unknown_class"
-        ) is False:
+        if cls._check_str(clip_name, "name") is False:
             return cls.result
 
-        if cls._check_str(
-            model=clip_type,
-            not_defined_error="type_not_defined",
-            unknown_class_error="type_unknown_class"
-        ) is False:
+        if cls._check_str(clip_type, "type") is False:
             return cls.result
 
-        if cls._check_str(
-            model=clip_tags,
-            unknown_class_error="tags_unknown_class"
-        ) is False:
+        if cls._check_str(clip_tags, "tags") is False:
             return cls.result
 
-        if cls._check_str(
-            model=clip_owner_public,
-            not_defined_error="owner_public_not_defined",
-            unknown_class_error="owner_public_unknown_class"
-        ) is False:
+        if cls._check_str(clip_owner_public, "owner_public") is False:
             return cls.result
 
-        if cls._check_str(
-            model=clip_clip_mode,
-            not_defined_error="clip_mode_not_defined",
-            unknown_class_error="clip_mode_unknown_class"
-        ) is False:
+        if cls._check_str(clip_clip_mode, "clip_mode") is False:
             return cls.result
 
         # ----------------------------------------------------------------
@@ -196,59 +165,28 @@ class Clip(cw_base.Base):
         # ----------------------------------------------------------------
         # cgi get strings check
 
-        if cls._check_str(
-            model=user_hash,
-            not_defined_error="owner_hash_not_defined",
-            unknown_class_error="owner_hash_unknown_class"
-        ) is False:
+        if cls._check_str(user_hash, "owner_hash") is False:
             return cls.result
 
-        if cls._check_str(
-            model=user_password_hash,
-            not_defined_error="password_hash_not_defined",
-            unknown_class_error="password_hash_unknown_class"
-        ) is False:
+        if cls._check_str(user_password_hash, "password_hash") is False:
             return cls.result
 
-        if cls._check_str(
-            model=clip_hash,
-            not_defined_error="hash_not_defined",
-            unknown_class_error="hash_unknown_class"
-        ) is False:
+        if cls._check_str(clip_hash, "hash") is False:
             return cls.result
 
-        if cls._check_str(
-            model=clip_filename,
-            not_defined_error="filename_not_defined",
-            unknown_class_error="filename_unknown_class"
-        ) is False:
+        if cls._check_str(clip_filename, "filename") is False:
             return cls.result
 
-        if cls._check_str(
-            model=clip_filetype,
-            not_defined_error="filetype_not_defined",
-            unknown_class_error="filetype_unknown_class"
-        ) is False:
+        if cls._check_str(clip_filetype, "filetype") is False:
             return cls.result
 
-        if cls._check_str(
-            model=clip_tags,
-            unknown_class_error="tags_unknown_class"
-        ) is False:
+        if cls._check_str(clip_tags, "tags") is False:
             return cls.result
 
-        if cls._check_str(
-            model=clip_owner_public,
-            not_defined_error="owner_public_not_defined",
-            unknown_class_error="owner_public_unknown_class"
-        ) is False:
+        if cls._check_str(clip_owner_public, "owner_public") is False:
             return cls.result
 
-        if cls._check_str(
-            model=clip_clip_mode,
-            not_defined_error="clip_mode_not_defined",
-            unknown_class_error="clip_mode_unknown_class"
-        ) is False:
+        if cls._check_str(clip_clip_mode, "clip_mode") is False:
             return cls.result
 
         # ----------------------------------------------------------------
@@ -316,25 +254,13 @@ class Clip(cw_base.Base):
         # ----------------------------------------------------------------
         # cgi get strings check
 
-        if cls._check_str(
-            model=user_hash,
-            not_defined_error="owner_hash_not_defined",
-            unknown_class_error="owner_hash_unknown_class"
-        ) is False:
+        if cls._check_str(user_hash, "owner_hash") is False:
             return cls.result
 
-        if cls._check_str(
-            model=user_password_hash,
-            not_defined_error="password_hash_not_defined",
-            unknown_class_error="password_hash_unknown_class"
-        ) is False:
+        if cls._check_str(user_password_hash, "password_hash") is False:
             return cls.result
 
-        if cls._check_str(
-            model=clip_hash,
-            not_defined_error="hash_not_defined",
-            unknown_class_error="hash_unknown_class"
-        ) is False:
+        if cls._check_str(clip_hash, "hash") is False:
             return cls.result
 
         # ----------------------------------------------------------------
@@ -383,25 +309,13 @@ class Clip(cw_base.Base):
         # ----------------------------------------------------------------
         # cgi get strings check
 
-        if cls._check_str(
-            model=user_hash,
-            not_defined_error="owner_hash_not_defined",
-            unknown_class_error="owner_hash_unknown_class"
-        ) is False:
+        if cls._check_str(user_hash, "owner_hash") is False:
             return cls.result
 
-        if cls._check_str(
-            model=user_password_hash,
-            not_defined_error="password_hash_not_defined",
-            unknown_class_error="password_hash_unknown_class"
-        ) is False:
+        if cls._check_str(user_password_hash, "password_hash") is False:
             return cls.result
 
-        if cls._check_str(
-            model=clip_hash,
-            not_defined_error="hash_not_defined",
-            unknown_class_error="hash_unknown_class"
-        ) is False:
+        if cls._check_str(clip_hash, "hash") is False:
             return cls.result
 
         # ----------------------------------------------------------------
@@ -448,25 +362,13 @@ class Clip(cw_base.Base):
         # ----------------------------------------------------------------
         # cgi get strings check
 
-        if cls._check_str(
-            model=user_hash,
-            not_defined_error="owner_hash_not_defined",
-            unknown_class_error="owner_hash_unknown_class"
-        ) is False:
+        if cls._check_str(user_hash, "owner_hash") is False:
             return cls.result
 
-        if cls._check_str(
-            model=user_password_hash,
-            not_defined_error="password_hash_not_defined",
-            unknown_class_error="password_hash_unknown_class"
-        ) is False:
+        if cls._check_str(user_password_hash, "password_hash") is False:
             return cls.result
 
-        if cls._check_str(
-            model=clip_hash,
-            not_defined_error="hash_not_defined",
-            unknown_class_error="hash_unknown_class"
-        ) is False:
+        if cls._check_str(clip_hash, "hash") is False:
             return cls.result
 
         # ----------------------------------------------------------------

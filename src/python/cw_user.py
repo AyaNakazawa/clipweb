@@ -56,39 +56,19 @@ class User(cw_base.Base):
         # ----------------------------------------------------------------
         # cgi get strings check
 
-        if cls._check_str(
-            model=user_hash,
-            not_defined_error="hash_not_defined",
-            unknown_class_error="hash_unknown_class"
-        ) is False:
+        if cls._check_str(user_hash, "hash") is False:
             return cls.result
 
-        if cls._check_str(
-            model=user_username,
-            not_defined_error="username_not_defined",
-            unknown_class_error="username_unknown_class"
-        ) is False:
+        if cls._check_str(user_username, "username") is False:
             return cls.result
 
-        if cls._check_str(
-            model=user_email_address,
-            not_defined_error="email_address_not_defined",
-            unknown_class_error="email_address_unknown_class"
-        ) is False:
+        if cls._check_str(user_email_address, "email_address") is False:
             return cls.result
 
-        if cls._check_str(
-            model=user_encrypted_crypto_hash,
-            not_defined_error="encrypted_crypto_hash_not_defined",
-            unknown_class_error="encrypted_crypto_hash_unknown_class"
-        ) is False:
+        if cls._check_str(user_encrypted_crypto_hash, "encrypted_crypto_hash") is False:
             return cls.result
 
-        if cls._check_str(
-            model=user_password_hash,
-            not_defined_error="password_hash_not_defined",
-            unknown_class_error="password_hash_unknown_class"
-        ) is False:
+        if cls._check_str(user_password_hash, "password_hash") is False:
             return cls.result
 
         # ----------------------------------------------------------------
@@ -157,18 +137,10 @@ class User(cw_base.Base):
         # ----------------------------------------------------------------
         # cgi get strings check
 
-        if cls._check_str(
-            model=user_email_address,
-            not_defined_error="email_address_not_defined",
-            unknown_class_error="email_address_unknown_class"
-        ) is False:
+        if cls._check_str(user_email_address, "email_address") is False:
             return cls.result
 
-        if cls._check_str(
-            model=user_password_hash,
-            not_defined_error="password_hash_not_defined",
-            unknown_class_error="password_hash_unknown_class"
-        ) is False:
+        if cls._check_str(user_password_hash, "password_hash") is False:
             return cls.result
 
         # ----------------------------------------------------------------
@@ -232,39 +204,19 @@ class User(cw_base.Base):
         # ----------------------------------------------------------------
         # cgi get strings check
 
-        if cls._check_str(
-            model=user_hash,
-            not_defined_error="hash_not_defined",
-            unknown_class_error="hash_unknown_class"
-        ) is False:
+        if cls._check_str(user_hash, "hash") is False:
             return cls.result
 
-        if cls._check_str(
-            model=user_password_hash,
-            not_defined_error="password_hash_not_defined",
-            unknown_class_error="password_hash_unknown_class"
-        ) is False:
+        if cls._check_str(user_password_hash, "password_hash") is False:
             return cls.result
 
-        if cls._check_str(
-            model=user_theme,
-            not_defined_error="theme_not_defined",
-            unknown_class_error="theme_unknown_class"
-        ) is False:
+        if cls._check_str(user_theme, "theme") is False:
             return cls.result
 
-        if cls._check_str(
-            model=user_default_owner_public,
-            not_defined_error="default_owner_public_not_defined",
-            unknown_class_error="default_owner_public_unknown_class"
-        ) is False:
+        if cls._check_str(user_default_owner_public, "default_owner_public") is False:
             return cls.result
 
-        if cls._check_str(
-            model=user_default_clip_mode,
-            not_defined_error="default_clip_mode_not_defined",
-            unknown_class_error="default_clip_mode_unknown_class"
-        ) is False:
+        if cls._check_str(user_default_clip_mode, "default_clip_mode") is False:
             return cls.result
 
         # ----------------------------------------------------------------
@@ -333,39 +285,19 @@ class User(cw_base.Base):
         # ----------------------------------------------------------------
         # cgi get strings check
 
-        if cls._check_str(
-            model=user_hash,
-            not_defined_error="hash_not_defined",
-            unknown_class_error="hash_unknown_class"
-        ) is False:
+        if cls._check_str(user_hash, "hash") is False:
             return cls.result
 
-        if cls._check_str(
-            model=user_password_hash,
-            not_defined_error="password_hash_not_defined",
-            unknown_class_error="password_hash_unknown_class"
-        ) is False:
+        if cls._check_str(user_password_hash, "password_hash") is False:
             return cls.result
 
-        if cls._check_str(
-            model=user_username,
-            not_defined_error="username_not_defined",
-            unknown_class_error="username_unknown_class"
-        ) is False:
+        if cls._check_str(user_username, "username") is False:
             return cls.result
 
-        if cls._check_str(
-            model=user_email_address,
-            not_defined_error="email_address_not_defined",
-            unknown_class_error="email_address_unknown_class"
-        ) is False:
+        if cls._check_str(user_email_address, "email_address") is False:
             return cls.result
 
-        if cls._check_str(
-            model=user_encrypted_crypto_hash,
-            not_defined_error="encrypted_crypto_hash_not_defined",
-            unknown_class_error="encrypted_crypto_hash_unknown_class"
-        ) is False:
+        if cls._check_str(user_encrypted_crypto_hash, "encrypted_crypto_hash") is False:
             return cls.result
 
         # ----------------------------------------------------------------
