@@ -178,6 +178,13 @@ class ClipEvent extends ClipwebEvent {
     });
 
     super.setOn({
+      selector: this.MODEL.SELECTOR.SETTING.USER_BAN,
+      func: function () {
+        CLIP.banShare($(this).attr('data-user-hash'));
+      }
+    });
+
+    super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.EDIT}`,
       func: () => {
         super.log('Clip', 'Edit')();
