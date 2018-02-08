@@ -649,6 +649,7 @@ class ClipController extends ClipwebController {
           tags: this.MODEL.TAGS,
           ownerPublic: this.MODEL.OWNER_PUBLIC,
           clipMode: this.MODEL.CLIP_MODE,
+          users: this.MODEL.USERS,
           length: {
             min: {
               filename: this.MODEL.VALIDATE.LENGTH.MIN_FILENAME
