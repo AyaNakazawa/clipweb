@@ -65,8 +65,11 @@ class Language {
       yes: 'Yes',
       no: 'No',
       save: 'Save',
+      access: 'Access',
       new_create: 'New',
       clip_new_create: 'New clip',
+      clip_info: 'clip info',
+      share_list: 'Share list',
       reload: 'Reload',
       update: 'Update',
       create: 'Create',
@@ -140,6 +143,7 @@ class Language {
       updated_clip_setting: 'Updated clip setting.',
       deleted_clip: 'Deleted the clip.',
       shared_clip: 'Shared the clip.',
+      stopped_share_to_user: 'Stopped share to {ban_username}.',
 
       saved_clip: 'Saved this clip.',
       downloaded_clip: 'Downloaded the clip.',
@@ -151,6 +155,8 @@ class Language {
       delete_clip_confirm: 'Are you sure you want to delete the clip?',
       share_clip: 'Share the clip',
       share_clip_message: 'Please share this URL',
+      stop_share_user: 'Stop the share',
+      stop_share_user_confirm: 'Do you want to stop sharing to this user?',
 
       copied: 'Copied',
       copied_share_link: 'Copied the share URL',
@@ -173,6 +179,7 @@ class Language {
       corrupt_clipdata: 'Clip data is corrupted. Please contact the administrator.',
       permission_denied: 'Permission denied.',
       permission_denied_or_clip_not_found: 'Permission denied or clip does not exist.',
+      failed_update_share: 'Failed to update share date.',
 
       failed_to_register: 'Failed to register.',
       failed_to_login: 'Failed to login.',
@@ -189,9 +196,11 @@ class Language {
       failed_to_setting_clip_setting: 'Failed to update the clip setting.',
       failed_to_delete_clip: 'Failed to delete the clip.',
       failed_to_get_share_clip: 'Failed to share the clip.',
+      failed_to_stop_share: 'Failed to stop share.',
 
       failed_to_load_code: 'Failed to load the clip.',
       failed_to_save_code: 'Failed to save the clip.',
+      failed_to_download_code: 'Failed to download the clip.',
 
       failed_connect_to_server: 'Failed connect to clipweb server.',
       server_not_working: 'clipweb server is not working properly.',
@@ -302,8 +311,11 @@ class Language {
       yes: 'はい',
       no: 'いいえ',
       save: '保存',
+      access: 'アクセス',
       new_create: '新規作成',
       clip_new_create: 'クリップの新規作成',
+      clip_info: 'クリップ情報',
+      share_list: '共有リスト',
       reload: '再読込',
       update: '更新',
       create: '作成',
@@ -377,6 +389,7 @@ class Language {
       updated_clip_setting: 'クリップの設定を更新しました。',
       deleted_clip: 'クリップを削除しました。',
       shared_clip: 'クリップを共有しました。',
+      stopped_share_to_user: '{ban_username}への共有を停止しました。',
 
       saved_clip: 'クリップを保存しました。',
       downloaded_clip: 'クリップをダウンロードしました。',
@@ -388,6 +401,8 @@ class Language {
       delete_clip_confirm: 'クリップを削除してもよろしいですか？',
       share_clip: 'クリップの共有',
       share_clip_message: 'このURLを共有してください。',
+      stop_share_user: '共有の停止',
+      stop_share_user_confirm: 'このユーザーへの共有を停止しますか？',
 
       copied: 'コピーしました。',
       copied_share_link: '共有リンクをコピーしました。',
@@ -410,6 +425,7 @@ class Language {
       corrupt_clipdata: 'クリップデータが破損しています。管理者までご確認ください。',
       permission_denied: '権限がありません。',
       permission_denied_or_clip_not_found: '権限がないか、クリップが見つかりません。',
+      failed_update_share: 'シェア日時の更新に失敗しました。',
 
       failed_to_register: '登録できませんでした。',
       failed_to_login: 'ログインに失敗しました。',
@@ -426,9 +442,11 @@ class Language {
       failed_to_setting_clip_setting: 'クリップの設定の更新に失敗しました。',
       failed_to_delete_clip: 'クリップの削除に失敗しました。',
       failed_to_get_share_clip: 'クリップの共有に失敗しました。',
+      failed_to_stop_share: '共有の停止に失敗しました。',
 
       failed_to_load_code: 'クリップの読み込みに失敗しました。',
       failed_to_save_code: 'クリップの保存に失敗しました。',
+      failed_to_download_code: 'クリップのダウンロードに失敗しました。',
 
       failed_connect_to_server: 'clipwebサーバーとの通信に失敗しました。',
       server_not_working: 'clipwebサーバーが正常に動作していません。',
