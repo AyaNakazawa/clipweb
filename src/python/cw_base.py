@@ -166,6 +166,12 @@ class Base:
                     "message": "Error code does not defined."
                 }
             },
+            "unknown_code": {
+                "{} error".format(cls.NAME): {
+                    "code": 52,
+                    "message": "Unknown error code."
+                }
+            },
             "hash_not_defined": {
                 "{} error".format(cls.NAME): {
                     "code": 101,
@@ -272,6 +278,30 @@ class Base:
                 "{} error".format(cls.NAME): {
                     "code": 118,
                     "message": "[ban_user_hash] does not defined."
+                }
+            },
+            "clip_hash_not_defined": {
+                "{} error".format(cls.NAME): {
+                    "code": 119,
+                    "message": "[clip_hash] does not defined."
+                }
+            },
+            "code_hash_not_defined": {
+                "{} error".format(cls.NAME): {
+                    "code": 120,
+                    "message": "[code_hash] does not defined."
+                }
+            },
+            "share_hash_not_defined": {
+                "{} error".format(cls.NAME): {
+                    "code": 121,
+                    "message": "[share_hash] does not defined."
+                }
+            },
+            "encryption_not_defined": {
+                "{} error".format(cls.NAME): {
+                    "code": 122,
+                    "message": "[encryption] does not defined."
                 }
             },
             "model_not_defined": {
@@ -392,6 +422,30 @@ class Base:
                 "{} error".format(cls.NAME): {
                     "code": 218,
                     "message": "[ban_user_hash] is unknown class"
+                }
+            },
+            "clip_hash_unknown_class": {
+                "{} error".format(cls.NAME): {
+                    "code": 219,
+                    "message": "[clip_hash] is unknown class"
+                }
+            },
+            "code_hash_unknown_class": {
+                "{} error".format(cls.NAME): {
+                    "code": 220,
+                    "message": "[code_hash] is unknown class"
+                }
+            },
+            "share_hash_unknown_class": {
+                "{} error".format(cls.NAME): {
+                    "code": 221,
+                    "message": "[share_hash] is unknown class"
+                }
+            },
+            "encryption_unknown_class": {
+                "{} error".format(cls.NAME): {
+                    "code": 222,
+                    "message": "[encryption] is unknown class"
                 }
             },
             "username_overlap": {
