@@ -979,6 +979,7 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col" colspan="2"><%= LN.get('user') %></th>
+                <th scope="col"><%= LN.get('encryption') %></th>
                 <th scope="col"><%= LN.get('update') %></th>
                 <th scope="col"></th>
               </tr>
@@ -998,6 +999,17 @@
                     <img src="https://www.gravatar.com/avatar/<%- codes[code_hash]['user_gravatar'] %>?s=32" alt="<%- codes[code_hash]['user_name'] %>'s avatar" class="avatar">
                   </td>
                   <td><%- codes[code_hash]['user_name'] %></td>
+                  <td>
+                    <% if (codes[code_hash]['code_encryption'] == 'on') { %>
+                      <span class="badge badge-success">
+                        <%= LN.get(codes[code_hash]['code_encryption']) %>
+                      </span>
+                    <% } else if (codes[code_hash]['code_encryption'] == 'off') { %>
+                      <span class="badge badge-danger">
+                        <%= LN.get(codes[code_hash]['code_encryption']) %>
+                      </span>
+                    <% } %>
+                  </td>
                   <td class="date"><%- codes[code_hash]['code_created_at'] %></td>
                   <td><button class="clip-history-load btn btn-outline-info" data-code-hash="<%- codes[code_hash]['code_hash'] %>"><i class="fas fa-eye"></i></button></td>
                 </tr>
