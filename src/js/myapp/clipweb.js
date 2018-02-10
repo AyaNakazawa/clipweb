@@ -33,7 +33,9 @@ class ClipwebModel extends CommonModel {
     // 識別子
     this.KEY = 'clipweb';
     this.NULL = 'clipweb_null';
-    this.ERROR = 'clipweb_error';
+    this.ERROR = {
+      'Error': Project.NAME
+    };
 
     this.TYPE = {};
     this.TYPE.REGISTER = 'register';
