@@ -898,11 +898,11 @@ class UserController extends ClipwebController {
         // AFTER
         if (!this.MODEL.STATUS.LS_LOAD || !this.MODEL.STATUS.AUTO || this.MODEL.PASSWORD.length > 0) {
           this.MODEL.HASH.DECRYPT_CRYPTO = SHA256.getHash(this.MODEL.PASSWORD + this.MODEL.HASH.USER);
-          this.MODEL.HASH.CRYPTO = Crypto.decrypt(
-            this.MODEL.ENCRYPT.CRYPTO,
-            this.MODEL.HASH.DECRYPT_CRYPTO
-          );
         }
+        this.MODEL.HASH.CRYPTO = Crypto.decrypt(
+          this.MODEL.ENCRYPT.CRYPTO,
+          this.MODEL.HASH.DECRYPT_CRYPTO
+        );
         this.MODEL.HASH.GRAVATAR = MD5.getHash(this.MODEL.EMAIL.mini());
       }
 
