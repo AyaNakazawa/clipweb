@@ -46,7 +46,7 @@ class ClipModel extends ClipwebModel {
     // テンプレート
     this.TEMPLATE.NEW = '#clip-new-template';
     this.TEMPLATE.SETTING = '#clip-setting-template';
-    this.TEMPLATE.SHARE = '#code-share-template';
+    this.TEMPLATE.SHARE = '#clip-share-template';
 
     // ----------------------------------------------------------------
     // オフセット
@@ -84,8 +84,8 @@ class ClipModel extends ClipwebModel {
 
     // シェア
     this.SELECTOR.SHARE = {};
-    this.SELECTOR.SHARE.LINK = '#code-share-link';
-    this.SELECTOR.SHARE.COPY = '#code-share-copy';
+    this.SELECTOR.SHARE.LINK = '#clip-share-link';
+    this.SELECTOR.SHARE.COPY = '#clip-share-copy';
   }
 }
 
