@@ -509,6 +509,8 @@ class FlexSQLite3:
         where_op=None,
         where_not=None,
         where_type=None,
+        order=None,
+        order_type=None,
         join_table=None,
         join_key=None,
         query=None,
@@ -522,6 +524,8 @@ class FlexSQLite3:
         :param where_op   (str)         : Where Operator. Default: "=". e.g. "=" or ">" etc...
         :param where_not  (boolean|str) : Where Not Operator. Default: False. e.g. True or "not" etc...
         :param where_type (str)         : Where Type. Default: "AND". e.g. "AND" or "OR" etc...
+        :param order      (dict|str)    : Where Dict or String.
+        :param order_type (str)         : Where Type. Default: "ASC". e.g. "ASC" or "DESC"
         :param join_table (str)         : Join table.
         :param join_key (str)           : Join key.
             OR
@@ -664,12 +668,52 @@ class FlexSQLite3:
                 query_where = "WHERE " + query_where
 
             # ----------------------------------------------------------------
+            # Order dict
+            if isinstance(order, str):
+                # String
+                query_order = order
+
+                if isinstance(order_type, str):
+                    # Check order_type
+                    if order_type not in cls.ORDER_TYPES:
+                        order_type = cls.ORDER_TYPES[0]
+
+                    query_order += " " + order_type
+
+            elif isinstance(order, dict):
+                # Dict
+                query_order = ""
+
+                for order_key in order.keys():
+                    query_order += "{key} {order}, ".format(**{
+                        "key": order_key,
+                        "order": order[order_key]
+                    })
+
+                # Slice " and "
+                if len(order.keys()) > 0:
+                    query_order = query_order[0:-2]
+
+            elif order is None:
+                # None
+                query_order = ""
+
+            else:
+                # unknown type
+                return cls._error("order_type", mode=sys._getframe().f_code.co_name)
+
+            # Add "ORDER BY "
+            if len(query_order) > 0:
+                query_order = "ORDER BY " + query_order
+
+            # ----------------------------------------------------------------
             # Generate query
-            exec_query = "SELECT {column} FROM {table} {join} {where};".format(**{
+            exec_query = "SELECT {column} FROM {table} {join} {where} {order};".format(**{
                 "column": query_column,
                 "table": query_table,
                 "join": query_join,
-                "where": query_where
+                "where": query_where,
+                "order": query_order
             })
 
         else:
@@ -1423,6 +1467,7 @@ class FlexSQLite3:
         cls.WHERE_OPS = ["=", "==", "<>", "!=", ">", ">=", "<", "<="]
         cls.WHERE_TYPES = ["AND", "OR", "and", "or", "And", "Or"]
         cls.WHERE_NOTS = [False, "", True, "not"]
+        cls.ORDER_TYPES = ["ASC", "DESC", "asc", "desc", "Asc", "Desc"]
 
     def _error(
         cls,
