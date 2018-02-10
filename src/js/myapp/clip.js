@@ -349,10 +349,12 @@ class ClipController extends ClipwebController {
       Log.error(arguments)();
       return this.MODEL.ERROR;
     }
+
     const _TYPE = this.MODEL.TYPE.SETTING;
     let _failed = null;
     let _success_message = null;
     let _check_data = null;
+
     if (type == this.MODEL.TYPE.LOAD) {
       if (hash == null) {
         Log.error(arguments)();
@@ -715,6 +717,7 @@ class ClipController extends ClipwebController {
           },
         };
         break;
+
       case this.MODEL.TYPE.SETTING:
         // SETTING
         _result = {
@@ -839,4 +842,5 @@ class ClipController extends ClipwebController {
     }
     return _model;
   }
+
 }
