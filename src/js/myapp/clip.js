@@ -1012,6 +1012,15 @@ class ClipController extends ClipwebController {
         }
         break;
 
+      case this.MODEL.TYPE.HISTORY:
+        //HISTORY
+        var _codes = this.getAjaxData({ key: 'codes' });
+        this.MODEL.CODES = {};
+        for (let index = 0; index < _codes.length; index ++) {
+          this.MODEL.CODES[_codes[index]['code_hash']] = _codes[index];
+        }
+        break;
+
       default:
         Log.error(arguments, 'unknown type X(')();
         return this.MODEL.ERROR;
