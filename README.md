@@ -23,7 +23,7 @@ And each code can be encrypted arbitrarily.
 8. Grant execution authority to src/python/*.py
 9. Fit src/python/*.py shebang to the execution environment.
 10. Delete src/sass/mylib/debug.scss
-11. Compile src/sass/main/sass
+11. Compile src/sass/main.scss
 12. Delete src/sass
 13. Deploy the src directory.
 
