@@ -14,8 +14,6 @@ clipweb User
 # ----------------------------------------------------------------
 
 import sys
-import hashlib
-import binascii
 from db import flex_sqlite3
 import cw_base
 
@@ -97,9 +95,7 @@ class User(cw_base.Base):
         # ----------------------------------------------------------------
         # generate email auth
 
-        salt = "clipweb_user_register_email_salt"
-        dk = hashlib.pbkdf2_hmac("sha256", user_username.encode(), salt.encode(), 100000)
-        user_email_authentication_hash = binascii.hexlify(dk).decode()
+        user_email_authentication_hash = cls.get_sha256()
 
         # ----------------------------------------------------------------
         # insert new user
