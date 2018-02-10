@@ -276,6 +276,13 @@ class Clip(cw_base.Base):
             }
         )
 
+        cls.result["delete_code"] = cls.DB.delete(
+            table="codes",
+            where={
+                "clip_hash": clip_hash
+            }
+        )
+
         cls.result["delete_share"] = cls.DB.delete(
             table="shares",
             where={
