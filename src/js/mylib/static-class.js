@@ -1137,4 +1137,7 @@ class Web {
       return null;
     }
   }
+  static getURL (url = location.href) {
+    return url.replace(/\?.*$/, '');
+  }
 }
