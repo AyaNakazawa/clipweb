@@ -1073,6 +1073,11 @@ class ClipController extends ClipwebController {
         _model['clip_hash'] = this.MODEL.HASH;
         break;
 
+      case this.MODEL.TYPE.HISTORY:
+        // HISTORY
+        _model['clip_hash'] = this.MODEL.HASH;
+        break;
+
       default:
         Log.error(arguments, 'unknown type X(')();
         return this.MODEL.ERROR;
