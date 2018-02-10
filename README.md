@@ -19,13 +19,14 @@ And each code can be encrypted arbitrarily.
 4. Restart web server.
 5. Set up python 3.
 6. Initialize src/python/db/clipweb.db
-7. Grant read and write authority to src/python/db/clipweb.db
-8. Grant execution authority to src/python/*.py
-9. Fit src/python/*.py shebang to the execution environment.
-10. Delete src/sass/mylib/debug.scss
-11. Compile src/sass/main.scss
-12. Delete src/sass
-13. Deploy the src directory.
+7. Grant write authority to src/python/db/clipweb.db
+8. Grant write authority to src/python/db/
+9. Grant execution authority to src/python/*.py
+10. Fit src/python/*.py shebang to the execution environment.
+11. Delete src/sass/mylib/debug.scss
+12. Compile src/sass/main.scss to src/css/main.css
+13. Delete src/sass/
+14. Deploy the src/
 
 ## Licence
 
