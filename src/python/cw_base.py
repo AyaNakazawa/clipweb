@@ -483,7 +483,11 @@ class Base:
         if code is None:
             return cls._error("code_not_defined", mode=sys._getframe().f_code.co_name)
 
-        error = cls.ERROR[code]
+        if code in cls.ERROR:
+            error = cls.ERROR[code]
+
+        else:
+            return cls._error("unknown_code", mode=sys._getframe().f_code.co_name, unknown_code=code)
 
         for i_args in range(len(arguments)):
             custom_message = "Custom Message {0}".format(i_args)
