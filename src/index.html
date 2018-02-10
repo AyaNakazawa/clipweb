@@ -906,6 +906,58 @@
         </div>
       </div>
     </script>
+    <!-- clip-privilege -->
+    <script type="text/template" id="clip-privilege-template">
+      <div class="content-item-area">
+        <!-- control -->
+        <div class="content-item d-flex flex-row-reverse">
+          <div class="btn-group">
+            <button id="clip-privilege-setting" class="btn btn-outline-info" tabindex="400"><i class="fas fa-cog"></i></button>
+            <button id="clip-privilege-history" class="btn btn-outline-info" tabindex="400"><i class="fas fa-history"></i></button>
+          </div>
+        </div>
+        <!-- privilege -->
+        <div class="content-item">
+          <label for="clip-privilege-list"><%= LN.get('privilege_users_list') %></label>
+          <span class="content-popover content-help"></span>
+        </div>
+        <div class="content-item">
+          <table class="table table-sm table-hover" id="clip-privilege-table">
+            <thead class="text-center">
+              <tr>
+                <th scope="col" colspan="2"><%= LN.get('user') %></th>
+                <th scope="col"><%= LN.get('share') %></th>
+                <th scope="col"><%= LN.get('access') %></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for (let user_hash of Object.keys(users)) { %>
+                <tr>
+                  <td>
+                    <img src="https://www.gravatar.com/avatar/<%- users[user_hash]['user_gravatar'] %>?s=32" alt="<%- users[user_hash]['user_name'] %>'s avatar" class="avatar">
+                  </td>
+                  <td><%- users[user_hash]['user_name'] %></td>
+                  <td class="date"><%- users[user_hash]['share_created_at'] %></td>
+                  <td class="date"><%- users[user_hash]['share_updated_at'] %></td>
+                  <td>
+                    <% if (users[user_hash]['user_hash'] != USER.MODEL.HASH.USER) { %>
+                    <button class="clip-privilege-ban btn btn-outline-danger" data-user-hash="<%- users[user_hash]['user_hash'] %>"><i class="fas fa-ban"></i></button>
+                    <% } %>
+                  </td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- control 2 -->
+      <div class="content-item-area">
+        <div class="content-item">
+          <button id="clip-privilege-close" class="btn btn-link" tabindex="410"><%= LN.get('close') %> <i class="far fa-times"></i></button>
+        </div>
+      </div>
+    </script>
     <!-- clip-share -->
     <script type="text/template" id="clip-share-template">
       <div class="text-center">
