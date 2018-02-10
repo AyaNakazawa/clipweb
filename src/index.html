@@ -958,6 +958,62 @@
         </div>
       </div>
     </script>
+    <!-- clip-history -->
+    <script type="text/template" id="clip-history-template">
+      <div class="content-item-area">
+        <!-- control -->
+        <div class="content-item d-flex flex-row-reverse">
+          <div class="btn-group">
+            <button id="clip-history-setting" class="btn btn-outline-info" tabindex="400"><i class="fas fa-cog"></i></button>
+            <button id="clip-history-privilege" class="btn btn-outline-info" tabindex="400"><i class="fas fa-users"></i></button>
+          </div>
+        </div>
+        <!-- history -->
+        <div class="content-item">
+          <label for="clip-history-history"><%= LN.get('clip_history') %></label>
+          <span class="content-popover content-help"></span>
+        </div>
+        <div class="content-item">
+          <table class="table table-sm table-hover" id="clip-history-table">
+            <thead class="text-center">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col" colspan="2"><%= LN.get('user') %></th>
+                <th scope="col"><%= LN.get('update') %></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% let id = Object.keys(codes).length - 1; %>
+              <% for (let code_hash of Object.keys(codes)) { %>
+                <tr>
+                  <td class="text-right">
+                    <% if (id == 0) { %>
+                      <%= LN.get('start') %>
+                    <% } else { %>
+                      <%- id %>
+                    <% } %>
+                  </td>
+                  <td>
+                    <img src="https://www.gravatar.com/avatar/<%- codes[code_hash]['user_gravatar'] %>?s=32" alt="<%- codes[code_hash]['user_name'] %>'s avatar" class="avatar">
+                  </td>
+                  <td><%- codes[code_hash]['user_name'] %></td>
+                  <td class="date"><%- codes[code_hash]['code_created_at'] %></td>
+                  <td><button class="clip-history-load btn btn-outline-info" data-code-hash="<%- codes[code_hash]['code_hash'] %>"><i class="fas fa-eye"></i></button></td>
+                </tr>
+                <% id --; %>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- control 2 -->
+      <div class="content-item-area">
+        <div class="content-item">
+          <button id="clip-history-close" class="btn btn-link" tabindex="410"><%= LN.get('close') %> <i class="far fa-times"></i></button>
+        </div>
+      </div>
+    </script>
     <!-- clip-share -->
     <script type="text/template" id="clip-share-template">
       <div class="text-center">
