@@ -62,19 +62,51 @@ class Code(cw_base.Base):
         # ----------------------------------------------------------------
         # select clip data
 
-        data = cls.DB.select(
-            table="clips",
-            column=[
-                "owner_hash",
-                "clip_mode",
-                "name",
-                "type",
-                "data"
-            ],
-            where={
-                "hash": clip_hash
-            }
-        )
+        data = None
+
+        if code_hash is not None:
+            data = cls.DB.select(
+                table="clips",
+                column=[
+                    "name",
+                    "type",
+                    "owner_hash",
+                    "clip_mode",
+                ],
+                where={
+                    "hash": clip_hash
+                }
+            )
+            code = cls.DB.select(
+                table="codes",
+                column=[
+                    "encryption",
+                    "data"
+                ],
+                where={
+                    "hash": code_hash
+                }
+            )
+            data[0]["encryption"] = code[0]["encryption"]
+            data[0]["data"] = code[0]["data"]
+        else:
+            data = cls.DB.select(
+                table="clips",
+                column=[
+                    "clips.hash AS clip_hash",
+                    "clips.name AS name",
+                    "clips.type AS type",
+                    "clips.owner_hash AS owner_hash",
+                    "clips.clip_mode AS clip_mode",
+                    "codes.encryption AS encryption",
+                    "codes.data AS data"
+                ],
+                where={
+                    "clip_hash": clip_hash
+                },
+                join_table="codes",
+                join_key="hash"
+            )
 
         if len(data) > 1:
             cls.result["error"] = cls._error("corrupt_clipdata")
@@ -95,6 +127,7 @@ class Code(cw_base.Base):
         cls.result["data"] = data["data"]
         cls.result["clip_mode"] = data["clip_mode"]
         cls.result["owner_hash"] = data["owner_hash"]
+        cls.result["encryption"] = data["encryption"]
 
         # ----------------------------------------------------------------
         # share date update
