@@ -522,16 +522,11 @@ class ClipController extends ClipwebController {
 
     this.EVENT.setLoading({
       type: _TYPE,
-      errorMessage: _failed,
       errorOpen: _TYPE,
+      errorMessage: _failed,
       check: _check_data,
       functionSuccess: () => {
-        // 取得成功
         this.applyReceiveModel(type);
-        this.VIEW.move({
-          target: LIST.MODEL.SELECTOR.AREA,
-          mode: this.MODEL.COMMON.TYPE.AFTER
-        });
         if (type == this.MODEL.TYPE.SETTING) {
           LIST.loadList();
         }
