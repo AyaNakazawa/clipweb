@@ -196,12 +196,32 @@ class Code(cw_base.Base):
                 return cls.result
 
         # ----------------------------------------------------------------
-        # save data
+        # create code hash
+
+        code_hash = cls.get_sha256()
+
+        # ----------------------------------------------------------------
+        # insert code
+
+        cls.result["code"] = cls.DB.insert(
+            table="codes",
+            value={
+                "hash": code_hash,
+                "clip_hash": clip_hash,
+                "owner_hash": user_hash,
+                "encryption": clip_encryption,
+                "data": clip_data,
+                "created_at": cls.get_date()
+            }
+        )
+
+        # ----------------------------------------------------------------
+        # save clip
 
         cls.result["save"] = cls.DB.update(
             table="clips",
             value={
-                "data": clip_data,
+                "code_hash": code_hash,
                 "updated_at": cls.get_date()
             },
             where={
