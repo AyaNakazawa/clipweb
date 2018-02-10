@@ -1517,19 +1517,32 @@ class CommonController extends CommonClass {
     filename = null,
     text = null
   ) {
-    const _BLOB = new Blob([text], {type: 'text/plain'});
+    const _BOM  = new Uint8Array([0xEF, 0xBB, 0xBF]);
+    const _BLOB = new Blob([_BOM, text], {type: 'text/plain'});
 
-    if(window.navigator.msSaveBlob) {
-      // IEのみ独自関数を使用
+    let a = document.createElement('a');
+    a.download = filename;
+    a.target   = '_blank';
+
+    if (window.navigator.msSaveBlob) {
+      // for IE
       window.navigator.msSaveBlob(_BLOB, filename);
-
-    } else {
-      let a = document.createElement('a');
-      a.href = URL.createObjectURL(_BLOB);
-      a.target = '_blank';
-      a.download = filename;
+    }
+    else if (window.URL && window.URL.createObjectURL) {
+      // for Firefox
+      a.href = window.URL.createObjectURL(_BLOB);
+      document.body.appendChild(a);
       a.click();
-      // URL.revokeObjectURL();
+      document.body.removeChild(a);
+    }
+    else if (window.webkitURL && window.webkitURL.createObject) {
+      // for Chrome
+      a.href = window.webkitURL.createObjectURL(_BLOB);
+      a.click();
+    }
+    else {
+      // for Safari
+      window.open('data:text/plain;base64,' + window.Base64.encode(content), '_blank');
     }
   }
 
