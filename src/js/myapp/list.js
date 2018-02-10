@@ -870,29 +870,24 @@ class ListController extends ClipwebController {
 
     this.EVENT.setLoading({
       type: _TYPE,
-      loading: false,
       errorOpen: _TYPE,
+      errorMessage: _FAILED,
+      check: [
+        'clips',
+        'owners'
+      ],
       functionSuccess: () => {
-        this.checkSuccess({
-          errorMessage: _FAILED,
-          check: [
-            'clips',
-            'owners'
-          ],
-          functionSuccess: () => {
-            this.MODEL.STATUS.GET = true;
-            this.CONTROLLER.applyReceiveModel(_TYPE);
-            this.open({
-              type: _TYPE,
-              model: {
-                alertMessage:
-                  View.element({ content: LN.get('clip_list_got') }),
-                scroll: false
-              },
-            });
-            this.filtering();
-          }
+        this.MODEL.STATUS.GET = true;
+        this.CONTROLLER.applyReceiveModel(_TYPE);
+        this.open({
+          type: _TYPE,
+          model: {
+            alertMessage:
+              View.element({ content: LN.get('clip_list_got') }),
+            scroll: false
+          },
         });
+        this.filtering();
       },
       connectionErrorOpenType: _TYPE,
       connectionErrorModel: super.getErrorModel('server', _FAILED)
