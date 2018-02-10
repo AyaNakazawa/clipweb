@@ -320,7 +320,17 @@ class CodeController extends ClipwebController {
 
   encrypt () {
     super.log(this.MODEL.HASH.substr(0, 14), 'Encrypt', Log.ARROW_INPUT)();
-    this.MODEL.SEND_DATA = this.MODEL.DATA;
+    if (this.MODEL.ENCRYPTION == 'on') {
+      this.MODEL.SEND_DATA = Crypto.encrypt(
+        this.MODEL.DATA,
+        USER.MODEL.HASH.CRYPTO
+      );
+      super.log(this.MODEL.DATA)();
+      super.log('↓')();
+      super.log(this.MODEL.SEND_DATA)();
+    } else {
+      this.MODEL.SEND_DATA = this.MODEL.DATA;
+    }
   }
 
   share (hash = this.MODEL.HASH) {
