@@ -30,6 +30,7 @@ class CodeModel extends ClipwebModel {
     // ----------------------------------------------------------------
     // クリップ
     this.HASH = '';
+    this.CODE_HASH = null;
     this.FILENAME = 'test.js';
     this.FILETYPE = 'JavaScript';
     this.DATA = '';
@@ -124,7 +125,7 @@ class CodeEvent extends ClipwebEvent {
       selector: this.MODEL.SELECTOR.EDITOR.DOWNLOAD,
       func: () => {
         super.log('Editor', 'Download')();
-        this.CONTROLLER.loadCode(this.MODEL.HASH, this.MODEL.TYPE.DOWNLOAD);
+        this.CONTROLLER.loadCode(this.MODEL.HASH, this.MODEL.TYPE.DOWNLOAD, this.MODEL.CODE_HASH);
       }
     });
 
@@ -182,8 +183,9 @@ class CodeController extends ClipwebController {
   // ----------------------------------------------------------------
   // ajax
 
-  loadCode (hash = this.MODEL.HASH, type = this.MODEL.TYPE.LOAD) {
+  loadCode (hash = this.MODEL.HASH, type = this.MODEL.TYPE.LOAD, code_hash = null) {
     this.MODEL.HASH = hash;
+    this.MODEL.CODE_HASH = code_hash;
     if (this.MODEL.HASH == null) {
       Log.error(arguments)();
       return this.MODEL.ERROR;
@@ -360,7 +362,12 @@ class CodeController extends ClipwebController {
     switch (type) {
       case this.MODEL.TYPE.EDITOR:
         // EDITOR
+        var _type = 'open';
+        if (this.MODEL.CODE_HASH != null) {
+          _type = 'rollback';
+        }
         _result = {
+          type: _type,
           hash: this.MODEL.HASH,
           filename: this.MODEL.FILENAME,
           filetype: this.MODEL.FILETYPE,
@@ -428,6 +435,9 @@ class CodeController extends ClipwebController {
     switch (type) {
       case this.MODEL.TYPE.LOAD:
         // LOAD
+        if (this.MODEL.CODE_HASH != null) {
+          _model['code_hash'] = this.MODEL.CODE_HASH;
+        }
         break;
 
       case this.MODEL.TYPE.SAVE:
