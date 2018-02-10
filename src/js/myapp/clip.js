@@ -160,7 +160,7 @@ class ClipEvent extends ClipwebEvent {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.NEW.CLOSE}`,
       func: () => {
-        super.log('Clip', 'Close')();
+        super.log('New', 'Close')();
         this.VIEW.hide();
       }
     });
@@ -168,7 +168,7 @@ class ClipEvent extends ClipwebEvent {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.NEW.CREATE}`,
       func: () => {
-        super.log('Clip', 'New')();
+        super.log('New', 'New')();
         this.CONTROLLER.createNew();
       }
     });
@@ -193,7 +193,7 @@ class ClipEvent extends ClipwebEvent {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.CLOSE}`,
       func: () => {
-        super.log('Clip', 'Close')();
+        super.log('Setting', 'Close')();
         this.VIEW.hide();
         LIST.VIEW.scroll({ selector: `#${this.MODEL.HASH}`, offset: -120 });
       }
@@ -218,7 +218,7 @@ class ClipEvent extends ClipwebEvent {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.EDIT}`,
       func: () => {
-        super.log('Clip', 'Edit')();
+        super.log('Setting', 'Edit')();
         this.CONTROLLER.edit();
       }
     });
@@ -226,7 +226,7 @@ class ClipEvent extends ClipwebEvent {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.SHARE}`,
       func: () => {
-        super.log('Clip', 'Share')();
+        super.log('Setting', 'Share')();
         this.CONTROLLER.share();
       }
     });
@@ -242,7 +242,7 @@ class ClipEvent extends ClipwebEvent {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.DELETE}`,
       func: () => {
-        super.log('Clip', 'Delete')();
+        super.log('Setting', 'Delete')();
         this.CONTROLLER.delete();
       }
     });
@@ -250,7 +250,7 @@ class ClipEvent extends ClipwebEvent {
     super.setOn({
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.SAVE}`,
       func: () => {
-        super.log('Clip', 'Save')();
+        super.log('Setting', 'Save')();
         this.CONTROLLER.connectSetting();
       }
     });
