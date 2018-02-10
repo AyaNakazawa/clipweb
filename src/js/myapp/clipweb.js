@@ -82,6 +82,7 @@ class ClipwebModel extends CommonModel {
     // ----------------------------------------------------------------
     // ステータス
     this.STATUS = {};
+    this.STATUS.AREA = null;
 
     // ----------------------------------------------------------------
     // LocalStorageキー
@@ -156,6 +157,8 @@ class ClipwebView extends CommonView {
   } = {}) {
     super.log()();
     Log.log('Area generating...', Log.ALIGN_CENTER)();
+
+    this.MODEL.STATUS.AREA = type;
 
     // Set
 
