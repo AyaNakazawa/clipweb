@@ -824,8 +824,8 @@ class Crypto {
         pass,
         salt,
         {
-          keySize: Crypto.KEY_SIZE,
-          iterations: Crypto.ITERATIONS
+          keySize: this.KEY_SIZE,
+          iterations: this.ITERATIONS
         }
       );
       return RESULT;
@@ -833,8 +833,8 @@ class Crypto {
     return null;
   }
 
-  static getRand (keySize = Crypto.KEY_SIZE) {
-    return CryptoJS.lib.WordArray.random(Crypto.KEY_SIZE);
+  static getRand (keySize = this.KEY_SIZE) {
+    return CryptoJS.lib.WordArray.random(this.KEY_SIZE);
   }
 
   static toUTF8 (_data = null) {
@@ -872,7 +872,7 @@ class Crypto {
     return null;
   }
 
-  static getOption (iv = null, mode = Crypto.MODE, padding = Crypto.PADDING) {
+  static getOption (iv = null, mode = this.MODE, padding = this.PADDING) {
     if (iv != null) {
       return { iv: iv, mode: mode, padding: padding };
     }
@@ -892,18 +892,18 @@ class Crypto {
 
     let result = '';
 
-    const DATA = Crypto.parseUTF8(_data);
-    const PASSWORD = Crypto.parseUTF8(_password);
+    const DATA = this.parseUTF8(_data);
+    const PASSWORD = this.parseUTF8(_password);
 
-    const SALT = Crypto.getRand();
-    const KEY = Crypto.getKey(PASSWORD, SALT);
-    const IV = Crypto.getRand();
-    const OPTIONS = Crypto.getOption(IV);
+    const SALT = this.getRand();
+    const KEY = this.getKey(PASSWORD, SALT);
+    const IV = this.getRand();
+    const OPTIONS = this.getOption(IV);
 
     const ENCRYPTED = CryptoJS.AES.encrypt(DATA, KEY, OPTIONS);
 
-    result += Crypto.stringifyHex(SALT);
-    result += (',' + Crypto.stringifyHex(IV));
+    result += this.stringifyHex(SALT);
+    result += (',' + this.stringifyHex(IV));
     result += (',' + ENCRYPTED);
 
     return result;
@@ -924,16 +924,16 @@ class Crypto {
 
     const DATA = _data.split(',');
 
-    const ENCRYPTED = Crypto.parseBase64(DATA[2]);
-    const PASSWORD = Crypto.parseUTF8(_password);
+    const ENCRYPTED = this.parseBase64(DATA[2]);
+    const PASSWORD = this.parseUTF8(_password);
 
-    const SALT = Crypto.parseHex(DATA[0]);
-    const IV = Crypto.parseHex(DATA[1]);
-    const KEY = Crypto.getKey(PASSWORD, SALT);
-    const OPTIONS = Crypto.getOption(IV);
+    const SALT = this.parseHex(DATA[0]);
+    const IV = this.parseHex(DATA[1]);
+    const KEY = this.getKey(PASSWORD, SALT);
+    const OPTIONS = this.getOption(IV);
 
     result = CryptoJS.AES.decrypt({'ciphertext': ENCRYPTED}, KEY, OPTIONS);
-    result = Crypto.toUTF8(result);
+    result = this.toUTF8(result);
 
     return result;
   }
