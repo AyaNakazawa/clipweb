@@ -169,7 +169,7 @@ class Clipweb:
             cls.result["error"]["message"] = "check_share: {0}".format(_type)
 
     # ----------------------------------------------------------------
-    # Function
+    # Method
     # ----------------------------------------------------------------
 
     def exit(cls):
