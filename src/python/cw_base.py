@@ -111,6 +111,30 @@ class Base:
 
         return result
 
+    def get_code_history(cls, clip_hash):
+        result = cls.DB.select(
+            table="codes",
+            column=[
+                "owners.username AS user_name",
+                "owners.email_address AS user_gravatar",
+                "codes.hash AS code_hash",
+                "codes.created_at AS code_created_at"
+            ],
+            where={
+                "clip_hash": clip_hash
+            },
+            order={
+                "code_created_at": "desc"
+            },
+            join_table="owners",
+            join_key="hash"
+        )
+
+        for index in range(len(result)):
+            result[index]["user_gravatar"] = cls.get_md5(result[index]["user_gravatar"])
+
+        return result
+
     def get_clip(cls, clip_hash):
         return cls.DB.select(
             table="clips",
