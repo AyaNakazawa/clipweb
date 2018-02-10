@@ -1043,7 +1043,7 @@ class UserController extends ClipwebController {
     let _model = {};
     if (type == this.MODEL.TYPE.REGISTER) {
       // REGISTER
-      _model['hash'] = this.MODEL.HASH.USER;
+      _model['owner_hash'] = this.MODEL.HASH.USER;
       _model['username'] = this.MODEL.USERNAME;
       _model['email_address'] = this.MODEL.EMAIL;
       _model['password_hash'] = this.MODEL.HASH.PASSWORD;
@@ -1056,18 +1056,18 @@ class UserController extends ClipwebController {
 
     } else if (type == this.MODEL.TYPE.LOGOUT) {
       // LOGOUT
-      _model['hash'] = this.MODEL.HASH.USER;
+      _model['owner_hash'] = this.MODEL.HASH.USER;
 
     } else if (type == this.MODEL.TYPE.LEAVE) {
       // LEAVE
-      _model['hash'] = this.MODEL.HASH.USER;
+      _model['owner_hash'] = this.MODEL.HASH.USER;
       _model['username'] = this.MODEL.USERNAME;
       _model['email_address'] = this.MODEL.EMAIL;
       _model['password_hash'] = this.MODEL.HASH.PASSWORD;
 
     } else if (type == this.MODEL.TYPE.INFO) {
       // INFO
-      _model['hash'] = this.MODEL.HASH.USER;
+      _model['owner_hash'] = this.MODEL.HASH.USER;
       _model['password_hash'] = this.MODEL.HASH.PASSWORD;
       _model['username'] = this.MODEL.USERNAME_NEW;
       _model['email_address'] = this.MODEL.EMAIL_NEW;
@@ -1078,7 +1078,7 @@ class UserController extends ClipwebController {
 
     } else if (type == this.MODEL.TYPE.SETTING) {
       // SETTING
-      _model['hash'] = this.MODEL.HASH.USER;
+      _model['owner_hash'] = this.MODEL.HASH.USER;
       _model['password_hash'] = this.MODEL.HASH.PASSWORD;
       _model['theme'] = this.MODEL.THEME;
       _model['default_owner_public'] = this.MODEL.OWNER_PUBLIC;
