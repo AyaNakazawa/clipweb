@@ -335,13 +335,11 @@ class Clip(cw_base.Base):
 
         if len(clip) < 1:
             cls.result["error"] = cls._error("clip_not_exists")
-            cls.result["error"] = cls._error("permission_denied_or_clip_not_found")
             return cls.result
 
         clip = clip[0]
         if clip["clip_mode"] is 'private':
             cls.result["error"] = cls._error("permission_denied")
-            cls.result["error"] = cls._error("permission_denied_or_clip_not_found")
             return cls.result
 
         # ----------------------------------------------------------------
