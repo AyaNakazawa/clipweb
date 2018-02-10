@@ -400,7 +400,6 @@ class CodeController extends ClipwebController {
     switch (type) {
       case this.MODEL.TYPE.LOAD:
         // LOAD
-        Log.obj(this.getAjaxData())();
         this.MODEL.DL_DATA = this.getAjaxData({ key: 'data' });
         this.decrypt();
         this.MODEL.FILENAME = this.getAjaxData({ key: 'filename' });
