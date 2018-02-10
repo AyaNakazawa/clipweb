@@ -99,6 +99,9 @@ class Base:
             where={
                 "clip_hash": clip_hash
             },
+            order={
+                "share_updated_at": "desc"
+            },
             join_table="owners",
             join_key="hash"
         )
