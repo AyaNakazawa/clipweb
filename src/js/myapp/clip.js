@@ -871,8 +871,7 @@ class ClipController extends ClipwebController {
           })
         }),
       functionYes: () => {
-        CODE.VIEW.hide();
-        this.connectSetting(this.MODEL.TYPE.BAN, owner_hash);
+        this.connectPrivilege(this.MODEL.TYPE.BAN, owner_hash);
       }
     });
   }
