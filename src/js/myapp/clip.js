@@ -516,6 +516,27 @@ class ClipController extends ClipwebController {
   }
 
   // ----------------------------------------------------------------
+  // reload
+
+  reload () {
+    switch (this.MODEL.STATUS.AREA) {
+      case this.MODEL.TYPE.SETTING:
+      case this.MODEL.TYPE.LOAD:
+        this.connectSetting(this.MODEL.TYPE.LOAD);
+        break;
+
+      case this.MODEL.TYPE.PRIVILEGE:
+      case this.MODEL.TYPE.BAN:
+        this.connectPrivilege();
+        break;
+
+      case this.MODEL.TYPE.HISTORY:
+        this.connectHistory();
+        break;
+    }
+  }
+
+  // ----------------------------------------------------------------
   // clip
 
   edit (hash = this.MODEL.HASH) {
