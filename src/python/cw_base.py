@@ -501,9 +501,6 @@ class Base:
         not_defined_error=None,
         unknown_class_error=None
     ):
-        if model is None:
-            cls.result["error"] = cls._error("model_not_defined")
-            return False
         if model_type is None:
             cls.result["error"] = cls._error("model_type_not_defined")
             cls.error = True
