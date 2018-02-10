@@ -373,6 +373,37 @@ class Clip(cw_base.Base):
         cls.result["result"] = True
         return cls.result
 
+    def privilege(cls):
+        cls.result["type"] = sys._getframe().f_code.co_name
+        cls.result["result"] = False
+
+        # ----------------------------------------------------------------
+        # get & check cgi
+
+        user_hash = cls.get_cgi("owner_hash")
+        user_password_hash = cls.get_cgi("password_hash")
+        clip_hash = cls.get_cgi("clip_hash")
+
+        if cls.error:
+            return cls.result
+
+        # ----------------------------------------------------------------
+        # check user
+
+        if cls.check_user(user_hash, user_password_hash) is False:
+            return cls.result
+
+        # ----------------------------------------------------------------
+        # select user data
+
+        cls.result["users"] = cls.get_share_users(clip_hash)
+
+        # ----------------------------------------------------------------
+        # return
+
+        cls.result["result"] = True
+        return cls.result
+
     def ban(cls):
         cls.result["type"] = sys._getframe().f_code.co_name
         cls.result["result"] = False
