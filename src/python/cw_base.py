@@ -40,6 +40,13 @@ class Base:
     # Method
     # ----------------------------------------------------------------
 
+    def get_cgi(cls, param=None, empty_ok=False):
+        result = cls.cgi.get(param)
+        if empty_ok is False:
+            cls._check_str(result, param)
+
+        return result
+
     def set_cgi(cls, cgi=None):
         cls.cgi = cgi
 
