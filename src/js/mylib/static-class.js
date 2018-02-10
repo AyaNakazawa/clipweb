@@ -883,10 +883,8 @@ class Crypto {
     _data = null,
     _password = null
   ) {
-    if (_data == null) {
-      return false;
-    }
-    if (_password == null) {
+    if (_data == null || _password == null) {
+      Log.error(arguments)();
       return false;
     }
 
@@ -913,10 +911,8 @@ class Crypto {
     _data = null,
     _password = null
   ) {
-    if (_data == null) {
-      return false;
-    }
-    if (_password == null) {
+    if (_data == null || _password == null) {
+      Log.error(arguments)();
       return false;
     }
 
