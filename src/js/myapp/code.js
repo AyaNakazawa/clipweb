@@ -252,6 +252,7 @@ class CodeController extends ClipwebController {
         this.applyReceiveModel(_TYPE);
         $(this.MODEL.COMMON.SELECTOR.BODY).css('overflow', 'auto');
         this.VIEW.toast({ type: 'success', message: LN.get('saved_clip') });
+        CLIP.reload();
       },
       connectionErrorToastModel: super.getErrorModel('toast/server', _FAILED)
     });
