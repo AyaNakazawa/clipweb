@@ -413,8 +413,6 @@ class CodeController extends ClipwebController {
 
       case this.MODEL.TYPE.SAVE:
         // SAVE
-        this.MODEL.DL_DATA = this.getAjaxData({ key: 'data' });
-        this.decrypt();
         break;
 
       default:
