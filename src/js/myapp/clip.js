@@ -38,7 +38,9 @@ class ClipModel extends ClipwebModel {
     this.CREATED_AT = '';
     this.UPDATED_AT = '';
 
-    this.DL_CLIP = null;
+    this.CLIP = null;
+    this.USERS = {};
+    this.CODES = {};
 
     // ----------------------------------------------------------------
     // テンプレート
