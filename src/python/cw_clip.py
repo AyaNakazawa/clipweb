@@ -63,6 +63,11 @@ class Clip(cw_base.Base):
             return cls.result
 
         # ----------------------------------------------------------------
+        # create clip hash
+
+        clip_hash = cls.get_sha256()
+
+        # ----------------------------------------------------------------
         # check overlap clip info
 
         num_hash_overlap = cls.DB.count_records(table="clips", where={
@@ -74,13 +79,32 @@ class Clip(cw_base.Base):
             return cls.result
 
         # ----------------------------------------------------------------
+        # insert new share
+
+        cls.result["new_share"] = cls.DB.insert(
+            table="shares",
+            value={
+                "owner_hash": user_hash,
+                "clip_hash": clip_hash,
+                "created_at": cls.get_date(),
+                "updated_at": cls.get_date()
+            }
+        )
+
+        # ----------------------------------------------------------------
+        # create code hash
+
+        code_hash = cls.get_sha256()
+
+        # ----------------------------------------------------------------
         # insert new clip
 
         value = {
             "hash": clip_hash,
-            "owner_hash": user_hash,
             "name": clip_name,
+            "code_hash": code_hash,
             "type": clip_type,
+            "owner_hash": user_hash,
             "owner_public": clip_owner_public,
             "clip_mode": clip_clip_mode,
             "created_at": cls.get_date(),
@@ -96,15 +120,15 @@ class Clip(cw_base.Base):
         )
 
         # ----------------------------------------------------------------
-        # insert new share
+        # insert new code
 
-        cls.result["new_share"] = cls.DB.insert(
-            table="shares",
+        cls.result["new_code"] = cls.DB.insert(
+            table="codes",
             value={
-                "owner_hash": user_hash,
+                "hash": code_hash,
                 "clip_hash": clip_hash,
-                "created_at": cls.get_date(),
-                "updated_at": cls.get_date()
+                "owner_hash": user_hash,
+                "created_at": cls.get_date()
             }
         )
 
