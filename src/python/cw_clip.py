@@ -211,24 +211,33 @@ class Clip(cw_base.Base):
             return cls.result
 
         # ----------------------------------------------------------------
-        # select clip data
+        # update data
 
-        cls.result["clip"] = cls.get_clip(clip_hash)
-
-        if len(cls.result["clip"]) > 1:
-            cls.result["error"] = cls._error("corrupt_clipdata")
-            return cls.result
-
-        if len(cls.result["clip"]) < 1:
-            cls.result["error"] = cls._error("clip_not_exists")
-            return cls.result
-
-        cls.result["clip"] = cls.result["clip"][0]
+        cls.result["update"] = cls.DB.update(
+            table="clips",
+            value={
+                "name": clip_filename,
+                "type": clip_filetype,
+                "tags": clip_tags,
+                "owner_public": clip_owner_public,
+                "clip_mode": clip_clip_mode,
+                "updated_at": cls.get_date()
+            },
+            where={
+                "hash": clip_hash
+            }
+        )
 
         # ----------------------------------------------------------------
-        # select user data
+        # load
 
-        cls.result["users"] = cls.get_share_users(clip_hash)
+        cls.load()
+        cls.result["type"] = sys._getframe().f_code.co_name
+
+        if cls.result["result"] is True:
+            cls.result["result"] = False
+        else:
+            return cls.result
 
         # ----------------------------------------------------------------
         # return
