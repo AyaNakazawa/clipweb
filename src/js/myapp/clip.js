@@ -671,17 +671,13 @@ class ClipController extends ClipwebController {
     this.EVENT.setLoading({
       type: _TYPE,
       loading: false,
+      errorMessage: _FAILED,
+      errorType: 'toast',
       functionSuccess: () => {
-        this.checkSuccess({
-          errorMessage: _FAILED,
-          errorType: 'toast',
-          functionSuccess: () => {
-            // 取得成功
-            LIST.loadList();
-            this.VIEW.toast({ type: 'success', message: LN.get('shared_clip') });
-            CODE.loadCode(hash);
-          }
-        });
+        // 取得成功
+        LIST.loadList();
+        this.VIEW.toast({ type: 'success', message: LN.get('shared_clip') });
+        CODE.loadCode(hash);
       },
       connectionErrorToastModel: super.getErrorModel('toast/server', _FAILED)
     });
