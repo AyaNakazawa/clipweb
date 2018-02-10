@@ -417,7 +417,7 @@ class UserController extends ClipwebController {
       }
     }
     if (Web.getParam('share') != null) {
-      this.VIEW.toast({ type: 'info', position: 'center', message: LN.get('need_login_to_share') });
+      this.VIEW.toast({ type: 'info', timeout: 10000, position: 'center', message: LN.get('need_login_to_share') });
     }
     this.open({ type: this.MODEL.TYPE.LOGIN });
   }
