@@ -577,9 +577,7 @@ class ListController extends ClipwebController {
     this.VIEW.generateGroups();
   }
 
-  sorting ({
-    type = null
-  } = {}) {
+  sorting ({ type = null } = {}) {
     if (type == null) {
       type = 'asc';
     }
@@ -826,10 +824,7 @@ class ListController extends ClipwebController {
   // ----------------------------------------------------------------
   // clip
 
-  edit ({
-    hash = null,
-    edit = true
-  } = {}) {
+  edit ({ hash = null, edit = true } = {}) {
     if (hash == null) {
       Log.error(arguments)();
       return this.MODEL.ERROR;
@@ -838,9 +833,7 @@ class ListController extends ClipwebController {
     CLIP.edit(hash, edit);
   }
 
-  delete ({
-    hash = null
-  } = {}) {
+  delete ({ hash = null } = {}) {
     if (hash == null) {
       Log.error(arguments)();
       return this.MODEL.ERROR;
@@ -849,9 +842,7 @@ class ListController extends ClipwebController {
     CLIP.delete(hash);
   }
 
-  setting ({
-    hash = null
-  } = {}) {
+  setting ({ hash = null } = {}) {
     if (hash == null) {
       Log.error(arguments)();
       return this.MODEL.ERROR;
@@ -860,9 +851,7 @@ class ListController extends ClipwebController {
     CLIP.connectSetting(this.MODEL.TYPE.LOAD, hash);
   }
 
-  share ({
-    hash = null
-  } = {}) {
+  share ({ hash = null } = {}) {
     if (hash == null) {
       Log.error(arguments)();
       return this.MODEL.ERROR;
@@ -918,9 +907,7 @@ class ListController extends ClipwebController {
   // ----------------------------------------------------------------
   // model
 
-  getAreaModel (
-    type = null
-  ) {
+  getAreaModel (type = null) {
     if (type == null) {
       Log.error(arguments)();
       return this.MODEL.ERROR;
@@ -944,9 +931,7 @@ class ListController extends ClipwebController {
     return _result;
   }
 
-  applyReceiveModel (
-    type = null
-  ) {
+  applyReceiveModel (type = null) {
     super.log(type.capitalize(), 'Apply')();
     if (type == null) {
       Log.error(arguments);
@@ -988,9 +973,7 @@ class ListController extends ClipwebController {
     }
   }
 
-  getSendModel (
-    type = null
-  ) {
+  getSendModel (type = null) {
     if (type == null) {
       Log.error(arguments)();
       return this.MODEL.ERROR;

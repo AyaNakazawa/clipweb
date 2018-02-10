@@ -691,9 +691,7 @@ class ClipController extends ClipwebController {
   // ----------------------------------------------------------------
   // model
 
-  getAreaModel (
-    type = null
-  ) {
+  getAreaModel (type = null) {
     if (type == null) {
       Log.error(arguments)();
       return this.MODEL.ERROR;
@@ -743,9 +741,7 @@ class ClipController extends ClipwebController {
     return _result;
   }
 
-  applyReceiveModel (
-    type = null
-  ) {
+  applyReceiveModel (type = null) {
     super.log(type.capitalize(), 'Apply')();
     if (type == null) {
       Log.error(arguments);
@@ -791,9 +787,7 @@ class ClipController extends ClipwebController {
     }
   }
 
-  getSendModel (
-    type = null
-  ) {
+  getSendModel (type = null) {
     if (type == null) {
       Log.error(arguments)();
       return this.MODEL.ERROR;

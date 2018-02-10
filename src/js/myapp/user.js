@@ -770,9 +770,7 @@ class UserController extends ClipwebController {
   // ----------------------------------------------------------------
   // model
 
-  getAreaModel (
-    type = null
-  ) {
+  getAreaModel (type = null) {
     if (type == null) {
       Log.error(arguments)();
       return this.MODEL.ERROR;
@@ -862,10 +860,7 @@ class UserController extends ClipwebController {
     return _result;
   }
 
-  updateHash (
-    type = null,
-    timing = null
-  ) {
+  updateHash (type = null, timing = null) {
     if (type == null || timing == null) {
       Log.error(arguments)();
       return this.MODEL.ERROR;
@@ -967,9 +962,7 @@ class UserController extends ClipwebController {
     this.MODEL.HASH.GRAVATAR = '';
   }
 
-  applyReceiveModel (
-    type = null
-  ) {
+  applyReceiveModel (type = null) {
     super.log(type.capitalize(), 'Apply')();
     if (type == null) {
       Log.error(arguments);
@@ -1037,9 +1030,7 @@ class UserController extends ClipwebController {
     this.MODEL.HASH = {};
   }
 
-  getSendModel (
-    type = null
-  ) {
+  getSendModel (type = null) {
     if (type == null) {
       Log.error(arguments)();
       return this.MODEL.ERROR;
