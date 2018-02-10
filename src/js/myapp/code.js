@@ -404,15 +404,14 @@ class CodeController extends ClipwebController {
     let _model = {};
     _model['owner_hash'] = USER.MODEL.HASH.USER;
     _model['password_hash'] = USER.MODEL.HASH.PASSWORD;
+    _model['clip_hash'] = this.MODEL.HASH;
     switch (type) {
       case this.MODEL.TYPE.LOAD:
         // LOAD
-        _model['hash'] = this.MODEL.HASH;
         break;
 
       case this.MODEL.TYPE.SAVE:
         // SAVE
-        _model['hash'] = this.MODEL.HASH;
         this.encrypt();
         _model['data'] = this.MODEL.SEND_DATA;
         break;
