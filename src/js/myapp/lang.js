@@ -70,6 +70,11 @@ class Language {
       clip_new_create: 'New clip',
       clip_info: 'clip info',
       share_list: 'Share list',
+      privilege_users_list: 'Privilege user list',
+      clip_history: 'clip history',
+      start: 'Start',
+      initial: 'Initial',
+      init: 'Init',
       reload: 'Reload',
       update: 'Update',
       create: 'Create',
@@ -114,6 +119,8 @@ class Language {
 
       header_clip_new: 'New clip',
       header_clip_setting: 'clip setting',
+      header_clip_privilege: 'clip privilege',
+      header_clip_history: 'clip history',
 
       header_code_editor: null,
 
@@ -126,11 +133,15 @@ class Language {
 
       loading_header_list_search: 'Getting clip list',
 
-      loading_header_clip_new: 'New clip',
-      loading_header_clip_setting: 'Setting of clip',
-      loading_header_clip_delete: 'Delete of clip',
+      loading_header_clip_new: 'Creating the clip',
+      loading_header_clip_load: 'Getting info of the clip',
+      loading_header_clip_setting: 'Saving setting of the clip',
+      loading_header_clip_privilege: 'Getting privilege of the clip',
+      loading_header_clip_ban: 'Deleting privilege list of the clip',
+      loading_header_clip_history: 'Getting history of the clip',
+      loading_header_clip_delete: 'Deleting the clip',
 
-      loading_header_code_load: 'Load of Code',
+      loading_header_code_load: 'Loading code of the clip',
 
       user_registered: 'Registered you.',
       user_logined: 'You logined.',
@@ -173,7 +184,7 @@ class Language {
       email_password_incorrect: 'The combination of the e-mail address and the password is incorrect.',
       password_incorrect: 'Password is incorrect.',
       user_not_found: 'User data not found.',
-      clip_not_exists: 'Your clip not exists.',
+      clip_not_exists: 'clip not found.',
       owner_not_exists: 'clip owner not exists.',
       corrupt_userdata: 'User data is corrupted. Please contact the administrator.',
       corrupt_clipdata: 'Clip data is corrupted. Please contact the administrator.',
@@ -190,10 +201,12 @@ class Language {
       failed_to_get_clip_list: 'Failed to getting your clips.',
       failed_to_create_new_clip: 'Failed to creating new clip.',
 
-      failed_to_open_clip_setting: 'Failed to open the clip setting.',
-      failed_to_load_clip_setting: 'Failed to load the clip setting.',
-      failed_to_update_clip_setting: 'Failed to update the clip setting.',
-      failed_to_setting_clip_setting: 'Failed to update the clip setting.',
+      failed_to_open_clip_setting: 'Failed to open setting of the clip.',
+      failed_to_load_clip_setting: 'Failed to load setting of the clip.',
+      failed_to_update_clip_setting: 'Failed to update setting of the clip.',
+      failed_to_setting_clip_setting: 'Failed to update setting of the clip.',
+      failed_to_load_clip_privilege: 'Failed to load privilege of the clip.',
+      failed_to_load_clip_history: 'Failed to load history of the clip.',
       failed_to_delete_clip: 'Failed to delete the clip.',
       failed_to_get_share_clip: 'Failed to share the clip.',
       failed_to_stop_share: 'Failed to stop share.',
@@ -239,6 +252,10 @@ class Language {
       popover_clip_setting_tags: 'You can change tags.<br>You can specify more than one blank separator.',
       popover_clip_setting_owner_public: 'You can change the owner public setting of this clip.',
       popover_clip_setting_clip_mode: 'You can change the clip share setting of this clip.',
+
+      popover_clip_privilege_list: 'You can stop sharing this clip to the specified user.',
+
+      popover_clip_history_history: 'You can restore this clip from the edit history.',
 
       clipweb_user_error_code: '{project} Error Code: {code}',
       clipweb_user_error_message: 'Message: {message}',
@@ -316,6 +333,11 @@ class Language {
       clip_new_create: 'クリップの新規作成',
       clip_info: 'クリップ情報',
       share_list: '共有リスト',
+      privilege_users_list: '権限リスト',
+      clip_history: 'クリップ履歴',
+      start: '開始',
+      initial: '初期',
+      init: '初期',
       reload: '再読込',
       update: '更新',
       create: '作成',
@@ -360,6 +382,8 @@ class Language {
 
       header_clip_new: '新規クリップ',
       header_clip_setting: 'クリップ設定',
+      header_clip_privilege: 'クリップ権限',
+      header_clip_history: 'クリップ履歴',
 
       header_code_editor: null,
 
@@ -373,7 +397,11 @@ class Language {
       loading_header_list_search: 'クリップ一覧を取得中',
 
       loading_header_clip_new: 'クリップを作成中',
+      loading_header_clip_load: 'クリップの情報を取得中',
       loading_header_clip_setting: 'クリップを設定中',
+      loading_header_clip_privilege: 'クリップの権限を取得中',
+      loading_header_clip_ban: 'クリップの権限を削除中',
+      loading_header_clip_history: 'クリップの履歴を取得中',
       loading_header_clip_delete: 'クリップを削除中',
 
       loading_header_code_load: 'コードを読み込み中',
@@ -419,7 +447,7 @@ class Language {
       email_password_incorrect: 'メールアドレスとパスワードの組み合わせが間違っています。',
       password_incorrect: 'パスワードが間違っています。',
       user_not_found: 'ユーザーデータが見つかりません。',
-      clip_not_exists: 'あなたのクリップはありません。',
+      clip_not_exists: 'クリップが見つかりません。',
       owner_not_exists: 'クリップのオーナーが見つかりません。',
       corrupt_userdata: 'ユーザーデータが破損しています。管理者までご確認ください。',
       corrupt_clipdata: 'クリップデータが破損しています。管理者までご確認ください。',
@@ -440,6 +468,8 @@ class Language {
       failed_to_load_clip_setting: 'クリップの設定を読み込むことができませんでした。',
       failed_to_update_clip_setting: 'クリップの設定の更新に失敗しました。',
       failed_to_setting_clip_setting: 'クリップの設定の更新に失敗しました。',
+      failed_to_load_clip_privilege: 'クリップの権限の取得に失敗しました。',
+      failed_to_load_clip_history: 'クリップの履歴の取得に失敗しました。',
       failed_to_delete_clip: 'クリップの削除に失敗しました。',
       failed_to_get_share_clip: 'クリップの共有に失敗しました。',
       failed_to_stop_share: '共有の停止に失敗しました。',
@@ -485,6 +515,10 @@ class Language {
       popover_clip_setting_tags: 'タグを変更できます。<br>空白区切りで複数指定できます。',
       popover_clip_setting_owner_public: 'このクリップのオーナー公開設定を変更できます。',
       popover_clip_setting_clip_mode: 'このクリップのクリップ共有設定を変更できます。',
+
+      popover_clip_privilege_list: 'このクリップの、指定したユーザーへの共有を停止することができます。',
+
+      popover_clip_history_history: 'このクリップを編集履歴から復元することができます。',
 
       clipweb_user_error_code: '{project} エラーコード： {code}',
       clipweb_user_error_message: 'メッセージ： {message}',
