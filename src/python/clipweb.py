@@ -129,8 +129,14 @@ class Clipweb:
         elif _type == "share":
             cls.result["clip"] = CLIP.share()
 
+        elif _type == "privilege":
+            cls.result["clip"] = CLIP.privilege()
+
         elif _type == "ban":
             cls.result["clip"] = CLIP.ban()
+
+        elif _type == "history":
+            cls.result["clip"] = CLIP.history()
 
         else:
             cls.result["error"] = {}
