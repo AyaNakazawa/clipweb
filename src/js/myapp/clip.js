@@ -797,7 +797,6 @@ class ClipController extends ClipwebController {
       return this.MODEL.ERROR;
     }
     let _model = {};
-    _model['hash'] = this.MODEL.HASH;
     _model['owner_hash'] = USER.MODEL.HASH.USER;
     _model['password_hash'] = USER.MODEL.HASH.PASSWORD;
     switch (type) {
@@ -812,10 +811,12 @@ class ClipController extends ClipwebController {
 
       case this.MODEL.TYPE.LOAD:
         // LOAD
+        _model['clip_hash'] = this.MODEL.HASH;
         break;
 
       case this.MODEL.TYPE.DELETE:
         // DELETE
+        _model['clip_hash'] = this.MODEL.HASH;
         break;
 
       case this.MODEL.TYPE.SHARE:
@@ -825,10 +826,12 @@ class ClipController extends ClipwebController {
       case this.MODEL.TYPE.BAN:
         // BAN
         _model['ban_hash'] = this.MODEL.BAN;
+        _model['clip_hash'] = this.MODEL.HASH;
         break;
 
       case this.MODEL.TYPE.SETTING:
         // SETTING
+        _model['clip_hash'] = this.MODEL.HASH;
         _model['filename'] = this.MODEL.FILENAME;
         _model['filetype'] = this.MODEL.FILETYPE;
         _model['tags'] = this.MODEL.TAGS;
