@@ -45,7 +45,6 @@ class ClipwebModel extends CommonModel {
     this.TYPE.INFO = 'info';
     this.TYPE.SETTING = 'setting';
     this.TYPE.SEARCH = 'search';
-    this.TYPE.HISTORY = 'history';
     this.TYPE.SHARE = 'share';
     this.TYPE.EDITOR = 'editor';
     this.TYPE.LIST = 'list';
@@ -56,6 +55,8 @@ class ClipwebModel extends CommonModel {
     this.TYPE.DELETE = 'delete';
     this.TYPE.DOWNLOAD = 'download';
     this.TYPE.BAN = 'ban';
+    this.TYPE.PRIVILEGE = 'privilege';
+    this.TYPE.HISTORY = 'history';
 
     this.TIMING = {};
     this.TIMING.AFTER = 'after';
