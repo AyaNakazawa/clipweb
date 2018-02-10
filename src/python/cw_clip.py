@@ -139,7 +139,7 @@ class Clip(cw_base.Base):
         cls.result["result"] = True
         return cls.result
 
-    def setting(cls):
+    def load(cls):
         cls.result["type"] = sys._getframe().f_code.co_name
         cls.result["result"] = False
 
@@ -158,25 +158,6 @@ class Clip(cw_base.Base):
 
         if cls.check_user(user_hash, user_password_hash) is False:
             return cls.result
-
-        # ----------------------------------------------------------------
-        # update data
-
-        cls.result["update"] = cls.DB.update(
-            table="clips",
-            value={
-                "name": clip_filename,
-                "type": clip_filetype,
-                "tags": clip_tags,
-                "owner_public": clip_owner_public,
-                "clip_mode": clip_clip_mode,
-                "updated_at": cls.get_date()
-            },
-            where={
-                "hash": clip_hash,
-                "owner_hash": user_hash
-            }
-        )
 
         # ----------------------------------------------------------------
         # select clip data
@@ -204,7 +185,7 @@ class Clip(cw_base.Base):
         cls.result["result"] = True
         return cls.result
 
-    def load(cls):
+    def setting(cls):
         cls.result["type"] = sys._getframe().f_code.co_name
         cls.result["result"] = False
 
