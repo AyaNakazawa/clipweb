@@ -34,6 +34,7 @@ class Base:
         cls.result = {}
         cls.DB_PATH = "db/clipweb.db"
         cls.DB = flex_sqlite3.FlexSQLite3(cls.DB_PATH)
+        cls.error = False
 
     # ----------------------------------------------------------------
     # Method
@@ -57,10 +58,12 @@ class Base:
 
         if _num_user_data > 1:
             cls.result["error"] = cls._error("corrupt_userdata")
+            cls.error = True
             return False
 
         if _num_user_data < 1:
             cls.result["error"] = cls._error("user_not_found")
+            cls.error = True
             return False
 
         return True
@@ -464,14 +467,17 @@ class Base:
             return False
         if model_type is None:
             cls.result["error"] = cls._error("model_type_not_defined")
+            cls.error = True
             return False
 
         if model is None:
             cls.result["error"] = cls._error("{type}_not_defined".format(**{"type": model_type}))
+            cls.error = True
             return False
         else:
             if isinstance(model, str) is False:
                 cls.result["error"] = cls._error("{type}_unknown_class".format(**{"type": model_type}))
+                cls.error = True
                 return False
 
         return True
