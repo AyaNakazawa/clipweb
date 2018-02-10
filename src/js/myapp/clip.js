@@ -941,6 +941,21 @@ class ClipController extends ClipwebController {
           },
         };
         break;
+
+      case this.MODEL.TYPE.PRIVILEGE:
+        // PRIVILEGE
+        _result = {
+          users: this.MODEL.USERS
+        };
+        break;
+
+      case this.MODEL.TYPE.HISTORY:
+        // HISTORY
+        _result = {
+          codes: this.MODEL.CODES
+        };
+        break;
+
       default:
         Log.error(arguments, 'unknown type X(')();
         return this.MODEL.ERROR;
