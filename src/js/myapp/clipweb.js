@@ -125,6 +125,7 @@ class ClipwebModel extends CommonModel {
         _result[_extensions[index].mini()] = type;
       }
     }
+    _result['html'] = 'html';
     return _result;
   }
 }
