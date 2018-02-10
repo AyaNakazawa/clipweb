@@ -81,6 +81,11 @@ class Base:
     def get_md5(cls, string=None):
         return str(hashlib.md5(string.encode('utf-8')).hexdigest())
 
+    def get_sha256(cls, string=None):
+        if string is None:
+            string = str(datetime.datetime.now())
+        return hashlib.sha256(string.encode('utf-8')).hexdigest()
+
     def get_share_users(cls, clip_hash):
         result = cls.DB.select(
             table="shares",
