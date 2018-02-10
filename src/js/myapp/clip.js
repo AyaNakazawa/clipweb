@@ -47,6 +47,7 @@ class ClipModel extends ClipwebModel {
     this.TEMPLATE.NEW = '#clip-new-template';
     this.TEMPLATE.SETTING = '#clip-setting-template';
     this.TEMPLATE.PRIVILEGE = '#clip-privilege-template';
+    this.TEMPLATE.HISTORY = '#clip-history-template';
     this.TEMPLATE.SHARE = '#clip-share-template';
 
     // ----------------------------------------------------------------
@@ -78,12 +79,12 @@ class ClipModel extends ClipwebModel {
     this.SELECTOR.SETTING.CLIP_MODE = '#clip-setting-clip-mode';
     this.SELECTOR.SETTING.CLOSE = '#clip-setting-close';
     this.SELECTOR.SETTING.PRIVILEGE = '#clip-setting-privilege';
+    this.SELECTOR.SETTING.HISTORY = '#clip-setting-history';
     this.SELECTOR.SETTING.EDIT = '#clip-setting-edit';
     this.SELECTOR.SETTING.SHARE = '#clip-setting-share';
     this.SELECTOR.SETTING.DOWNLOAD = '#clip-setting-download';
     this.SELECTOR.SETTING.DELETE = '#clip-setting-delete';
     this.SELECTOR.SETTING.SAVE = '#clip-setting-save';
-    this.SELECTOR.SETTING.USER_BAN = '.clip-setting-user-ban';
 
     // 権限
     this.SELECTOR.PRIVILEGE = {};
@@ -91,6 +92,13 @@ class ClipModel extends ClipwebModel {
     this.SELECTOR.PRIVILEGE.SETTING = '#clip-privilege-setting';
     this.SELECTOR.PRIVILEGE.HISTORY = '#clip-privilege-history';
     this.SELECTOR.PRIVILEGE.BAN = '.clip-privilege-ban';
+
+    // 履歴
+    this.SELECTOR.HISTORY = {};
+    this.SELECTOR.HISTORY.CLOSE = '#clip-history-close';
+    this.SELECTOR.HISTORY.SETTING = '#clip-history-setting';
+    this.SELECTOR.HISTORY.PRIVILEGE = '#clip-history-privilege';
+    this.SELECTOR.HISTORY.LOAD = '.clip-history-load';
 
     // シェア
     this.SELECTOR.SHARE = {};
@@ -130,6 +138,7 @@ class ClipEvent extends ClipwebEvent {
     this.setOnNew();
     this.setOnSetting();
     this.setOnPrivilege();
+    this.setOnHistory();
     this.setOnShare();
   }
 
@@ -283,6 +292,44 @@ class ClipEvent extends ClipwebEvent {
       selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.PRIVILEGE.BAN}`,
       func: function () {
         CLIP.banShare($(this).attr('data-user-hash'));
+      }
+    });
+  }
+
+  setOnHistory () {
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.HISTORY.CLOSE}`,
+      func: () => {
+        super.log('History', 'Close')();
+        this.VIEW.hide();
+        LIST.VIEW.scroll({ selector: `#${this.MODEL.HASH}`, offset: -120 });
+      }
+    });
+
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.HISTORY.SETTING}`,
+      func: () => {
+        super.log('History', 'Setting')();
+        this.CONTROLLER.connectSetting(this.MODEL.TYPE.LOAD);
+      }
+    });
+
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.HISTORY.PRIVILEGE}`,
+      func: () => {
+        super.log('History', 'Privilege')();
+        this.CONTROLLER.connectPrivilege();
+      }
+    });
+
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.HISTORY.LOAD}`,
+      func: function () {
+        CODE.loadCode(
+          CLIP.MODEL.HASH,
+          CLIP.MODEL.TYPE.LOAD,
+          $(this).attr('data-code-hash')
+        );
       }
     });
   }
