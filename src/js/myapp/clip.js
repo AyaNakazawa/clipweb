@@ -200,9 +200,18 @@ class ClipEvent extends ClipwebEvent {
     });
 
     super.setOn({
-      selector: this.MODEL.SELECTOR.SETTING.USER_BAN,
-      func: function () {
-        CLIP.banShare($(this).attr('data-user-hash'));
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.PRIVILEGE}`,
+      func: () => {
+        super.log('Setting', 'Privilege')();
+        this.CONTROLLER.connectPrivilege();
+      }
+    });
+
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.HISTORY}`,
+      func: () => {
+        super.log('Setting', 'Hisotry')();
+        this.CONTROLLER.connectHistory();
       }
     });
 
