@@ -1050,11 +1050,6 @@ class ClipController extends ClipwebController {
 
       case this.MODEL.TYPE.SHARE:
         // SHARE
-        break;
-
-      case this.MODEL.TYPE.BAN:
-        // BAN
-        _model['ban_hash'] = this.MODEL.BAN;
         _model['clip_hash'] = this.MODEL.HASH;
         break;
 
@@ -1071,6 +1066,12 @@ class ClipController extends ClipwebController {
       case this.MODEL.TYPE.PRIVILEGE:
         // PRIVILEGE
         _model['clip_hash'] = this.MODEL.HASH;
+        break;
+
+      case this.MODEL.TYPE.BAN:
+        // BAN
+        _model['clip_hash'] = this.MODEL.HASH;
+        _model['ban_hash'] = this.MODEL.BAN;
         break;
 
       case this.MODEL.TYPE.HISTORY:
