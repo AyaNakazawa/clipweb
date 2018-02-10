@@ -548,6 +548,53 @@ class ClipController extends ClipwebController {
     });
   }
 
+  connectPrivilege (type = this.MODEL.TYPE.PRIVILEGE, ban_hash = null) {
+    if (type == null) {
+      Log.error(arguments)();
+      return this.MODEL.ERROR;
+    }
+
+    const _TYPE = this.MODEL.TYPE.PRIVILEGE;
+    let _failed = null;
+    let _success_message = null;
+    let _check_data = null;
+
+    if (type == this.MODEL.TYPE.PRIVILEGE) {
+      _failed = 'failed_to_load_clip_privilege';
+      _check_data = ['users'];
+
+    } else if (type == this.MODEL.TYPE.BAN) {
+      this.MODEL.BAN = ban_hash;
+      _failed = 'failed_to_stop_share';
+      _check_data = ['users', 'ban'];
+      _success_message = View.element({ content: LN.get('stopped_share_to_user', {
+        ban_username: this.MODEL.USERS[ban_hash]['user_name']
+      }) });
+    }
+
+    this.EVENT.setLoading({
+      type: _TYPE,
+      errorOpen: _TYPE,
+      errorMessage: _failed,
+      check: _check_data,
+      functionSuccess: () => {
+        this.applyReceiveModel(type);
+        this.open({
+          type: _TYPE,
+          model: { alertMessage: _success_message }
+        });
+      },
+      connectionErrorOpenType: _TYPE,
+      connectionErrorModel: super.getErrorModel('server', _failed)
+    });
+
+    // Post
+    this.post({
+      type: type,
+      data: this.getSendModel(type)
+    });
+  }
+
   deleteClip (hash = this.MODEL.HASH) {
     if (hash == null) {
       Log.error(arguments)();
