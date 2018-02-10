@@ -25,7 +25,8 @@ CGIに実行権限を与える
 
 CGIのshebangを実行環境にあわせる
 
-sass/mylib/debug.scssを削除し、Sassをコンパイル
+sass/mylib/debug.scssを削除する
+sassをコンパイル
 sassフォルダを削除
 
 コードを軽量化する
