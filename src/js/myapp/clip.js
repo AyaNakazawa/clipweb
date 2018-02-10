@@ -595,6 +595,31 @@ class ClipController extends ClipwebController {
     });
   }
 
+  connectHistory () {
+    const _TYPE = this.MODEL.TYPE.HISTORY;
+    let _failed = 'failed_to_load_clip_history';
+    let _check_data = ['codes'];
+
+    this.EVENT.setLoading({
+      type: _TYPE,
+      errorOpen: _TYPE,
+      errorMessage: _failed,
+      check: _check_data,
+      functionSuccess: () => {
+        this.applyReceiveModel(_TYPE);
+        this.open({ type: _TYPE });
+      },
+      connectionErrorOpenType: _TYPE,
+      connectionErrorModel: super.getErrorModel('server', _failed)
+    });
+
+    // Post
+    this.post({
+      type: _TYPE,
+      data: this.getSendModel(_TYPE)
+    });
+  }
+
   deleteClip (hash = this.MODEL.HASH) {
     if (hash == null) {
       Log.error(arguments)();
