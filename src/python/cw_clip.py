@@ -43,45 +43,17 @@ class Clip(cw_base.Base):
         cls.result["result"] = False
 
         # ----------------------------------------------------------------
-        # cgi get
+        # get & check cgi
 
-        user_hash = cls.cgi.get("owner_hash")
-        user_password_hash = cls.cgi.get("password_hash")
-        clip_hash = cls.cgi.get("hash")
-        clip_name = cls.cgi.get("filename")
-        clip_type = cls.cgi.get("filetype")
-        clip_tags = cls.cgi.get("tags")
-        clip_owner_public = cls.cgi.get("owner_public")
-        clip_clip_mode = cls.cgi.get("clip_mode")
+        user_hash = cls.get_cgi("owner_hash")
+        user_password_hash = cls.get_cgi("password_hash")
+        clip_name = cls.get_cgi("filename")
+        clip_type = cls.get_cgi("filetype")
+        clip_tags = cls.get_cgi("tags")
+        clip_owner_public = cls.get_cgi("owner_public")
+        clip_clip_mode = cls.get_cgi("clip_mode")
 
-        if clip_tags is None:
-            clip_tags = ""
-
-        # ----------------------------------------------------------------
-        # cgi get strings check
-
-        if cls._check_str(user_hash, "owner_hash") is False:
-            return cls.result
-
-        if cls._check_str(user_password_hash, "password_hash") is False:
-            return cls.result
-
-        if cls._check_str(clip_hash, "hash") is False:
-            return cls.result
-
-        if cls._check_str(clip_name, "name") is False:
-            return cls.result
-
-        if cls._check_str(clip_type, "type") is False:
-            return cls.result
-
-        if cls._check_str(clip_tags, "tags") is False:
-            return cls.result
-
-        if cls._check_str(clip_owner_public, "owner_public") is False:
-            return cls.result
-
-        if cls._check_str(clip_clip_mode, "clip_mode") is False:
+        if cls.error:
             return cls.result
 
         # ----------------------------------------------------------------
@@ -148,45 +120,13 @@ class Clip(cw_base.Base):
         cls.result["result"] = False
 
         # ----------------------------------------------------------------
-        # cgi get
+        # get & check cgi
 
-        user_hash = cls.cgi.get("owner_hash")
-        user_password_hash = cls.cgi.get("password_hash")
-        clip_hash = cls.cgi.get("hash")
-        clip_filename = cls.cgi.get("filename")
-        clip_filetype = cls.cgi.get("filetype")
-        clip_tags = cls.cgi.get("tags")
-        clip_owner_public = cls.cgi.get("owner_public")
-        clip_clip_mode = cls.cgi.get("clip_mode")
+        user_hash = cls.get_cgi("owner_hash")
+        user_password_hash = cls.get_cgi("password_hash")
+        clip_hash = cls.get_cgi("clip_hash")
 
-        if clip_tags is None:
-            clip_tags = ""
-
-        # ----------------------------------------------------------------
-        # cgi get strings check
-
-        if cls._check_str(user_hash, "owner_hash") is False:
-            return cls.result
-
-        if cls._check_str(user_password_hash, "password_hash") is False:
-            return cls.result
-
-        if cls._check_str(clip_hash, "hash") is False:
-            return cls.result
-
-        if cls._check_str(clip_filename, "filename") is False:
-            return cls.result
-
-        if cls._check_str(clip_filetype, "filetype") is False:
-            return cls.result
-
-        if cls._check_str(clip_tags, "tags") is False:
-            return cls.result
-
-        if cls._check_str(clip_owner_public, "owner_public") is False:
-            return cls.result
-
-        if cls._check_str(clip_clip_mode, "clip_mode") is False:
+        if cls.error:
             return cls.result
 
         # ----------------------------------------------------------------
@@ -245,22 +185,18 @@ class Clip(cw_base.Base):
         cls.result["result"] = False
 
         # ----------------------------------------------------------------
-        # cgi get
+        # get & check cgi
 
-        user_hash = cls.cgi.get("owner_hash")
-        user_password_hash = cls.cgi.get("password_hash")
-        clip_hash = cls.cgi.get("hash")
+        user_hash = cls.get_cgi("owner_hash")
+        user_password_hash = cls.get_cgi("password_hash")
+        clip_hash = cls.get_cgi("clip_hash")
+        clip_filename = cls.get_cgi("filename")
+        clip_filetype = cls.get_cgi("filetype")
+        clip_tags = cls.get_cgi("tags")
+        clip_owner_public = cls.get_cgi("owner_public")
+        clip_clip_mode = cls.get_cgi("clip_mode")
 
-        # ----------------------------------------------------------------
-        # cgi get strings check
-
-        if cls._check_str(user_hash, "owner_hash") is False:
-            return cls.result
-
-        if cls._check_str(user_password_hash, "password_hash") is False:
-            return cls.result
-
-        if cls._check_str(clip_hash, "hash") is False:
+        if cls.error:
             return cls.result
 
         # ----------------------------------------------------------------
@@ -300,22 +236,13 @@ class Clip(cw_base.Base):
         cls.result["result"] = False
 
         # ----------------------------------------------------------------
-        # cgi get
+        # get & check cgi
 
-        user_hash = cls.cgi.get("owner_hash")
-        user_password_hash = cls.cgi.get("password_hash")
-        clip_hash = cls.cgi.get("hash")
+        user_hash = cls.get_cgi("owner_hash")
+        user_password_hash = cls.get_cgi("password_hash")
+        clip_hash = cls.get_cgi("clip_hash")
 
-        # ----------------------------------------------------------------
-        # cgi get strings check
-
-        if cls._check_str(user_hash, "owner_hash") is False:
-            return cls.result
-
-        if cls._check_str(user_password_hash, "password_hash") is False:
-            return cls.result
-
-        if cls._check_str(clip_hash, "hash") is False:
+        if cls.error:
             return cls.result
 
         # ----------------------------------------------------------------
@@ -353,22 +280,13 @@ class Clip(cw_base.Base):
         cls.result["result"] = False
 
         # ----------------------------------------------------------------
-        # cgi get
+        # get & check cgi
 
-        user_hash = cls.cgi.get("owner_hash")
-        user_password_hash = cls.cgi.get("password_hash")
-        clip_hash = cls.cgi.get("hash")
+        user_hash = cls.get_cgi("owner_hash")
+        user_password_hash = cls.get_cgi("password_hash")
+        clip_hash = cls.get_cgi("clip_hash")
 
-        # ----------------------------------------------------------------
-        # cgi get strings check
-
-        if cls._check_str(user_hash, "owner_hash") is False:
-            return cls.result
-
-        if cls._check_str(user_password_hash, "password_hash") is False:
-            return cls.result
-
-        if cls._check_str(clip_hash, "hash") is False:
+        if cls.error:
             return cls.result
 
         # ----------------------------------------------------------------
@@ -441,26 +359,14 @@ class Clip(cw_base.Base):
         cls.result["result"] = False
 
         # ----------------------------------------------------------------
-        # cgi get
+        # get & check cgi
 
-        user_hash = cls.cgi.get("owner_hash")
-        user_password_hash = cls.cgi.get("password_hash")
-        clip_hash = cls.cgi.get("hash")
-        ban_hash = cls.cgi.get("ban_hash")
+        user_hash = cls.get_cgi("owner_hash")
+        user_password_hash = cls.get_cgi("password_hash")
+        clip_hash = cls.get_cgi("clip_hash")
+        ban_hash = cls.get_cgi("ban_hash")
 
-        # ----------------------------------------------------------------
-        # cgi get strings check
-
-        if cls._check_str(user_hash, "owner_hash") is False:
-            return cls.result
-
-        if cls._check_str(user_password_hash, "password_hash") is False:
-            return cls.result
-
-        if cls._check_str(clip_hash, "hash") is False:
-            return cls.result
-
-        if cls._check_str(ban_hash, "ban_user_hash") is False:
+        if cls.error:
             return cls.result
 
         # ----------------------------------------------------------------

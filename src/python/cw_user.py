@@ -43,30 +43,15 @@ class User(cw_base.Base):
         cls.result["result"] = False
 
         # ----------------------------------------------------------------
-        # cgi get
+        # get & check cgi
 
-        user_hash = cls.cgi.get("hash")
-        user_username = cls.cgi.get("username")
-        user_email_address = cls.cgi.get("email_address")
-        user_encrypted_crypto_hash = cls.cgi.get("encrypted_crypto_hash")
-        user_password_hash = cls.cgi.get("password_hash")
+        user_hash = cls.get_cgi("owner_hash")
+        user_username = cls.get_cgi("username")
+        user_email_address = cls.get_cgi("email_address")
+        user_encrypted_crypto_hash = cls.get_cgi("encrypted_crypto_hash")
+        user_password_hash = cls.get_cgi("password_hash")
 
-        # ----------------------------------------------------------------
-        # cgi get strings check
-
-        if cls._check_str(user_hash, "hash") is False:
-            return cls.result
-
-        if cls._check_str(user_username, "username") is False:
-            return cls.result
-
-        if cls._check_str(user_email_address, "email_address") is False:
-            return cls.result
-
-        if cls._check_str(user_encrypted_crypto_hash, "encrypted_crypto_hash") is False:
-            return cls.result
-
-        if cls._check_str(user_password_hash, "password_hash") is False:
+        if cls.error:
             return cls.result
 
         # ----------------------------------------------------------------
@@ -125,18 +110,12 @@ class User(cw_base.Base):
         cls.result["result"] = False
 
         # ----------------------------------------------------------------
-        # cgi get
+        # get & check cgi
 
-        user_email_address = cls.cgi.get("email_address")
-        user_password_hash = cls.cgi.get("password_hash")
+        user_email_address = cls.get_cgi("email_address")
+        user_password_hash = cls.get_cgi("password_hash")
 
-        # ----------------------------------------------------------------
-        # cgi get strings check
-
-        if cls._check_str(user_email_address, "email_address") is False:
-            return cls.result
-
-        if cls._check_str(user_password_hash, "password_hash") is False:
+        if cls.error:
             return cls.result
 
         # ----------------------------------------------------------------
@@ -189,30 +168,15 @@ class User(cw_base.Base):
         cls.result["result"] = False
 
         # ----------------------------------------------------------------
-        # cgi get
+        # get & check cgi
 
-        user_hash = cls.cgi.get("hash")
-        user_password_hash = cls.cgi.get("password_hash")
-        user_theme = cls.cgi.get("theme")
-        user_default_owner_public = cls.cgi.get("default_owner_public")
-        user_default_clip_mode = cls.cgi.get("default_clip_mode")
+        user_hash = cls.get_cgi("owner_hash")
+        user_password_hash = cls.get_cgi("password_hash")
+        user_theme = cls.get_cgi("theme")
+        user_default_owner_public = cls.get_cgi("default_owner_public")
+        user_default_clip_mode = cls.get_cgi("default_clip_mode")
 
-        # ----------------------------------------------------------------
-        # cgi get strings check
-
-        if cls._check_str(user_hash, "hash") is False:
-            return cls.result
-
-        if cls._check_str(user_password_hash, "password_hash") is False:
-            return cls.result
-
-        if cls._check_str(user_theme, "theme") is False:
-            return cls.result
-
-        if cls._check_str(user_default_owner_public, "default_owner_public") is False:
-            return cls.result
-
-        if cls._check_str(user_default_clip_mode, "default_clip_mode") is False:
+        if cls.error:
             return cls.result
 
         # ----------------------------------------------------------------
@@ -269,31 +233,16 @@ class User(cw_base.Base):
         cls.result["result"] = False
 
         # ----------------------------------------------------------------
-        # cgi get
+        # get & check cgi
 
-        user_hash = cls.cgi.get("hash")
-        user_password_hash = cls.cgi.get("password_hash")
-        user_username = cls.cgi.get("username")
-        user_email_address = cls.cgi.get("email_address")
-        user_encrypted_crypto_hash = cls.cgi.get("encrypted_crypto_hash")
-        user_password_hash_new = cls.cgi.get("password_hash_new")
+        user_hash = cls.get_cgi("owner_hash")
+        user_password_hash = cls.get_cgi("password_hash")
+        user_username = cls.get_cgi("username")
+        user_email_address = cls.get_cgi("email_address")
+        user_encrypted_crypto_hash = cls.get_cgi("encrypted_crypto_hash")
+        user_password_hash_new = cls.get_cgi("password_hash_new")
 
-        # ----------------------------------------------------------------
-        # cgi get strings check
-
-        if cls._check_str(user_hash, "hash") is False:
-            return cls.result
-
-        if cls._check_str(user_password_hash, "password_hash") is False:
-            return cls.result
-
-        if cls._check_str(user_username, "username") is False:
-            return cls.result
-
-        if cls._check_str(user_email_address, "email_address") is False:
-            return cls.result
-
-        if cls._check_str(user_encrypted_crypto_hash, "encrypted_crypto_hash") is False:
+        if cls.error:
             return cls.result
 
         # ----------------------------------------------------------------

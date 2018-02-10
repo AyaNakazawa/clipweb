@@ -43,22 +43,14 @@ class Code(cw_base.Base):
         cls.result["result"] = False
 
         # ----------------------------------------------------------------
-        # cgi get
+        # get & check cgi
 
-        user_hash = cls.cgi.get("owner_hash")
-        user_password_hash = cls.cgi.get("password_hash")
-        clip_hash = cls.cgi.get("hash")
+        user_hash = cls.get_cgi("owner_hash")
+        user_password_hash = cls.get_cgi("password_hash")
+        clip_hash = cls.get_cgi("clip_hash")
+        code_hash = cls.get_cgi("code_hash", True)
 
-        # ----------------------------------------------------------------
-        # cgi get strings check
-
-        if cls._check_str(user_hash, "owner_hash") is False:
-            return cls.result
-
-        if cls._check_str(user_password_hash, "password_hash") is False:
-            return cls.result
-
-        if cls._check_str(clip_hash, "hash") is False:
+        if cls.error:
             return cls.result
 
         # ----------------------------------------------------------------
@@ -133,29 +125,15 @@ class Code(cw_base.Base):
         cls.result["result"] = False
 
         # ----------------------------------------------------------------
-        # cgi get
+        # get & check cgi
 
-        user_hash = cls.cgi.get("owner_hash")
-        user_password_hash = cls.cgi.get("password_hash")
-        clip_hash = cls.cgi.get("hash")
-        clip_data = cls.cgi.get("data")
+        user_hash = cls.get_cgi("owner_hash")
+        user_password_hash = cls.get_cgi("password_hash")
+        clip_hash = cls.get_cgi("clip_hash")
+        clip_encryption = cls.get_cgi("encryption")
+        clip_data = cls.get_cgi("data")
 
-        if clip_data is None:
-            clip_data = ""
-
-        # ----------------------------------------------------------------
-        # cgi get strings check
-
-        if cls._check_str(user_hash, "owner_hash") is False:
-            return cls.result
-
-        if cls._check_str(user_password_hash, "password_hash") is False:
-            return cls.result
-
-        if cls._check_str(clip_hash, "hash") is False:
-            return cls.result
-
-        if cls._check_str(clip_data, "data") is False:
+        if cls.error:
             return cls.result
 
         # ----------------------------------------------------------------

@@ -43,18 +43,12 @@ class List(cw_base.Base):
         cls.result["result"] = False
 
         # ----------------------------------------------------------------
-        # cgi get
+        # get & check cgi
 
-        user_hash = cls.cgi.get("hash")
-        user_password_hash = cls.cgi.get("password_hash")
+        user_hash = cls.get_cgi("owner_hash")
+        user_password_hash = cls.get_cgi("password_hash")
 
-        # ----------------------------------------------------------------
-        # cgi get strings check
-
-        if cls._check_str(user_hash, "hash") is False:
-            return cls.result
-
-        if cls._check_str(user_password_hash, "password_hash") is False:
+        if cls.error:
             return cls.result
 
         # ----------------------------------------------------------------
