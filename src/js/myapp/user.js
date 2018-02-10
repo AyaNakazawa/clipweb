@@ -875,7 +875,7 @@ class UserController extends ClipwebController {
       // REGISTER
       if (timing == this.MODEL.TIMING.BEFORE) {
         // BEFORE
-        this.MODEL.HASH.USER = SHA256.getHash(this.MODEL.USERNAME + new Date().toString());
+        this.MODEL.HASH.USER = Random.hex();
         this.MODEL.HASH.CRYPTO = SHA256.getHash(this.MODEL.HASH.USER + this.MODEL.PASSWORD);
         this.MODEL.HASH.DECRYPT_CRYPTO = SHA256.getHash(this.MODEL.PASSWORD + this.MODEL.HASH.USER);
         this.MODEL.ENCRYPT.CRYPTO = Crypto.encrypt(
