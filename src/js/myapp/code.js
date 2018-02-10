@@ -400,6 +400,7 @@ class CodeController extends ClipwebController {
     switch (type) {
       case this.MODEL.TYPE.LOAD:
         // LOAD
+        this.MODEL.ENCRYPTION = this.getAjaxData({ key: 'encryption' });
         this.MODEL.DL_DATA = this.getAjaxData({ key: 'data' });
         this.decrypt();
         this.MODEL.FILENAME = this.getAjaxData({ key: 'filename' });
@@ -409,6 +410,11 @@ class CodeController extends ClipwebController {
         this.MODEL.EDIT = false;
         if (this.MODEL.CLIP_MODE == 'share' || this.MODEL.OWNER_HASH == USER.MODEL.HASH.USER) {
           this.MODEL.EDIT = true;
+        }
+        if (this.MODEL.CLIP_MODE == 'private') {
+          this.MODEL.ENCRYPTION = 'on';
+        } else {
+          this.MODEL.ENCRYPTION = 'off';
         }
         break;
 
@@ -441,6 +447,11 @@ class CodeController extends ClipwebController {
 
       case this.MODEL.TYPE.SAVE:
         // SAVE
+        if (this.MODEL.CLIP_MODE == 'private') {
+          _model['encryption'] = 'on';
+        } else {
+          _model['encryption'] = 'off';
+        }
         this.encrypt();
         _model['data'] = this.MODEL.SEND_DATA;
         break;
