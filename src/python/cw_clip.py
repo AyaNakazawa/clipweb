@@ -406,24 +406,15 @@ class Clip(cw_base.Base):
         )
 
         # ----------------------------------------------------------------
-        # select clip data
+        # privilege
 
-        cls.result["clip"] = cls.get_clip(clip_hash)
+        cls.privilege()
+        cls.result["type"] = sys._getframe().f_code.co_name
 
-        if len(cls.result["clip"]) > 1:
-            cls.result["error"] = cls._error("corrupt_clipdata")
+        if cls.result["result"] is True:
+            cls.result["result"] = False
+        else:
             return cls.result
-
-        if len(cls.result["clip"]) < 1:
-            cls.result["error"] = cls._error("clip_not_exists")
-            return cls.result
-
-        cls.result["clip"] = cls.result["clip"][0]
-
-        # ----------------------------------------------------------------
-        # select user data
-
-        cls.result["users"] = cls.get_share_users(clip_hash)
 
         # ----------------------------------------------------------------
         # return
