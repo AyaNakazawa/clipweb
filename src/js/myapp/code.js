@@ -213,6 +213,7 @@ class CodeController extends ClipwebController {
           this.edit(this.MODEL.HASH);
         } else if (type == this.MODEL.TYPE.DOWNLOAD) {
           super.downloadText(this.MODEL.FILENAME, this.MODEL.DATA);
+          $(this.MODEL.COMMON.SELECTOR.BODY).css('overflow', 'auto');
           this.VIEW.toast({ type: 'success', message: LN.get('downloaded_clip') });
         }
       },
