@@ -312,6 +312,7 @@ class ClipController extends ClipwebController {
 
       this.EVENT.setLoading({
         type: _TYPE,
+        errorOpen: _TYPE,
         errorMessage: _FAILED,
         check: [
           'hash'

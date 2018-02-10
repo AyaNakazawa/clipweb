@@ -452,6 +452,7 @@ class UserController extends ClipwebController {
     if (_validUsername && _validEmail && _validPassword && _validPasswordRe) {
       this.EVENT.setLoading({
         type: _TYPE,
+        errorOpen: _TYPE,
         errorMessage: _FAILED,
         check: [
           'new_user'
@@ -518,6 +519,7 @@ class UserController extends ClipwebController {
     if ( _validEmail && _validPassword) {
       this.EVENT.setLoading({
         type: _TYPE,
+        errorOpen: _TYPE,
         errorMessage: _FAILED,
         check: [
           'hash',
@@ -578,6 +580,7 @@ class UserController extends ClipwebController {
 
     this.EVENT.setLoading({
       type: _TYPE,
+      errorOpen: _TYPE,
       errorMessage: _FAILED,
       check: [],
       functionSuccess: () => {
@@ -651,6 +654,7 @@ class UserController extends ClipwebController {
     if (_validUsername && _validEmail && _validPassword && _validNewPassword && _validNewPasswordRe) {
       this.EVENT.setLoading({
         type: _TYPE,
+        errorOpen: _TYPE,
         errorMessage: _FAILED,
         check: [
           'username',
@@ -724,6 +728,7 @@ class UserController extends ClipwebController {
     if (_validTheme && _validOwnerPublic && _validClipMode) {
       this.EVENT.setLoading({
         type: _TYPE,
+        errorOpen: _TYPE,
         errorMessage: _FAILED,
         check: [
           'theme',

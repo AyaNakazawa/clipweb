@@ -871,6 +871,7 @@ class ListController extends ClipwebController {
     this.EVENT.setLoading({
       type: _TYPE,
       loading: false,
+      errorOpen: _TYPE,
       functionSuccess: () => {
         this.checkSuccess({
           errorMessage: _FAILED,
