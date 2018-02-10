@@ -459,8 +459,8 @@ class UserController extends ClipwebController {
         ],
         functionSuccess: () => {
           // 登録成功
-          this.CONTROLLER.applyReceiveModel(_TYPE);
-          this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
+          this.applyReceiveModel(_TYPE);
+          this.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
           this.open({
             type: this.MODEL.TYPE.LOGIN,
             model: {
@@ -534,12 +534,12 @@ class UserController extends ClipwebController {
         ],
         functionSuccess: () => {
           // Login成功
-          this.CONTROLLER.applyReceiveModel(_TYPE);
+          this.applyReceiveModel(_TYPE);
           NAV.login();
           if (Web.getParam('share') != null) {
             CLIP.getShareClip(Web.getParam('share'));
           }
-          this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
+          this.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
           if (this.MODEL.STATUS.AUTO) {
             LocalStorage.setItem(this.MODEL.LS.AUTO.HASH.PASSWORD, this.MODEL.HASH.PASSWORD);
             LocalStorage.setItem(this.MODEL.LS.AUTO.EMAIL, this.MODEL.EMAIL);
@@ -592,8 +592,8 @@ class UserController extends ClipwebController {
         LocalStorage.removeItem(this.MODEL.LS.AUTO.HASH.PASSWORD);
         LocalStorage.removeItem(this.MODEL.LS.AUTO.EMAIL);
         LocalStorage.removeItem(this.MODEL.LS.AUTO.HASH.DECRYPT_CRYPTO);
-        this.CONTROLLER.applyReceiveModel(_TYPE);
-        this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
+        this.applyReceiveModel(_TYPE);
+        this.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
         LIST.open();
         CLIP.open();
         this.open({
@@ -664,8 +664,8 @@ class UserController extends ClipwebController {
         ],
         functionSuccess: () => {
           // 情報変更成功
-          this.CONTROLLER.applyReceiveModel(_TYPE);
-          this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
+          this.applyReceiveModel(_TYPE);
+          this.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
           if (this.MODEL.STATUS.AUTO) {
             LocalStorage.setItem(this.MODEL.LS.AUTO.HASH.PASSWORD, this.MODEL.HASH.PASSWORD);
             LocalStorage.setItem(this.MODEL.LS.AUTO.EMAIL, this.MODEL.EMAIL);
@@ -738,8 +738,8 @@ class UserController extends ClipwebController {
         ],
         functionSuccess: () => {
           // 設定更新成功
-          this.CONTROLLER.applyReceiveModel(_TYPE);
-          this.CONTROLLER.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
+          this.applyReceiveModel(_TYPE);
+          this.updateHash(_TYPE, this.MODEL.TIMING.AFTER);
           this.open({
             type: _TYPE,
             model: {
