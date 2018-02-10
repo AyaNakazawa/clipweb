@@ -118,6 +118,7 @@ class Base:
                 "owners.username AS user_name",
                 "owners.email_address AS user_gravatar",
                 "codes.hash AS code_hash",
+                "codes.encryption AS code_encryption",
                 "codes.created_at AS code_created_at"
             ],
             where={
