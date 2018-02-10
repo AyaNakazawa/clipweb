@@ -73,16 +73,36 @@ a {
   }
 }
 
+textarea {
+  resize: vertical;
+}
+
+table {
+  * {
+    vertical-align: middle !important;
+    text-align: center;
+  }
+
+  thead {
+    tr {
+      th {
+        text-align: center;
+      }
+    }
+  }
+
+  button {
+    height: 2rem !important;
+    line-height: 1rem !important;
+  }
+}
+
 .display-none {
   display: none !important;
 }
 
 .pointer {
-  cursor: pointer;
-}
-
-textarea {
-  resize: vertical;
+  cursor: pointer !important;
 }
 
 .localization {
@@ -99,7 +119,7 @@ textarea {
 
 .date {
   font-family: sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   vertical-align: middle !important;
 }
 
