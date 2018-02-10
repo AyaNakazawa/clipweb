@@ -305,7 +305,17 @@ class CodeController extends ClipwebController {
 
   decrypt () {
     super.log(this.MODEL.HASH.substr(0, 14), 'Decrypt', Log.ARROW_INPUT)();
-    this.MODEL.DATA = this.MODEL.DL_DATA;
+    if (this.MODEL.ENCRYPTION == 'on') {
+      this.MODEL.DATA = Crypto.decrypt(
+        this.MODEL.DL_DATA,
+        USER.MODEL.HASH.CRYPTO
+      );
+      super.log(this.MODEL.DL_DATA)();
+      super.log('↓')();
+      super.log(this.MODEL.DATA)();
+    } else {
+      this.MODEL.DATA = this.MODEL.DL_DATA;
+    }
   }
 
   encrypt () {
