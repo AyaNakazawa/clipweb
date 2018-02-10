@@ -981,17 +981,9 @@ class ClipController extends ClipwebController {
         break;
 
       case this.MODEL.TYPE.LOAD:
-      case this.MODEL.TYPE.BAN:
       case this.MODEL.TYPE.SETTING:
         // SETTING
         this.MODEL.CLIP = this.getAjaxData({ key: 'clip' });
-
-        var _users = this.getAjaxData({ key: 'users' });
-        this.MODEL.USERS = {};
-        for (let index = 0; index < _users.length; index ++) {
-          this.MODEL.USERS[_users[index]['user_hash']] = _users[index];
-        }
-
         this.MODEL.HASH = this.MODEL.CLIP['hash'];
         this.MODEL.FILENAME = this.MODEL.CLIP['name'];
         this.MODEL.FILETYPE = this.MODEL.CLIP['type'];
@@ -1003,6 +995,7 @@ class ClipController extends ClipwebController {
         this.MODEL.UPDATED_AT = this.MODEL.CLIP['updated_at'];
         break;
 
+      case this.MODEL.TYPE.BAN:
       case this.MODEL.TYPE.PRIVILEGE:
         //PRIVILEGE
         var _users = this.getAjaxData({ key: 'users' });
