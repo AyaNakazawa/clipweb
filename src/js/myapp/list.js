@@ -980,7 +980,7 @@ class ListController extends ClipwebController {
       return this.MODEL.ERROR;
     }
     let _model = {};
-    _model['hash'] = USER.MODEL.HASH.USER;
+    _model['owner_hash'] = USER.MODEL.HASH.USER;
     _model['password_hash'] = USER.MODEL.HASH.PASSWORD;
     switch (type) {
       case this.MODEL.TYPE.SEARCH:
