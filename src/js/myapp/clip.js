@@ -78,6 +78,7 @@ class ClipModel extends ClipwebModel {
     this.SELECTOR.SETTING.CLOSE = '#clip-setting-close';
     this.SELECTOR.SETTING.EDIT = '#clip-setting-edit';
     this.SELECTOR.SETTING.SHARE = '#clip-setting-share';
+    this.SELECTOR.SETTING.DOWNLOAD = '#clip-setting-download';
     this.SELECTOR.SETTING.DELETE = '#clip-setting-delete';
     this.SELECTOR.SETTING.SAVE = '#clip-setting-save';
     this.SELECTOR.SETTING.USER_BAN = '.clip-setting-user-ban';
@@ -199,6 +200,14 @@ class ClipEvent extends ClipwebEvent {
       func: () => {
         super.log('Clip', 'Share')();
         this.CONTROLLER.share();
+      }
+    });
+
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.DOWNLOAD}`,
+      func: () => {
+        super.log('Setting', 'Download')();
+        this.CONTROLLER.download();
       }
     });
 
@@ -546,6 +555,15 @@ class ClipController extends ClipwebController {
     }
     super.log(hash.substr(0, 14), 'Edit', Log.ARROW_INPUT)();
     CODE.loadCode(hash);
+  }
+
+  download (hash = this.MODEL.HASH) {
+    if (hash == null) {
+      Log.error(arguments)();
+      return this.MODEL.ERROR;
+    }
+    super.log(hash.substr(0, 14), 'Download', Log.ARROW_INPUT)();
+    CODE.loadCode(hash, this.MODEL.TYPE.DOWNLOAD);
   }
 
   share (hash = this.MODEL.HASH) {
