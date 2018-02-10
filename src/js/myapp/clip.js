@@ -417,16 +417,18 @@ class ClipController extends ClipwebController {
       this.MODEL.OWNER_PUBLIC = $(`${_NEW_OWNER_PUBLIC} option:selected`).val();
       this.MODEL.CLIP_MODE = $(`${_NEW_CLIP_MODE} option:selected`).val();
 
-      this.MODEL.HASH = Random.hex();
-
       this.EVENT.setLoading({
         type: _TYPE,
         errorOpen: _TYPE,
         errorMessage: _FAILED,
         check: [
-          'hash'
+          'hash',
+          'new_clip',
+          'new_code',
+          'new_share'
         ],
         functionSuccess: () => {
+          this.applyReceiveModel(_TYPE);
           LIST.loadList();
           CLIP.connectSetting(this.MODEL.TYPE.LOAD);
         },
