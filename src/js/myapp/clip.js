@@ -46,6 +46,7 @@ class ClipModel extends ClipwebModel {
     // テンプレート
     this.TEMPLATE.NEW = '#clip-new-template';
     this.TEMPLATE.SETTING = '#clip-setting-template';
+    this.TEMPLATE.PRIVILEGE = '#clip-privilege-template';
     this.TEMPLATE.SHARE = '#clip-share-template';
 
     // ----------------------------------------------------------------
@@ -76,12 +77,20 @@ class ClipModel extends ClipwebModel {
     this.SELECTOR.SETTING.OWNER_PUBLIC = '#clip-setting-owner-public';
     this.SELECTOR.SETTING.CLIP_MODE = '#clip-setting-clip-mode';
     this.SELECTOR.SETTING.CLOSE = '#clip-setting-close';
+    this.SELECTOR.SETTING.PRIVILEGE = '#clip-setting-privilege';
     this.SELECTOR.SETTING.EDIT = '#clip-setting-edit';
     this.SELECTOR.SETTING.SHARE = '#clip-setting-share';
     this.SELECTOR.SETTING.DOWNLOAD = '#clip-setting-download';
     this.SELECTOR.SETTING.DELETE = '#clip-setting-delete';
     this.SELECTOR.SETTING.SAVE = '#clip-setting-save';
     this.SELECTOR.SETTING.USER_BAN = '.clip-setting-user-ban';
+
+    // 権限
+    this.SELECTOR.PRIVILEGE = {};
+    this.SELECTOR.PRIVILEGE.CLOSE = '#clip-privilege-close';
+    this.SELECTOR.PRIVILEGE.SETTING = '#clip-privilege-setting';
+    this.SELECTOR.PRIVILEGE.HISTORY = '#clip-privilege-history';
+    this.SELECTOR.PRIVILEGE.BAN = '.clip-privilege-ban';
 
     // シェア
     this.SELECTOR.SHARE = {};
@@ -120,6 +129,7 @@ class ClipEvent extends ClipwebEvent {
     this.setOnHide();
     this.setOnNew();
     this.setOnSetting();
+    this.setOnPrivilege();
     this.setOnShare();
   }
 
@@ -241,6 +251,40 @@ class ClipEvent extends ClipwebEvent {
     super.setValidate(
       this.MODEL.SELECTOR.SETTING.FILENAME
     );
+  }
+
+  setOnPrivilege () {
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.PRIVILEGE.CLOSE}`,
+      func: () => {
+        super.log('Privilege', 'Close')();
+        this.VIEW.hide();
+        LIST.VIEW.scroll({ selector: `#${this.MODEL.HASH}`, offset: -120 });
+      }
+    });
+
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.PRIVILEGE.SETTING}`,
+      func: () => {
+        super.log('Privilege', 'Setting')();
+        this.CONTROLLER.connectSetting(this.MODEL.TYPE.LOAD);
+      }
+    });
+
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.PRIVILEGE.HISTORY}`,
+      func: () => {
+        super.log('Privilege', 'Hisotry')();
+        this.CONTROLLER.connectHistory();
+      }
+    });
+
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.PRIVILEGE.BAN}`,
+      func: function () {
+        CLIP.banShare($(this).attr('data-user-hash'));
+      }
+    });
   }
 
   // ----------------------------------------------------------------
