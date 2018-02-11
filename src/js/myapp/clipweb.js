@@ -700,6 +700,9 @@ class ClipwebController extends CommonController {
       },
       success: (data, textStatus, jqXHR) => {
         this.MODEL.TIME.RETURN = new Date();
+        if (data == '') {
+          Log.error(arguments, 'Received data is empty.')();
+        }
         data = JSON.parse(data);
         super.log()();
         Log.log('Post Success', Log.ALIGN_CENTER)();
