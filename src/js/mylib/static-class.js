@@ -340,8 +340,7 @@ class Log {
       this.line({ style: styleLine, group: this.GROUP_END })();
 
       if (viewToast) {
-        CommonView.toast({
-          type: typeToast,
+        iziToast[typeToast]({
           title: type,
           timeout: this.TOAST_TIMEOUT,
           position: 'topLeft',
