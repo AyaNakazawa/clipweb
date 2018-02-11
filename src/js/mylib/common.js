@@ -1081,7 +1081,7 @@ class CommonView extends CommonClass {
     return this;
   }
 
-  toast (model = null) {
+  static toast (model = null) {
     if (model == null) {
       Log.error(arguments)();
       return;
