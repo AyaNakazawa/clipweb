@@ -43,6 +43,7 @@ class NavModel extends ClipwebModel {
     this.SELECTOR.FOOTER = {};
     this.SELECTOR.FOOTER.LICENSE = '#footer-license';
     this.SELECTOR.FOOTER.CLIPWEB = '#footer-clipweb';
+    this.SELECTOR.FOOTER.YEAR_NOW = '#footer-year-now';
 
   }
 }
@@ -154,6 +155,11 @@ class NavView extends ClipwebView {
       name: LN.get('logout')
     });
   }
+
+  writeFooter () {
+    const RESULT = `-${new Date().getFullYear()}`;
+    $(this.MODEL.SELECTOR.FOOTER.YEAR_NOW).text(RESULT);
+  }
 }
 
 // ----------------------------------------------------------------
@@ -211,7 +217,6 @@ class NavEvent extends ClipwebEvent {
       }
     });
   }
-
 
   setClickFooter () {
     super.setOn({
@@ -351,7 +356,11 @@ class NavController extends ClipwebController {
     }
   ) {
     super(model, initSetting);
+    this.init();
+  }
 
+  init () {
+    this.VIEW.writeFooter();
     this.EVENT.setEvent();
     this.logout();
   }
