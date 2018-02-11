@@ -34,6 +34,13 @@ class Log {
   static get VIEW_WARNING () { return true; }
   static get VIEW_CAUTION () { return true; }
   static get VIEW_INFO () { return true; }
+  static get VIEW_ERROR_TOAST () { return true; }
+  static get VIEW_WARNING_TOAST () { return true; }
+  static get VIEW_CAUTION_TOAST () { return true; }
+  static get VIEW_INFO_TOAST () { return true; }
+
+  // Toast option
+  static get TOAST_TIMEOUT () { return 5000; }
 
   // Align definition
   static get ALIGN_LEFT () { return 0; }
@@ -97,6 +104,8 @@ class Log {
       args: _args,
       type: 'Error',
       view: this.VIEW_ERROR,
+      viewToast: this.VIEW_ERROR_TOAST,
+      typeToast: 'error',
       styleLine: this.STYLE_ERROR_LINE,
       styleHeader: this.STYLE_ERROR_HEADER,
       styleContent: this.STYLE_ERROR_CONTENT
@@ -113,6 +122,8 @@ class Log {
       args: _args,
       type: 'Warning',
       view: this.VIEW_WARNING,
+      viewToast: this.VIEW_WARNING_TOAST,
+      typeToast: 'warning',
       styleLine: this.STYLE_WARNING_LINE,
       styleHeader: this.STYLE_WARNING_HEADER,
       styleContent: this.STYLE_WARNING_CONTENT
@@ -129,6 +140,8 @@ class Log {
       args: _args,
       type: 'Caution',
       view: this.VIEW_CAUTION,
+      viewToast: this.VIEW_CAUTION_TOAST,
+      typeToast: 'warning',
       styleLine: this.STYLE_CAUTION_LINE,
       styleHeader: this.STYLE_CAUTION_HEADER,
       styleContent: this.STYLE_CAUTION_CONTENT
@@ -145,6 +158,8 @@ class Log {
       args: _args,
       type: 'Info',
       view: this.VIEW_INFO,
+      viewToast: this.VIEW_INFO_TOAST,
+      typeToast: 'info',
       styleLine: this.STYLE_INFO_LINE,
       styleHeader: this.STYLE_INFO_HEADER,
       styleContent: this.STYLE_INFO_CONTENT
@@ -156,12 +171,15 @@ class Log {
     message = this.NULL,
     type = 'Log',
     view = null,
+    viewToast = null,
+    typeToast = null,
     styleLine = null,
     styleHeader = null,
     styleContent = null
   } = {}) {
     // View permission
     if (view) {
+      let _toast_message = '';
       const _ERROR = new Error().stack.split('\n');
       if (_ERROR[0] == 'Error') {
         _ERROR.shift();
@@ -193,6 +211,7 @@ class Log {
       // Draw line
       this.line({ style: styleLine, group: this.GROUP_START })();
       // Write title
+      _toast_message += View.element({ element: 'h6', clas: 'text-center', content: type });
       this.log({
         text: type,
         align: this.ALIGN_CENTER,
@@ -208,6 +227,17 @@ class Log {
         groupStyle: styleLine
       })();
 
+      for (let i = 0; i < _stack.length; i++) {
+        _toast_message += View.element({
+          element: 'pre',
+          attr: { style: 'margin-bottom: 0 !important;' },
+          content: this.format({
+            clas: _stack[i]['name'],
+            key: _stack[i]['path']
+          }).replace(/%c/g, '')
+        });
+      }
+
       for (let i = 0; i < _stack.length && i < this.MESSAGE_FUNCTION_TRACE; i++) {
         this.class({
           clas: _stack[i]['name'],
@@ -216,6 +246,7 @@ class Log {
           groupStyle: styleLine
         })();
       }
+
       this.obj({
         obj: _stack,
         group: this.GROUP_IN,
@@ -228,6 +259,8 @@ class Log {
           // Draw line
           this.line({ style: styleLine, group: this.GROUP_MIDDLE })();
           // Write title
+          _toast_message += View.element({ element: 'hr' });
+          _toast_message += View.element({ element: 'h6', clas: 'text-center', content: 'Arguments' });
           this.log({
             text: 'Arguments',
             align: this.ALIGN_CENTER,
@@ -242,6 +275,14 @@ class Log {
               args[i] = [args[i]];
             }
             for (let key of Object.keys(args[i])) {
+              _toast_message += View.element({
+                element: 'pre',
+                attr: { style: 'margin-bottom: 0 !important;' },
+                content: this.format({
+                  clas: `${i} > ${key}`,
+                  key: JSON.stringify(args[i][key])
+                }).replace(/%c/g, '')
+              });
               this.class({
                 clas: `${i} > ${key}`,
                 key: args[i][key],
@@ -258,6 +299,8 @@ class Log {
         // Draw line
         this.line({ style: styleLine, group: this.GROUP_MIDDLE })();
         // Write title
+        _toast_message += View.element({ element: 'hr' });
+        _toast_message += View.element({ element: 'h6', clas: 'text-center', content: 'Message' });
         this.log({
           text: 'Message',
           align: this.ALIGN_CENTER,
@@ -271,6 +314,11 @@ class Log {
           message = [message];
         }
         for (let i = 0; i < message.length; i++) {
+          _toast_message += View.element({
+            element: 'pre',
+            attr: { style: 'margin-bottom: 0 !important;' },
+            content: JSON.stringify(message[i])
+          });
           if (Object.typeIs('Object', message[i])) {
             this.obj({
               obj: message[i],
@@ -290,6 +338,17 @@ class Log {
       }
 
       this.line({ style: styleLine, group: this.GROUP_END })();
+
+      if (viewToast) {
+        CommonView.toast({
+          type: typeToast,
+          title: type,
+          timeout: this.TOAST_TIMEOUT,
+          position: 'topLeft',
+          message: _toast_message
+        });
+      }
+
       return console.log.bind(
         console,
         this.format({
