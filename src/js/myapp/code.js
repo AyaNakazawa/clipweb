@@ -42,6 +42,20 @@ class CodeModel extends ClipwebModel {
     this.DL_DATA = null;
 
     // ----------------------------------------------------------------
+    // TICK
+
+    this.TICK = {};
+    this.TICK.TIME = {};
+    this.TICK.TIME.MIN = 500;
+    this.TICK.TIME.MAX = 30000;
+    this.TICK.TIME.TIMES = 1.55;
+    this.TICK.TIME.CURRENT = this.TICK.TIME.MIN;
+    this.TICK.TIME.LIMIT = 10 * 60 * 1000;
+    this.TICK.TIME.TOTAL = null;
+
+    this.TICK.ROOT = null;
+
+    // ----------------------------------------------------------------
     // テンプレート
     this.TEMPLATE.EDITOR = '#code-editor-template';
 
