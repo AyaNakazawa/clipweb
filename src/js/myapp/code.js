@@ -158,6 +158,9 @@ class CodeEvent extends ClipwebEvent {
         super.log('Editor', 'Close')();
         this.CONTROLLER.exitTick();
         this.VIEW.hide();
+        if (this.MODEL.HASH == CLIP.MODEL.HASH) {
+          CLIP.reload();
+        }
         $(this.MODEL.COMMON.SELECTOR.BODY).css('overflow', 'auto');
       }
     });
@@ -299,8 +302,6 @@ class CodeController extends ClipwebController {
           this.edit(this.MODEL.HASH);
         } else if (type == this.MODEL.TYPE.DOWNLOAD) {
           super.downloadText(this.MODEL.FILENAME, this.MODEL.DATA);
-          this.exitTick();
-          $(this.MODEL.COMMON.SELECTOR.BODY).css('overflow', 'auto');
           this.VIEW.toast({ type: 'success', message: LN.get('downloaded_clip') });
         }
       },
@@ -324,7 +325,6 @@ class CodeController extends ClipwebController {
     const _FAILED = 'failed_to_save_code';
 
     this.MODEL.DATA = this.MODEL.EDITOR.getValue();
-    this.VIEW.hide();
 
     this.EVENT.setLoading({
       type: _TYPE,
@@ -336,11 +336,8 @@ class CodeController extends ClipwebController {
       ],
       functionSuccess: () => {
         // 取得成功
-        this.exitTick();
         this.applyReceiveModel(_TYPE);
-        $(this.MODEL.COMMON.SELECTOR.BODY).css('overflow', 'auto');
         this.VIEW.toast({ type: 'success', message: LN.get('saved_clip') });
-        CLIP.reload();
       },
       connectionErrorToastModel: super.getErrorModel('toast/server', _FAILED)
     });
