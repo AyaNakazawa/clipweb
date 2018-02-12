@@ -34,6 +34,7 @@ class CodeModel extends ClipwebModel {
     this.FILENAME = 'test.js';
     this.FILETYPE = 'JavaScript';
     this.DATA = '';
+    this.ENCRYPTION = 'off';
 
     this.DL_DATA = null;
 
