@@ -43,46 +43,39 @@ class CodeModel extends ClipwebModel {
 
     // ----------------------------------------------------------------
     // 同時編集
-    this.CONCURRENT = {};
-    this.CC = this.CONCURRENT;
+    this.SYNC = {};
 
     // ID
-    this.CC.ID = null;
+    this.SYNC.ID = null;
 
-    // Diff
-    this.CC.DIFF = null;
-    this.CC.SEND_DIFF = null;
+    // パッチ
+    this.SYNC.PATCH = {};
+    this.SYNC.PATCH.CURRENT = null;
+    this.SYNC.PATCH.RECEIVE = null;
 
     // コード本体
-    this.CC.CODE = {};
-    this.CC.CODE.BEFORE = null;
-    this.CC.CODE.CURRENT = null;
+    this.SYNC.CODE = {};
+    this.SYNC.CODE.BEFORE = null;
+    this.SYNC.CODE.CURRENT = null;
 
     // チェックサム
-    this.CC.HASH = {};
-    this.CC.HASH.BEFORE = null;
-    this.CC.HASH.CURRENT = null;
+    this.SYNC.HASH = {};
+    this.SYNC.HASH.BEFORE = null;
+    this.SYNC.HASH.CURRENT = null;
 
-    // アップデート順序
-    this.CC.UPDATE = {};
-    this.CC.UPDATE.TYPE = null;
-
-    // アップデート順序
-    this.CC.TYPE = {};
-    this.CC.TYPE.INIT = 'init';
-    this.CC.TYPE.ONCE = 'once';
-    this.CC.TYPE.RECURSIVE = 'recursive';
+    // 同期メンバー
+    this.SYNC.MEMBER = null;
 
     // キー判定
-    this.CC.KEY = {};
-    this.CC.KEY.CURSOR = [37, 38, 39, 40];
-    this.CC.KEY.DELETE = [8, 46];
-    this.CC.KEY.CUT = [88];
-    this.CC.KEY.TYPE = {};
-    this.CC.KEY.TYPE.CURSOR = 'cursor';
-    this.CC.KEY.TYPE.DELETE = 'delete';
-    this.CC.KEY.TYPE.INPUT = 'input';
-    this.CC.KEY.BEFORE = null;
+    this.SYNC.KEY = {};
+    this.SYNC.KEY.CURSOR = [37, 38, 39, 40];
+    this.SYNC.KEY.DELETE = [8, 46];
+    this.SYNC.KEY.CUT = [88];
+    this.SYNC.KEY.TYPE = {};
+    this.SYNC.KEY.TYPE.CURSOR = 'cursor';
+    this.SYNC.KEY.TYPE.DELETE = 'delete';
+    this.SYNC.KEY.TYPE.INPUT = 'input';
+    this.SYNC.KEY.BEFORE = null;
 
     // ----------------------------------------------------------------
     // TICK
