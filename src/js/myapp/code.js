@@ -51,6 +51,7 @@ class CodeModel extends ClipwebModel {
 
     // Diff
     this.CC.DIFF = null;
+    this.CC.SEND_DIFF = null;
 
     // コード本体
     this.CC.CODE = {};
@@ -436,6 +437,7 @@ class CodeController extends ClipwebController {
       // Diff
       this.MODEL.CC.DIFF = JsDiff.diffChars(this.MODEL.CC.CODE.BEFORE, this.MODEL.CC.CODE.CURRENT);
       Log.obj(this.MODEL.CC.DIFF)();
+      this.shapeDiff();
 
       if (this.MODEL.CC.DIFF.length > 1) {
         this.MODEL.STATUS.SEND = true;
@@ -521,6 +523,10 @@ class CodeController extends ClipwebController {
       this.MODEL.CC.HASH.CURRENT = MD5.getHash(this.MODEL.CC.CODE.CURRENT);
 
     }
+  }
+
+  shapeDiff () {
+
   }
 
   // ----------------------------------------------------------------
