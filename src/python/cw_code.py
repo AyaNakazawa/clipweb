@@ -230,6 +230,23 @@ class Code(cw_base.Base):
         )
 
         # ----------------------------------------------------------------
+        # delete sync
+
+        cls.result["sync"] = cls.DB.delete(
+            table="syncs",
+            where={
+                "clip_hash": clip_hash,
+                "created_at": [
+                    cls.get_date(), "<"
+                ]
+            }
+        )
+
+        # ----------------------------------------------------------------
+        # return
+
+        cls.result["result"] = True
+        return cls.result
         # return
 
         cls.result["result"] = True
