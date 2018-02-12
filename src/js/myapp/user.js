@@ -522,6 +522,7 @@ class UserController extends ClipwebController {
         errorOpen: _TYPE,
         errorMessage: _FAILED,
         check: [
+          'update',
           'hash',
           'username',
           'encrypted_crypto_hash',
