@@ -145,19 +145,7 @@ class CodeEvent extends ClipwebEvent {
   }
 
   setEvent () {
-    this.setOnHide();
     this.setOnEditor();
-  }
-
-  // ----------------------------------------------------------------
-  // hide
-
-  setOnHide () {
-    super.setHeaderButton({
-      func: () => {
-        this.trigger({ trigger: this.MODEL.TRIGGER.VIEW.HIDE });
-      }
-    });
   }
 
   // ----------------------------------------------------------------
