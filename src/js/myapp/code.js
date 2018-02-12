@@ -315,6 +315,12 @@ class CodeController extends ClipwebController {
   // ----------------------------------------------------------------
   // tick
 
+  exitTick () {
+    // 同時編集終了
+    super.log('Tick', 'Exit', Log.ARROW_INPUT)();
+    this.MODEL.STATUS.OPEN = false;
+  }
+
   raiseTick () {
     super.log('Raise root', this.MODEL.TICK.ROOT + 1)();
     this.MODEL.TICK.TIME.TOTAL = 0;
