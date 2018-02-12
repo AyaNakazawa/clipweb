@@ -26,6 +26,9 @@ class CodeModel extends ClipwebModel {
     // ----------------------------------------------------------------
     // ステータス
     this.STATUS.LOAD = false;
+    this.STATUS.OPEN = false;
+    this.STATUS.SEND = false;
+    this.STATUS.RECEIVE = false;
 
     // ----------------------------------------------------------------
     // クリップ
