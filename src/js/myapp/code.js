@@ -156,6 +156,7 @@ class CodeEvent extends ClipwebEvent {
       selector: this.MODEL.SELECTOR.EDITOR.CLOSE,
       func: () => {
         super.log('Editor', 'Close')();
+        this.CONTROLLER.exitTick();
         this.VIEW.hide();
         $(this.MODEL.COMMON.SELECTOR.BODY).css('overflow', 'auto');
       }
@@ -197,6 +198,7 @@ class CodeEvent extends ClipwebEvent {
       selector: this.MODEL.SELECTOR.EDITOR.SETTING,
       func: () => {
         super.log('Editor', 'Setting')();
+        this.CONTROLLER.exitTick();
         this.VIEW.hide({ callback: () => {
           $(this.MODEL.COMMON.SELECTOR.BODY).css('overflow', 'auto');
           this.CONTROLLER.setting();
@@ -297,6 +299,7 @@ class CodeController extends ClipwebController {
           this.edit(this.MODEL.HASH);
         } else if (type == this.MODEL.TYPE.DOWNLOAD) {
           super.downloadText(this.MODEL.FILENAME, this.MODEL.DATA);
+          this.exitTick();
           $(this.MODEL.COMMON.SELECTOR.BODY).css('overflow', 'auto');
           this.VIEW.toast({ type: 'success', message: LN.get('downloaded_clip') });
         }
@@ -333,6 +336,7 @@ class CodeController extends ClipwebController {
       ],
       functionSuccess: () => {
         // 取得成功
+        this.exitTick();
         this.applyReceiveModel(_TYPE);
         $(this.MODEL.COMMON.SELECTOR.BODY).css('overflow', 'auto');
         this.VIEW.toast({ type: 'success', message: LN.get('saved_clip') });
@@ -546,6 +550,8 @@ class CodeController extends ClipwebController {
       this.MODEL.EDITOR.clearSelection();
       this.MODEL.EDITOR.getSession().setUseWrapMode(true);
       this.MODEL.EDITOR.setShowPrintMargin(false);
+
+      this.startTick();
     }}});
   }
 
