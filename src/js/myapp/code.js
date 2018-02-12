@@ -209,8 +209,8 @@ class CodeEvent extends ClipwebEvent {
       selector: this.MODEL.SELECTOR.EDITOR.EDITOR,
       trigger: ['click', 'drag'],
       func: () => {
-        if (this.MODEL.CC.KEY.BEFORE != this.MODEL.CC.KEY.TYPE.CURSOR) {
-          this.MODEL.CC.KEY.BEFORE = this.MODEL.CC.KEY.TYPE.CURSOR;
+        if (this.MODEL.SYNC.KEY.BEFORE != this.MODEL.SYNC.KEY.TYPE.CURSOR) {
+          this.MODEL.SYNC.KEY.BEFORE = this.MODEL.SYNC.KEY.TYPE.CURSOR;
           this.CONTROLLER.raiseTick();
         }
       }
@@ -220,23 +220,26 @@ class CodeEvent extends ClipwebEvent {
       selector: this.MODEL.SELECTOR.EDITOR.EDITOR,
       trigger: 'keyup',
       func: (event) => {
-        if (this.MODEL.CC.KEY.CURSOR.includes(event.keyCode)) {
-          if (this.MODEL.CC.KEY.BEFORE != this.MODEL.CC.KEY.TYPE.CURSOR) {
-            this.MODEL.CC.KEY.BEFORE = this.MODEL.CC.KEY.TYPE.CURSOR;
+        if (this.MODEL.SYNC.KEY.CURSOR.includes(event.keyCode)) {
+          if (this.MODEL.SYNC.KEY.BEFORE != this.MODEL.SYNC.KEY.TYPE.CURSOR) {
+            this.MODEL.SYNC.KEY.BEFORE = this.MODEL.SYNC.KEY.TYPE.CURSOR;
             this.CONTROLLER.raiseTick();
           }
-        } else if (this.MODEL.CC.KEY.DELETE.includes(event.keyCode)) {
-          if (this.MODEL.CC.KEY.BEFORE != this.MODEL.CC.KEY.TYPE.DELETE) {
-            this.MODEL.CC.KEY.BEFORE = this.MODEL.CC.KEY.TYPE.DELETE;
+        } else if (this.MODEL.SYNC.KEY.DELETE.includes(event.keyCode)) {
+          if (this.MODEL.SYNC.KEY.BEFORE != this.MODEL.SYNC.KEY.TYPE.DELETE) {
+            this.MODEL.SYNC.KEY.BEFORE = this.MODEL.SYNC.KEY.TYPE.DELETE;
             this.CONTROLLER.raiseTick();
           }
-        } else if (this.MODEL.CC.KEY.CUT.includes(event.keyCode) && event.ctrlKey) {
-          if (this.MODEL.CC.KEY.BEFORE != this.MODEL.CC.KEY.TYPE.DELETE) {
-            this.MODEL.CC.KEY.BEFORE = this.MODEL.CC.KEY.TYPE.DELETE;
+        } else if (this.MODEL.SYNC.KEY.CUT.includes(event.keyCode) && event.ctrlKey) {
+          if (this.MODEL.SYNC.KEY.BEFORE != this.MODEL.SYNC.KEY.TYPE.DELETE) {
+            this.MODEL.SYNC.KEY.BEFORE = this.MODEL.SYNC.KEY.TYPE.DELETE;
             this.CONTROLLER.raiseTick();
           }
         } else {
-          this.MODEL.CC.KEY.BEFORE = this.MODEL.CC.KEY.TYPE.INPUT;
+          if (this.MODEL.SYNC.KEY.BEFORE != this.MODEL.SYNC.KEY.TYPE.INPUT) {
+            this.MODEL.SYNC.KEY.BEFORE = this.MODEL.SYNC.KEY.TYPE.INPUT;
+            this.CONTROLLER.raiseTick();
+          }
         }
       }
     });
@@ -359,19 +362,19 @@ class CodeController extends ClipwebController {
 
       // 初期化
       this.MODEL.STATUS.OPEN = true;
-      this.MODEL.CC.UPDATE.TYPE = null;
-      this.MODEL.CC.ID = 0;
-      this.MODEL.CC.KEY.BEFORE = this.MODEL.CC.KEY.TYPE.CURSOR;
+      this.MODEL.STATUS.SYNC = null;
+      this.MODEL.SYNC.ID = 0;
+      this.MODEL.SYNC.KEY.BEFORE = this.MODEL.SYNC.KEY.TYPE.CURSOR;
       this.MODEL.TICK.TIME.TOTAL = 0;
       this.MODEL.TICK.TIME.CURRENT = this.MODEL.TICK.TIME.MIN;
       this.MODEL.TICK.ROOT = 0;
 
       // コード
-      this.MODEL.CC.CODE.CURRENT = this.MODEL.EDITOR.getValue();
-      this.MODEL.CC.CODE.BEFORE = this.MODEL.CC.CODE.CURRENT;
+      this.MODEL.SYNC.CODE.CURRENT = this.MODEL.EDITOR.getValue();
+      this.MODEL.SYNC.CODE.BEFORE = this.MODEL.SYNC.CODE.CURRENT;
       // チェックサム
-      this.MODEL.CC.HASH.CURRENT = MD5.getHash(this.MODEL.CC.CODE.CURRENT);
-      this.MODEL.CC.HASH.BEFORE = this.MODEL.CC.HASH.BEFORE;
+      this.MODEL.SYNC.HASH.CURRENT = MD5.getHash(this.MODEL.SYNC.CODE.CURRENT);
+      this.MODEL.SYNC.HASH.BEFORE = this.MODEL.SYNC.HASH.CURRENT;
 
       // 起動
       this.tick();
@@ -389,14 +392,13 @@ class CodeController extends ClipwebController {
     this.MODEL.TICK.TIME.TOTAL = 0;
     this.MODEL.TICK.TIME.CURRENT = this.MODEL.TICK.TIME.MIN;
     this.MODEL.TICK.ROOT ++;
-    if (this.MODEL.CC.UPDATE.TYPE == 'backup') {
-      // もしDiffの途中なら一旦後回し
-      Log.caution(arguments, 'Tick is halfway.')();
+    if (this.MODEL.STATUS.SYNC == 'current') {
+      // もし通信中なら一旦後回し
       setTimeout(
         () => {
           this.raiseTick();
         },
-        1
+        this.MODEL.TICK.TIME.RETRY
       );
     } else {
       // Diffが区切れていればOK
@@ -406,11 +408,11 @@ class CodeController extends ClipwebController {
 
   tick (root = this.MODEL.TICK.ROOT) {
     // ID更新
-    this.MODEL.CC.ID ++;
+    this.MODEL.SYNC.ID ++;
 
     // Tick
     if (this.MODEL.STATUS.OPEN) {
-      super.log(`Tick ${this.MODEL.TICK.ROOT}: ${this.MODEL.CC.ID}`, `${Math.round(this.MODEL.TICK.TIME.CURRENT).toLocaleString()}ms`)();
+      super.log(`Tick ${this.MODEL.TICK.ROOT}: ${this.MODEL.SYNC.ID}`, `${Math.round(this.MODEL.TICK.TIME.CURRENT).toLocaleString()}ms`)();
 
       // ステータスを初期化
       this.MODEL.STATUS.SEND = false;
@@ -419,7 +421,7 @@ class CodeController extends ClipwebController {
       // Rootのチェック
       if (this.MODEL.TICK.ROOT > root) {
         // Rootが育ってるから、今のRootを切る
-        super.log(`Root ${root}`, 'Delete', Log.ARROW_INPUT)();
+        super.log(`Root ${root}`, 'Remove', Log.ARROW_INPUT)();
         return;
       } else {
         // 今のRootが一番大きい
@@ -427,108 +429,149 @@ class CodeController extends ClipwebController {
       }
 
       // カレント - アップデート
-      this.updateConcurrent();
+      this.MODEL.STATUS.SYNC = 'current';
+      this.MODEL.SYNC.CODE.CURRENT = this.MODEL.EDITOR.getValue();
+      this.MODEL.SYNC.HASH.CURRENT = SHA256.getHash(this.MODEL.SYNC.CODE.CURRENT);
 
-      // Diff
-      this.MODEL.CC.DIFF = JsDiff.diffChars(this.MODEL.CC.CODE.BEFORE, this.MODEL.CC.CODE.CURRENT);
-      Log.obj(this.MODEL.CC.DIFF)();
-      this.shapeDiff();
+      // パッチ
+      this.MODEL.SYNC.PATCH.CURRENT = JsDiff.createPatch(
+        'Current',
+        this.MODEL.SYNC.CODE.BEFORE,
+        this.MODEL.SYNC.CODE.CURRENT
+      );
 
-      if (this.MODEL.CC.DIFF.length > 1) {
+      // 編集送信判定
+      if (this.MODEL.SYNC.PATCH.CURRENT.getRows() > 5) {
         this.MODEL.STATUS.SEND = true;
       }
 
-      // バックアップ - アップデート
-      this.updateConcurrent();
+      // サーバに送信
+      this.connectConcurrent(() => {
+        // コールバック
 
-      // 編集を送信
-      if (this.MODEL.STATUS.SEND) {
-        super.log('Tick', 'Send')();
-        this.MODEL.TICK.TIME.TOTAL = 0;
-        this.MODEL.TICK.TIME.CURRENT = this.MODEL.TICK.TIME.MIN;
-      }
+        // バックアップ - アップデート
+        this.MODEL.STATUS.SYNC = 'backup';
+        this.MODEL.SYNC.CODE.BEFORE = this.MODEL.EDITOR.getValue();
+        this.MODEL.SYNC.HASH.BEFORE = SHA256.getHash(this.MODEL.SYNC.CODE.BEFORE);
 
-      // 編集を受信
-      if (this.MODEL.STATUS.RECEIVE) {
-        super.log('Tick', 'Receive')();
-        this.MODEL.TICK.TIME.TOTAL = 0;
-        this.MODEL.TICK.TIME.CURRENT = this.MODEL.TICK.TIME.MIN;
-      }
-
-      // 編集なし
-      if (this.MODEL.STATUS.SEND == false && this.MODEL.STATUS.RECEIVE == false){
-        // 時間を増やす
-        this.MODEL.TICK.TIME.TOTAL += this.MODEL.TICK.TIME.CURRENT;
-        this.MODEL.TICK.TIME.CURRENT *= this.MODEL.TICK.TIME.TIMES;
-        if (this.MODEL.TICK.TIME.CURRENT > this.MODEL.TICK.TIME.MAX) {
-          this.MODEL.TICK.TIME.CURRENT = this.MODEL.TICK.TIME.MAX;
+        // 編集を送信
+        if (this.MODEL.STATUS.SEND) {
+          super.log('Tick', 'Send')();
+          this.MODEL.TICK.TIME.TOTAL = 0;
+          this.MODEL.TICK.TIME.CURRENT = this.MODEL.TICK.TIME.MIN;
         }
-        // 一定時間編集なしが続いたら一時停止
-        if (this.MODEL.TICK.TIME.TOTAL > this.MODEL.TICK.TIME.LIMIT) {
-          super.log('Tick', 'Time limit')();
-          this.exitTick();
-          new Confirm({
-            title: LN.get('concurrent_editing_stop'),
-            content: LN.get('close_to_start_concurrent_editing'),
-            yes: LN.get('restart'),
-            type: Confirm.TYPE_YES,
-            functionClose: () => {
-              this.startTick();
-            }
-          });
+
+        // 編集を受信
+        if (this.MODEL.STATUS.RECEIVE) {
+          super.log('Tick', 'Receive')();
+          this.MODEL.TICK.TIME.TOTAL = 0;
+          this.MODEL.TICK.TIME.CURRENT = this.MODEL.TICK.TIME.MIN;
         }
-      }
 
-      // 次のコール
-      setTimeout(
-        () => {
-          this.tick(root);
-        },
-        this.MODEL.TICK.TIME.CURRENT
-      );
+        // 編集なし
+        if (this.MODEL.STATUS.SEND == false && this.MODEL.STATUS.RECEIVE == false){
+          // 時間を増やす
+          this.MODEL.TICK.TIME.TOTAL += this.MODEL.TICK.TIME.CURRENT;
+          this.MODEL.TICK.TIME.CURRENT *= this.MODEL.TICK.TIME.TIMES;
+          if (this.MODEL.TICK.TIME.CURRENT > this.MODEL.TICK.TIME.MAX) {
+            this.MODEL.TICK.TIME.CURRENT = this.MODEL.TICK.TIME.MAX;
+          }
+          // 一定時間編集なしが続いたら一時停止
+          if (this.MODEL.TICK.TIME.TOTAL > this.MODEL.TICK.TIME.LIMIT) {
+            super.log('Tick', 'Time limit')();
+            this.exitTick();
+            new Confirm({
+              title: LN.get('concurrent_editing_stop'),
+              content: LN.get('close_to_start_concurrent_editing'),
+              yes: LN.get('restart'),
+              type: Confirm.TYPE_YES,
+              functionClose: () => {
+                this.startTick();
+              }
+            });
+          }
+        }
+
+        // 次のコール
+        setTimeout(
+          () => {
+            this.tick(root);
+          },
+          this.MODEL.TICK.TIME.CURRENT
+        );
+      });
     }
-  }
-
-  // ----------------------------------------------------------------
-  // diff
-
-  updateConcurrent () {
-    // 起動時
-    if (this.MODEL.CC.UPDATE.TYPE == null) {
-      this.MODEL.CC.UPDATE.TYPE = 'current';
-
-    }
-
-    if (this.MODEL.CC.UPDATE.TYPE == 'backup') {
-      // super.log('Concurrent', 'Backup')();
-      // バックアップ
-      this.MODEL.CC.UPDATE.TYPE = 'current';
-      // コード
-      this.MODEL.CC.CODE.BEFORE = this.MODEL.EDITOR.getValue();
-      // チェックサム
-      this.MODEL.CC.HASH.BEFORE = MD5.getHash(this.MODEL.CC.CODE.BEFORE);
-
-    } else if (this.MODEL.CC.UPDATE.TYPE == 'current') {
-      // super.log('Concurrent', 'Current')();
-      // カレント
-      this.MODEL.CC.UPDATE.TYPE = 'backup';
-      // コード
-      this.MODEL.CC.CODE.CURRENT = this.MODEL.EDITOR.getValue();
-      // チェックサム
-      this.MODEL.CC.HASH.CURRENT = MD5.getHash(this.MODEL.CC.CODE.CURRENT);
-
-    }
-  }
-
-  shapeDiff () {
-
   }
 
   // ----------------------------------------------------------------
   // tick ajax
 
-  connectConcurrent () {
+  connectConcurrent (callback = () => {}) {
+    const _TYPE = this.MODEL.TYPE.SYNC;
+    const _FAILED = 'failed_to_sync_code';
 
+    this.EVENT.setLoading({
+      type: _TYPE,
+      loading: false,
+      errorMessage: _FAILED,
+      errorType: 'toast',
+      check: [
+        'sync',
+        'patches',
+        'member'
+      ],
+      functionSuccess: () => {
+        this.applyReceiveModel(_TYPE);
+        // BEFORE以降のパッチを全て受け取る
+        // 受け取ったパッチを順番に当てる
+        let _temp_code = null;
+        let _update = false;
+        for (let index = 0; index < this.MODEL.SYNC.PATCH.RECEIVE.length; index ++) {
+          super.log('index', index)();
+          super.log('data', this.MODEL.SYNC.PATCH.RECEIVE[index]['patch'])();
+          super.log('code', this.MODEL.SYNC.CODE.BEFORE)();
+          _temp_code = JsDiff.applyPatch(
+            this.MODEL.SYNC.CODE.BEFORE,
+            this.MODEL.SYNC.PATCH.RECEIVE[index]['patch']
+          );
+          if (_temp_code != false) {
+            this.MODEL.SYNC.CODE.BEFORE = _temp_code;
+            super.log('code->', this.MODEL.SYNC.CODE.BEFORE)();
+          } else {
+            break;
+          }
+        }
+        if (this.MODEL.SYNC.PATCH.RECEIVE.length > 0) {
+          _update = true;
+          this.MODEL.STATUS.RECEIVE = true;
+        }
+        // CURRENTのパッチはこっちで当てる
+        if (this.MODEL.STATUS.SEND) {
+          _update = true;
+          this.MODEL.SYNC.CODE.BEFORE = JsDiff.applyPatch(
+            this.MODEL.SYNC.CODE.BEFORE,
+            this.MODEL.SYNC.PATCH.CURRENT
+          );
+        }
+        if (_update) {
+          this.MODEL.SYNC.CODE.CURRENT = this.MODEL.SYNC.CODE.BEFORE;
+          this.MODEL.SYNC.HASH.CURRENT = SHA256.getHash(this.MODEL.SYNC.CODE.CURRENT);
+          this.MODEL.SYNC.HASH.BEFORE = this.MODEL.SYNC.HASH.CURRENT;
+          this.MODEL.EDITOR.setValue(this.MODEL.SYNC.CODE.CURRENT);
+        }
+      },
+      connectionErrorToastModel: super.getErrorModel('toast/server', _FAILED),
+      connectionCompletefunction: () => {
+        // コールバック
+        callback();
+      }
+    });
+
+    // Post
+    this.post({
+      type: _TYPE,
+      data: this.getSendModel(_TYPE)
+    });
   }
 
   // ----------------------------------------------------------------
@@ -691,6 +734,12 @@ class CodeController extends ClipwebController {
         // SAVE
         break;
 
+      case this.MODEL.TYPE.SYNC:
+        // SYNC
+        this.MODEL.SYNC.PATCH.RECEIVE = this.getAjaxData({ key: 'patches' });
+        this.MODEL.SYNC.MEMBER = this.getAjaxData({ key: 'member' });
+        break;
+
       default:
         Log.error(arguments, 'unknown type X(')();
         return this.MODEL.ERROR;
@@ -723,6 +772,15 @@ class CodeController extends ClipwebController {
         }
         this.encrypt();
         _model['data'] = this.MODEL.SEND_DATA;
+        break;
+
+      case this.MODEL.TYPE.SYNC:
+        // SYNC
+        _model['base_sync_hash'] = this.MODEL.SYNC.HASH.BEFORE;
+        if (this.MODEL.SYNC.PATCH.CURRENT.getRows() > 5) {
+          _model['new_sync_hash'] = this.MODEL.SYNC.HASH.CURRENT;
+          _model['sync_patch'] = this.MODEL.SYNC.PATCH.CURRENT;
+        }
         break;
 
       default:
