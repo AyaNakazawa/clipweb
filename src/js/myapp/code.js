@@ -313,6 +313,37 @@ class CodeController extends ClipwebController {
   }
 
   // ----------------------------------------------------------------
+  // diff
+
+  updateConcurrent () {
+    // 起動時
+    if (this.MODEL.CC.UPDATE.TYPE == null) {
+      this.MODEL.CC.UPDATE.TYPE = 'current';
+
+    }
+
+    if (this.MODEL.CC.UPDATE.TYPE == 'backup') {
+      // super.log('Concurrent', 'Backup')();
+      // バックアップ
+      this.MODEL.CC.UPDATE.TYPE = 'current';
+      // コード
+      this.MODEL.CC.CODE.BEFORE = this.MODEL.EDITOR.getValue();
+      // チェックサム
+      this.MODEL.CC.HASH.BEFORE = MD5.getHash(this.MODEL.CC.CODE.BEFORE);
+
+    } else if (this.MODEL.CC.UPDATE.TYPE == 'current') {
+      // super.log('Concurrent', 'Current')();
+      // カレント
+      this.MODEL.CC.UPDATE.TYPE = 'backup';
+      // コード
+      this.MODEL.CC.CODE.CURRENT = this.MODEL.EDITOR.getValue();
+      // チェックサム
+      this.MODEL.CC.HASH.CURRENT = MD5.getHash(this.MODEL.CC.CODE.CURRENT);
+
+    }
+  }
+
+  // ----------------------------------------------------------------
   // code
 
   start (edit = true) {
