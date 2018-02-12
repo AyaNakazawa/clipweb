@@ -313,6 +313,91 @@ class CodeController extends ClipwebController {
   }
 
   // ----------------------------------------------------------------
+  // tick
+
+  tick (root = this.MODEL.TICK.ROOT) {
+    this.MODEL.CC.ID ++;
+    if (this.MODEL.STATUS.OPEN) {
+      // Tick
+      super.log(`Tick ${this.MODEL.TICK.ROOT}: ${this.MODEL.CC.ID}`, `${Math.round(this.MODEL.TICK.TIME.CURRENT).toLocaleString()}ms`)();
+
+      // ステータスを初期化
+      this.MODEL.STATUS.SEND = false;
+      this.MODEL.STATUS.RECEIVE = false;
+
+      // Rootのチェック
+      if (this.MODEL.TICK.ROOT > root) {
+        // Rootが育ってるから、今のRootを切る
+        super.log(`Root ${root}`, 'Delete', Log.ARROW_INPUT)();
+        return;
+      } else {
+        // 今のRootが一番大きい
+        this.MODEL.TICK.ROOT = root;
+      }
+
+      // カレント - アップデート
+      this.updateConcurrent();
+
+      // Diff
+      this.MODEL.CC.DIFF = JsDiff.diffChars(this.MODEL.CC.CODE.BEFORE, this.MODEL.CC.CODE.CURRENT);
+      Log.obj(this.MODEL.CC.DIFF)();
+
+      if (this.MODEL.CC.DIFF.length > 1) {
+        this.MODEL.STATUS.SEND = true;
+      }
+
+      // バックアップ - アップデート
+      this.updateConcurrent();
+
+      // 編集を送信
+      if (this.MODEL.STATUS.SEND) {
+        super.log('Tick', 'Send')();
+        this.MODEL.TICK.TIME.TOTAL = 0;
+        this.MODEL.TICK.TIME.CURRENT = this.MODEL.TICK.TIME.MIN;
+      }
+
+      // 編集を受信
+      if (this.MODEL.STATUS.RECEIVE) {
+        super.log('Tick', 'Receive')();
+        this.MODEL.TICK.TIME.TOTAL = 0;
+        this.MODEL.TICK.TIME.CURRENT = this.MODEL.TICK.TIME.MIN;
+      }
+
+      // 編集なし
+      if (this.MODEL.STATUS.SEND == false && this.MODEL.STATUS.RECEIVE == false){
+        // 時間を増やす
+        this.MODEL.TICK.TIME.TOTAL += this.MODEL.TICK.TIME.CURRENT;
+        this.MODEL.TICK.TIME.CURRENT *= this.MODEL.TICK.TIME.TIMES;
+        if (this.MODEL.TICK.TIME.CURRENT > this.MODEL.TICK.TIME.MAX) {
+          this.MODEL.TICK.TIME.CURRENT = this.MODEL.TICK.TIME.MAX;
+        }
+        // 一定時間編集なしが続いたら一時停止
+        if (this.MODEL.TICK.TIME.TOTAL > this.MODEL.TICK.TIME.LIMIT) {
+          super.log('Tick', 'Time limit')();
+          this.exitTick();
+          new Confirm({
+            title: LN.get('concurrent_editing_stop'),
+            content: LN.get('close_to_start_concurrent_editing'),
+            yes: LN.get('restart'),
+            type: Confirm.TYPE_YES,
+            functionClose: () => {
+              this.startTick();
+            }
+          });
+        }
+      }
+
+      // 次のコール
+      setTimeout(
+        () => {
+          this.tick(root);
+        },
+        this.MODEL.TICK.TIME.CURRENT
+      );
+    }
+  }
+
+  // ----------------------------------------------------------------
   // diff
 
   updateConcurrent () {
