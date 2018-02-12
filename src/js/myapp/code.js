@@ -412,9 +412,11 @@ class CodeController extends ClipwebController {
   }
 
   tick (root = this.MODEL.TICK.ROOT) {
+    // ID更新
     this.MODEL.CC.ID ++;
+
+    // Tick
     if (this.MODEL.STATUS.OPEN) {
-      // Tick
       super.log(`Tick ${this.MODEL.TICK.ROOT}: ${this.MODEL.CC.ID}`, `${Math.round(this.MODEL.TICK.TIME.CURRENT).toLocaleString()}ms`)();
 
       // ステータスを初期化
