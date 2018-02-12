@@ -307,6 +307,24 @@ class Base:
                     "message": "[encryption] does not defined."
                 }
             },
+            "base_sync_hash_not_defined": {
+                "{} error".format(cls.NAME): {
+                    "code": 123,
+                    "message": "[base_sync_hash] does not defined."
+                }
+            },
+            "new_sync_hash_not_defined": {
+                "{} error".format(cls.NAME): {
+                    "code": 124,
+                    "message": "[new_sync_hash] does not defined."
+                }
+            },
+            "sync_patch_not_defined": {
+                "{} error".format(cls.NAME): {
+                    "code": 125,
+                    "message": "[sync_patch] does not defined."
+                }
+            },
             "model_not_defined": {
                 "{} error".format(cls.NAME): {
                     "code": 151,
@@ -449,6 +467,24 @@ class Base:
                 "{} error".format(cls.NAME): {
                     "code": 222,
                     "message": "[encryption] is unknown class"
+                }
+            },
+            "base_sync_hash_unknown_class": {
+                "{} error".format(cls.NAME): {
+                    "code": 223,
+                    "message": "[base_sync_hash] is unknown class"
+                }
+            },
+            "new_sync_hash_unknown_class": {
+                "{} error".format(cls.NAME): {
+                    "code": 224,
+                    "message": "[new_sync_hash] is unknown class"
+                }
+            },
+            "sync_patch_unknown_class": {
+                "{} error".format(cls.NAME): {
+                    "code": 225,
+                    "message": "[sync_patch] is unknown class"
                 }
             },
             "username_overlap": {
