@@ -147,9 +147,12 @@ class Clipweb:
         elif _type == "save":
             cls.result["code"] = CODE.save()
 
+        elif _type == "sync":
+            cls.result["code"] = CODE.sync()
 
         else:
             cls.result["error"] = {}
+            cls.result["error"]["message"] = "check_clip: {0}".format(_type)
 
     # ----------------------------------------------------------------
     # Method
