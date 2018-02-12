@@ -42,6 +42,48 @@ class CodeModel extends ClipwebModel {
     this.DL_DATA = null;
 
     // ----------------------------------------------------------------
+    // 同時編集
+    this.CONCURRENT = {};
+    this.CC = this.CONCURRENT;
+
+    // ID
+    this.CC.ID = null;
+
+    // Diff
+    this.CC.DIFF = null;
+
+    // コード本体
+    this.CC.CODE = {};
+    this.CC.CODE.BEFORE = null;
+    this.CC.CODE.CURRENT = null;
+
+    // チェックサム
+    this.CC.HASH = {};
+    this.CC.HASH.BEFORE = null;
+    this.CC.HASH.CURRENT = null;
+
+    // アップデート順序
+    this.CC.UPDATE = {};
+    this.CC.UPDATE.TYPE = null;
+
+    // アップデート順序
+    this.CC.TYPE = {};
+    this.CC.TYPE.INIT = 'init';
+    this.CC.TYPE.ONCE = 'once';
+    this.CC.TYPE.RECURSIVE = 'recursive';
+
+    // キー判定
+    this.CC.KEY = {};
+    this.CC.KEY.CURSOR = [37, 38, 39, 40];
+    this.CC.KEY.DELETE = [8, 46];
+    this.CC.KEY.CUT = [88];
+    this.CC.KEY.TYPE = {};
+    this.CC.KEY.TYPE.CURSOR = 'cursor';
+    this.CC.KEY.TYPE.DELETE = 'delete';
+    this.CC.KEY.TYPE.INPUT = 'input';
+    this.CC.KEY.BEFORE = null;
+
+    // ----------------------------------------------------------------
     // TICK
 
     this.TICK = {};
