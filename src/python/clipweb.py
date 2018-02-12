@@ -23,7 +23,6 @@ import cw_user
 import cw_clip
 import cw_list
 import cw_code
-import cw_share
 
 TIME = {}
 TIME["init"] = datetime.datetime.now()
@@ -68,9 +67,6 @@ class Clipweb:
 
         elif _type[0] == "code":
             cls.check_code(_type[1])
-
-        elif _type[0] == "share":
-            cls.check_share(_type[1])
 
         else:
             cls.result["error"] = {}
@@ -151,28 +147,9 @@ class Clipweb:
         elif _type == "save":
             cls.result["code"] = CODE.save()
 
-        else:
-            cls.result["error"] = {}
-            cls.result["error"]["message"] = "check_clip: {0}".format(_type)
-
-    def check_share(cls, _type=None):
-        SHARE = cw_share.Share()
-        SHARE.set_cgi(cls.cgi)
-        if _type == "alive":
-            cls.result["share"] = SHARE.alive()
-
-        elif _type == "read":
-            cls.result["share"] = SHARE.read()
-
-        elif _type == "write":
-            cls.result["share"] = SHARE.write()
-
-        elif _type == "leave":
-            cls.result["share"] = SHARE.leave()
 
         else:
             cls.result["error"] = {}
-            cls.result["error"]["message"] = "check_share: {0}".format(_type)
 
     # ----------------------------------------------------------------
     # Method
