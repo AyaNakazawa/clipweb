@@ -291,11 +291,13 @@ class ClipwebEvent extends CommonEvent {
         if (typeof connectionSuccessModel['scroll'] == 'undefined') {
           connectionSuccessModel['scroll'] = false;
         }
-        this.CONTROLLER.open({
-          mode: connectionSuccessOpenMode,
-          type: connectionSuccessOpenType,
-          model: connectionSuccessModel
-        });
+        if (connectionSuccessOpenType != null) {
+          this.CONTROLLER.open({
+            mode: connectionSuccessOpenMode,
+            type: connectionSuccessOpenType,
+            model: connectionSuccessModel
+          });
+        }
         super.setOff({ trigger: this.MODEL.TRIGGER.POST.SUCCESS });
         super.setOff({ trigger: this.MODEL.TRIGGER.POST.ERROR });
         this.CONTROLLER.checkSuccess({
@@ -316,11 +318,13 @@ class ClipwebEvent extends CommonEvent {
         if (typeof connectionErrorModel['scroll'] == 'undefined') {
           connectionErrorModel['scroll'] = false;
         }
-        this.CONTROLLER.open({
-          mode: connectionErrorOpenMode,
-          type: connectionErrorOpenType,
-          model: connectionErrorModel
-        });
+        if (connectionErrorOpenType != null) {
+          this.CONTROLLER.open({
+            mode: connectionErrorOpenMode,
+            type: connectionErrorOpenType,
+            model: connectionErrorModel
+          });
+        }
         if (connectionErrorToastModel != null) {
           connectionErrorToastModel['type'] = 'error';
           this.VIEW.toast(connectionErrorToastModel);
