@@ -272,7 +272,8 @@ class ClipwebEvent extends CommonEvent {
     connectionErrorOpenType = null,
     connectionErrorModel = {},
     connectionErrorToastModel = null,
-    connectionErrorFunction = () => {}
+    connectionErrorFunction = () => {},
+    connectionCompletefunction = () => {}
   } = {}) {
     if (type == null) {
       Log.error(arguments)();
@@ -342,6 +343,7 @@ class ClipwebEvent extends CommonEvent {
       func: () => {
         super.log(type.capitalize(), 'Complete')();
         super.setOff({ trigger: this.MODEL.TRIGGER.POST.COMPLETE });
+        connectionCompletefunction();
       }
     });
   }
