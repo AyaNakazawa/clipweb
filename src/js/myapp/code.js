@@ -315,6 +315,26 @@ class CodeController extends ClipwebController {
   // ----------------------------------------------------------------
   // tick
 
+  raiseTick () {
+    super.log('Raise root', this.MODEL.TICK.ROOT + 1)();
+    this.MODEL.TICK.TIME.TOTAL = 0;
+    this.MODEL.TICK.TIME.CURRENT = this.MODEL.TICK.TIME.MIN;
+    this.MODEL.TICK.ROOT ++;
+    if (this.MODEL.CC.UPDATE.TYPE == 'backup') {
+      // もしDiffの途中なら一旦後回し
+      Log.caution(arguments, 'Tick is halfway.')();
+      setTimeout(
+        () => {
+          this.raiseTick();
+        },
+        1
+      );
+    } else {
+      // Diffが区切れていればOK
+      this.tick();
+    }
+  }
+
   tick (root = this.MODEL.TICK.ROOT) {
     this.MODEL.CC.ID ++;
     if (this.MODEL.STATUS.OPEN) {
