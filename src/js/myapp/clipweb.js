@@ -676,7 +676,7 @@ class ClipwebController extends CommonController {
 
     super.log()();
     Log.log('Post', Log.ALIGN_CENTER)();
-    super.log('post', `${mode.mini()}.${type.mini()}`)();
+    super.log('Post', `${mode.mini()}.${type.mini()}`)();
 
     data['type'] = `${mode.mini()}.${type.mini()}`;
 
@@ -694,7 +694,7 @@ class ClipwebController extends CommonController {
         this.MODEL.TIME.BEFORE_SEND = new Date();
         super.log()();
         Log.log('Post Before Send', Log.ALIGN_CENTER)();
-        super.log('post', 'Send')();
+        super.log('Post', 'Send')();
         super.log('settings', settings)();
         // super.log('jqXHR', jqXHR)();
       },
@@ -706,7 +706,7 @@ class ClipwebController extends CommonController {
         data = JSON.parse(data);
         super.log()();
         Log.log('Post Success', Log.ALIGN_CENTER)();
-        super.log('post', 'Success')();
+        super.log('Post', 'Success')();
         // super.log('textStatus', textStatus)();
         super.log('data', data)();
         // super.log('jqXHR', jqXHR)();
@@ -718,7 +718,7 @@ class ClipwebController extends CommonController {
         this.MODEL.TIME.RETURN = new Date();
         super.log()();
         Log.log('Post Error', Log.ALIGN_CENTER)();
-        super.log('post', 'Error')();
+        super.log('Post', 'Error')();
         super.log('textStatus', textStatus)();
         super.log('errorThrown', errorThrown)();
         super.log('jqXHR', jqXHR)();
@@ -729,7 +729,7 @@ class ClipwebController extends CommonController {
         this.MODEL.TIME.COMPLETE = new Date();
         super.log()();
         Log.log('Post Complete', Log.ALIGN_CENTER)();
-        super.log('post', 'Complete')();
+        super.log('Post', 'Complete')();
         // super.log('textStatus', textStatus)();
         // super.log('jqXHR', jqXHR)();
         const _EXEC_TIME = parseInt(this.getAjaxData({ type: 'exec_time' }) * 1000);
