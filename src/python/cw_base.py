@@ -75,8 +75,10 @@ class Base:
 
         return True
 
-    def get_date(cls):
-        return datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+    def get_date(cls, _datetime=None):
+        if _datetime is None:
+            _datetime = datetime.datetime.now()
+        return _datetime.strftime("%Y/%m/%d %H:%M:%S")
 
     def get_md5(cls, string=None):
         return str(hashlib.md5(string.encode('utf-8')).hexdigest())
