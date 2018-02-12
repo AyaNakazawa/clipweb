@@ -203,6 +203,42 @@ class CodeEvent extends ClipwebEvent {
         }});
       }
     });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.EDITOR.EDITOR,
+      trigger: ['click', 'drag'],
+      func: () => {
+        if (this.MODEL.CC.KEY.BEFORE != this.MODEL.CC.KEY.TYPE.CURSOR) {
+          this.MODEL.CC.KEY.BEFORE = this.MODEL.CC.KEY.TYPE.CURSOR;
+          this.CONTROLLER.raiseTick();
+        }
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.EDITOR.EDITOR,
+      trigger: 'keyup',
+      func: (event) => {
+        if (this.MODEL.CC.KEY.CURSOR.includes(event.keyCode)) {
+          if (this.MODEL.CC.KEY.BEFORE != this.MODEL.CC.KEY.TYPE.CURSOR) {
+            this.MODEL.CC.KEY.BEFORE = this.MODEL.CC.KEY.TYPE.CURSOR;
+            this.CONTROLLER.raiseTick();
+          }
+        } else if (this.MODEL.CC.KEY.DELETE.includes(event.keyCode)) {
+          if (this.MODEL.CC.KEY.BEFORE != this.MODEL.CC.KEY.TYPE.DELETE) {
+            this.MODEL.CC.KEY.BEFORE = this.MODEL.CC.KEY.TYPE.DELETE;
+            this.CONTROLLER.raiseTick();
+          }
+        } else if (this.MODEL.CC.KEY.CUT.includes(event.keyCode) && event.ctrlKey) {
+          if (this.MODEL.CC.KEY.BEFORE != this.MODEL.CC.KEY.TYPE.DELETE) {
+            this.MODEL.CC.KEY.BEFORE = this.MODEL.CC.KEY.TYPE.DELETE;
+            this.CONTROLLER.raiseTick();
+          }
+        } else {
+          this.MODEL.CC.KEY.BEFORE = this.MODEL.CC.KEY.TYPE.INPUT;
+        }
+      }
+    });
   }
 
 }
