@@ -525,6 +525,13 @@ class CodeController extends ClipwebController {
   }
 
   // ----------------------------------------------------------------
+  // tick ajax
+
+  connectConcurrent () {
+
+  }
+
+  // ----------------------------------------------------------------
   // code
 
   start (edit = true) {
