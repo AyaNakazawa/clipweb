@@ -213,16 +213,21 @@ class Clip(cw_base.Base):
         # ----------------------------------------------------------------
         # update data
 
+        value = {
+            "name": clip_filename,
+            "type": clip_filetype,
+            "owner_public": clip_owner_public,
+            "clip_mode": clip_clip_mode,
+            "updated_at": cls.get_date()
+        }
+
+        if isinstance(clip_tags, str):
+            if len(clip_tags) > 0:
+                value["tags"] = clip_tags
+
         cls.result["update"] = cls.DB.update(
             table="clips",
-            value={
-                "name": clip_filename,
-                "type": clip_filetype,
-                "tags": clip_tags,
-                "owner_public": clip_owner_public,
-                "clip_mode": clip_clip_mode,
-                "updated_at": cls.get_date()
-            },
+            value=value,
             where={
                 "hash": clip_hash
             }
