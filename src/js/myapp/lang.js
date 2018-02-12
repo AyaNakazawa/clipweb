@@ -75,6 +75,7 @@ class Language {
       privilege_users_list: 'Privilege user list',
       clip_history: 'clip history',
       start: 'Start',
+      restart: 'Restart',
       initial: 'Initial',
       init: 'Init',
       reload: 'Reload',
@@ -171,6 +172,8 @@ class Language {
       share_clip_message: 'Please share this URL',
       stop_share_user: 'Stop the share',
       stop_share_user_confirm: 'Do you want to stop sharing to this user?',
+      concurrent_editing_stop: 'Pause simultaneous editing',
+      close_to_start_concurrent_editing: 'Closing this screen resumes simultaneous editing.',
 
       copied: 'Copied',
       copied_share_link: 'Copied the share URL',
@@ -341,6 +344,7 @@ class Language {
       privilege_users_list: '権限リスト',
       clip_history: 'クリップ履歴',
       start: '開始',
+      restart: '再開',
       initial: '初期',
       init: '初期',
       reload: '再読込',
@@ -437,6 +441,8 @@ class Language {
       share_clip_message: 'このURLを共有してください。',
       stop_share_user: '共有の停止',
       stop_share_user_confirm: 'このユーザーへの共有を停止しますか？',
+      concurrent_editing_stop: '同時編集の一時停止',
+      close_to_start_concurrent_editing: 'この画面を閉じると、同時編集が再開されます。',
 
       copied: 'コピーしました。',
       copied_share_link: '共有リンクをコピーしました。',
