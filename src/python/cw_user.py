@@ -152,6 +152,19 @@ class User(cw_base.Base):
             cls.result[key] = user_data[0][key]
 
         # ----------------------------------------------------------------
+        # update logined at
+
+        cls.result["update"] = cls.DB.update(
+            table="owners",
+            value={
+                "logined_at": cls.get_date()
+            },
+            where={
+                "hash": cls.result["hash"]
+            }
+        )
+
+        # ----------------------------------------------------------------
         # return
 
         cls.result["result"] = True
