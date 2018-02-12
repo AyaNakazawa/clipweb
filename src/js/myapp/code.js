@@ -315,6 +315,36 @@ class CodeController extends ClipwebController {
   // ----------------------------------------------------------------
   // tick
 
+  startTick () {
+    // 同時編集起動
+    if (this.MODEL.ENCRYPTION == 'on') {
+      // 暗号はサポートしていない
+      super.log('Tick', 'No support for encryption.', Log.ARROW_INPUT)();
+    } else if (this.MODEL.ENCRYPTION == 'off') {
+      // 暗号化していないとき
+      super.log('Tick', 'Start', Log.ARROW_INPUT)();
+
+      // 初期化
+      this.MODEL.STATUS.OPEN = true;
+      this.MODEL.CC.UPDATE.TYPE = null;
+      this.MODEL.CC.ID = 0;
+      this.MODEL.CC.KEY.BEFORE = this.MODEL.CC.KEY.TYPE.CURSOR;
+      this.MODEL.TICK.TIME.TOTAL = 0;
+      this.MODEL.TICK.TIME.CURRENT = this.MODEL.TICK.TIME.MIN;
+      this.MODEL.TICK.ROOT = 0;
+
+      // コード
+      this.MODEL.CC.CODE.CURRENT = this.MODEL.EDITOR.getValue();
+      this.MODEL.CC.CODE.BEFORE = this.MODEL.CC.CODE.CURRENT;
+      // チェックサム
+      this.MODEL.CC.HASH.CURRENT = MD5.getHash(this.MODEL.CC.CODE.CURRENT);
+      this.MODEL.CC.HASH.BEFORE = this.MODEL.CC.HASH.BEFORE;
+
+      // 起動
+      this.tick();
+    }
+  }
+
   exitTick () {
     // 同時編集終了
     super.log('Tick', 'Exit', Log.ARROW_INPUT)();
