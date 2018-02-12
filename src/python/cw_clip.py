@@ -49,7 +49,7 @@ class Clip(cw_base.Base):
         user_password_hash = cls.get_cgi("password_hash")
         clip_name = cls.get_cgi("filename")
         clip_type = cls.get_cgi("filetype")
-        clip_tags = cls.get_cgi("tags")
+        clip_tags = cls.get_cgi("tags", True)
         clip_owner_public = cls.get_cgi("owner_public")
         clip_clip_mode = cls.get_cgi("clip_mode")
 
@@ -197,7 +197,7 @@ class Clip(cw_base.Base):
         clip_hash = cls.get_cgi("clip_hash")
         clip_filename = cls.get_cgi("filename")
         clip_filetype = cls.get_cgi("filetype")
-        clip_tags = cls.get_cgi("tags")
+        clip_tags = cls.get_cgi("tags", True)
         clip_owner_public = cls.get_cgi("owner_public")
         clip_clip_mode = cls.get_cgi("clip_mode")
 
