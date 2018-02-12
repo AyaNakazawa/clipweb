@@ -16,6 +16,7 @@ Flex SQLite3
 import sqlite3
 import json
 import sys
+import copy
 
 # ----------------------------------------------------------------
 # Class
@@ -504,6 +505,7 @@ class FlexSQLite3:
     def select(
         cls,
         table=None,
+        distinct=False,
         column=None,
         where=None,
         where_op=None,
@@ -520,6 +522,7 @@ class FlexSQLite3:
         """
         :param table      (str)         : Table name.
         :param column     (str|list)    : Column name String or List.
+        :param distinct   (boolean)     : Distinct option.
         :param where      (dict|str)    : Where Dict or String.
         :param where_op   (str)         : Where Operator. Default: "=". e.g. "=" or ">" etc...
         :param where_not  (boolean|str) : Where Not Operator. Default: False. e.g. True or "not" etc...
@@ -560,6 +563,18 @@ class FlexSQLite3:
             elif table is None:
                 # None
                 return cls._error("table_not_defined", mode=sys._getframe().f_code.co_name)
+
+            else:
+                # unknown type
+                return cls._error("table_type", mode=sys._getframe().f_code.co_name)
+
+            # ----------------------------------------------------------------
+            # Distinct
+            query_distinct = ""
+            if isinstance(distinct, bool):
+                # String
+                if distinct:
+                    query_distinct = "DISTINCT"
 
             else:
                 # unknown type
@@ -643,17 +658,59 @@ class FlexSQLite3:
                 elif where_not is False:
                     where_not = ""
 
+                where_model = copy.deepcopy(where)
                 for where_key in where.keys():
-                    query_where += "{not} {key} {op} :{key} {type} ".format(**{
-                        "key": where_key,
-                        "not": where_not,
-                        "op": where_op,
-                        "type": where_type
-                    })
+                    if isinstance(where[where_key], str):
+                        # String
+                        query_where += "{not} {key} {op} :{key_escape} {type} ".format(**{
+                            "key": where_key,
+                            "key_escape": where_key.replace(".", "_"),
+                            "not": where_not,
+                            "op": where_op,
+                            "type": where_type
+                        })
+                        where_model[where_key.replace(".", "_")] = where[where_key]
+
+                    elif isinstance(where[where_key], list):
+                        # With operator
+                        if len(where[where_key]) == 1:
+                            query_where += "{not} {key} {op} :{key_escape} {type} ".format(**{
+                                "key": where_key,
+                                "key_escape": where_key.replace(".", "_"),
+                                "not": where_not,
+                                "op": where_op,
+                                "type": where_type
+                            })
+                        elif len(where[where_key]) == 2:
+                            query_where += "{not} {key} {op} :{key_escape} {type} ".format(**{
+                                "key": where_key,
+                                "key_escape": where_key.replace(".", "_"),
+                                "not": where_not,
+                                "op": where[where_key][1],
+                                "type": where_type
+                            })
+                        elif len(where[where_key]) == 3:
+                            query_where += "{not} {key} {op} :{key_escape} {type} ".format(**{
+                                "key": where_key,
+                                "key_escape": where_key.replace(".", "_"),
+                                "not": where_not,
+                                "op": where[where_key][1],
+                                "type": where[where_key][2]
+                            })
+
+                        if len(where[where_key]) > 0:
+                            where_model[where_key.replace(".", "_")] = where[where_key][0]
 
                 # Slice " and "
                 if len(where.keys()) > 0:
-                    query_where = query_where[0:-2 - len(where_type)]
+                    if isinstance(where[where_key], str):
+                        query_where = query_where[0:-2 - len(where_type)]
+
+                    elif isinstance(where[where_key], list):
+                        if len(where[where_key][len(where[where_key]) - 1]) == 3:
+                            query_where = query_where[0:-2 - len(where[where_key][len(where[where_key]) - 1][2])]
+                        else:
+                            query_where = query_where[0:-2 - len(where_type)]
 
             elif where is None:
                 # None
@@ -708,13 +765,17 @@ class FlexSQLite3:
 
             # ----------------------------------------------------------------
             # Generate query
-            exec_query = "SELECT {column} FROM {table} {join} {where} {order};".format(**{
+            exec_query = "SELECT {distinct} {column} FROM {table} {join} {where} {order};".format(**{
+                "distinct": query_distinct,
                 "column": query_column,
                 "table": query_table,
                 "join": query_join,
                 "where": query_where,
                 "order": query_order
             })
+
+            exec_query = exec_query.replace("  ", " ")
+            exec_query = exec_query.replace(" ;", ";")
 
         else:
             # ----------------------------------------------------------------
@@ -731,7 +792,7 @@ class FlexSQLite3:
             if where is not None:
                 # Dict model query
                 if isinstance(where, dict):
-                    cls.cursor.execute(exec_query, where)
+                    cls.cursor.execute(exec_query, where_model)
                 else:
                     cls.cursor.execute(exec_query)
 
@@ -1014,17 +1075,59 @@ class FlexSQLite3:
                 elif where_not is False:
                     where_not = ""
 
+                where_model = copy.deepcopy(where)
                 for where_key in where.keys():
-                    query_where += "{not} {key} {op} :{key} {type} ".format(**{
-                        "key": where_key,
-                        "not": where_not,
-                        "op": where_op,
-                        "type": where_type
-                    })
+                    if isinstance(where[where_key], str):
+                        # String
+                        query_where += "{not} {key} {op} :{key_escape} {type} ".format(**{
+                            "key": where_key,
+                            "key_escape": where_key.replace(".", "_"),
+                            "not": where_not,
+                            "op": where_op,
+                            "type": where_type
+                        })
+                        where_model[where_key.replace(".", "_")] = where[where_key]
+
+                    elif isinstance(where[where_key], list):
+                        # With operator
+                        if len(where[where_key]) == 1:
+                            query_where += "{not} {key} {op} :{key_escape} {type} ".format(**{
+                                "key": where_key,
+                                "key_escape": where_key.replace(".", "_"),
+                                "not": where_not,
+                                "op": where_op,
+                                "type": where_type
+                            })
+                        elif len(where[where_key]) == 2:
+                            query_where += "{not} {key} {op} :{key_escape} {type} ".format(**{
+                                "key": where_key,
+                                "key_escape": where_key.replace(".", "_"),
+                                "not": where_not,
+                                "op": where[where_key][1],
+                                "type": where_type
+                            })
+                        elif len(where[where_key]) == 3:
+                            query_where += "{not} {key} {op} :{key_escape} {type} ".format(**{
+                                "key": where_key,
+                                "key_escape": where_key.replace(".", "_"),
+                                "not": where_not,
+                                "op": where[where_key][1],
+                                "type": where[where_key][2]
+                            })
+
+                        if len(where[where_key]) > 0:
+                            where_model[where_key.replace(".", "_")] = where[where_key][0]
 
                 # Slice " and "
                 if len(where.keys()) > 0:
-                    query_where = query_where[0:-5]
+                    if isinstance(where[where_key], str):
+                        query_where = query_where[0:-2 - len(where_type)]
+
+                    elif isinstance(where[where_key], list):
+                        if len(where[where_key][len(where[where_key]) - 1]) == 3:
+                            query_where = query_where[0:-2 - len(where[where_key][len(where[where_key]) - 1][2])]
+                        else:
+                            query_where = query_where[0:-2 - len(where_type)]
 
             elif where is None:
                 # None
@@ -1058,6 +1161,9 @@ class FlexSQLite3:
                 "where": query_where
             })
 
+            exec_query = exec_query.replace("  ", " ")
+            exec_query = exec_query.replace(" ;", ";")
+
         else:
             # ----------------------------------------------------------------
             # Query exists
@@ -1073,7 +1179,7 @@ class FlexSQLite3:
             if where is not None:
                 if isinstance(where, dict):
                     # Dict model query
-                    cls.cursor.execute(exec_query, where)
+                    cls.cursor.execute(exec_query, where_model)
                 else:
                     cls.cursor.execute(exec_query)
 
