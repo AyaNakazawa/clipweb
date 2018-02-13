@@ -744,6 +744,7 @@ class CodeController extends ClipwebController {
 
       case this.MODEL.TYPE.SAVE:
         // SAVE
+        this.MODEL.SYNC.DATE.LAST = this.getAjaxData({ key: 'save_time' });
         break;
 
       case this.MODEL.TYPE.SYNC:
