@@ -750,6 +750,8 @@ class CodeController extends ClipwebController {
       case this.MODEL.TYPE.SYNC:
         // SYNC
         this.MODEL.SYNC.PATCH.RECEIVE = this.getAjaxData({ key: 'patches' });
+        this.MODEL.SYNC.DATE.PATCHED = this.getAjaxData({ key: 'patched_time' });
+        this.MODEL.SYNC.DATE.SAVE = this.getAjaxData({ key: 'last_save' });
         this.MODEL.SYNC.MEMBER = this.getAjaxData({ key: 'member' });
         break;
 
