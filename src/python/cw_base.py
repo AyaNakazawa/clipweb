@@ -325,6 +325,12 @@ class Base:
                     "message": "[sync_patch] does not defined."
                 }
             },
+            "last_patched_not_defined": {
+                "{} error".format(cls.NAME): {
+                    "code": 126,
+                    "message": "[last_patched] does not defined."
+                }
+            },
             "model_not_defined": {
                 "{} error".format(cls.NAME): {
                     "code": 151,
@@ -485,6 +491,12 @@ class Base:
                 "{} error".format(cls.NAME): {
                     "code": 225,
                     "message": "[sync_patch] is unknown class"
+                }
+            },
+            "last_patched_unknown_class": {
+                "{} error".format(cls.NAME): {
+                    "code": 226,
+                    "message": "[last_patched] is unknown class"
                 }
             },
             "username_overlap": {
