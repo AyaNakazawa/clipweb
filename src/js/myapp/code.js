@@ -788,7 +788,8 @@ class CodeController extends ClipwebController {
       case this.MODEL.TYPE.SYNC:
         // SYNC
         _model['base_sync_hash'] = this.MODEL.SYNC.HASH.BEFORE;
-        if (this.MODEL.SYNC.PATCH.CURRENT.getRows() > 5) {
+        _model['last_patched'] = this.MODEL.SYNC.DATE.LAST;
+        if (this.MODEL.STATUS.SEND) {
           _model['new_sync_hash'] = this.MODEL.SYNC.HASH.CURRENT;
           _model['sync_patch'] = this.MODEL.SYNC.PATCH.CURRENT;
         }
