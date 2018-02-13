@@ -25,11 +25,13 @@ class CodeModel extends ClipwebModel {
 
     // ----------------------------------------------------------------
     // ステータス
+    this.STATUS.HISTORY = false;
     this.STATUS.LOAD = false;
     this.STATUS.OPEN = false;
     this.STATUS.SEND = false;
     this.STATUS.RECEIVE = false;
     this.STATUS.SYNC = false;
+    this.STATUS.PATCHED = false;
 
     // ----------------------------------------------------------------
     // クリップ
