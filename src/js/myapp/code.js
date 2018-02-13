@@ -51,6 +51,11 @@ class CodeModel extends ClipwebModel {
     // ID
     this.SYNC.ID = null;
 
+    // 日時情報
+    this.SYNC.DATE = {};
+    this.SYNC.DATE.LAST = null;
+    this.SYNC.DATE.PATCHED = null;
+
     // パッチ
     this.SYNC.PATCH = {};
     this.SYNC.PATCH.CURRENT = null;
@@ -58,12 +63,14 @@ class CodeModel extends ClipwebModel {
 
     // コード本体
     this.SYNC.CODE = {};
-    this.SYNC.CODE.BEFORE = null;
+    this.SYNC.CODE.BACKUP = null;
+    this.SYNC.CODE.CONNECTING = null;
     this.SYNC.CODE.CURRENT = null;
 
     // チェックサム
     this.SYNC.HASH = {};
-    this.SYNC.HASH.BEFORE = null;
+    this.SYNC.HASH.BACKUP = null;
+    this.SYNC.HASH.CONNECTING = null;
     this.SYNC.HASH.CURRENT = null;
 
     // 同期メンバー
@@ -78,7 +85,7 @@ class CodeModel extends ClipwebModel {
     this.SYNC.KEY.TYPE.CURSOR = 'cursor';
     this.SYNC.KEY.TYPE.DELETE = 'delete';
     this.SYNC.KEY.TYPE.INPUT = 'input';
-    this.SYNC.KEY.BEFORE = null;
+    this.SYNC.KEY.BACKUP = null;
 
     // ----------------------------------------------------------------
     // TICK
