@@ -218,8 +218,8 @@ class CodeEvent extends ClipwebEvent {
       selector: this.MODEL.SELECTOR.EDITOR.EDITOR,
       trigger: ['click', 'drag'],
       func: () => {
-        if (this.MODEL.SYNC.KEY.BEFORE != this.MODEL.SYNC.KEY.TYPE.CURSOR) {
-          this.MODEL.SYNC.KEY.BEFORE = this.MODEL.SYNC.KEY.TYPE.CURSOR;
+        if (this.MODEL.SYNC.KEY.BACKUP != this.MODEL.SYNC.KEY.TYPE.CURSOR) {
+          this.MODEL.SYNC.KEY.BACKUP = this.MODEL.SYNC.KEY.TYPE.CURSOR;
           this.CONTROLLER.raiseTick();
         }
       }
@@ -230,23 +230,23 @@ class CodeEvent extends ClipwebEvent {
       trigger: 'keyup',
       func: (event) => {
         if (this.MODEL.SYNC.KEY.CURSOR.includes(event.keyCode)) {
-          if (this.MODEL.SYNC.KEY.BEFORE != this.MODEL.SYNC.KEY.TYPE.CURSOR) {
-            this.MODEL.SYNC.KEY.BEFORE = this.MODEL.SYNC.KEY.TYPE.CURSOR;
+          if (this.MODEL.SYNC.KEY.BACKUP != this.MODEL.SYNC.KEY.TYPE.CURSOR) {
+            this.MODEL.SYNC.KEY.BACKUP = this.MODEL.SYNC.KEY.TYPE.CURSOR;
             this.CONTROLLER.raiseTick();
           }
         } else if (this.MODEL.SYNC.KEY.DELETE.includes(event.keyCode)) {
-          if (this.MODEL.SYNC.KEY.BEFORE != this.MODEL.SYNC.KEY.TYPE.DELETE) {
-            this.MODEL.SYNC.KEY.BEFORE = this.MODEL.SYNC.KEY.TYPE.DELETE;
+          if (this.MODEL.SYNC.KEY.BACKUP != this.MODEL.SYNC.KEY.TYPE.DELETE) {
+            this.MODEL.SYNC.KEY.BACKUP = this.MODEL.SYNC.KEY.TYPE.DELETE;
             this.CONTROLLER.raiseTick();
           }
         } else if (this.MODEL.SYNC.KEY.CUT.includes(event.keyCode) && event.ctrlKey) {
-          if (this.MODEL.SYNC.KEY.BEFORE != this.MODEL.SYNC.KEY.TYPE.DELETE) {
-            this.MODEL.SYNC.KEY.BEFORE = this.MODEL.SYNC.KEY.TYPE.DELETE;
+          if (this.MODEL.SYNC.KEY.BACKUP != this.MODEL.SYNC.KEY.TYPE.DELETE) {
+            this.MODEL.SYNC.KEY.BACKUP = this.MODEL.SYNC.KEY.TYPE.DELETE;
             this.CONTROLLER.raiseTick();
           }
         } else {
-          if (this.MODEL.SYNC.KEY.BEFORE != this.MODEL.SYNC.KEY.TYPE.INPUT) {
-            this.MODEL.SYNC.KEY.BEFORE = this.MODEL.SYNC.KEY.TYPE.INPUT;
+          if (this.MODEL.SYNC.KEY.BACKUP != this.MODEL.SYNC.KEY.TYPE.INPUT) {
+            this.MODEL.SYNC.KEY.BACKUP = this.MODEL.SYNC.KEY.TYPE.INPUT;
             this.CONTROLLER.raiseTick();
           }
         }
@@ -373,7 +373,7 @@ class CodeController extends ClipwebController {
       this.MODEL.STATUS.OPEN = true;
       this.MODEL.STATUS.SYNC = null;
       this.MODEL.SYNC.ID = 0;
-      this.MODEL.SYNC.KEY.BEFORE = this.MODEL.SYNC.KEY.TYPE.CURSOR;
+      this.MODEL.SYNC.KEY.BACKUP = this.MODEL.SYNC.KEY.TYPE.CURSOR;
       this.MODEL.TICK.TIME.TOTAL = 0;
       this.MODEL.TICK.TIME.CURRENT = this.MODEL.TICK.TIME.MIN;
       this.MODEL.TICK.ROOT = 0;
@@ -381,9 +381,11 @@ class CodeController extends ClipwebController {
       // コード
       this.MODEL.SYNC.CODE.CURRENT = this.MODEL.EDITOR.getValue();
       this.MODEL.SYNC.CODE.BEFORE = this.MODEL.SYNC.CODE.CURRENT;
+      this.MODEL.SYNC.CODE.BACKUP = this.MODEL.SYNC.CODE.CURRENT;
       // チェックサム
       this.MODEL.SYNC.HASH.CURRENT = MD5.getHash(this.MODEL.SYNC.CODE.CURRENT);
       this.MODEL.SYNC.HASH.BEFORE = this.MODEL.SYNC.HASH.CURRENT;
+      this.MODEL.SYNC.HASH.BACKUP = this.MODEL.SYNC.HASH.CURRENT;
 
       // 起動
       this.tick();
@@ -445,7 +447,7 @@ class CodeController extends ClipwebController {
       // パッチ
       this.MODEL.SYNC.PATCH.CURRENT = JsDiff.createPatch(
         'Current',
-        this.MODEL.SYNC.CODE.BEFORE,
+        this.MODEL.SYNC.CODE.BACKUP,
         this.MODEL.SYNC.CODE.CURRENT
       );
 
