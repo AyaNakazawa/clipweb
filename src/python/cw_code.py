@@ -82,7 +82,8 @@ class Code(cw_base.Base):
                 table="codes",
                 column=[
                     "encryption",
-                    "data"
+                    "data",
+                    "created_at"
                 ],
                 where={
                     "hash": code_hash
@@ -90,6 +91,7 @@ class Code(cw_base.Base):
             )
             data[0]["encryption"] = code[0]["encryption"]
             data[0]["data"] = code[0]["data"]
+            data[0]["code_update"] = code[0]["created_at"]
         else:
             data = cls.DB.select(
                 table="clips",
@@ -100,7 +102,8 @@ class Code(cw_base.Base):
                     "clips.owner_hash AS owner_hash",
                     "clips.clip_mode AS clip_mode",
                     "codes.encryption AS encryption",
-                    "codes.data AS data"
+                    "codes.data AS data",
+                    "codes.created_at AS code_update"
                 ],
                 where={
                     "clip_hash": clip_hash
@@ -126,6 +129,7 @@ class Code(cw_base.Base):
         cls.result["filename"] = data["name"]
         cls.result["filetype"] = data["type"]
         cls.result["data"] = data["data"]
+        cls.result["code_update"] = data["code_update"]
         cls.result["clip_mode"] = data["clip_mode"]
         cls.result["owner_hash"] = data["owner_hash"]
         cls.result["encryption"] = data["encryption"]
