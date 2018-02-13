@@ -208,6 +208,9 @@ class Code(cw_base.Base):
         # ----------------------------------------------------------------
         # insert code
 
+        save_time = cls.get_date()
+        cls.result["save_time"] = save_time
+
         cls.result["code"] = cls.DB.insert(
             table="codes",
             value={
@@ -216,7 +219,7 @@ class Code(cw_base.Base):
                 "owner_hash": user_hash,
                 "encryption": clip_encryption,
                 "data": clip_data,
-                "created_at": cls.get_date()
+                "created_at": save_time
             }
         )
 
