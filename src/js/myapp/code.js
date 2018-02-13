@@ -426,13 +426,14 @@ class CodeController extends ClipwebController {
     // ID更新
     this.MODEL.SYNC.ID ++;
 
+    // 履歴から開いてるときは止める
+    if (this.MODEL.STATUS.HISTORY) {
+      return;
+    }
+
     // Tick
     if (this.MODEL.STATUS.OPEN) {
       super.log(`Tick ${this.MODEL.TICK.ROOT}: ${this.MODEL.SYNC.ID}`, `${Math.round(this.MODEL.TICK.TIME.CURRENT).toLocaleString()}ms`)();
-
-      // ステータスを初期化
-      this.MODEL.STATUS.SEND = false;
-      this.MODEL.STATUS.RECEIVE = false;
 
       // Rootのチェック
       if (this.MODEL.TICK.ROOT > root) {
@@ -456,19 +457,35 @@ class CodeController extends ClipwebController {
         this.MODEL.SYNC.CODE.CURRENT
       );
 
+      // ステータスを初期化
+      this.MODEL.STATUS.SEND = false;
+
       // 編集送信判定
-      if (this.MODEL.SYNC.PATCH.CURRENT.getRows() > 5) {
-        this.MODEL.STATUS.SEND = true;
+      if (this.MODEL.STATUS.RECEIVE == false) {
+        if (this.MODEL.SYNC.PATCH.CURRENT.getRows() > 5) {
+          this.MODEL.STATUS.SEND = true;
+        }
       }
+
+      // 前回値
+      if (this.MODEL.STATUS.RECEIVE == false) {
+        this.MODEL.SYNC.CODE.BEFORE = this.MODEL.SYNC.CODE.BACKUP;
+        this.MODEL.SYNC.HASH.BEFORE = this.MODEL.SYNC.HASH.BACKUP;
+      }
+
+      // バックアップ - アップデート
+      this.MODEL.STATUS.SYNC = 'backup';
+      this.MODEL.SYNC.CODE.BACKUP = this.MODEL.EDITOR.getValue();
+      this.MODEL.SYNC.HASH.BACKUP = SHA256.getHash(this.MODEL.SYNC.CODE.BACKUP);
 
       // サーバに送信
       this.connectConcurrent(() => {
         // コールバック
 
-        // バックアップ - アップデート
-        this.MODEL.STATUS.SYNC = 'backup';
-        this.MODEL.SYNC.CODE.BEFORE = this.MODEL.EDITOR.getValue();
-        this.MODEL.SYNC.HASH.BEFORE = SHA256.getHash(this.MODEL.SYNC.CODE.BEFORE);
+        // 最新コードがあればそっち開く
+        if (this.MODEL.SYNC.DATE.SAVE > this.MODEL.SYNC.DATE.LAST) {
+          this.loadCode();
+        }
 
         // 編集を送信
         if (this.MODEL.STATUS.SEND) {
