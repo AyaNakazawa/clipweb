@@ -533,42 +533,52 @@ class CodeController extends ClipwebController {
       ],
       functionSuccess: () => {
         this.applyReceiveModel(_TYPE);
-        // BEFORE以降のパッチを全て受け取る
-        // 受け取ったパッチを順番に当てる
-        let _temp_code = null;
-        let _update = false;
-        for (let index = 0; index < this.MODEL.SYNC.PATCH.RECEIVE.length; index ++) {
-          super.log('index', index)();
-          super.log('data', this.MODEL.SYNC.PATCH.RECEIVE[index]['patch'])();
-          super.log('code', this.MODEL.SYNC.CODE.BEFORE)();
-          _temp_code = JsDiff.applyPatch(
-            this.MODEL.SYNC.CODE.BEFORE,
-            this.MODEL.SYNC.PATCH.RECEIVE[index]['patch']
-          );
-          if (_temp_code != false) {
-            this.MODEL.SYNC.CODE.BEFORE = _temp_code;
-            super.log('code->', this.MODEL.SYNC.CODE.BEFORE)();
-          } else {
-            break;
-          }
-        }
-        if (this.MODEL.SYNC.PATCH.RECEIVE.length > 0) {
-          _update = true;
-          this.MODEL.STATUS.RECEIVE = true;
-        }
-        // CURRENTのパッチはこっちで当てる
+
+        // ステータスを初期化
+        this.MODEL.STATUS.RECEIVE = false;
+        this.MODEL.STATUS.PATCHED = false;
+
+        // 送信時
         if (this.MODEL.STATUS.SEND) {
-          _update = true;
-          this.MODEL.SYNC.CODE.BEFORE = JsDiff.applyPatch(
-            this.MODEL.SYNC.CODE.BEFORE,
-            this.MODEL.SYNC.PATCH.CURRENT
-          );
+          this.MODEL.SYNC.DATE.LAST = this.MODEL.SYNC.DATE.PATCHED;
         }
-        if (_update) {
-          this.MODEL.SYNC.CODE.CURRENT = this.MODEL.SYNC.CODE.BEFORE;
-          this.MODEL.SYNC.HASH.CURRENT = SHA256.getHash(this.MODEL.SYNC.CODE.CURRENT);
-          this.MODEL.SYNC.HASH.BEFORE = this.MODEL.SYNC.HASH.CURRENT;
-          this.MODEL.EDITOR.setValue(this.MODEL.SYNC.CODE.CURRENT);
+
+        let _temp_code = null;
+        if (this.MODEL.SYNC.PATCH.RECEIVE.length > 0) {
+          this.MODEL.STATUS.RECEIVE = true;
+          this.MODEL.SYNC.DATE.LAST = this.MODEL.SYNC.PATCH.RECEIVE[this.MODEL.SYNC.PATCH.RECEIVE.length - 1]['created_at'];
+
+          if (this.MODEL.STATUS.SEND) {
+            // 受信と送信が重なったとき
+            // 操作変換
+          } else {
+            // 受信のみ
+            // BACKUP以降のパッチを全て受け取る
+            // 受け取ったパッチを順番に当てる
+            for (let index = 0; index < this.MODEL.SYNC.PATCH.RECEIVE.length; index ++) {
+              // if (this.MODEL.SYNC.PATCH.RECEIVE[index]['base_hash'] == SHA256.getHash(this.MODEL.SYNC.CODE.BEFORE)) {
+              // }
+              this.MODEL.STATUS.PATCHED = true;
+              super.log('data', this.MODEL.SYNC.PATCH.RECEIVE[index]['patch'])();
+              super.log('code', this.MODEL.SYNC.CODE.BEFORE)();
+              _temp_code = JsDiff.applyPatch(
+                this.MODEL.SYNC.CODE.BEFORE,
+                this.MODEL.SYNC.PATCH.RECEIVE[index]['patch']
+              );
+              if (_temp_code != false) {
+                this.MODEL.SYNC.CODE.BEFORE = _temp_code;
+                super.log('code->', this.MODEL.SYNC.CODE.BEFORE)();
+              } else {
+                break;
+              }
+            }
+          }
+          if (this.MODEL.STATUS.PATCHED) {
+            let _cursor = this.MODEL.EDITOR.getCursorPositionScreen();
+            this.MODEL.EDITOR.setValue(this.MODEL.SYNC.CODE.BEFORE);
+            this.MODEL.EDITOR.clearSelection();
+            this.MODEL.EDITOR.moveCursorToPosition(_cursor);
+          }
         }
       },
       connectionErrorToastModel: super.getErrorModel('toast/server', _FAILED),
