@@ -281,6 +281,9 @@ class ClipwebEvent extends CommonEvent {
     }
     super.log(type.capitalize(), 'Loading')();
 
+    this.MODEL.STATUS.ID = Random.hex(7);
+    let _post_id = this.MODEL.STATUS.ID;
+
     // Loading
     if (loading) {
       this.CONTROLLER.openLoading(type);
@@ -288,7 +291,7 @@ class ClipwebEvent extends CommonEvent {
 
     // Success
     super.setOn({
-      trigger: this.MODEL.TRIGGER.POST.SUCCESS,
+      trigger: `${_post_id}.${this.MODEL.TRIGGER.POST.SUCCESS}`,
       func: () => {
         if (typeof connectionSuccessModel['scroll'] == 'undefined') {
           connectionSuccessModel['scroll'] = false;
@@ -300,8 +303,8 @@ class ClipwebEvent extends CommonEvent {
             model: connectionSuccessModel
           });
         }
-        super.setOff({ trigger: this.MODEL.TRIGGER.POST.SUCCESS });
-        super.setOff({ trigger: this.MODEL.TRIGGER.POST.ERROR });
+        super.setOff({ trigger: `${_post_id}.${this.MODEL.TRIGGER.POST.SUCCESS}` });
+        super.setOff({ trigger: `${_post_id}.${this.MODEL.TRIGGER.POST.ERROR}` });
         this.CONTROLLER.checkSuccess({
           errorMessage: errorMessage,
           errorType: errorType,
@@ -315,7 +318,7 @@ class ClipwebEvent extends CommonEvent {
     });
     // Error
     super.setOn({
-      trigger: this.MODEL.TRIGGER.POST.ERROR,
+      trigger: `${_post_id}.${this.MODEL.TRIGGER.POST.ERROR}`,
       func: () => {
         if (typeof connectionErrorModel['scroll'] == 'undefined') {
           connectionErrorModel['scroll'] = false;
@@ -332,17 +335,17 @@ class ClipwebEvent extends CommonEvent {
           this.VIEW.toast(connectionErrorToastModel);
           this.CONTROLLER.open({ model: { scroll: false } });
         }
-        super.setOff({ trigger: this.MODEL.TRIGGER.POST.SUCCESS });
-        super.setOff({ trigger: this.MODEL.TRIGGER.POST.ERROR });
+        super.setOff({ trigger: `${_post_id}.${this.MODEL.TRIGGER.POST.SUCCESS}` });
+        super.setOff({ trigger: `${_post_id}.${this.MODEL.TRIGGER.POST.ERROR}` });
         connectionErrorFunction();
       }
     });
     // Complete
     super.setOn({
-      trigger: this.MODEL.TRIGGER.POST.COMPLETE,
+      trigger: `${_post_id}.${this.MODEL.TRIGGER.POST.COMPLETE}`,
       func: () => {
         super.log(type.capitalize(), 'Complete')();
-        super.setOff({ trigger: this.MODEL.TRIGGER.POST.COMPLETE });
+        super.setOff({ trigger: `${_post_id}.${this.MODEL.TRIGGER.POST.COMPLETE}` });
         connectionCompletefunction();
       }
     });
@@ -691,6 +694,8 @@ class ClipwebController extends CommonController {
 
     this.MODEL.TIME.POST = new Date();
 
+    let _post_id = this.MODEL.STATUS.ID;
+
     $.ajax({
       url: path,
       data: data,
@@ -719,7 +724,7 @@ class ClipwebController extends CommonController {
         // super.log('jqXHR', jqXHR)();
         super.log()();
         this.MODEL.OBJECT.AJAX = data;
-        this.EVENT.trigger({ trigger: this.MODEL.TRIGGER.POST.SUCCESS });
+        this.EVENT.trigger({ trigger: `${_post_id}.${this.MODEL.TRIGGER.POST.SUCCESS}` });
       },
       error: (jqXHR, textStatus, errorThrown) => {
         this.MODEL.TIME.RETURN = new Date();
@@ -730,7 +735,7 @@ class ClipwebController extends CommonController {
         super.log('errorThrown', errorThrown)();
         super.log('jqXHR', jqXHR)();
         super.log()();
-        this.EVENT.trigger({ trigger: this.MODEL.TRIGGER.POST.ERROR });
+        this.EVENT.trigger({ trigger: `${_post_id}.${this.MODEL.TRIGGER.POST.ERROR}` });
       },
       complete: (jqXHR, textStatus) => {
         this.MODEL.TIME.COMPLETE = new Date();
@@ -762,7 +767,7 @@ class ClipwebController extends CommonController {
           new Date(this.MODEL.TIME.COMPLETE - this.MODEL.TIME.POST).formatString('%S.%MSs')
         )();
         super.log()();
-        this.EVENT.trigger({ trigger: this.MODEL.TRIGGER.POST.COMPLETE });
+        this.EVENT.trigger({ trigger: `${_post_id}.${this.MODEL.TRIGGER.POST.COMPLETE}` });
       }
     });
   }
