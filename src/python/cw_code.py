@@ -263,10 +263,11 @@ class Code(cw_base.Base):
         # ----------------------------------------------------------------
         # get & check cgi
 
-        user_hash = cls.get_cgi("owner_hash", True)
-        user_password_hash = cls.get_cgi("password_hash", True)
-        clip_hash = cls.get_cgi("clip_hash", True)
-        base_sync_hash = cls.get_cgi("base_sync_hash", True)
+        user_hash = cls.get_cgi("owner_hash")
+        user_password_hash = cls.get_cgi("password_hash")
+        clip_hash = cls.get_cgi("clip_hash")
+        base_sync_hash = cls.get_cgi("base_sync_hash")
+        last_patched = cls.get_cgi("last_patched")
         new_sync_hash = cls.get_cgi("new_sync_hash", True)
         sync_patch = cls.get_cgi("sync_patch", True)
 
@@ -306,52 +307,54 @@ class Code(cw_base.Base):
             "hash": [
                 "access", "<>"
             ],
-            "clip_hash": clip_hash
+            "clip_hash": clip_hash,
+            "created_at": [
+                last_patched, ">"
+            ]
         }
 
-        _base_created_at = cls.DB.select(
+        cls.result["patches"] = cls.DB.select(
             table="syncs",
-            column="created_at",
-            where={
-                "hash": [
-                    "access", "<>"
-                ],
-                "base_hash": base_sync_hash
-            },
+            column=[
+                "hash",
+                "base_hash",
+                "patch",
+                "created_at"
+            ],
+            where=where,
             order={
-                "created_at": "DESC"
+                "created_at": "ASC"
             }
         )
 
-        cls.result["patches"] = []
+        # ----------------------------------------------------------------
+        # delete access
 
-        if len(_base_created_at) > 0:
-            where["created_at"] = [
-                _base_created_at[0]["created_at"], ">="
-            ]
-
-            cls.result["patches"] = cls.DB.select(
-                table="syncs",
-                column=[
-                    "hash",
-                    "base_hash",
-                    "patch"
-                ],
-                where=where,
-                order={
-                    "created_at": "ASC"
-                }
-            )
+        cls.result["delete_access"] = cls.DB.delete(
+            table="syncs",
+            where={
+                "hash": "access",
+                "clip_hash": clip_hash,
+                "owner_hash": user_hash,
+                "created_at": [
+                    cls.get_date(), "<"
+                ]
+            }
+        )
 
         # ----------------------------------------------------------------
         # new sync
+
+        patched_time = cls.get_date()
 
         new_sync = {
             "clip_hash": clip_hash,
             "owner_hash": user_hash,
             "base_hash": base_sync_hash,
-            "created_at": cls.get_date()
+            "created_at": patched_time
         }
+
+        cls.result["patched_time"] = patched_time
 
         if new_sync_hash is not None:
             new_sync["hash"] = new_sync_hash
@@ -361,6 +364,24 @@ class Code(cw_base.Base):
             table="syncs",
             value=new_sync
         )
+
+        # ----------------------------------------------------------------
+        # select last save
+
+        last_save = cls.DB.select(
+            table="codes",
+            column=[
+                "created_at"
+            ],
+            where={
+                "clip_hash": clip_hash
+            },
+            order={
+                "created_at": "desc"
+            }
+        )
+
+        cls.result["last_save"] = last_save[0]["created_at"]
 
         # ----------------------------------------------------------------
         # select member
