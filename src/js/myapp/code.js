@@ -283,6 +283,11 @@ class CodeController extends ClipwebController {
   loadCode (hash = this.MODEL.HASH, type = this.MODEL.TYPE.LOAD, code_hash = null) {
     this.MODEL.HASH = hash;
     this.MODEL.CODE_HASH = code_hash;
+    if (this.MODEL.CODE_HASH != null) {
+      this.MODEL.STATUS.HISTORY = true;
+    } else {
+      this.MODEL.STATUS.HISTORY = false;
+    }
     if (this.MODEL.HASH == null) {
       Log.error(arguments)();
       return this.MODEL.ERROR;
