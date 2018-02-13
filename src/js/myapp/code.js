@@ -725,6 +725,7 @@ class CodeController extends ClipwebController {
         // LOAD
         this.MODEL.ENCRYPTION = this.getAjaxData({ key: 'encryption' });
         this.MODEL.DL_DATA = this.getAjaxData({ key: 'data' });
+        this.MODEL.SYNC.DATE.LAST = this.getAjaxData({ key: 'code_update' });
         this.decrypt();
         this.MODEL.FILENAME = this.getAjaxData({ key: 'filename' });
         this.MODEL.FILETYPE = this.getAjaxData({ key: 'filetype' });
