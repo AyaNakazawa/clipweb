@@ -357,8 +357,9 @@ class Code(cw_base.Base):
         cls.result["patched_time"] = patched_time
 
         if new_sync_hash is not None:
-            new_sync["hash"] = new_sync_hash
-            new_sync["patch"] = sync_patch
+            if len(cls.result["patches"]) == 0:
+                new_sync["hash"] = new_sync_hash
+                new_sync["patch"] = sync_patch
 
         cls.result["sync"] = cls.DB.insert(
             table="syncs",
