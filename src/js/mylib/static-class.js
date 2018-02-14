@@ -34,10 +34,10 @@ class Log {
   static get VIEW_WARNING () { return true; }
   static get VIEW_CAUTION () { return true; }
   static get VIEW_INFO () { return true; }
-  static get VIEW_ERROR_TOAST () { return true; }
-  static get VIEW_WARNING_TOAST () { return true; }
-  static get VIEW_CAUTION_TOAST () { return true; }
-  static get VIEW_INFO_TOAST () { return true; }
+  static get VIEW_ERROR_TOAST () { return false; }
+  static get VIEW_WARNING_TOAST () { return false; }
+  static get VIEW_CAUTION_TOAST () { return false; }
+  static get VIEW_INFO_TOAST () { return false; }
 
   // Toast option
   static get TOAST_TIMEOUT () { return 5000; }
