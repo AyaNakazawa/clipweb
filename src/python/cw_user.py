@@ -253,7 +253,7 @@ class User(cw_base.Base):
         user_username = cls.get_cgi("username")
         user_email_address = cls.get_cgi("email_address")
         user_encrypted_crypto_hash = cls.get_cgi("encrypted_crypto_hash")
-        user_password_hash_new = cls.get_cgi("password_hash_new")
+        user_password_hash_new = cls.get_cgi("password_hash_new", True)
 
         if cls.error:
             return cls.result
