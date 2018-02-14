@@ -32,6 +32,7 @@ class CodeModel extends ClipwebModel {
     this.STATUS.RECEIVE = false;
     this.STATUS.SYNC = false;
     this.STATUS.PATCHED = false;
+    this.STATUS.CONNECTING = false;
 
     // ----------------------------------------------------------------
     // クリップ
@@ -91,16 +92,17 @@ class CodeModel extends ClipwebModel {
     // TICK
 
     this.TICK = {};
-    this.TICK.TIME = {};
-    this.TICK.TIME.MIN = 500;
-    this.TICK.TIME.MAX = 30000;
-    this.TICK.TIME.TIMES = 1.7;
-    this.TICK.TIME.CURRENT = this.TICK.TIME.MIN;
-    this.TICK.TIME.LIMIT = 10 * 60 * 1000;
-    this.TICK.TIME.TOTAL = null;
-    this.TICK.TIME.RETRY = this.TICK.TIME.MIN;
 
-    this.TICK.ROOT = null;
+    this.TICK = {};
+    this.TICK.INIT = 2;
+    this.TICK.MAX = 100;
+    this.TICK.TIMES = 1.35;
+    this.TICK.INTERVAL = 250;
+    this.TICK.LIMIT = 10 * 60 * (1000 / this.TICK.INTERVAL);
+
+    this.TICK.TOTAL = null;
+    this.TICK.COUNT = null;
+    this.TICK.CURRENT = null;
 
     // ----------------------------------------------------------------
     // テンプレート
@@ -220,7 +222,7 @@ class CodeEvent extends ClipwebEvent {
       func: () => {
         if (this.MODEL.SYNC.KEY.BACKUP != this.MODEL.SYNC.KEY.TYPE.CURSOR) {
           this.MODEL.SYNC.KEY.BACKUP = this.MODEL.SYNC.KEY.TYPE.CURSOR;
-          this.CONTROLLER.raiseTick();
+          this.CONTROLLER.accelerateTick();
         }
       }
     });
@@ -229,7 +231,7 @@ class CodeEvent extends ClipwebEvent {
       selector: this.MODEL.SELECTOR.EDITOR.EDITOR,
       trigger: 'click',
       func: (event) => {
-        this.CONTROLLER.raiseTick();
+        this.CONTROLLER.accelerateTick();
       }
     });
 
@@ -238,24 +240,22 @@ class CodeEvent extends ClipwebEvent {
       trigger: 'keyup',
       func: (event) => {
         if (this.MODEL.SYNC.KEY.CURSOR.includes(event.keyCode)) {
-          if (this.MODEL.SYNC.KEY.BACKUP != this.MODEL.SYNC.KEY.TYPE.CURSOR) {
-            this.MODEL.SYNC.KEY.BACKUP = this.MODEL.SYNC.KEY.TYPE.CURSOR;
-            this.CONTROLLER.raiseTick();
-          }
+          this.CONTROLLER.accelerateTick();
+          this.MODEL.SYNC.KEY.BACKUP = this.MODEL.SYNC.KEY.TYPE.CURSOR;
         } else if (this.MODEL.SYNC.KEY.DELETE.includes(event.keyCode)) {
           if (this.MODEL.SYNC.KEY.BACKUP != this.MODEL.SYNC.KEY.TYPE.DELETE) {
             this.MODEL.SYNC.KEY.BACKUP = this.MODEL.SYNC.KEY.TYPE.DELETE;
-            this.CONTROLLER.raiseTick();
+            this.CONTROLLER.accelerateTick();
           }
         } else if (this.MODEL.SYNC.KEY.CUT.includes(event.keyCode) && event.ctrlKey) {
           if (this.MODEL.SYNC.KEY.BACKUP != this.MODEL.SYNC.KEY.TYPE.DELETE) {
             this.MODEL.SYNC.KEY.BACKUP = this.MODEL.SYNC.KEY.TYPE.DELETE;
-            this.CONTROLLER.raiseTick();
+            this.CONTROLLER.accelerateTick();
           }
         } else {
           if (this.MODEL.SYNC.KEY.BACKUP != this.MODEL.SYNC.KEY.TYPE.INPUT) {
             this.MODEL.SYNC.KEY.BACKUP = this.MODEL.SYNC.KEY.TYPE.INPUT;
-            this.CONTROLLER.raiseTick();
+            this.CONTROLLER.accelerateTick();
           }
         }
       }
@@ -384,24 +384,21 @@ class CodeController extends ClipwebController {
 
       // 初期化
       this.MODEL.STATUS.OPEN = true;
-      this.MODEL.STATUS.SYNC = null;
       this.MODEL.SYNC.ID = 0;
       this.MODEL.SYNC.KEY.BACKUP = this.MODEL.SYNC.KEY.TYPE.CURSOR;
-      this.MODEL.TICK.TIME.TOTAL = 0;
-      this.MODEL.TICK.TIME.CURRENT = this.MODEL.TICK.TIME.MIN;
-      this.MODEL.TICK.ROOT = 0;
+      this.MODEL.TICK.TOTAL = 0;
+      this.MODEL.TICK.COUNT = 0;
+      this.MODEL.TICK.CURRENT = this.MODEL.TICK.INIT;
 
       // コード
       this.MODEL.SYNC.CODE.CURRENT = this.MODEL.EDITOR.getValue();
       this.MODEL.SYNC.CODE.BEFORE = this.MODEL.SYNC.CODE.CURRENT;
-      this.MODEL.SYNC.CODE.BACKUP = this.MODEL.SYNC.CODE.CURRENT;
       // チェックサム
       this.MODEL.SYNC.HASH.CURRENT = MD5.getHash(this.MODEL.SYNC.CODE.CURRENT);
       this.MODEL.SYNC.HASH.BEFORE = this.MODEL.SYNC.HASH.CURRENT;
-      this.MODEL.SYNC.HASH.BACKUP = this.MODEL.SYNC.HASH.CURRENT;
 
       // 起動
-      this.tick();
+      this.loopTick();
     }
   }
 
@@ -411,137 +408,113 @@ class CodeController extends ClipwebController {
     this.MODEL.STATUS.OPEN = false;
   }
 
-  raiseTick () {
-    super.log('Raise root', this.MODEL.TICK.ROOT + 1)();
-    this.MODEL.TICK.TIME.TOTAL = 0;
-    this.MODEL.TICK.TIME.CURRENT = this.MODEL.TICK.TIME.MIN;
-    this.MODEL.TICK.ROOT ++;
-    if (this.MODEL.STATUS.SYNC == 'current') {
-      // もし通信中なら一旦後回し
-      setTimeout(
-        () => {
-          this.raiseTick();
-        },
-        this.MODEL.TICK.TIME.RETRY
-      );
-    } else {
-      // Diffが区切れていればOK
-      this.tick();
-    }
+  accelerateTick () {
+    super.log('Tick', 'Accelerate')();
+    this.MODEL.TICK.COUNT = this.MODEL.TICK.CURRENT;
   }
 
-  tick (root = this.MODEL.TICK.ROOT) {
+  tick () {
     // ID更新
     this.MODEL.SYNC.ID ++;
 
-    // 履歴から開いてるときは止める
-    if (this.MODEL.STATUS.HISTORY) {
+    // Tick
+    super.log(
+      `Tick: ${this.MODEL.SYNC.ID}`,
+      `${Math.round(this.MODEL.TICK.CURRENT * 100) / 100} tick (${Math.round(this.MODEL.TICK.INTERVAL * this.MODEL.TICK.CURRENT).toLocaleString()}ms)`
+    )();
+
+    // 前回値
+    this.MODEL.SYNC.CODE.BEFORE = this.MODEL.SYNC.CODE.CURRENT;
+    this.MODEL.SYNC.HASH.BEFORE = this.MODEL.SYNC.HASH.CURRENT;
+
+    // カレント - アップデート
+    this.MODEL.SYNC.CODE.CURRENT = this.MODEL.EDITOR.getValue();
+    this.MODEL.SYNC.HASH.CURRENT = SHA256.getHash(this.MODEL.SYNC.CODE.CURRENT);
+
+    // パッチ
+    this.MODEL.SYNC.PATCH.CURRENT = JsDiff.createPatch(
+      'Current',
+      this.MODEL.SYNC.CODE.BEFORE,
+      this.MODEL.SYNC.CODE.CURRENT
+    );
+
+    // ステータスを初期化
+    this.MODEL.STATUS.SEND = false;
+
+    // 編集送信判定
+    if (this.MODEL.STATUS.RECEIVE == false) {
+      if (this.MODEL.SYNC.PATCH.CURRENT.getRows() > 5) {
+        this.MODEL.STATUS.SEND = true;
+      }
+    }
+
+    // サーバに送信
+    this.connectSync(() => {
+      // コールバック
+
+      // 最新コードがあればそっち開く
+      if (this.MODEL.SYNC.DATE.SAVE > this.MODEL.SYNC.DATE.LAST) {
+        this.loadCode();
+      }
+
+      // 編集を送信
+      if (this.MODEL.STATUS.SEND) {
+        super.log('Tick', 'Send')();
+        this.MODEL.TICK.TOTAL = 0;
+        this.MODEL.TICK.CURRENT = this.MODEL.TICK.INIT;
+      }
+
+      // 編集を受信
+      if (this.MODEL.STATUS.RECEIVE) {
+        super.log('Tick', 'Receive')();
+        this.MODEL.TICK.TOTAL = 0;
+        this.MODEL.TICK.CURRENT = this.MODEL.TICK.INIT;
+      }
+
+      // 編集なし
+      if (this.MODEL.STATUS.SEND == false && this.MODEL.STATUS.RECEIVE == false){
+        // 時間を増やす
+        this.MODEL.TICK.TOTAL += this.MODEL.TICK.CURRENT;
+        this.MODEL.TICK.CURRENT *= this.MODEL.TICK.TIMES;
+        if (this.MODEL.TICK.CURRENT > this.MODEL.TICK.MAX) {
+          this.MODEL.TICK.CURRENT = this.MODEL.TICK.MAX;
+        }
+        // 一定時間編集なしが続いたら一時停止
+        if (this.MODEL.TICK.TOTAL > this.MODEL.TICK.LIMIT) {
+          super.log('Tick', 'Time limit')();
+          this.exitTick();
+          new Confirm({
+            title: LN.get('concurrent_editing_stop'),
+            content: LN.get('close_to_start_concurrent_editing'),
+            yes: LN.get('restart'),
+            type: Confirm.TYPE_YES,
+            functionClose: () => {
+              this.startTick();
+            }
+          });
+        }
+      }
+    });
+  }
+
+  loopTick () {
+    // 履歴から開いてる or 開いていない
+    if (this.MODEL.STATUS.HISTORY || this.MODEL.STATUS.OPEN == false) {
       return;
     }
 
-    // Tick
-    if (this.MODEL.STATUS.OPEN) {
-      super.log(`Tick ${this.MODEL.TICK.ROOT}: ${this.MODEL.SYNC.ID}`, `${Math.round(this.MODEL.TICK.TIME.CURRENT).toLocaleString()}ms`)();
-
-      // Rootのチェック
-      if (this.MODEL.TICK.ROOT > root) {
-        // Rootが育ってるから、今のRootを切る
-        super.log(`Root ${root}`, 'Remove', Log.ARROW_INPUT)();
-        return;
-      } else {
-        // 今のRootが一番大きい
-        this.MODEL.TICK.ROOT = root;
-      }
-
-      // カレント - アップデート
-      this.MODEL.STATUS.SYNC = 'current';
-      this.MODEL.SYNC.CODE.CURRENT = this.MODEL.EDITOR.getValue();
-      this.MODEL.SYNC.HASH.CURRENT = SHA256.getHash(this.MODEL.SYNC.CODE.CURRENT);
-
-      // パッチ
-      this.MODEL.SYNC.PATCH.CURRENT = JsDiff.createPatch(
-        'Current',
-        this.MODEL.SYNC.CODE.BACKUP,
-        this.MODEL.SYNC.CODE.CURRENT
-      );
-
-      // ステータスを初期化
-      this.MODEL.STATUS.SEND = false;
-
-      // 編集送信判定
-      if (this.MODEL.STATUS.RECEIVE == false) {
-        if (this.MODEL.SYNC.PATCH.CURRENT.getRows() > 5) {
-          this.MODEL.STATUS.SEND = true;
-        }
-      }
-
-      // 前回値
-      if (this.MODEL.STATUS.RECEIVE == false) {
-        this.MODEL.SYNC.CODE.BEFORE = this.MODEL.SYNC.CODE.BACKUP;
-        this.MODEL.SYNC.HASH.BEFORE = this.MODEL.SYNC.HASH.BACKUP;
-      }
-
-      // バックアップ - アップデート
-      this.MODEL.STATUS.SYNC = 'backup';
-      this.MODEL.SYNC.CODE.BACKUP = this.MODEL.EDITOR.getValue();
-      this.MODEL.SYNC.HASH.BACKUP = SHA256.getHash(this.MODEL.SYNC.CODE.BACKUP);
-
-      // サーバに送信
-      this.connectSync(() => {
-        // コールバック
-
-        // 最新コードがあればそっち開く
-        if (this.MODEL.SYNC.DATE.SAVE > this.MODEL.SYNC.DATE.LAST) {
-          this.loadCode();
-        }
-
-        // 編集を送信
-        if (this.MODEL.STATUS.SEND) {
-          super.log('Tick', 'Send')();
-          this.MODEL.TICK.TIME.TOTAL = 0;
-          this.MODEL.TICK.TIME.CURRENT = this.MODEL.TICK.TIME.MIN;
-        }
-
-        // 編集を受信
-        if (this.MODEL.STATUS.RECEIVE) {
-          super.log('Tick', 'Receive')();
-          this.MODEL.TICK.TIME.TOTAL = 0;
-          this.MODEL.TICK.TIME.CURRENT = this.MODEL.TICK.TIME.MIN;
-        }
-
-        // 編集なし
-        if (this.MODEL.STATUS.SEND == false && this.MODEL.STATUS.RECEIVE == false){
-          // 時間を増やす
-          this.MODEL.TICK.TIME.TOTAL += this.MODEL.TICK.TIME.CURRENT;
-          this.MODEL.TICK.TIME.CURRENT *= this.MODEL.TICK.TIME.TIMES;
-          if (this.MODEL.TICK.TIME.CURRENT > this.MODEL.TICK.TIME.MAX) {
-            this.MODEL.TICK.TIME.CURRENT = this.MODEL.TICK.TIME.MAX;
-          }
-          // 一定時間編集なしが続いたら一時停止
-          if (this.MODEL.TICK.TIME.TOTAL > this.MODEL.TICK.TIME.LIMIT) {
-            super.log('Tick', 'Time limit')();
-            this.exitTick();
-            new Confirm({
-              title: LN.get('concurrent_editing_stop'),
-              content: LN.get('close_to_start_concurrent_editing'),
-              yes: LN.get('restart'),
-              type: Confirm.TYPE_YES,
-              functionClose: () => {
-                this.startTick();
-              }
-            });
-          }
-        }
-
-        // 次のコール
-        setTimeout(
-          () => {
-            this.tick(root);
-          },
-          this.MODEL.TICK.TIME.CURRENT
-        );
-      });
+    if (this.MODEL.TICK.COUNT >= this.MODEL.TICK.CURRENT && this.MODEL.STATUS.CONNECTING == false) {
+      this.MODEL.TICK.COUNT = 0;
+      this.tick();
     }
+    // 次のコール
+    setTimeout(
+      () => {
+        this.MODEL.TICK.COUNT ++;
+        this.loopTick();
+      },
+      this.MODEL.TICK.INTERVAL
+    );
   }
 
   // ----------------------------------------------------------------
@@ -550,6 +523,9 @@ class CodeController extends ClipwebController {
   connectSync (callback = () => {}) {
     const _TYPE = this.MODEL.TYPE.SYNC;
     const _FAILED = 'failed_to_sync_code';
+
+    // 接続開始
+    this.MODEL.STATUS.CONNECTING = true;
 
     this.EVENT.setLoading({
       type: _TYPE,
@@ -573,48 +549,45 @@ class CodeController extends ClipwebController {
           this.MODEL.SYNC.DATE.LAST = this.MODEL.SYNC.DATE.PATCHED;
         }
 
-        let _temp_code = null;
         if (this.MODEL.SYNC.PATCH.RECEIVE.length > 0) {
+          super.log('Receive')();
           this.MODEL.STATUS.RECEIVE = true;
           this.MODEL.SYNC.DATE.LAST = this.MODEL.SYNC.PATCH.RECEIVE[this.MODEL.SYNC.PATCH.RECEIVE.length - 1]['created_at'];
 
-          if (this.MODEL.STATUS.SEND) {
-            // 受信と送信が重なったとき
-            // 操作変換
-          } else {
-            // 受信のみ
-            // BACKUP以降のパッチを全て受け取る
-            // 受け取ったパッチを順番に当てる
-            for (let index = 0; index < this.MODEL.SYNC.PATCH.RECEIVE.length; index ++) {
-              // if (this.MODEL.SYNC.PATCH.RECEIVE[index]['base_hash'] == SHA256.getHash(this.MODEL.SYNC.CODE.BEFORE)) {
-              // }
+          let _temp_code = null;
+          for (let index = 0; index < this.MODEL.SYNC.PATCH.RECEIVE.length; index ++) {
+            // super.log('before code', this.MODEL.SYNC.CODE.BEFORE)();
+            // super.log('patch', this.MODEL.SYNC.PATCH.RECEIVE[index]['patch'])();
+            _temp_code = JsDiff.applyPatch(
+              this.MODEL.SYNC.CODE.BEFORE,
+              this.MODEL.SYNC.PATCH.RECEIVE[index]['patch']
+            );
+            if (_temp_code != false) {
               this.MODEL.STATUS.PATCHED = true;
-              super.log('data', this.MODEL.SYNC.PATCH.RECEIVE[index]['patch'])();
-              super.log('code', this.MODEL.SYNC.CODE.BEFORE)();
-              _temp_code = JsDiff.applyPatch(
-                this.MODEL.SYNC.CODE.BEFORE,
-                this.MODEL.SYNC.PATCH.RECEIVE[index]['patch']
-              );
-              if (_temp_code != false) {
-                this.MODEL.SYNC.CODE.BEFORE = _temp_code;
-                super.log('code->', this.MODEL.SYNC.CODE.BEFORE)();
-              } else {
-                break;
-              }
+              this.MODEL.SYNC.CODE.BEFORE = _temp_code;
+              // super.log('patch', 'OK')();
+            } else {
+              // super.log('patch', 'NG')();
             }
           }
           if (this.MODEL.STATUS.PATCHED) {
             let _cursor = this.MODEL.EDITOR.getCursorPositionScreen();
+            this.MODEL.SYNC.CODE.CURRENT = this.MODEL.SYNC.CODE.BEFORE;
             this.MODEL.EDITOR.setValue(this.MODEL.SYNC.CODE.BEFORE);
             this.MODEL.EDITOR.clearSelection();
             this.MODEL.EDITOR.moveCursorToPosition(_cursor);
+            // super.log('SET', this.MODEL.SYNC.CODE.BEFORE)();
           }
         }
+
       },
       connectionErrorToastModel: super.getErrorModel('toast/server', _FAILED),
       connectionCompletefunction: () => {
         // コールバック
         callback();
+
+        // 接続終了
+        this.MODEL.STATUS.CONNECTING = false;
       }
     });
 
