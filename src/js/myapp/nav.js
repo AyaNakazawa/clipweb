@@ -124,10 +124,10 @@ class NavView extends ClipwebView {
       id: this.MODEL.SELECTOR.NAV.REGISTER,
       name: LN.get('register')
     });
-    this.addNavItem({
-      id: this.MODEL.SELECTOR.NAV.HELP,
-      name: LN.get('help')
-    });
+    // this.addNavItem({
+    //   id: this.MODEL.SELECTOR.NAV.HELP,
+    //   name: LN.get('help')
+    // });
   }
 
   generateLogined () {
@@ -146,10 +146,10 @@ class NavView extends ClipwebView {
       id: this.MODEL.SELECTOR.NAV.SETTING,
       name: LN.get('user')
     });
-    this.addNavItem({
-      id: this.MODEL.SELECTOR.NAV.HELP,
-      name: LN.get('help')
-    });
+    // this.addNavItem({
+    //   id: this.MODEL.SELECTOR.NAV.HELP,
+    //   name: LN.get('help')
+    // });
     this.addNavItem({
       id: this.MODEL.SELECTOR.NAV.LOGOUT,
       name: LN.get('logout')
