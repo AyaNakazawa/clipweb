@@ -81,6 +81,12 @@ class ClipwebModel extends CommonModel {
     this.TIME.COMPLETE = new Date();
 
     // ----------------------------------------------------------------
+    // ログ表示
+    this.LOG = {};
+    this.LOG.POST = false;
+    this.LOG.CHECK = false;
+
+    // ----------------------------------------------------------------
     // ステータス
     this.STATUS = {};
     this.STATUS.AREA = null;
@@ -571,7 +577,9 @@ class ClipwebController extends CommonController {
     functionSuccess = () => {},
     functionError = () => {}
   } = {}) {
-    super.log('Check', 'CGI')();
+    if (this.MODEL.LOG.CHECK) {
+      super.log('Check', 'CGI')();
+    }
     if (this.getAjaxData({ key: 'result' }) == this.MODEL.ERROR) {
       // resultが取得できない
       super.log('Error', 'Not defined')();
@@ -662,7 +670,9 @@ class ClipwebController extends CommonController {
         }
       }
       // 成功
-      super.log('Success', 'CGI')();
+      if (this.MODEL.LOG.CHECK) {
+        super.log('Success', 'CGI')();
+      }
       functionSuccess();
     }
   }
@@ -684,13 +694,13 @@ class ClipwebController extends CommonController {
       return this.MODEL.ERROR;
     }
 
-    super.log()();
-    Log.log('Post', Log.ALIGN_CENTER)();
-    super.log('Post', `${mode.mini()}.${type.mini()}`)();
+    // super.log()();
+    // Log.log('Post', Log.ALIGN_CENTER)();
+    // super.log('Post', `${mode.mini()}.${type.mini()}`)();
 
     data['type'] = `${mode.mini()}.${type.mini()}`;
 
-    super.log('data', data)();
+    // super.log('data', data)();
 
     this.MODEL.TIME.POST = new Date();
 
@@ -703,70 +713,78 @@ class ClipwebController extends CommonController {
       cache: cache,
       dateType: dateType,
       beforeSend: (jqXHR, settings) => {
-        this.MODEL.TIME.BEFORE_SEND = new Date();
-        super.log()();
-        Log.log('Post Before Send', Log.ALIGN_CENTER)();
-        super.log('Post', 'Send')();
-        super.log('settings', settings)();
-        // super.log('jqXHR', jqXHR)();
+        if (this.MODEL.LOG.POST) {
+          // this.MODEL.TIME.BEFORE_SEND = new Date();
+          // super.log()();
+          // Log.log('Post Before Send', Log.ALIGN_CENTER)();
+          // super.log('Post', 'Send')();
+          // super.log('settings', settings)();
+          // super.log('jqXHR', jqXHR)();
+        }
       },
       success: (data, textStatus, jqXHR) => {
-        this.MODEL.TIME.RETURN = new Date();
+        if (this.MODEL.LOG.POST) {
+          this.MODEL.TIME.RETURN = new Date();
+          super.log()();
+          Log.log('Post Success', Log.ALIGN_CENTER)();
+          super.log('Post', 'Success')();
+          // super.log('textStatus', textStatus)();
+          // super.log('data', data)();
+          // super.log('jqXHR', jqXHR)();
+          super.log()();
+        }
         if (data == '') {
           Log.error(arguments, 'Received data is empty.')();
         }
         data = JSON.parse(data);
-        super.log()();
-        Log.log('Post Success', Log.ALIGN_CENTER)();
-        super.log('Post', 'Success')();
-        // super.log('textStatus', textStatus)();
-        super.log('data', data)();
-        // super.log('jqXHR', jqXHR)();
-        super.log()();
         this.MODEL.OBJECT.AJAX = data;
         this.EVENT.trigger({ trigger: `${_post_id}.${this.MODEL.TRIGGER.POST.SUCCESS}` });
       },
       error: (jqXHR, textStatus, errorThrown) => {
-        this.MODEL.TIME.RETURN = new Date();
-        super.log()();
-        Log.log('Post Error', Log.ALIGN_CENTER)();
-        super.log('Post', 'Error')();
-        super.log('textStatus', textStatus)();
-        super.log('errorThrown', errorThrown)();
-        super.log('jqXHR', jqXHR)();
-        super.log()();
+        if (this.MODEL.LOG.POST) {
+          this.MODEL.TIME.RETURN = new Date();
+          super.log()();
+          Log.log('Post Error', Log.ALIGN_CENTER)();
+          super.log('Post', 'Error')();
+          super.log('textStatus', textStatus)();
+          super.log('errorThrown', errorThrown)();
+          super.log('jqXHR', jqXHR)();
+          super.log()();
+        }
         this.EVENT.trigger({ trigger: `${_post_id}.${this.MODEL.TRIGGER.POST.ERROR}` });
       },
       complete: (jqXHR, textStatus) => {
-        this.MODEL.TIME.COMPLETE = new Date();
-        super.log()();
-        Log.log('Post Complete', Log.ALIGN_CENTER)();
-        super.log('Post', 'Complete')();
-        // super.log('textStatus', textStatus)();
-        // super.log('jqXHR', jqXHR)();
-        const _EXEC_TIME = parseInt(this.getAjaxData({ type: 'exec_time' }) * 1000);
-        Log.log('Post Time', Log.ALIGN_CENTER)();
-        Log.classKey(
-          'Before Send',
-          new Date(this.MODEL.TIME.BEFORE_SEND - this.MODEL.TIME.POST).formatString('%S.%MSs'),
-          new Date(this.MODEL.TIME.BEFORE_SEND - this.MODEL.TIME.POST).formatString('%S.%MSs')
-        )();
-        Log.classKey(
-          'Server Exec',
-          new Date(_EXEC_TIME).formatString('%S.%MSs'),
-          new Date(_EXEC_TIME + (this.MODEL.TIME.BEFORE_SEND - this.MODEL.TIME.POST)).formatString('%S.%MSs')
-        )();
-        Log.classKey(
-          'Network Delay',
-          new Date((this.MODEL.TIME.RETURN - this.MODEL.TIME.BEFORE_SEND) - _EXEC_TIME).formatString('%S.%MSs'),
-          new Date(this.MODEL.TIME.RETURN - this.MODEL.TIME.POST).formatString('%S.%MSs')
-        )();
-        Log.classKey(
-          'Post Complete',
-          new Date(this.MODEL.TIME.COMPLETE - this.MODEL.TIME.RETURN).formatString('%S.%MSs'),
-          new Date(this.MODEL.TIME.COMPLETE - this.MODEL.TIME.POST).formatString('%S.%MSs')
-        )();
-        super.log()();
+        if (this.MODEL.LOG.POST) {
+          this.MODEL.TIME.COMPLETE = new Date();
+          super.log()();
+          Log.log('Post Complete', Log.ALIGN_CENTER)();
+          super.log('Post', 'Complete')();
+          // super.log('textStatus', textStatus)();
+          // super.log('jqXHR', jqXHR)();
+          const _EXEC_TIME = parseInt(this.getAjaxData({ type: 'exec_time' }) * 1000);
+          Log.log('Post Time', Log.ALIGN_CENTER)();
+          Log.classKey(
+            'Before Send',
+            new Date(this.MODEL.TIME.BEFORE_SEND - this.MODEL.TIME.POST).formatString('%S.%MSs'),
+            new Date(this.MODEL.TIME.BEFORE_SEND - this.MODEL.TIME.POST).formatString('%S.%MSs')
+          )();
+          Log.classKey(
+            'Server Exec',
+            new Date(_EXEC_TIME).formatString('%S.%MSs'),
+            new Date(_EXEC_TIME + (this.MODEL.TIME.BEFORE_SEND - this.MODEL.TIME.POST)).formatString('%S.%MSs')
+          )();
+          Log.classKey(
+            'Network Delay',
+            new Date((this.MODEL.TIME.RETURN - this.MODEL.TIME.BEFORE_SEND) - _EXEC_TIME).formatString('%S.%MSs'),
+            new Date(this.MODEL.TIME.RETURN - this.MODEL.TIME.POST).formatString('%S.%MSs')
+          )();
+          Log.classKey(
+            'Post Complete',
+            new Date(this.MODEL.TIME.COMPLETE - this.MODEL.TIME.RETURN).formatString('%S.%MSs'),
+            new Date(this.MODEL.TIME.COMPLETE - this.MODEL.TIME.POST).formatString('%S.%MSs')
+          )();
+          super.log()();
+        }
         this.EVENT.trigger({ trigger: `${_post_id}.${this.MODEL.TRIGGER.POST.COMPLETE}` });
       }
     });
