@@ -479,7 +479,7 @@ class CodeController extends ClipwebController {
       this.MODEL.SYNC.HASH.BACKUP = SHA256.getHash(this.MODEL.SYNC.CODE.BACKUP);
 
       // サーバに送信
-      this.connectConcurrent(() => {
+      this.connectSync(() => {
         // コールバック
 
         // 最新コードがあればそっち開く
@@ -539,7 +539,7 @@ class CodeController extends ClipwebController {
   // ----------------------------------------------------------------
   // tick ajax
 
-  connectConcurrent (callback = () => {}) {
+  connectSync (callback = () => {}) {
     const _TYPE = this.MODEL.TYPE.SYNC;
     const _FAILED = 'failed_to_sync_code';
 
