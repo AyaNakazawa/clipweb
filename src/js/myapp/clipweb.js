@@ -85,6 +85,7 @@ class ClipwebModel extends CommonModel {
     this.LOG = {};
     this.LOG.POST = false;
     this.LOG.CHECK = false;
+    this.LOG.CRYPTO = false;
 
     // ----------------------------------------------------------------
     // ステータス
