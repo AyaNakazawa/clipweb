@@ -6,44 +6,45 @@
 // Model
 
 class SwitchModel extends CommonModel {
-  constructor(
+  constructor (
     _initSetting = {
-      NAME: 'Common Switch',
-      TEMPLATE: null,
-      currentView: null,
-      INIT_VIEW: true,
-      LS_KEY: null,
-      EVENT_TRIGGER: 'click',
-      TRIGGER_SELECTOR: null,
-      SWITCH_SELECTOR: null,
-      TOGGLE_TIME_MS: 500
+      NAME: 'Switch Object',
+      selector: null,
+      view: null,
+      speed: 500,
+      template: null,
+      localStorageKey: null,
+      eventTrigger: 'click',
+      eventSelector: null
     }
   ) {
     super(_initSetting);
+
+    this.INIT_VIEW = true;
   }
-  
-  compile() {
-    if (this.TEMPLATE != null) {
+
+  compile () {
+    if (this.template != null) {
       if (this.NAME == 'Common Switch') {
-        this.NAME = `${this.TEMPLATE.capitalize()} Switch`;
+        this.NAME = `${this.template.capitalize()} Switch`;
       }
-      
-      if (this.LS_KEY != null && this.LS_KEY != 'none') {
-        this.LS_KEY = `View.${this.LS_KEY}`;
+
+      if (this.localStorageKey != null && this.localStorageKey != 'none') {
+        this.localStorageKey = `View.${this.localStorageKey}`;
       }
-      
-      if (this.LS_KEY != 'none') {
-        this.LS_KEY = `View.${this.TEMPLATE}`;
+
+      if (this.localStorageKey != 'none') {
+        this.localStorageKey = `View.${this.template}`;
       } else {
-        this.LS_KEY = null;
+        this.localStorageKey = null;
       }
-      
-      if (this.TRIGGER_SELECTOR != 'none') {
-        this.TRIGGER_SELECTOR = `#${this.TEMPLATE}-switch`;
+
+      if (this.eventSelector != 'none') {
+        this.eventSelector = `#${this.template}-switch`;
       }
-      
-      if (this.SWITCH_SELECTOR != 'none') {
-        this.SWITCH_SELECTOR = `#${this.TEMPLATE}-area`;
+
+      if (this.selector != 'none') {
+        this.selector = `#${this.template}-area`;
       }
     }
   }
@@ -53,32 +54,55 @@ class SwitchModel extends CommonModel {
 // View
 
 class SwitchView extends CommonView {
-  constructor(
+  constructor (
     _initSetting = {
       NAME: 'Switch View'
     }
   ) {
     super(_initSetting);
   }
-  
-  setView(_view = null, _speed = this.MODEL.TOGGLE_TIME_MS) {
-    Log.logClassKey('View', this.MODEL.NAME, _view, Log.ARROW_INPUT);
-    
-    if (_view != null) {
-      if (_view) {
-        $(this.MODEL.TRIGGER_SELECTOR).addClass(this.MODEL.ACTIVE);
-        $(this.MODEL.SWITCH_SELECTOR).show(_speed);
-      } else {
-        $(this.MODEL.TRIGGER_SELECTOR).removeClass(this.MODEL.ACTIVE);
-        $(this.MODEL.SWITCH_SELECTOR).hide(_speed);
-      }
-      
-      // save
-      if (this.MODEL.LS_KEY != null) {
-        LocalStorage.setItem(this.MODEL.LS_KEY, _view);
-      }
-      this.MODEL.currentView = _view;
+
+  switchView () {
+    super.log('View', 'Switch', Log.ARROW_INPUT)();
+    // Method chain
+    return this.setView(!this.MODEL.view);
+  }
+
+  getView () {
+    return this.MODEL.view;
+  }
+
+  setView (_view = null, _speed = this.MODEL.speed) {
+    super.log('View', _view, Log.ARROW_INPUT)();
+
+    if (_view == null) {
+      Log.Error(arguments, 'view is null')();
+      return;
     }
+
+    if (_view) {
+      if (eventSelector != null) {
+        $(this.MODEL.eventSelector).addClass(this.MODEL.ACTIVE);
+      }
+      $(this.MODEL.selector).show(_speed);
+    } else if (_view) {
+      if (eventSelector != null) {
+        $(this.MODEL.eventSelector).removeClass(this.MODEL.ACTIVE);
+      }
+      $(this.MODEL.selector).hide(_speed);
+    } else {
+      Log.Error(arguments, 'unknown view.')();
+      return;
+    }
+
+    // save
+    if (this.MODEL.localStorageKey != null) {
+      LocalStorage.setItem(this.MODEL.localStorageKey, _view);
+    }
+    this.MODEL.view = _view;
+
+    // Method chain
+    return this;
   }
 }
 
@@ -86,21 +110,20 @@ class SwitchView extends CommonView {
 // Event
 
 class SwitchEvent extends CommonEvent {
-  constructor(
+  constructor (
     _initSetting = {
       NAME: 'Switch Event'
     }
   ) {
     super(_initSetting);
   }
-  
-  setOnSwitch() {
-    if (this.MODEL.TRIGGER_SELECTOR != null) {
+
+  setOnSwitch () {
+    if (this.MODEL.eventSelector != null) {
       super.setOn({
-        trigger: this.MODEL.EVENT_TRIGGER,
-        selector: this.MODEL.TRIGGER_SELECTOR,
+        trigger: this.MODEL.eventTrigger,
+        selector: this.MODEL.eventSelector,
         func: () => {
-          Log.log('click');
           this.CONTROLLER.switchView();
         }
       });
@@ -112,49 +135,45 @@ class SwitchEvent extends CommonEvent {
 // Controller
 
 class SwitchController extends CommonController {
-  constructor(
+  constructor (
     _model = {},
     _initSetting = {
       NAME: 'Switch Controller',
       MODEL: new SwitchModel(),
       VIEW: new SwitchView(),
-      EVENT: new SwitchEvent(),
-      VIEW_OBJECT: false
+      EVENT: new SwitchEvent()
     }
   ) {
     super(_model, _initSetting);
-    
+
     this.initSwitchView();
   }
-  
-  initSwitchView() {
+
+  initSwitchView () {
     this.MODEL.compile();
-    this.setCurrentView();
-    this.VIEW.setView(this.MODEL.currentView, 0);
+    if (this.MODEL.selector == null) {
+      Log.Error(arguments, 'switch selector is null')();
+      return;
+    }
+    this.initView();
+    this.VIEW.setView(this.MODEL.view, 0);
     this.EVENT.setOnSwitch();
   }
-  
-  setCurrentView() {
-    if (this.MODEL.currentView == null) {
-      if (this.MODEL.LS_KEY == null) {
-        this.MODEL.currentView = this.MODEL.INIT_VIEW;
+
+  initView () {
+    if (this.MODEL.view == null) {
+      if (this.MODEL.localStorageKey == null) {
+        this.MODEL.view = this.MODEL.INIT_VIEW;
       } else {
-        const LS_VAL = LocalStorage.getItem(this.MODEL.LS_KEY);
+        const LS_VAL = LocalStorage.getItem(this.MODEL.localStorageKey);
         if (LS_VAL == null) {
-          this.MODEL.currentView = true;
+          this.MODEL.view = this.MODEL.INIT_VIEW;
         } else if (LS_VAL == 'true') {
-          this.MODEL.currentView = true;
+          this.MODEL.view = true;
         } else if (LS_VAL == 'false') {
-          this.MODEL.currentView = false;
+          this.MODEL.view = false;
         }
       }
     }
-  }
-  
-  switchView() {
-    Log.logClass('Switch', `${this.MODEL.NAME}`);
-    
-    this.setCurrentView();
-    this.VIEW.setView(!this.MODEL.currentView);
   }
 }

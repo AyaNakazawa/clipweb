@@ -3,28 +3,56 @@
 
 $none: none;
 
+// font
+
+$font-fas: "Font Awesome 5 Pro Solid";
+$font-far: "Font Awesome 5 Pro Regular";
+$font-fal: "Font Awesome 5 Pro Light";
+$font-fab: "Font Awesome 5 Pro Brands";
+
 // main
 
 $main-back: #fff;
-$main-color: #333;
-$main-color-active: #111;
-$main-color-passive: #666;
+$main-color: #666;
+$main-color-active: #555;
+$main-color-passive: #888;
 
-$main-color-link: #aaa;
+$back-color-active: rgba(0, 0, 0, 0.10);
+$back-color-passive: rgba(0, 0, 0, 0.05);
+
+$main-color-link: #888;
+
+$main-box-shadow-color: #dcdcd0;
+$main-text-shadow-color: #ccccc0;
 
 // border
 
-$border-size: 1px;
+$border-size: 2px;
 $border-radius-size: 4px;
-
 $border-style: solid;
 
-$border-color: #ddd;
-$border-color-active: #666;
-$border-color-passive: #ccc;
+$border-color: #eee;
+$border-color-active: #888;
+$border-color-passive: #ddd;
 
-$back-color-active: rgba(0, 0, 0, 0.15);
-$back-color-passive: rgba(0, 0, 0, 0.05);
+// header
+
+$header-back: #fcdd6e;
+$header-color: #fff;
+$header-shadow: #f1d46e;
+
+// fotter
+
+$fotter-back: #fffdfd;
+$fotter-back-hover: #fff8f0;
+
+// nav
+
+$nav-back: #fff;
+$nav-main-color-active: #555;
+$nav-main-color-passive: #bbb;
+$nav-back-color-active: rgba(0, 0, 0, 0.10);
+$nav-back-color-passive: rgba(0, 0, 0, 0.05);
 
 // size
 
@@ -33,23 +61,44 @@ $size-tablet: 768px;
 $size-medium: 992px;
 $size-large: 1200px;
 
-// content
-
-$content-label-side: 180px;
-
 // animation
 
-$animation-rotate: infinite-rotate;
+$animation-loading: loading;
 $animation-dotting: dotting;
+$loading-color-1: rgba(255, 220, 142, 1);
+$loading-color-2: rgba(255, 220, 142, 0.7);
+$loading-color-3: rgba(255, 220, 142, 0.5);
+$loading-color-4: rgba(255, 220, 142, 0.2);
 
 // z-index
 
-$z-diary-hover: 20;
+$z-header: 6;
+$z-footer: 6;
+$z-navbar: 4;
 $z-help-icon: 10;
 
 // app
 
-$app-back: #f8f8f8;
+$app-back: #eee9db;
+$app-color: #333;
+
+// content
+
+$content-back: #fff;
+$content-color: #666;
+
+$content-header-back: #fcfcf0;
+$content-header-color: #666;
+
+$content-nav-back: #fff;
+$content-nav-color: #484848;
+
+$content-label-side: 180px;
+
+$content-input-icon-opacity: 0.3;
+
+$true-color: #09ad00;
+$false-color: #ad0009;
 
 // function
 
@@ -80,6 +129,12 @@ $app-back: #f8f8f8;
   -webkit-animation: $animation;
   -moz-animation: $animation;
   animation: $animation;
+}
+
+@mixin translateZ($translateZ) {
+  -webkit-translateZ: $translateZ;
+  -moz-translateZ: $translateZ;
+  translateZ: $translateZ;
 }
 
 @mixin keyframes($animation-name) {

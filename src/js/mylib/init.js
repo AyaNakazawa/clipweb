@@ -3,3 +3,6 @@
 // ES6
 
 'use strict';
+
+let TIME = {};
+TIME.INIT = new Date();

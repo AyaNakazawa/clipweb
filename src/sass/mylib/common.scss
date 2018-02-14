@@ -1,5 +1,50 @@
 @charset "utf-8";
 
+// ----------------------------------------------------------------
+// font
+
+@font-face {
+  font-family: "ProximaSoft-Regular";
+  src: url("../webfonts/ProximaSoft-Regular.eot");
+  src: url("../webfonts/ProximaSoft-Regular.eot?#iefix") format("embedded-opentype"),
+  url("../webfonts/ProximaSoft-Regular.woff2") format("woff2"),
+  url("../webfonts/ProximaSoft-Regular.woff") format("woff"),
+  url("../webfonts/ProximaSoft-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Font Awesome 5 Pro Solid';
+  font-style: normal;
+  font-weight: 900;
+  src: url("../webfonts/fa-solid-900.eot");
+  src: url("../webfonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("../webfonts/fa-solid-900.woff2") format("woff2"), url("../webfonts/fa-solid-900.woff") format("woff"), url("../webfonts/fa-solid-900.ttf") format("truetype"), url("../webfonts/fa-solid-900.svg#fontawesome") format("svg");
+}
+
+@font-face {
+  font-family: 'Font Awesome 5 Pro Regular';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../webfonts/fa-regular-400.eot");
+  src: url("../webfonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("../webfonts/fa-regular-400.woff2") format("woff2"), url("../webfonts/fa-regular-400.woff") format("woff"), url("../webfonts/fa-regular-400.ttf") format("truetype"), url("../webfonts/fa-regular-400.svg#fontawesome") format("svg");
+}
+
+@font-face {
+  font-family: 'Font Awesome 5 Pro Light';
+  font-style: normal;
+  font-weight: 300;
+  src: url("../webfonts/fa-light-300.eot");
+  src: url("../webfonts/fa-light-300.eot?#iefix") format("embedded-opentype"), url("../webfonts/fa-light-300.woff2") format("woff2"), url("../webfonts/fa-light-300.woff") format("woff"), url("../webfonts/fa-light-300.ttf") format("truetype"), url("../webfonts/fa-light-300.svg#fontawesome") format("svg");
+}
+
+@font-face {
+  font-family: 'Font Awesome 5 Brands';
+  font-style: normal;
+  font-weight: normal;
+  src: url("../webfonts/fa-brands-400.eot");
+  src: url("../webfonts/fa-brands-400.eot?#iefix") format("embedded-opentype"), url("../webfonts/fa-brands-400.woff2") format("woff2"), url("../webfonts/fa-brands-400.woff") format("woff"), url("../webfonts/fa-brands-400.ttf") format("truetype"), url("../webfonts/fa-brands-400.svg#fontawesome") format("svg");
+}
+
+// ----------------------------------------------------------------
 // body
 
 body {
@@ -9,95 +54,16 @@ body {
   padding: 0;
   color: $main-color;
   background: $main-back;
+  font-family: "ProximaSoft-Regular", メイリオ, Meiryo, "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", Quicksand, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
   font-size: 16px;
-  font-family: Verdana, Arial, sans-serif;
-  border-top: 4px solid $main-color-passive;
+  font-weight: 500;
 }
+
+// ----------------------------------------------------------------
+// common
 
 * {
   @include transition;
-}
-
-// header
-
-header {
-  margin: 40px 60px 0;
-  padding: 0px;
-  text-align: left;
-  @include border-c(bottom);
-  cursor: pointer;
-
-  & * {
-    font-weight: bold;
-  }
-
-  &:hover {
-    & * {
-      text-shadow: 0px 0px 1px $main-color;
-    }
-  }
-}
-
-// footer
-
-footer {
-  margin: 40px 60px;
-  text-align: right;
-}
-
-// navbar
-
-.navbar {
-  background: $main-back;
-  margin-bottom: 0;
-  border: 0;
-
-  * {
-  @include transition(all, 0);
-  }
-
-  &.navbar-default {
-    .navbar-nav {
-      li {
-        cursor: pointer;
-        margin: 8px;
-        padding: 1px;
-        border-radius: 4px;
-
-        &:hover {
-        background: $back-color-passive;
-        }
-
-        &.active {
-          background: $back-color-active;
-
-          &:hover {
-          background: $back-color-passive;
-          }
-
-          a {
-            background: transparent;
-            color: $main-color-active;
-
-            &:hover {
-              background: transparent;
-              color: $main-color-passive;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-// common
-
-body {
-  background: $app-back;
-}
-
-nav * {
-  background: $app-back;
 }
 
 a {
@@ -107,14 +73,307 @@ a {
   }
 }
 
-.display-none {
-  display: none !important;
-}
-
 textarea {
   resize: vertical;
 }
 
-img {
-  box-shadow: 0 0 2px 2px #eee inset;
+table {
+  * {
+    vertical-align: middle !important;
+    text-align: center;
+  }
+
+  thead {
+    tr {
+      th {
+        text-align: center;
+      }
+    }
+  }
+
+  button {
+    height: 2rem !important;
+    line-height: 1rem !important;
+  }
+}
+
+.display-none {
+  display: none !important;
+}
+
+.pointer {
+  cursor: pointer !important;
+}
+
+.localization {
+  font-size: .85rem;
+  color: $main-color !important;
+  option {
+    color: $main-color !important;
+  }
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+}
+
+.date {
+  font-family: sans-serif;
+  font-size: 0.85rem;
+  vertical-align: middle !important;
+}
+
+.avatar {
+  box-shadow: 2px 2px 1px 1px $main-box-shadow-color;
+  @include border();
+  border-radius: 50%;
+}
+
+// ----------------------------------------------------------------
+// header
+
+.header-area {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  border-top: 4px dashed $header-back;
+  box-shadow: 0 0 2px 2px $main-box-shadow-color;
+  font-weight: 900;
+  position: relative;
+  z-index: $z-header;
+
+  header {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background: $header-back;
+
+    * {
+      color: $header-color;
+      text-shadow: 2px 2px 2px $main-text-shadow-color;
+    }
+
+    .header-wrapper {
+      height: 100%;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      div {
+        margin: 4px;
+      }
+
+      .header-title {
+        height: 2.4rem;
+        line-height: 2.4rem;
+        font-size: 2.4rem;
+      }
+
+      .header-content {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        .header-content-item {
+          margin: .5rem;
+          font-size: 1.5rem;
+
+          #header-clear {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+// ----------------------------------------------------------------
+// footer
+
+.footer-area {
+  box-shadow: 0 -2px 1px 1px $main-box-shadow-color;
+  position: relative;
+  z-index: $z-footer;
+  font-weight: 700;
+
+  footer {
+    padding: 40px 0;
+    text-align: right;
+    text-shadow: 1px 1px 1px $main-text-shadow-color;
+
+    > div {
+      background: $fotter-back;
+      padding: .5rem 1rem;
+      box-shadow: 2px 2px 1px 1px $main-box-shadow-color;
+      @include border;
+      border-radius: 24px;
+      cursor: pointer;
+
+      &:hover {
+        background: $fotter-back-hover;
+      }
+    }
+  }
+}
+
+// ----------------------------------------------------------------
+// navbar
+
+.nav-area {
+  margin: 0;
+  padding: 0;
+  background: $nav-back;
+  box-shadow: 0 2px 1px 1px $main-box-shadow-color;
+  font-weight: 700;
+  position: relative;
+  z-index: $z-navbar;
+
+  .navbar {
+    @include margin-auto();
+    padding: 8px 16px;
+    border: 0;
+    text-shadow: 1px 1px 1px $main-text-shadow-color;
+
+    .input-group {
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-seacrh {
+      padding: 0;
+    }
+
+    .navbar-nav {
+      margin: 4px 0;
+      padding: 0;
+
+      li {
+        cursor: pointer;
+        margin: 2px;
+        padding: 4px;
+        border-radius: $border-radius-size;
+        color: $nav-main-color-passive;
+
+        a {
+          margin: 0;
+          padding: 4px 12px;
+          background: transparent;
+
+          &:hover {
+            background: transparent;
+          }
+        }
+
+        &:hover {
+          background: $nav-back-color-passive;
+        }
+
+        &.active {
+          background: $nav-back-color-active;
+          color: $nav-main-color-active;
+
+          &:hover {
+            background: $nav-back-color-passive;
+          }
+        }
+      }
+    }
+  }
+}
+
+// ----------------------------------------------------------------
+// modal
+
+.modal {
+  .modal-dialog {
+    .modal-content {
+      .modal-header {
+        .modal-title {
+          width: 100%;
+          height: 100%;
+          font-size: 1.4rem;
+          font-weight: 700;
+          text-align: center;
+        }
+
+        .modal-close {
+
+        }
+      }
+      .modal-body {
+        .modal-img {
+
+        }
+
+        .modal-message {
+
+        }
+      }
+
+      .modal-footer {
+
+      }
+
+      .modal-button {
+
+      }
+    }
+  }
+}
+
+// ----------------------------------------------------------------
+// Tablet
+
+@include media($size-tablet) {
+
+  #list-area {
+    width: 722px !important;
+  }
+
+  // nav
+
+  .nav-area {
+
+    .navbar {
+      padding: 4px 16px;
+
+      .navbar-nav {
+        margin: 0;
+      }
+    }
+  }
+}
+
+// ----------------------------------------------------------------
+// Medium desktop
+
+@include media($size-medium) {
+
+}
+
+// ----------------------------------------------------------------
+// Large desktop
+
+@include media($size-large) {
+
+  // header
+
+  header .header-wrapper {
+    width: 1200px;
+    @include margin-auto;
+  }
+
+  // footer
+
+  footer {
+    width: 1062px;
+    @include margin-auto;
+  }
+
+  // nav
+
+  nav {
+    width: 1200px;
+  }
 }

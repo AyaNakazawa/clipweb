@@ -1,62 +1,57 @@
 
 class Process extends CommonProcess {
-  constructor(
+  constructor (
     _initSetting = {
       NAME: `${Project.NAME} Process`
     }
   ) {
     super(_initSetting);
-    
-    this.SHOW_SPEED = 350;
-    this.MAIN_SELECTOR = 'main';
-    
+
+    this.SELECTOR = {};
+    this.SELECTOR.MAIN = 'main';
+    this.SELECTOR.BODY = 'body';
+
+    this.SELECTOR.CONTENT = {};
+    this.SELECTOR.CONTENT.USER = 'user-area';
+    this.SELECTOR.CONTENT.LIST = 'list-area';
+    this.SELECTOR.CONTENT.CLIP = 'clip-area';
+    this.SELECTOR.CONTENT.HELP = 'help-area';
+    this.SELECTOR.CONTENT.HELP = 'code-area';
+
     this.run();
   }
-  
-  run() {
-    this.initContent();
+
+  run () {
+    this.generateContent();
+    this.setViewContent();
     this.initController();
-    Process.initPopover();
     this.show();
   }
-  
-  initContent() {
-    $(this.MAIN_SELECTOR).empty();
-    $(this.MAIN_SELECTOR).append(Content.getContent('user-area'));
+
+  generateContent () {
+    $(this.SELECTOR.MAIN).empty();
+    $.each(this.SELECTOR.CONTENT, (index, selector) => {
+      $(this.SELECTOR.MAIN).append(Content.getContent(selector));
+    });
   }
-  
-  static initPopover() {
-    // new PopoverController({
-    //   SELECTOR: '#template-help',
-    //   HELP: 'Template help'
-    // });
+
+  setViewContent () {
+    $.each(this.SELECTOR.CONTENT, (index, selector) => {
+      $(`#${selector}`).hide();
+    });
   }
-  
-  initController() {
-    this.CONTROLLER = {
-      TEMP: new UserController()
-    };
-    
-    this.CONTROLLER.SWITCH = {
-      TEMP: new SwitchController({
-        TEMPLATE: 'user',
-        currentView: true,
-        LS_KEY: 'none'
-      })
-    };
-    
-    this.CONTROLLER.SCROLL = {
-      TEMP: new ScrollController({
-        NAME: 'User Switch',
-        SCROLL_SELECTOR: '#user-area',
-        EVENT_SELECTOR: '#user-scroll'
-      })
-    };
+
+  initController () {
+    NAV = new NavController();
+    // HELP = new HelpController();
+    USER = new UserController();
+    LIST = new ListController();
+    CLIP = new ClipController();
+    CODE = new CodeController();
   }
-  
-  show() {
-    $(this.MAIN_SELECTOR).slideDown(this.SHOW_SPEED);
-    Log.log();
-    Log.logClass(this.NAME, 'Start');
+
+  show () {
+    $(this.SELECTOR.BODY).show();
+    $(this.SELECTOR.MAIN).show();
   }
 }

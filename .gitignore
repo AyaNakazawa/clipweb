@@ -1,4 +1,5 @@
 /temp/
 /.sass-cache/
 *.css.map
-.*rc*
+/.vscode/
+*__pycache__/

@@ -6,14 +6,15 @@
 // Model
 
 class ScrollModel extends CommonModel {
-  constructor(
+  constructor (
     _initSetting = {
       NAME: 'Scroll Object',
-      EVENT_TRIGGER: 'click',
-      POSITION_OFFSET: 0,
-      EVENT_SELECTOR: null,
-      SCROLL_SELECTOR: null,
-      SCROLL_TIME_MS: 750
+      selector: null,
+      speed: 750,
+      easing: 'easeInOutCubic',
+      offset: 0,
+      eventSelector: null,
+      eventTrigger: 'click'
     }
   ) {
     super(_initSetting);
@@ -24,23 +25,27 @@ class ScrollModel extends CommonModel {
 // View
 
 class ScrollView extends CommonView {
-  constructor(
+  constructor (
     _initSetting = {
       NAME: 'Scroll View'
     }
   ) {
     super(_initSetting);
   }
-  
-  scroll() {
-    Log.logClass('Scroll', this.MODEL.NAME);
-    $(this.MODEL.BODY).animate(
+
+  scroll () {
+    super.log('Scroll')();
+    if (this.MODEL.selector == null) {
+      Log.error(arguments, 'selector is null')();
+      return;
+    }
+    $(this.MODEL.COMMON.BODY).animate(
       {
-        scrollTop: $(this.MODEL.SCROLL_SELECTOR).offset().top + this.MODEL.POSITION_OFFSET
+        scrollTop: $(this.MODEL.selector).offset().top + this.MODEL.offset
       },
       {
-        duration: this.MODEL.SCROLL_TIME_MS,
-        easing: 'easeOutBack'
+        duration: this.MODEL.speed,
+        easing: this.MODEL.easing
       }
     );
   }
@@ -50,19 +55,19 @@ class ScrollView extends CommonView {
 // Event
 
 class ScrollEvent extends CommonEvent {
-  constructor(
+  constructor (
     _initSetting = {
       NAME: 'Scroll Event'
     }
   ) {
     super(_initSetting);
   }
-  
-  setOnScroll() {
-    if (this.MODEL.EVENT_SELECTOR != null) {
+
+  setOnScroll () {
+    if (this.MODEL.eventSelector != null) {
       super.setOn({
-        trigger: this.MODEL.EVENT_TRIGGER,
-        selector: this.MODEL.EVENT_SELECTOR,
+        trigger: this.MODEL.eventTrigger,
+        selector: this.MODEL.eventSelector,
         func: () => {
           this.VIEW.scroll();
         }
@@ -75,7 +80,7 @@ class ScrollEvent extends CommonEvent {
 // Controller
 
 class ScrollController extends CommonController {
-  constructor(
+  constructor (
     _model = {},
     _initSetting = {
       NAME: 'Scroll Controller',
@@ -86,7 +91,15 @@ class ScrollController extends CommonController {
     }
   ) {
     super(_model, _initSetting);
-    
+
+    this.initScrollView();
+  }
+
+  initScrollView () {
+    if (this.MODEL.selector == null) {
+      Log.error(arguments, 'scroll selector is null')();
+      return;
+    }
     this.EVENT.setOnScroll();
   }
 }

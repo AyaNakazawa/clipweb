@@ -4,9 +4,11 @@
 
 body:before {
   content: '- Mobile -';
+  font-size: 1rem;
+  text-shadow: 1px 1px 1px $main-text-shadow-color;
   position: fixed;
-  top: 8px;
-  left: 8px;
+  bottom: 24px;
+  left: 24px;
   z-index: 9999;
   overflow: hidden;
 }
@@ -19,12 +21,12 @@ body:before {
 
 @include media($size-medium) {
   body:before {
-    content: '- Medium desktop -';
+    content: '- Medium -';
   }
 }
 
 @include media($size-large) {
   body:before {
-    content: '- Large desktop -';
+    content: '- Large -';
   }
 }

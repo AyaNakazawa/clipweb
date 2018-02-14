@@ -3,11 +3,14 @@
   <head>
     <!-- meta -->
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- init -->
+    <script src="js/mylib/init.js"></script>
     <!-- link -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/fontawesome-all.min.css" rel="stylesheet">
+    <link href="css/iziToast.min.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
     <!-- favicon -->
     <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon"/>
@@ -17,75 +20,103 @@
   </head>
   <body>
     <!-- header -->
-    <header>
-      <h1>clipweb</h1>
-    </header>
-    <!-- nav -->
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarTop">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
+    <div class="header-area">
+      <header>
+        <div class="header-wrapper">
+          <a href="./">
+            <div class="header-title">clipweb</div>
+          </a>
+          <div class="header-content">
+            <div class="header-content-item">
+              <select class="custom-select localization" required></select>
+            </div>
+            <div class="header-content-item">
+              <i id="header-clear" class="fas fa-user-times"></i>
+            </div>
+            <div class="header-content-item">
+              <a href="https://github.com/ayatec/clipweb/" target="_blank">
+                <i class="fab fa-github"></i>
+              </a>
+            </div>
+          </div>
         </div>
-        <div class="collapse navbar-collapse" id="navbarTop">
-          <ul class="nav navbar-nav">
-            <li id="user-switch"><a>Login</a></li>
+      </header>
+    </div>
+    <!-- nav -->
+    <div class="nav-area">
+      <nav class="navbar navbar-expand-md navbar-light">
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" id="nav-error"><i class="far fa-exclamation-triangle"></i> Error</a>
+            </li>
           </ul>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </div>
     <!-- main -->
     <main>
       <!-- error -->
       <div class="content" id="error-area">
         <div class="content-header">
-          非対応ブラウザ
+          <i class="fas fa-exclamation-triangle"></i> 非対応ブラウザ
         </div>
-        <div class="content-item">
-          ES2015をサポートしているブラウザでご覧ください。
+        <div class="content-item-area">
+          <div class="content-item">
+            ECMAScript 6 をサポートしているブラウザでご覧ください。
+          </div>
+          <div class="content-item">
+            詳細はこちら <i class="fas fa-arrow-alt-right"></i> <a href="https://caniuse.com/#search=ES6" target="_blank">Can I Use</a>
+          </div>
         </div>
       </div>
     </main>
     <!-- footer -->
-    <footer>
-      <p id="footer-text">
-        @ 2017 <a href="https://github.com/AyaNakazawa/clipweb/" target="_blank">clipweb</a>
-      </p>
-    </footer>
+    <div class="footer-area">
+      <footer>
+        <div id="footer-license">
+          <i class="far fa-info-circle"></i> <span class="text-info">License</span>
+        </div>
+        <div id="footer-clipweb">
+          <i class="far fa-copyright"></i> 2017<span id="footer-year-now"></span> <span class="text-info">ayatec</span>
+        </div>
+      </footer>
+    </div>
     <!-- confirm -->
     <div id="confirm-view"></div>
     <!-- template -->
     <!-- confirm-view -->
     <script type="text/template" id="confirm-view-template">
-      <div id="<%- confirmId %>" class="modal fade" data-backdrop="static" data-keyboard="false" data-html="true" tabindex="-1">
+      <div class="modal fade" id="<%- id %>" data-backdrop="<%= backdrop %>" data-keyboard="<%= keyboard %>" data-focus="<%= focus %>" tabindex="-1">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" id="<%- confirmId %>-close">
-                <span>
-                  <i class="fa fa-close"></i>
-                </span>
-              </button>
-              <h4 class="modal-title"><%- confirmTitle %></h4>
-            </div>
-            <% if (imageUrl != null) { %>
-              <% if (imageUrl.length > 0) { %>
-                <img class="modal-body" src="<%- imageUrl %>" style="width:100%; height:auto;">
+              <% if (title.length > 0) { %>
+                <div class="modal-title"><%- title %></div>
               <% } %>
-            <% } %>
-            <% if (confirmMessage.length > 0) { %>
-              <div class="modal-body"><%- confirmMessage %></div>
+              <button class="close modal-close" data-dismiss="modal" id="<%- id %>-close" tabindex="220">
+                <i class="fal fa-times"></i>
+              </button>
+            </div>
+            <% if (image.length + content.length > 0) { %>
+              <div class="modal-body">
+                <% if (image.length > 0) { %>
+                  <img class="modal-img" src="<%- image %>" style="width:90%; height:auto;">
+                <% } %>
+                <% if (content.length > 0) { %>
+                  <div class="modal-message"><%= content %></div>
+                <% } %>
+              </div>
             <% } %>
             <% if (type >= 1) { %>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" id="<%- confirmId %>-yes"><%- yes %></button>
                 <% if (type >= 2) { %>
-                  <button type="button" class="btn btn-default" data-dismiss="modal" id="<%- confirmId %>-no"><%- no %></button>
+                  <button class="modal-button btn btn-secondary" data-dismiss="modal" id="<%- id %>-no" tabindex="210"><%- no %></button>
                 <% } %>
+                <button class="modal-button btn btn-primary" data-dismiss="modal" id="<%- id %>-yes" tabindex="200"><%- yes %></button>
               </div>
             <% } %>
           </div>
@@ -94,24 +125,21 @@
     </script>
     <!-- loading -->
     <script type="text/template" id="loading-template">
-      <div class="content-header">
+      <div class="content-header content-loading-header">
         <%- header %>
-        <span class="fa fa-spinner loading-spinner"></span>
       </div>
-      <div class="content-item">
-        <%- message %>
-        <span class="loading-dot"></span>
+      <div class="content-item loading"></div>
       </div>
     </script>
     <!-- alert -->
     <script type="text/template" id="alert-template">
-      <div class="alert alert-<%- type %> alert-dismissible" role="alert">
+      <div class="alert alert-<%- type %> alert-dismissible fade show" role="alert">
         <% if (close) { %>
-        <button type="button" class="close" data-dismiss="alert">
-          <span class="fa fa-close" aria-hidden="true"></span>
+        <button class="close" data-dismiss="alert">
+          <i class="fas fa-times-circle"></i>
         </button>
         <% } %>
-        <%- message %>
+        <%= message %>
       </div>
     </script>
     <!-- ruby -->
@@ -123,34 +151,1118 @@
         <rp>）</rp>
       </ruby>
     </script>
+    <!-- user-login -->
+    <script type="text/template" id="user-login-template">
+      <div class="content-item-area">
+        <div class="content-item">
+          <label for="user-login-email"><%= LN.get('email_address') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <input id="user-login-email" type="email" required class="form-control" value="<%- email %>" tabindex="200">
+            <span class="content-input-valid"></span>
+            <i class="content-input-icon fas fa-envelope"></i>
+            <span class="content-input-valid-message"></span>
+          </div>
+        </div>
+        <div class="content-item">
+          <label for="user-login-password"><%= LN.get('password') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <input id="user-login-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" placeholder="" value="" tabindex="200">
+            <span class="content-input-valid"></span>
+            <i class="content-input-icon fas fa-lock"></i>
+            <span class="content-input-valid-message"></span>
+          </div>
+        </div>
+        <div class="content-item">
+          <label for="user-login-auto" class="content-check-label" id="user-login-auto-label" tabindex="200">
+            <% if (auto_login) { %>
+              <input class="content-check" type="checkbox" id="user-login-auto" required checked>
+            <% } else { %>
+              <input class="content-check" type="checkbox" id="user-login-auto" required>
+            <% } %>
+            <span class="content-check-icon"></span>
+            <%= LN.get('auto_login') %>
+          </label>
+          <span class="content-popover content-help"></span>
+        </div>
+        <div class="content-item d-flex justify-content-between">
+          <button id="user-login-register" class="btn btn-link" tabindex="210"><%= LN.get('register') %> <i class="fal fa-user-plus"></i></button>
+          <button id="user-login-submit" class="btn btn-primary" tabindex="200"><%= LN.get('login') %> <i class="fal fa-sign-in-alt"></i></button>
+        </div>
+      </div>
+    </script>
+    <!-- user-register -->
+    <script type="text/template" id="user-register-template">
+      <div class="content-item-area">
+        <div class="content-item">
+          <label for="user-register-username"><%= LN.get('username') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <input id="user-register-username" type="text" minLength="<%- length.min.username %>" maxLength="<%- length.max.username %>" required class="form-control" value="<%- username %>" tabindex="200">
+            <span class="content-input-valid"></span>
+            <i class="content-input-icon fas fa-user"></i>
+            <span class="content-input-valid-message"></span>
+          </div>
+        </div>
+        <div class="content-item">
+          <label for="user-register-email"><%= LN.get('email_address') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <input id="user-register-email" type="email" required class="form-control" value="<%- email %>" tabindex="200">
+            <span class="content-input-valid"></span>
+            <i class="content-input-icon fas fa-envelope"></i>
+            <span class="content-input-valid-message"></span>
+          </div>
+        </div>
+        <div class="content-item content-split">
+          <div class="content-split-item col-6">
+            <label for="user-register-password"><%= LN.get('password') %></label>
+          <span class="content-popover content-help"></span>
+            <div class="content-input">
+              <input id="user-register-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" placeholder="" value="" tabindex="200">
+              <span class="content-input-valid"></span>
+              <i class="content-input-icon fas fa-lock"></i>
+              <span class="content-input-valid-message"></span>
+            </div>
+          </div>
+          <div class="content-split-item col-6">
+            <label for="user-register-password-re"><%= LN.get('password_confirm') %></label>
+          <span class="content-popover content-help"></span>
+            <div class="content-input">
+              <input id="user-register-password-re" type="password" required class="form-control" placeholder="" value="" tabindex="200">
+              <span class="content-input-valid"></span>
+              <i class="content-input-icon fas fa-lock"></i>
+              <span class="content-input-valid-message"></span>
+            </div>
+          </div>
+        </div>
+        <div class="content-item d-flex justify-content-between">
+          <button id="user-register-login" class="btn btn-link" tabindex="210"><%= LN.get('login') %> <i class="fal fa-sign-in-alt"></i></button>
+          <button id="user-register-submit" class="btn btn-primary" tabindex="200"><%= LN.get('register') %> <i class="fal fa-user-plus"></i></button>
+        </div>
+      </div>
+    </script>
+    <!-- user-info -->
+    <script type="text/template" id="user-info-template">
+      <!-- Avatar -->
+      <div class="content-item-area">
+        <div class="content-item">
+          <label for="user-info-avatar"><%= LN.get('avatar') %></label>
+          <span class="content-popover content-help"></span>
+          <span>
+            <%= LN.get('using_gravatar', { gravatar: '<a href="https://gravatar.com/" target="blank">Gravatar</a>' }) %>
+          </span>
+          <div class="content-image">
+            <img src="https://www.gravatar.com/avatar/<%- gravatarHash %>?s=120" alt="My avatar" class="content-avatar" id="user-info-avatar" required>
+          </div>
+        </div>
+        <!-- Username -->
+        <div class="content-item">
+          <label for="user-info-username"><%= LN.get('username') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <input id="user-info-username" type="text" minLength="<%- length.min.username %>" maxLength="<%- length.max.username %>" required class="form-control" value="<%- username %>" tabindex="200">
+            <span class="content-input-valid"></span>
+            <i class="content-input-icon fas fa-user"></i>
+            <span class="content-input-valid-message"></span>
+          </div>
+        </div>
+        <!-- Email address -->
+        <div class="content-item">
+          <label for="user-info-email"><%= LN.get('email_address') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <input id="user-info-email" type="email" required class="form-control" value="<%- email %>" tabindex="200">
+            <span class="content-input-valid"></span>
+            <i class="content-input-icon fas fa-envelope"></i>
+            <span class="content-input-valid-message"></span>
+          </div>
+        </div>
+      </div>
+      <!-- Password -->
+      <div class="content-item-area">
+        <div class="content-item">
+          <label for="user-info-old-password"><%= LN.get('password') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <input id="user-info-old-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" value="" tabindex="200">
+            <span class="content-input-valid"></span>
+            <i class="content-input-icon fas fa-lock"></i>
+            <span class="content-input-valid-message"></span>
+          </div>
+        </div>
+        <div class="content-item content-split">
+          <div class="content-split-item col-6">
+            <label for="user-info-new-password"><%= LN.get('new_password') %></label>
+          <span class="content-popover content-help"></span>
+            <div class="content-input">
+              <input id="user-info-new-password" type="password" minLength="<%- length.min.password %>" maxLength="<%- length.max.password %>" pattern="<%- pattern.password %>" required class="form-control" value="" tabindex="200">
+              <span class="content-input-valid"></span>
+              <i class="content-input-icon fas fa-lock"></i>
+              <span class="content-input-valid-message"></span>
+            </div>
+          </div>
+          <div class="content-split-item col-6">
+            <label for="user-info-new-password-re"><%= LN.get('password_confirm') %></label>
+          <span class="content-popover content-help"></span>
+            <div class="content-input">
+              <input id="user-info-new-password-re" type="password" required class="form-control" value="" tabindex="200">
+              <span class="content-input-valid"></span>
+              <i class="content-input-icon fas fa-lock"></i>
+              <span class="content-input-valid-message"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Action -->
+      <div class="content-item-area">
+        <div class="content-item d-flex justify-content-between">
+          <button id="user-info-setting" class="btn btn-primary" tabindex="210"><%= LN.get('setting') %> <i class="fal fa-exchange-alt"></i></button>
+          <button id="user-info-submit" class="btn btn-primary" tabindex="200"><%= LN.get('save') %> <i class="fal fa-cloud"></i></button>
+        </div>
+      </div>
+    </script>
+    <!-- user-setting -->
+    <script type="text/template" id="user-setting-template">
+      <!-- Theme -->
+      <div class="content-item-area">
+        <div class="content-item">
+          <label for="user-setting-theme"><%= LN.get('theme') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <select id="user-setting-theme" class="custom-select" required tabindex="200">
+              <% for (let type of Object.keys(themes)) { %>
+                <% if (type == theme) { %>
+                  <option value="<%- type %>" selected><%- themes[type]['caption'] %></option>
+                <% } else { %>
+                  <option value="<%- type %>"><%- themes[type]['caption'] %></option>
+                <% } %>
+              <% } %>
+            </select>
+            <i class="content-input-icon content-select-icon fas fa-th-list"></i>
+          </div>
+        </div>
+      </div>
+      <!-- Owner Public Mode -->
+      <div class="content-item-area">
+        <div class="content-item">
+          <label for="user-setting-owner-public"><%= LN.get('default_owner_public') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <select id="user-setting-owner-public" class="custom-select" required tabindex="200">
+              <% if (ownerPublic == 'private') { %>
+                <option value="private" selected><%= LN.get('private') %></option>
+              <% } else { %>
+                <option value="private"><%= LN.get('private') %></option>
+              <% } %>
+              <% if (ownerPublic == 'public') { %>
+                <option value="public" selected><%= LN.get('public') %></option>
+              <% } else { %>
+                <option value="public"><%= LN.get('public') %></option>
+              <% } %>
+            </select>
+            <i class="content-input-icon content-select-icon fas fa-user-circle"></i>
+          </div>
+        </div>
+      </div>
+      <!-- Clip Mode -->
+      <div class="content-item-area">
+        <div class="content-item">
+          <label for="user-setting-clip-mode"><%= LN.get('default_clip_mode') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <select id="user-setting-clip-mode" class="custom-select" required tabindex="200">
+              <% if (clipMode == 'private') { %>
+                <option value="private" selected><%= LN.get('private') %></option>
+              <% } else { %>
+                <option value="private"><%= LN.get('private') %></option>
+              <% } %>
+              <% if (clipMode == 'public') { %>
+                <option value="public" selected><%= LN.get('public') %></option>
+              <% } else { %>
+                <option value="public"><%= LN.get('public') %></option>
+              <% } %>
+              <% if (clipMode == 'share') { %>
+                <option value="share" selected><%= LN.get('share') %></option>
+              <% } else { %>
+                <option value="share"><%= LN.get('share') %></option>
+              <% } %>
+            </select>
+            <i class="content-input-icon content-select-icon fas fa-share-alt"></i>
+          </div>
+        </div>
+      </div>
+      <!-- Action -->
+      <div class="content-item-area">
+        <div class="content-item d-flex justify-content-between">
+          <button id="user-setting-info" class="btn btn-primary" tabindex="210"><%= LN.get('info') %> <i class="fal fa-exchange-alt"></i></button>
+          <button id="user-setting-submit" class="btn btn-primary" tabindex="200"><%= LN.get('save') %> <i class="fal fa-cloud"></i></button>
+        </div>
+      </div>
+    </script>
+    <!-- user-logout -->
+    <script type="text/template" id="user-logout-template">
+      <div class="content-item-area">
+        <div class="content-item">
+          <label for="user-logout-username"><%= LN.get('username') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <input id="user-logout-username" type="text" class="form-control" value="<%- username %>" readonly required>
+            <span class="content-input-valid"></span>
+            <i class="content-input-icon fas fa-user"></i>
+            <span class="content-input-valid-message"></span>
+          </div>
+        </div>
+        <div class="content-item d-flex justify-content-end">
+          <button id="user-logout-submit" class="btn btn-primary"><%= LN.get('logout') %> <i class="fal fa-sign-out-alt"></i></button>
+        </div>
+      </div>
+    </script>
+    <!-- list-search -->
+    <script type="text/template" id="list-search-template">
+      <div class="content-item-area">
+        <div class="content-item">
+          <div class="btn-group content-input">
+            <button id="list-search-new" class="btn btn-outline-info" tabindex="300"><i class="far fa-plus-circle"></i> <%= LN.get('new') %></button>
+            <button id="list-search-refresh" class="btn btn-outline-info" tabindex="300"><i class="far fa-sync"></i> <%= LN.get('update') %></button>
+          </div>
+        </div>
+        <div class="content-item content-split">
+          <div class="content-split-item">
+            <label for="list-search-group"><%= LN.get('group') %></label>
+            <span class="content-popover content-help"></span>
+            <div class="content-input">
+              <select id="list-search-group" class="custom-select" required tabindex="300">
+                <% if (group == 'none') { %>
+                  <option value="none" selected><%= LN.get('none') %></option>
+                <% } else { %>
+                  <option value="none"><%= LN.get('none') %></option>
+                <% } %>
+                <% if (group == 'type') { %>
+                  <option value="type" selected><%= LN.get('type') %></option>
+                <% } else { %>
+                  <option value="type"><%= LN.get('type') %></option>
+                <% } %>
+                <% if (group == 'tags') { %>
+                  <option value="tags" selected><%= LN.get('tags') %></option>
+                <% } else { %>
+                  <option value="tags"><%= LN.get('tags') %></option>
+                <% } %>
+                <% if (group == 'owner') { %>
+                  <option value="owner" selected><%= LN.get('owner') %></option>
+                <% } else { %>
+                  <option value="owner"><%= LN.get('owner') %></option>
+                <% } %>
+                <% if (group == 'owner_public') { %>
+                  <option value="owner_public" selected><%= LN.get('owner_public') %></option>
+                <% } else { %>
+                  <option value="owner_public"><%= LN.get('owner_public') %></option>
+                <% } %>
+                <% if (group == 'clip_mode') { %>
+                  <option value="clip_mode" selected><%= LN.get('clip_mode') %></option>
+                <% } else { %>
+                  <option value="clip_mode"><%= LN.get('clip_mode') %></option>
+                <% } %>
+                <% if (group == 'created_at') { %>
+                  <option value="created_at" selected><%= LN.get('created_at') %></option>
+                <% } else { %>
+                  <option value="created_at"><%= LN.get('created_at') %></option>
+                <% } %>
+                <% if (group == 'updated_at') { %>
+                  <option value="updated_at" selected><%= LN.get('updated_at') %></option>
+                <% } else { %>
+                  <option value="updated_at"><%= LN.get('updated_at') %></option>
+                <% } %>
+              </select>
+            </div>
+          </div>
+          <div class="content-split-item">
+            <label for="list-search-sort"><%= LN.get('sort') %></label>
+            <span class="content-popover content-help"></span>
+            <div class="content-input">
+              <div class="input-group">
+                <select id="list-search-sort" class="custom-select" required tabindex="300">
+                  <% if (sort == 'name') { %>
+                    <option value="name" selected><%= LN.get('name') %></option>
+                  <% } else { %>
+                    <option value="name"><%= LN.get('name') %></option>
+                  <% } %>
+                  <% if (sort == 'type') { %>
+                    <option value="type" selected><%= LN.get('type') %></option>
+                  <% } else { %>
+                    <option value="type"><%= LN.get('type') %></option>
+                  <% } %>
+                  <% if (sort == 'owner') { %>
+                    <option value="owner" selected><%= LN.get('owner') %></option>
+                  <% } else { %>
+                    <option value="owner"><%= LN.get('owner') %></option>
+                  <% } %>
+                  <% if (sort == 'owner_public') { %>
+                    <option value="owner_public" selected><%= LN.get('owner_public') %></option>
+                  <% } else { %>
+                    <option value="owner_public"><%= LN.get('owner_public') %></option>
+                  <% } %>
+                  <% if (sort == 'clip_mode') { %>
+                    <option value="clip_mode" selected><%= LN.get('clip_mode') %></option>
+                  <% } else { %>
+                    <option value="clip_mode"><%= LN.get('clip_mode') %></option>
+                  <% } %>
+                  <% if (sort == 'created_at') { %>
+                    <option value="created_at" selected><%= LN.get('created_at') %></option>
+                  <% } else { %>
+                    <option value="created_at"><%= LN.get('created_at') %></option>
+                  <% } %>
+                  <% if (sort == 'updated_at') { %>
+                    <option value="updated_at" selected><%= LN.get('updated_at') %></option>
+                  <% } else { %>
+                    <option value="updated_at"><%= LN.get('updated_at') %></option>
+                  <% } %>
+                </select>
+                <div class="input-group-append">
+                  <% if (order == 'asc') { %>
+                    <button id="list-search-sort-asc" class="btn btn-outline-info active" tabindex="300">
+                      <i class="fas fa-sort-alpha-down"></i>
+                    </button>
+                  <% } else { %>
+                    <button id="list-search-sort-asc" class="btn btn-outline-info" tabindex="300">
+                      <i class="fas fa-sort-alpha-down"></i>
+                    </button>
+                  <% } %>
+                </div>
+                <div class="input-group-append">
+                  <% if (order == 'desc') { %>
+                    <button id="list-search-sort-desc" class="btn btn-outline-info active" tabindex="300">
+                      <i class="fas fa-sort-alpha-up"></i>
+                    </button>
+                  <% } else { %>
+                    <button id="list-search-sort-desc" class="btn btn-outline-info" tabindex="300">
+                      <i class="fas fa-sort-alpha-up"></i>
+                    </button>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="content-item content-split">
+          <div class="content-split-item">
+            <label for="list-search-search-type"><%= LN.get('search_type') %></label>
+            <span class="content-popover content-help"></span>
+            <div class="content-input">
+              <select id="list-search-search-op" class="custom-select" required tabindex="300">
+                <% if (op == 'or') { %>
+                  <option value="or" selected>OR</option>
+                <% } else { %>
+                  <option value="or">OR</option>
+                <% } %>
+                <% if (op == 'and') { %>
+                  <option value="and" selected>AND</option>
+                <% } else { %>
+                  <option value="and">AND</option>
+                <% } %>
+                <% if (op == 'nor') { %>
+                  <option value="nor" selected>NOR</option>
+                <% } else { %>
+                  <option value="nor">NOR</option>
+                <% } %>
+                <% if (op == 'nand') { %>
+                  <option value="nand" selected>NAND</option>
+                <% } else { %>
+                  <option value="nand">NAND</option>
+                <% } %>
+                <% if (op == 'xor') { %>
+                  <option value="xor" selected>XOR</option>
+                <% } else { %>
+                  <option value="xor">XOR</option>
+                <% } %>
+              </select>
+            </div>
+          </div>
+          <div class="content-split-item content-split-full">
+            <label for="list-search-search"><%= LN.get('search_query') %></label>
+            <span class="content-popover content-help"></span>
+            <div class="content-input">
+              <input id="list-search-search" class="form-control" type="text" placeholder="<%= LN.get('search') %>" value="<%- search %>" tabindex="300">
+              <i class="content-input-icon fas fa-search"></i>
+              <i id="list-search-search-clear" class="fas fa-times"></i>
+            </div>
+          </div>
+        </div>
+        <div class="content-item">
+          <div id="list-search-clips">
+          </div>
+        </div>
+      </div>
+    </script>
+    <!-- list-search-clips -->
+    <script type="text/template" id="list-search-clips-template">
+      <% for (let index in clips ) { %>
+        <div class="list-search-group">
+          <div class="list-search-group-header">
+            <%= clips[index]['name'] %>
+            <button class="close list-search-group-toggle"><i class="fas fa-caret-down"></i></button>
+          </div>
+          <div class="list-search-group-clips" style="display: none;">
+            <% for (let clip_index in clips[index]['clips'] ) { %>
+              <div class="list-search-clip">
+                <div class="list-search-clip-main" id="<%= clips[index]['clips'][clip_index]['clip_hash'] %>">
+                  <div class="list-search-clip-name">
+                    <%= clips[index]['clips'][clip_index]['clip_name'] %>
+                  </div>
+                  <div class="date">
+                    <% if (sort == 'created_at' || group == 'created_at') { %>
+                      <%= clips[index]['clips'][clip_index]['clip_created_at'].substr(0, 19) %>
+                    <% } else { %>
+                      <%= clips[index]['clips'][clip_index]['clip_updated_at'].substr(0, 19) %>
+                    <% } %>
+                  </div>
+                </div>
+                <div class="list-search-clip-detail" style="display: none;">
+                  <div class="list-search-clip-detail-control btn-group float-right">
+                    <% if (clips[index]['clips'][clip_index]['clip_owner_hash'] == USER.MODEL.HASH.USER) { %>
+                      <button class="list-search-clip-setting btn btn-outline-info">
+                        <i class="fas fa-cog"></i>
+                      </button>
+                      <button class="list-search-clip-edit btn btn-outline-primary">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <% if (clips[index]['clips'][clip_index]['clip_clip_mode'] == 'public' || clips[index]['clips'][clip_index]['clip_clip_mode'] == 'share') { %>
+                        <button class="list-search-clip-share btn btn-outline-primary">
+                          <i class="fas fa-share-alt"></i>
+                        </button>
+                      <% } %>
+                      <button class="list-search-clip-download btn btn-outline-primary">
+                        <i class="fas fa-download"></i>
+                      </button>
+                      <button class="list-search-clip-delete btn btn-outline-danger">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    <% } else { %>
+                      <% if (clips[index]['clips'][clip_index]['clip_clip_mode'] == 'public') { %>
+                        <button class="list-search-clip-view btn btn-outline-primary">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                      <% } else if (clips[index]['clips'][clip_index]['clip_clip_mode'] == 'share') { %>
+                        <button class="list-search-clip-edit btn btn-outline-primary">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                      <% } %>
+                      <% if (clips[index]['clips'][clip_index]['clip_clip_mode'] == 'public' || clips[index]['clips'][clip_index]['clip_clip_mode'] == 'share') { %>
+                        <button class="list-search-clip-share btn btn-outline-primary">
+                          <i class="fas fa-share-alt"></i>
+                        </button>
+                        <button class="list-search-clip-download btn btn-outline-primary">
+                          <i class="fas fa-download"></i>
+                        </button>
+                      <% } %>
+                    <% } %>
+                    <button class="list-search-clip-close btn btn-outline-secondary">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                  <table class="list-search-clip-detail-table table table-sm table-bordered table-hover">
+                    <tbody>
+                      <tr>
+                        <th scope="row"><%= LN.get('name') %></th>
+                        <td><%= clips[index]['clips'][clip_index]['clip_name'] %></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><%= LN.get('filetype') %></th>
+                        <td><%= filetypes[clips[index]['clips'][clip_index]['clip_type']]['caption'] %></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><%= LN.get('tags') %></th>
+                        <td><%= clips[index]['clips'][clip_index]['clip_tags'] %></td>
+                      </tr>
+                      <% if (clips[index]['clips'][clip_index]['clip_owner_public'] == 'public' || clips[index]['clips'][clip_index]['clip_owner_hash'] ==  USER.MODEL.HASH.USER) { %>
+                        <tr>
+                          <th scope="row"><%= LN.get('owner') %></th>
+                          <td><%= clips[index]['clips'][clip_index]['clip_owner'] %></td>
+                        </tr>
+                      <% } %>
+                      <tr>
+                        <th scope="row"><%= LN.get('owner_public') %></th>
+                        <td><%= LN.get(clips[index]['clips'][clip_index]['clip_owner_public']) %></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><%= LN.get('clip_mode') %></th>
+                        <td><%= LN.get(clips[index]['clips'][clip_index]['clip_clip_mode']) %></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><%= LN.get('created_at') %></th>
+                        <td class="date"><%= clips[index]['clips'][clip_index]['clip_created_at'].substr(0, 19) %></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><%= LN.get('updated_at') %></th>
+                        <td class="date"><%= clips[index]['clips'][clip_index]['clip_updated_at'].substr(0, 19) %></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            <% } %>
+          </div>
+        </div>
+      <% } %>
+    </script>
+    <!-- clip-new -->
+    <script type="text/template" id="clip-new-template">
+      <div class="content-item-area">
+        <!-- File name -->
+        <div class="content-item">
+          <label for="clip-new-filename"><%= LN.get('filename') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <input id="clip-new-filename" type="text" minLength="<%- length.min.filename %>" maxLength="<%- length.max.filename %>" required class="form-control" placeholder="" value="" tabindex="400">
+            <span class="content-input-valid"></span>
+            <i class="content-input-icon fas fa-file"></i>
+            <span class="content-input-valid-message"></span>
+          </div>
+        </div>
+        <!-- File type -->
+        <div class="content-item">
+          <label for="clip-new-filetype"><%= LN.get('filetype') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <select id="clip-new-filetype" class="custom-select" required tabindex="400">
+              <% for (let type of Object.keys(filetypes)) { %>
+                <% if (type == 'text') { %>
+                  <option value="<%- type %>" selected><%- filetypes[type]['caption'] %></option>
+                <% } else { %>
+                  <option value="<%- type %>"><%- filetypes[type]['caption'] %></option>
+                <% } %>
+              <% } %>
+            </select>
+            <i class="content-input-icon content-select-icon fas fa-file-code"></i>
+          </div>
+        </div>
+        <!-- Tags -->
+        <div class="content-item">
+          <label for="clip-new-tags"><%= LN.get('tags') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <input id="clip-new-tags" type="text" class="form-control" placeholder="" value="" tabindex="400">
+            <i class="content-input-icon fas fa-tag"></i>
+          </div>
+        </div>
+        <!-- Owner public -->
+        <div class="content-item">
+          <label for="clip-new-owner-public"><%= LN.get('owner_public') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <select id="clip-new-owner-public" class="custom-select" required tabindex="400">
+              <% if (defaultOwnerPublic == 'private') { %>
+                <option value="private" selected><%= LN.get('private') %></option>
+              <% } else { %>
+                <option value="private"><%= LN.get('private') %></option>
+              <% } %>
+              <% if (defaultOwnerPublic == 'public') { %>
+                <option value="public" selected><%= LN.get('public') %></option>
+              <% } else { %>
+                <option value="public"><%= LN.get('public') %></option>
+              <% } %>
+            </select>
+            <i class="content-input-icon content-select-icon fas fa-user-circle"></i>
+          </div>
+        </div>
+        <!-- clip mode -->
+        <div class="content-item">
+          <label for="clip-new-clip-mode"><%= LN.get('clip_mode') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <select id="clip-new-clip-mode" class="custom-select" required tabindex="400">
+              <% if (defaultClipMode == 'private') { %>
+                <option value="private" selected><%= LN.get('private') %></option>
+              <% } else { %>
+                <option value="private"><%= LN.get('private') %></option>
+              <% } %>
+              <% if (defaultClipMode == 'public') { %>
+                <option value="public" selected><%= LN.get('public') %></option>
+              <% } else { %>
+                <option value="public"><%= LN.get('public') %></option>
+              <% } %>
+              <% if (defaultClipMode == 'share') { %>
+                <option value="share" selected><%= LN.get('share') %></option>
+              <% } else { %>
+                <option value="share"><%= LN.get('share') %></option>
+              <% } %>
+            </select>
+            <i class="content-input-icon content-select-icon fas fa-share-alt"></i>
+          </div>
+        </div>
+      </div>
+      <div class="content-item-area">
+        <div class="content-item d-flex justify-content-between">
+          <button id="clip-new-close" class="btn btn-link" tabindex="410"><%= LN.get('close') %> <i class="far fa-times"></i></button>
+          <button id="clip-new-create" class="btn btn-primary" tabindex="400"><i class="fal fa-plus-circle"></i> <%= LN.get('new_create') %></button>
+        </div>
+      </div>
+    </script>
+    <!-- clip-setting -->
+    <script type="text/template" id="clip-setting-template">
+      <div class="content-item-area">
+        <!-- control -->
+        <div class="content-item d-flex flex-row-reverse">
+          <div class="btn-group">
+            <button id="clip-setting-edit" class="btn btn-outline-primary" tabindex="400"><i class="fas fa-edit"></i></button>
+            <% if (clipMode == 'public' || clipMode == 'share') { %>
+              <button id="clip-setting-share" class="btn btn-outline-primary" tabindex="400"><i class="fas fa-share-alt"></i></button>
+            <% } %>
+            <button id="clip-setting-download" class="btn btn-outline-primary" tabindex="400"><i class="fas fa-download"></i></button>
+            <button id="clip-setting-privilege" class="btn btn-outline-info" tabindex="400"><i class="fas fa-users"></i></button>
+            <button id="clip-setting-history" class="btn btn-outline-info" tabindex="400"><i class="fas fa-history"></i></button>
+            <button id="clip-setting-delete" class="btn btn-outline-danger" tabindex="400"><i class="fas fa-trash-alt"></i></button>
+          </div>
+        </div>
+        <!-- File name -->
+        <div class="content-item">
+          <label for="clip-setting-filename"><%= LN.get('filename') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <input id="clip-setting-filename" type="text" minLength="<%- length.min.filename %>" maxLength="<%- length.max.filename %>" required class="form-control" placeholder="" value="<%- filename %>" tabindex="400">
+            <span class="content-input-valid"></span>
+            <i class="content-input-icon fas fa-file"></i>
+            <span class="content-input-valid-message"></span>
+          </div>
+        </div>
+        <!-- File type -->
+        <div class="content-item">
+          <label for="clip-setting-filetype"><%= LN.get('filetype') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <select id="clip-setting-filetype" class="custom-select" required tabindex="400">
+              <% for (let type of Object.keys(filetypes)) { %>
+                <% if (type == filetype) { %>
+                  <option value="<%- type %>" selected><%- filetypes[type]['caption'] %></option>
+                <% } else { %>
+                  <option value="<%- type %>"><%- filetypes[type]['caption'] %></option>
+                <% } %>
+              <% } %>
+            </select>
+            <i class="content-input-icon content-select-icon fas fa-file-code"></i>
+          </div>
+        </div>
+        <!-- Tags -->
+        <div class="content-item">
+          <label for="clip-setting-tags"><%= LN.get('tags') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <input id="clip-setting-tags" type="text" class="form-control" placeholder="" value="<%- tags %>" tabindex="400">
+            <i class="content-input-icon fas fa-tag"></i>
+          </div>
+        </div>
+        <!-- Owner public -->
+        <div class="content-item">
+          <label for="clip-setting-owner-public"><%= LN.get('owner_public') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <select id="clip-setting-owner-public" class="custom-select" required tabindex="400">
+              <% if (ownerPublic == 'private') { %>
+                <option value="private" selected><%= LN.get('private') %></option>
+              <% } else { %>
+                <option value="private"><%= LN.get('private') %></option>
+              <% } %>
+              <% if (ownerPublic == 'public') { %>
+                <option value="public" selected><%= LN.get('public') %></option>
+              <% } else { %>
+                <option value="public"><%= LN.get('public') %></option>
+              <% } %>
+            </select>
+            <i class="content-input-icon content-select-icon fas fa-user-circle"></i>
+          </div>
+        </div>
+        <!-- clip mode -->
+        <div class="content-item">
+          <label for="clip-setting-clip-mode"><%= LN.get('clip_mode') %></label>
+          <span class="content-popover content-help"></span>
+          <div class="content-input">
+            <select id="clip-setting-clip-mode" class="custom-select" required tabindex="400">
+              <% if (clipMode == 'private') { %>
+                <option value="private" selected><%= LN.get('private') %></option>
+              <% } else { %>
+                <option value="private"><%= LN.get('private') %></option>
+              <% } %>
+              <% if (clipMode == 'public') { %>
+                <option value="public" selected><%= LN.get('public') %></option>
+              <% } else { %>
+                <option value="public"><%= LN.get('public') %></option>
+              <% } %>
+              <% if (clipMode == 'share') { %>
+                <option value="share" selected><%= LN.get('share') %></option>
+              <% } else { %>
+                <option value="share"><%= LN.get('share') %></option>
+              <% } %>
+            </select>
+            <i class="content-input-icon content-select-icon fas fa-share-alt"></i>
+          </div>
+        </div>
+      </div>
+      <!-- control 2 -->
+      <div class="content-item-area">
+        <div class="content-item d-flex justify-content-between">
+          <button id="clip-setting-close" class="btn btn-link" tabindex="410"><%= LN.get('close') %> <i class="far fa-times"></i></button>
+          <button id="clip-setting-save" class="btn btn-primary" tabindex="400"><%= LN.get('save') %> <i class="far fa-save"></i></button>
+        </div>
+      </div>
+    </script>
+    <!-- clip-privilege -->
+    <script type="text/template" id="clip-privilege-template">
+      <div class="content-item-area">
+        <!-- control -->
+        <div class="content-item d-flex flex-row-reverse">
+          <div class="btn-group">
+            <button id="clip-privilege-setting" class="btn btn-outline-info" tabindex="400"><i class="fas fa-cog"></i></button>
+            <button id="clip-privilege-history" class="btn btn-outline-info" tabindex="400"><i class="fas fa-history"></i></button>
+          </div>
+        </div>
+        <!-- privilege -->
+        <div class="content-item">
+          <label for="clip-privilege-list"><%= LN.get('privilege_users_list') %></label>
+          <span class="content-popover content-help"></span>
+        </div>
+        <div class="content-item">
+          <table class="table table-sm table-hover" id="clip-privilege-table">
+            <thead class="text-center">
+              <tr>
+                <th scope="col" colspan="2"><%= LN.get('user') %></th>
+                <th scope="col"><%= LN.get('share') %></th>
+                <th scope="col"><%= LN.get('access') %></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for (let user_hash of Object.keys(users)) { %>
+                <tr>
+                  <td>
+                    <img src="https://www.gravatar.com/avatar/<%- users[user_hash]['user_gravatar'] %>?s=32" alt="<%- users[user_hash]['user_name'] %>'s avatar" class="avatar">
+                  </td>
+                  <td><%- users[user_hash]['user_name'] %></td>
+                  <td class="date"><%- users[user_hash]['share_created_at'].substr(0, 19) %></td>
+                  <td class="date"><%- users[user_hash]['share_updated_at'].substr(0, 19) %></td>
+                  <td>
+                    <% if (users[user_hash]['user_hash'] != USER.MODEL.HASH.USER) { %>
+                    <button class="clip-privilege-ban btn btn-outline-danger" data-user-hash="<%- users[user_hash]['user_hash'] %>"><i class="fas fa-ban"></i></button>
+                    <% } %>
+                  </td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- control 2 -->
+      <div class="content-item-area">
+        <div class="content-item">
+          <button id="clip-privilege-close" class="btn btn-link" tabindex="410"><%= LN.get('close') %> <i class="far fa-times"></i></button>
+        </div>
+      </div>
+    </script>
+    <!-- clip-history -->
+    <script type="text/template" id="clip-history-template">
+      <div class="content-item-area">
+        <!-- control -->
+        <div class="content-item d-flex flex-row-reverse">
+          <div class="btn-group">
+            <button id="clip-history-setting" class="btn btn-outline-info" tabindex="400"><i class="fas fa-cog"></i></button>
+            <button id="clip-history-privilege" class="btn btn-outline-info" tabindex="400"><i class="fas fa-users"></i></button>
+          </div>
+        </div>
+        <!-- history -->
+        <div class="content-item">
+          <label for="clip-history-history"><%= LN.get('clip_history') %></label>
+          <span class="content-popover content-help"></span>
+        </div>
+        <div class="content-item">
+          <table class="table table-sm table-hover" id="clip-history-table">
+            <thead class="text-center">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col" colspan="2"><%= LN.get('user') %></th>
+                <th scope="col"><%= LN.get('encryption') %></th>
+                <th scope="col"><%= LN.get('update') %></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% let id = Object.keys(codes).length - 1; %>
+              <% for (let code_hash of Object.keys(codes)) { %>
+                <tr>
+                  <td class="text-right">
+                    <% if (id == 0) { %>
+                      <%= LN.get('start') %>
+                    <% } else { %>
+                      <%- id %>
+                    <% } %>
+                  </td>
+                  <td>
+                    <img src="https://www.gravatar.com/avatar/<%- codes[code_hash]['user_gravatar'] %>?s=32" alt="<%- codes[code_hash]['user_name'] %>'s avatar" class="avatar">
+                  </td>
+                  <td><%- codes[code_hash]['user_name'] %></td>
+                  <td>
+                    <% if (codes[code_hash]['code_encryption'] == 'on') { %>
+                      <span class="badge badge-success">
+                        <%= LN.get(codes[code_hash]['code_encryption']) %>
+                      </span>
+                    <% } else if (codes[code_hash]['code_encryption'] == 'off') { %>
+                      <span class="badge badge-danger">
+                        <%= LN.get(codes[code_hash]['code_encryption']) %>
+                      </span>
+                    <% } %>
+                  </td>
+                  <td class="date"><%- codes[code_hash]['code_created_at'].substr(0, 19) %></td>
+                  <td><button class="clip-history-load btn btn-outline-info" data-code-hash="<%- codes[code_hash]['code_hash'] %>"><i class="fas fa-eye"></i></button></td>
+                </tr>
+                <% id --; %>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- control 2 -->
+      <div class="content-item-area">
+        <div class="content-item">
+          <button id="clip-history-close" class="btn btn-link" tabindex="410"><%= LN.get('close') %> <i class="far fa-times"></i></button>
+        </div>
+      </div>
+    </script>
+    <!-- clip-share -->
+    <script type="text/template" id="clip-share-template">
+      <div class="text-center">
+        <label for="clip-share-link">
+          <%= LN.get('share_clip_message') %>
+        </label>
+        <div class="input-group">
+          <input id="clip-share-link" class="click-select form-control" type="text" value="<%= `${Web.getURL()}?share=${hash}` %>" readonly>
+          <div class="input-group-append">
+            <button id="clip-share-copy" class="btn btn-outline-info"><i class="fas fa-clipboard"></i></button>
+          </div>
+        </div>
+      </div>
+    </script>
+    <!-- code-editor -->
+    <script type="text/template" id="code-editor-template">
+      <div class="d-flex justify-content-between align-items-baseline">
+        <% if (type == 'rollback') { %>
+          <span id="code-editor-filetype" class="badge badge-info"><%= filetypes[filetype]['caption'] %></span>
+          <span id="code-editor-filename"><%= filename %></span>
+          <div class="btn-group">
+            <button id="code-editor-save" class="btn btn-sm btn-outline-primary" tabindex="500"><i class="fas fa-save"></i></button>
+            <button id="code-editor-download" class="btn btn-sm btn-outline-primary" tabindex="500"><i class="fas fa-download"></i></button>
+            <button id="code-editor-close" class="btn btn-sm btn-outline-secondary" tabindex="500"><i class="fas fa-times"></i></button>
+          </div>
+        <% } else if (type == 'open') { %>
+          <span id="code-editor-filetype" class="badge badge-info"><%= filetypes[filetype]['caption'] %></span>
+          <span id="code-editor-filename"><%= filename %></span>
+          <div class="btn-group">
+            <% if (clip_mode == 'share' || owner_hash == USER.MODEL.HASH.USER) { %>
+              <button id="code-editor-save" class="btn btn-sm btn-outline-primary" tabindex="500"><i class="fas fa-save"></i></button>
+            <% } %>
+            <% if (owner_hash == USER.MODEL.HASH.USER) { %>
+              <button id="code-editor-setting" class="btn btn-sm btn-outline-info" tabindex="500"><i class="fas fa-cog"></i></button>
+            <% } %>
+            <% if (clip_mode != 'private') { %>
+              <button id="code-editor-share" class="btn btn-sm btn-outline-primary" tabindex="500"><i class="fas fa-share-alt"></i></button>
+            <% } %>
+            <button id="code-editor-download" class="btn btn-sm btn-outline-primary" tabindex="500"><i class="fas fa-download"></i></button>
+            <% if (owner_hash == USER.MODEL.HASH.USER) { %>
+              <button id="code-editor-delete" class="btn btn-sm btn-outline-danger" tabindex="500"><i class="fas fa-trash-alt"></i></button>
+            <% } %>
+            <button id="code-editor-close" class="btn btn-sm btn-outline-secondary" tabindex="500"><i class="fas fa-times"></i></button>
+          </div>
+        <% } %>
+      </div>
+      <pre id="code-editor-editor"></pre>
+    </script>
+    <!-- license -->
+    <script type="text/template" id="license-template">
+      <div class="license-item">
+        <div class="license-item-header">
+          <button class="btn btn-link">
+            <a href="" target="_blank">
+              clipweb
+            </a>
+          </button>
+          <a href="https://github.com/ayatec/clipweb/blob/work/LICENSE" target="_blank" class="license-license badge badge-info">MIT license</a>
+        </div>
+        <div class="license-description"><i class="fal fa-copyright"></i> 2018 by ayatec</div>
+      </div>
+      <hr>
+      <div class="license-item">
+        <div class="license-item-header">
+          <button class="btn btn-link">
+            <a href="https://jquery.com/" target="_blank">
+              jQuery
+            </a>
+          </button>
+          <a href="https://jquery.org/license/" target="_blank" class="license-license badge badge-info">MIT license</a>
+        </div>
+        <div class="license-description"><i class="fal fa-copyright"></i> JS Foundation and other contributors</div>
+      </div>
+      <hr>
+      <div class="license-item">
+        <div class="license-item-header">
+          <button class="btn btn-link">
+            <a href="https://getbootstrap.com/" target="_blank">
+              Bootstrap
+            </a>
+          </button>
+          <a href="https://getbootstrap.com/docs/4.0/about/license/" target="_blank" class="license-license badge badge-info">MIT License</a>
+        </div>
+        <div class="license-description"><i class="fal fa-copyright"></i> 2011-2018 the Bootstrap Authors and Twitter, Inc.</div>
+      </div>
+      <hr>
+      <div class="license-item">
+        <div class="license-item-header">
+          <button class="btn btn-link">
+            <a href="https://fontawesome.com/" target="_blank">
+              Font Awesome Pro
+            </a>
+          </button>
+          <a href="http://fontawesome.com/license" target="_blank" class="license-license badge badge-info">Commercial License</a>
+        </div>
+        <div class="license-description">by <i class="fal fa-at"></i>fontawesome</div>
+      </div>
+      <hr>
+      <div class="license-item">
+        <div class="license-item-header">
+          <button class="btn btn-link">
+            <a href="https://code.google.com/archive/p/crypto-js/" target="_blank">
+              crypto-js
+            </a>
+          </button>
+          <a href="https://code.google.com/archive/p/crypto-js/wikis/License.wiki" target="_blank" class="license-license badge badge-info">BSD-3-Clause</a>
+        </div>
+        <div class="license-description"><i class="fal fa-copyright"></i> 2009-2013 by Jeff Mott. All rights reserved.</div>
+      </div>
+      <hr>
+      <div class="license-item">
+        <div class="license-item-header">
+          <button class="btn btn-link">
+            <a href="http://underscorejs.org/" target="_blank">
+              Underscore.js
+            </a>
+          </button>
+          <a href="https://github.com/jashkenas/underscore/blob/master/LICENSE" target="_blank" class="license-license badge badge-info">MIT License</a>
+        </div>
+        <div class="license-description">Copyright <i class="fal fa-copyright"></i> 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative</div>
+        <div class="license-description">Reporters & Editors</div>
+      </div>
+      <hr>
+      <div class="license-item">
+        <div class="license-item-header">
+          <button class="btn btn-link">
+            <a href="https://lodash.com/" target="_blank">
+              Lodash
+            </a>
+          </button>
+          <a href="http://lodash.com/license" target="_blank" class="license-license badge badge-info">MIT License</a>
+        </div>
+        <div class="license-description">Copyright JS Foundation and other contributors</div>
+      </div>
+      <hr>
+      <div class="license-item">
+        <div class="license-item-header">
+          <button class="btn btn-link">
+            <a href="http://caligatio.github.com/jsSHA/" target="_blank">
+              jsSHA
+            </a>
+          </button>
+          <a href="https://github.com/Caligatio/jsSHA/blob/master/LICENSE" target="_blank" class="license-license badge badge-info">BSD-3-Clause</a>
+        </div>
+        <div class="license-description">Copyright Brian Turek 2008-2017</div>
+      </div>
+      <hr>
+      <div class="license-item">
+        <div class="license-item-header">
+          <button class="btn btn-link">
+            <a href="https://ace.c9.io/" target="_blank">
+              Ace (Ajax.org Cloud9 Editor)
+            </a>
+          </button>
+          <a href="https://github.com/ajaxorg/ace/blob/master/LICENSE" target="_blank" class="license-license badge badge-info">BSD-3-Clause</a>
+        </div>
+        <div class="license-description">Copyright <i class="fal fa-copyright"></i> 2010, Ajax.org B.V.</div>
+      </div>
+      <hr>
+      <div class="license-item">
+        <div class="license-item-header">
+          <button class="btn btn-link">
+            <a href="http://gsgd.co.uk/sandbox/jquery/easing/" target="_blank">
+              jQuery Easing
+            </a>
+          </button>
+          <a href="https://github.com/gdsmith/jquery.easing/blob/master/LICENSE" target="_blank" class="license-license badge badge-info">BSD-3-Clause</a>
+        </div>
+        <div class="license-description">Copyright <i class="fal fa-copyright"></i> 2008 George McGinley Smith</div>
+      </div>
+      <hr>
+      <div class="license-item">
+        <div class="license-item-header">
+          <button class="btn btn-link">
+            <a href="http://izitoast.marcelodolce.com" target="_blank">
+              iziToast
+            </a>
+          </button>
+          <a href="https://github.com/dolce/iziToast/blob/master/LICENSE" target="_blank" class="license-license badge badge-info">Apache License 2.0</a>
+        </div>
+        <div class="license-description">by Marcelo Dolce.</div>
+      </div>
+      <hr>
+      <div class="license-item">
+        <div class="license-item-header">
+          <button class="btn btn-link">
+            <a href="https://github.com/kpdecker/jsdiff" target="_blank">
+              jsdiff
+            </a>
+          </button>
+          <a href="https://github.com/kpdecker/jsdiff/blob/master/LICENSE" target="_blank" class="license-license badge badge-info">BSD-3-Clause</a>
+        </div>
+        <div class="license-description">Copyright (c) 2009-2015, Kevin Decker</div>
+      </div>
+    </script>
     <!-- script -->
-    <!-- init -->
-    <script src="js/mylib/init.js"></script>
     <!-- error -->
     <script src="js/mylib/error.js"></script>
     <!-- lib -->
-    <script src="js/lib/underscore-min.js"></script>
+    <script src="js/lib/lodash.min.js"></script>
     <script src="js/lib/jquery-3.2.0.min.js"></script>
     <script src="js/lib/jquery.easing.1.3.js"></script>
-    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/lib/bootstrap.bundle.min.js"></script>
     <script src="js/lib/sha256.js"></script>
+    <script src="js/lib/pbkdf2.js"></script>
     <script src="js/lib/aes.js"></script>
+    <script src="js/lib/md5.js"></script>
+    <script src="js/lib/diff.min.js"></script>
+    <script src="js/lib/iziToast.min.js"></script>
+    <script src="js/lib/ace/ace.js"></script>
+    <script src="js/lib/ace/ext-modelist.js"></script>
+    <script src="js/lib/ace/ext-themelist.js"></script>
     <!-- mylib -->
+    <script src="js/mylib/localization.js"></script>
     <script src="js/mylib/common.js"></script>
     <script src="js/mylib/confirm.js"></script>
     <script src="js/mylib/popover.js"></script>
-    <script src="js/mylib/process-stack.js"></script>
     <script src="js/mylib/scroll.js"></script>
     <script src="js/mylib/static-class.js"></script>
     <script src="js/mylib/switch.js"></script>
     <script src="js/mylib/extension.js"></script>
     <script src="js/mylib/content.js"></script>
+    <script src="js/mylib/view.js"></script>
     <!-- myapp -->
+    <script src="js/myapp/lang.js"></script>
     <script src="js/myapp/project.js"></script>
     <script src="js/myapp/process.js"></script>
+    <script src="js/myapp/clipweb.js"></script>
+    <script src="js/myapp/nav.js"></script>
     <script src="js/myapp/user.js"></script>
+    <script src="js/myapp/list.js"></script>
+    <script src="js/myapp/clip.js"></script>
+    <script src="js/myapp/code.js"></script>
     <!-- app -->
-    <script src="js/global.js"></script>
-    <script src="js/myapp.js"></script>
+    <script src="js/mylib/controllers.js"></script>
+    <script src="js/mylib/global.js"></script>
+    <script src="js/myapp/global.js"></script>
+    <script src="js/mylib/app.js"></script>
   </body>
 </html>

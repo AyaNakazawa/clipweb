@@ -1,0 +1,1 @@
+sass --watch --unix-newlines --style nested src/sass/main.scss:src/css/main.css
