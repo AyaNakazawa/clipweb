@@ -650,9 +650,11 @@ class CodeController extends ClipwebController {
         this.MODEL.DL_DATA,
         USER.MODEL.HASH.CRYPTO
       );
-      super.log(this.MODEL.DL_DATA)();
-      super.log('↓')();
-      super.log(this.MODEL.DATA)();
+      if (this.MODEL.LOG.CRYPTO) {
+        super.log(this.MODEL.DL_DATA)();
+        super.log('↓')();
+        super.log(this.MODEL.DATA)();
+      }
     } else {
       this.MODEL.DATA = this.MODEL.DL_DATA;
     }
@@ -665,9 +667,11 @@ class CodeController extends ClipwebController {
         this.MODEL.DATA,
         USER.MODEL.HASH.CRYPTO
       );
-      super.log(this.MODEL.DATA)();
-      super.log('↓')();
-      super.log(this.MODEL.SEND_DATA)();
+      if (this.MODEL.LOG.CRYPTO) {
+        super.log(this.MODEL.DATA)();
+        super.log('↓')();
+        super.log(this.MODEL.SEND_DATA)();
+      }
     } else {
       this.MODEL.SEND_DATA = this.MODEL.DATA;
     }
