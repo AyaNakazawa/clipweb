@@ -227,6 +227,14 @@ class CodeEvent extends ClipwebEvent {
 
     super.setOn({
       selector: this.MODEL.SELECTOR.EDITOR.EDITOR,
+      trigger: 'click',
+      func: (event) => {
+        this.CONTROLLER.raiseTick();
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.EDITOR.EDITOR,
       trigger: 'keyup',
       func: (event) => {
         if (this.MODEL.SYNC.KEY.CURSOR.includes(event.keyCode)) {
