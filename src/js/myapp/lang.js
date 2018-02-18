@@ -222,6 +222,7 @@ class Language {
       failed_to_save_code: 'Failed to save the clip.',
       failed_to_download_code: 'Failed to download the clip.',
       failed_to_sync_code: 'Failed to sync the clip.',
+      failed_to_connect_chat: 'Failed to connect chat.',
 
       failed_connect_to_server: 'Failed connect to clipweb server.',
       server_not_working: 'clipweb server is not working properly.',
@@ -493,6 +494,7 @@ class Language {
       failed_to_save_code: 'クリップの保存に失敗しました。',
       failed_to_download_code: 'クリップのダウンロードに失敗しました。',
       failed_to_sync_code: 'クリップの同期に失敗しました。',
+      failed_to_connect_chat: 'チャットの接続に失敗しました。',
 
       failed_connect_to_server: 'clipwebサーバーとの通信に失敗しました。',
       server_not_working: 'clipwebサーバーが正常に動作していません。',
