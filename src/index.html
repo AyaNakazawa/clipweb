@@ -1101,6 +1101,16 @@
         <% } %>
       </div>
       <pre id="code-editor-editor"></pre>
+    <!-- chat-content -->
+    <script type="text/template" id="chat-content-template">
+      <hr>
+      <div class="chat-content">
+        <div class="chat-detail">
+          <span class="chat-time"><%- time %></span>
+          <span class="chat-username"><%- username %></span>
+        </div>
+        <div class="chat-message"><%= message %></div>
+      </div>
     </script>
     <!-- license -->
     <script type="text/template" id="license-template">
