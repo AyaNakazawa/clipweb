@@ -755,6 +755,16 @@ class CodeController extends ClipwebController {
     }
   }
 
+  sendMessage () {
+    let _send_message = $(this.MODEL.SELECTOR.CHAT.INPUT).val();
+    $(this.MODEL.SELECTOR.CHAT.CHAT_AREA).animate({scrollTop: $(this.MODEL.SELECTOR.CHAT.CHAT_AREA)[0].scrollHeight});
+    if (_send_message.length > 0) {
+      super.log('Chat', _send_message)();
+      $(this.MODEL.SELECTOR.CHAT.INPUT).val('');
+      this.connectChat(_send_message);
+    }
+  }
+
   // code
 
   start (edit = true) {
