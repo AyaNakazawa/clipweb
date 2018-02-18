@@ -138,9 +138,19 @@ class CodeModel extends ClipwebModel {
     this.SELECTOR.EDITOR.DOWNLOAD = '#code-editor-download';
     this.SELECTOR.EDITOR.SAVE = '#code-editor-save';
     this.SELECTOR.EDITOR.STOP = '#code-editor-stop';
+    this.SELECTOR.EDITOR.CHAT = '#code-editor-chat';
     this.SELECTOR.EDITOR.SHARE = '#code-editor-share';
     this.SELECTOR.EDITOR.DELETE = '#code-editor-delete';
     this.SELECTOR.EDITOR.SETTING = '#code-editor-setting';
+
+    // チャット
+    this.SELECTOR.CHAT = {};
+    this.SELECTOR.CHAT.AREA = '#code-chat-area';
+    this.SELECTOR.CHAT.CHAT_AREA = '#code-chat-chat-area';
+    this.SELECTOR.CHAT.USERS_AREA = '#code-chat-users-area';
+    this.SELECTOR.CHAT.USERS = '#code-chat-users';
+    this.SELECTOR.CHAT.INPUT = '#code-chat-input';
+    this.SELECTOR.CHAT.SEND = '#code-chat-send';
   }
 }
 
