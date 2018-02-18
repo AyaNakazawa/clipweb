@@ -104,6 +104,10 @@ class ClipModel extends ClipwebModel {
     this.SELECTOR.SHARE = {};
     this.SELECTOR.SHARE.LINK = '#clip-share-link';
     this.SELECTOR.SHARE.COPY = '#clip-share-copy';
+    this.SELECTOR.SHARE.TWITTER = '#clip-share-twitter';
+    this.SELECTOR.SHARE.FACEBOOK = '#clip-share-facebook';
+    this.SELECTOR.SHARE.GOOGLEPLUS = '#clip-share-googleplus';
+    this.SELECTOR.SHARE.LINE = '#clip-share-line';
   }
 }
 
@@ -366,6 +370,48 @@ class ClipEvent extends ClipwebEvent {
         });
       }
     });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.SHARE.TWITTER,
+      func: () => {
+        window.open('http://twitter.com/?status=' + this.getShareMessage('twitter'), 'newtab');
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.SHARE.FACEBOOK,
+      func: () => {
+        window.open('https://www.facebook.com/sharer/sharer.php?u=' + this.getShareLink('facebook'), 'newtab');
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.SHARE.GOOGLEPLUS,
+      func: () => {
+        window.open('https://plus.google.com/share?url=' + this.getShareLink('googleplus'), 'newtab');
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.SHARE.LINE,
+      func: () => {
+        window.open('http://line.me/R/msg/text/?' + this.getShareMessage('googleplus'), 'newtab');
+      }
+    });
+  }
+
+  getShareMessage (type = 'null') {
+    let _content = '';
+    _content += LN.get('share');
+    _content += ': ';
+    _content += LIST.MODEL.NAMED_CLIPS[this.MODEL.HASH]['clip_name'];
+    _content += ` on @${Project.NAME}`;
+    _content += `\n${Web.getURL()}?share=${this.MODEL.HASH}&type=${type}`;
+    return encodeURIComponent(_content);
+  }
+
+  getShareLink (type = 'null') {
+    return encodeURIComponent(`${Web.getURL()}?share=${this.MODEL.HASH}&type=${type}`);
   }
 
 }
