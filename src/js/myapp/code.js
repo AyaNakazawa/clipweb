@@ -1050,6 +1050,12 @@ class CodeController extends ClipwebController {
         }
         break;
 
+      case this.MODEL.TYPE.CHAT:
+        // CHAT
+        _model['message'] = this.MODEL.CHAT.MESSAGE;
+        _model['last_receive'] = this.MODEL.CHAT.DATE;
+        break;
+
       default:
         Log.error(arguments, 'unknown type X(')();
         return this.MODEL.ERROR;
