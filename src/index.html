@@ -1112,6 +1112,13 @@
         <div class="chat-message"><%= message %></div>
       </div>
     </script>
+    <!-- chat-user -->
+    <script type="text/template" id="chat-user-template">
+      <hr>
+      <div class="chat-user">
+        <img src="https://www.gravatar.com/avatar/<%- avatar %>?s=16" alt="<%- username %>'s avatar" class="chat-user-avatar avatar"><span class="chat-user-username"><%- username %></span>
+      </div>
+    </script>
     <!-- license -->
     <script type="text/template" id="license-template">
       <div class="license-item">
