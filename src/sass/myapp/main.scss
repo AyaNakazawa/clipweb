@@ -130,6 +130,64 @@ footer {
   width: 568px;
 }
 
+#clip-share {
+  #clip-share-sns {
+    #clip-share-sns-icon {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+
+      button.btn {
+        padding: 0 0.275rem;
+        i {
+          font-size: 3.75rem;
+          vertical-align: baseline;
+        }
+      }
+
+      #clip-share-twitter {
+        color: #50ABF1;
+        background-color: #fff;
+        &:hover {
+          color: #fff;
+          border-color: #50ABF1;
+          background-color: #50ABF1;
+        }
+      }
+
+      #clip-share-facebook {
+        color: #425E9A;
+        background-color: #fff;
+        &:hover {
+          color: #fff;
+          border-color: #425E9A;
+          background-color: #425E9A;
+        }
+      }
+
+      #clip-share-googleplus {
+        color: #DC4E41;
+        background-color: #fff;
+        &:hover {
+          color: #fff;
+          border-color: #DC4E41;
+          background-color: #DC4E41;
+        }
+      }
+
+      #clip-share-line {
+        color: #19BC03;
+        background-color: #fff;
+        &:hover {
+          color: #fff;
+          border-color: #19BC03;
+          background-color: #19BC03;
+        }
+      }
+    }
+  }
+}
+
 // ----------------------------------------------------------------
 // code-area
 

@@ -572,6 +572,44 @@ footer {
 #clip-area {
   width: 568px; }
 
+#clip-share #clip-share-sns #clip-share-sns-icon {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around; }
+  #clip-share #clip-share-sns #clip-share-sns-icon button.btn {
+    padding: 0 0.275rem; }
+    #clip-share #clip-share-sns #clip-share-sns-icon button.btn i {
+      font-size: 3.75rem;
+      vertical-align: baseline; }
+  #clip-share #clip-share-sns #clip-share-sns-icon #clip-share-twitter {
+    color: #50ABF1;
+    background-color: #fff; }
+    #clip-share #clip-share-sns #clip-share-sns-icon #clip-share-twitter:hover {
+      color: #fff;
+      border-color: #50ABF1;
+      background-color: #50ABF1; }
+  #clip-share #clip-share-sns #clip-share-sns-icon #clip-share-facebook {
+    color: #425E9A;
+    background-color: #fff; }
+    #clip-share #clip-share-sns #clip-share-sns-icon #clip-share-facebook:hover {
+      color: #fff;
+      border-color: #425E9A;
+      background-color: #425E9A; }
+  #clip-share #clip-share-sns #clip-share-sns-icon #clip-share-googleplus {
+    color: #DC4E41;
+    background-color: #fff; }
+    #clip-share #clip-share-sns #clip-share-sns-icon #clip-share-googleplus:hover {
+      color: #fff;
+      border-color: #DC4E41;
+      background-color: #DC4E41; }
+  #clip-share #clip-share-sns #clip-share-sns-icon #clip-share-line {
+    color: #19BC03;
+    background-color: #fff; }
+    #clip-share #clip-share-sns #clip-share-sns-icon #clip-share-line:hover {
+      color: #fff;
+      border-color: #19BC03;
+      background-color: #19BC03; }
+
 #code-area {
   width: 100%;
   height: 100%;
