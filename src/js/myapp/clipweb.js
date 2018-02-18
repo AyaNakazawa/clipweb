@@ -58,6 +58,7 @@ class ClipwebModel extends CommonModel {
     this.TYPE.PRIVILEGE = 'privilege';
     this.TYPE.HISTORY = 'history';
     this.TYPE.SYNC = 'sync';
+    this.TYPE.CHAT = 'chat';
 
     this.TIMING = {};
     this.TIMING.AFTER = 'after';
