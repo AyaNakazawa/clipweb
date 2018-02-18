@@ -408,6 +408,21 @@ class CodeController extends ClipwebController {
     this.MODEL.STATUS.OPEN = false;
   }
 
+  stopTick () {
+    // 一時停止
+    super.log('Tick', 'Time limit')();
+    this.exitTick();
+    new Confirm({
+      title: LN.get('concurrent_editing_stop'),
+      content: LN.get('close_to_start_concurrent_editing'),
+      yes: LN.get('restart'),
+      type: Confirm.TYPE_YES,
+      functionClose: () => {
+        this.startTick();
+      }
+    });
+  }
+
   accelerateTick () {
     super.log('Tick', 'Accelerate')();
     this.MODEL.TICK.CURRENT /= this.MODEL.TICK.TIMES;
