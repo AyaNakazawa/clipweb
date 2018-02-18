@@ -387,10 +387,6 @@ class Code(cw_base.Base):
         # ----------------------------------------------------------------
         # select member
 
-        where = {
-            "clip_hash": clip_hash
-        }
-
         cls.result["member"] = cls.DB.select(
             table="syncs",
             distinct=True,
