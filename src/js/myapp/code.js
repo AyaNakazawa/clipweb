@@ -513,6 +513,7 @@ class CodeController extends ClipwebController {
   exitTick () {
     // 同時編集終了
     super.log('Tick', 'Exit', Log.ARROW_INPUT)();
+    $(this.MODEL.SELECTOR.EDITOR.STOP).addClass('active');
     this.MODEL.STATUS.OPEN = false;
   }
 
