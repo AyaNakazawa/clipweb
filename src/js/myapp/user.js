@@ -372,6 +372,42 @@ class UserEvent extends ClipwebEvent {
       }
     });
 
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.THEME}`,
+      trigger: 'change',
+      func: () => {
+        const _THEME = this.MODEL.SELECTOR.SETTING.THEME;
+        let _validTheme = $(_THEME)[0].validity.valid;
+        if (_validTheme) {
+          this.MODEL.THEME = $(`${_THEME} option:selected`).val();
+        }
+      }
+    });
+
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.OWNER_PUBLIC}`,
+      trigger: 'change',
+      func: () => {
+        const _OWNER_PUBLIC = this.MODEL.SELECTOR.SETTING.OWNER_PUBLIC;
+        let _validTheme = $(_OWNER_PUBLIC)[0].validity.valid;
+        if (_validTheme) {
+          this.MODEL.OWNER_PUBLIC = $(`${_OWNER_PUBLIC} option:selected`).val();
+        }
+      }
+    });
+
+    super.setOn({
+      selector: `${this.MODEL.SELECTOR.AREA} ${this.MODEL.SELECTOR.SETTING.CLIP_MODE}`,
+      trigger: 'change',
+      func: () => {
+        const _CLIP_MODE = this.MODEL.SELECTOR.SETTING.CLIP_MODE;
+        let _validTheme = $(_CLIP_MODE)[0].validity.valid;
+        if (_validTheme) {
+          this.MODEL.CLIP_MODE = $(`${_CLIP_MODE} option:selected`).val();
+        }
+      }
+    });
+
     super.setSeqFocus([
       this.MODEL.SELECTOR.SETTING.THEME,
       this.MODEL.SELECTOR.SETTING.OWNER_PUBLIC,
