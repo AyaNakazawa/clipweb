@@ -150,6 +150,9 @@ class Clipweb:
         elif _type == "sync":
             cls.result["code"] = CODE.sync()
 
+        elif _type == "chat":
+            cls.result["code"] = CODE.chat()
+
         else:
             cls.result["error"] = {}
             cls.result["error"]["message"] = "check_clip: {0}".format(_type)
