@@ -91,6 +91,19 @@ class CodeModel extends ClipwebModel {
     this.SYNC.KEY.BACKUP = null;
 
     // ----------------------------------------------------------------
+    // 同時編集
+    this.CHAT = {};
+
+    // 送信メッセージ
+    this.CHAT.MESSAGE = null;
+
+    // 受信メッセージ
+    this.CHAT.RECEIVE = null;
+
+    // 最終受信日時
+    this.CHAT.DATE = new Date().formatString();
+
+    // ----------------------------------------------------------------
     // TICK
 
     this.TICK = {};
