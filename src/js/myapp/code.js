@@ -94,7 +94,7 @@ class CodeModel extends ClipwebModel {
     this.TICK = {};
 
     this.TICK = {};
-    this.TICK.INIT = 2;
+    this.TICK.INIT = 1.5;
     this.TICK.MAX = 100;
     this.TICK.TIMES = 1.35;
     this.TICK.INTERVAL = 250;
