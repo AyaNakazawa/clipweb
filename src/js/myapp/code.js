@@ -717,6 +717,26 @@ class CodeController extends ClipwebController {
   }
 
   // ----------------------------------------------------------------
+  // chat
+
+  switchChat () {
+    if ($(this.MODEL.SELECTOR.CHAT.AREA).is(':visible')) {
+      super.log('Editor', 'Close Chat')();
+      this.MODEL.STATUS.CHAT = false;
+      $(this.MODEL.SELECTOR.EDITOR.CHAT).removeClass('active');
+      this.VIEW.hide({
+        selector: $(this.MODEL.SELECTOR.CHAT.AREA)
+      });
+    } else {
+      super.log('Editor', 'Open Chat')();
+      this.MODEL.STATUS.CHAT = true;
+      $(this.MODEL.SELECTOR.EDITOR.CHAT).addClass('active');
+      this.VIEW.show({
+        selector: $(this.MODEL.SELECTOR.CHAT.AREA)
+      });
+    }
+  }
+
   // code
 
   start (edit = true) {
