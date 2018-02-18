@@ -765,6 +765,67 @@ class CodeController extends ClipwebController {
     }
   }
 
+  // ----------------------------------------------------------------
+  // chat ajax
+
+  connectChat (message = null) {
+    const _TYPE = this.MODEL.TYPE.CHAT;
+    const _FAILED = 'failed_to_connect_chat';
+
+    if (this.MODEL.STATUS.CHATTING) {
+      setTimeout(
+        () => {
+          super.log('Chat', 'Next challenge')();
+          this.connectChat(message);
+        },
+        Math.round(this.MODEL.TICK.INTERVAL * this.MODEL.TICK.INIT)
+      );
+      return;
+    }
+
+    // 接続開始
+    this.MODEL.STATUS.CHATTING = true;
+    this.MODEL.CHAT.MESSAGE = message;
+
+    this.EVENT.setLoading({
+      type: _TYPE,
+      loading: false,
+      errorMessage: _FAILED,
+      errorType: 'toast',
+      check: [
+        'last_date',
+        'new_chat',
+        'delete_access',
+        'messages',
+        'member'
+      ],
+      functionSuccess: () => {
+        this.applyReceiveModel(_TYPE);
+        for (let chat of this.MODEL.CHAT.RECEIVE) {
+          this.VIEW.addChat(
+            chat['created_at'],
+            chat['username'],
+            chat['message']
+          );
+        }
+        this.VIEW.updateUsers();
+
+      },
+      connectionErrorToastModel: super.getErrorModel('toast/server', _FAILED),
+      connectionCompletefunction: () => {
+        // 接続終了
+        this.MODEL.STATUS.CHATTING = false;
+      }
+    });
+
+    // Post
+    this.post({
+      type: _TYPE,
+      data: this.getSendModel(_TYPE)
+    });
+  }
+
+  // ----------------------------------------------------------------
   // code
 
   start (edit = true) {
