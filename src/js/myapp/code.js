@@ -122,6 +122,8 @@ class CodeModel extends ClipwebModel {
     // ----------------------------------------------------------------
     // テンプレート
     this.TEMPLATE.EDITOR = '#code-editor-template';
+    this.TEMPLATE.CHAT = '#chat-content-template';
+    this.TEMPLATE.USERS = '#chat-user-template';
 
     // ----------------------------------------------------------------
     // セレクタ
