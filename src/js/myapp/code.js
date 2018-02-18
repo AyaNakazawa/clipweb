@@ -737,6 +737,24 @@ class CodeController extends ClipwebController {
     }
   }
 
+  switchChatUser () {
+    if ($(this.MODEL.SELECTOR.CHAT.USERS_AREA).is(':visible')) {
+      super.log('Chat', 'Close User')();
+      this.MODEL.STATUS.CHAT_USER = false;
+      $(this.MODEL.SELECTOR.CHAT.USERS).removeClass('active');
+      this.VIEW.hide({
+        selector: $(this.MODEL.SELECTOR.CHAT.USERS_AREA)
+      });
+    } else {
+      super.log('Chat', 'Open User')();
+      this.MODEL.STATUS.CHAT_USER = true;
+      $(this.MODEL.SELECTOR.CHAT.USERS).addClass('active');
+      this.VIEW.show({
+        selector: $(this.MODEL.SELECTOR.CHAT.USERS_AREA)
+      });
+    }
+  }
+
   // code
 
   start (edit = true) {
