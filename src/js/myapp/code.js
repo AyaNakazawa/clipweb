@@ -120,6 +120,7 @@ class CodeModel extends ClipwebModel {
     this.SELECTOR.EDITOR.CLOSE = '#code-editor-close';
     this.SELECTOR.EDITOR.DOWNLOAD = '#code-editor-download';
     this.SELECTOR.EDITOR.SAVE = '#code-editor-save';
+    this.SELECTOR.EDITOR.STOP = '#code-editor-stop';
     this.SELECTOR.EDITOR.SHARE = '#code-editor-share';
     this.SELECTOR.EDITOR.DELETE = '#code-editor-delete';
     this.SELECTOR.EDITOR.SETTING = '#code-editor-setting';
@@ -177,6 +178,14 @@ class CodeEvent extends ClipwebEvent {
       func: () => {
         super.log('Editor', 'Save')();
         this.CONTROLLER.saveCode();
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.EDITOR.STOP,
+      func: () => {
+        super.log('Editor', 'Stop')();
+        this.CONTROLLER.stopTick();
       }
     });
 
