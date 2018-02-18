@@ -465,8 +465,9 @@ class UserController extends ClipwebController {
             type: this.MODEL.TYPE.LOGIN,
             model: {
               alertMessage:
-                View.element({ content: LN.get('user_registered') }) +
-                View.element({ content: LN.get('please_email_auth') })
+                View.element({ content: LN.get('user_registered') })
+                // View.element({ content: LN.get('user_registered') }) +
+                // View.element({ content: LN.get('please_email_auth') })
             },
           });
         },
