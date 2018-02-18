@@ -331,6 +331,12 @@ class Base:
                     "message": "[last_patched] does not defined."
                 }
             },
+            "last_receive_not_defined": {
+                "{} error".format(cls.NAME): {
+                    "code": 127,
+                    "message": "[last_receive] does not defined."
+                }
+            },
             "model_not_defined": {
                 "{} error".format(cls.NAME): {
                     "code": 151,
@@ -497,6 +503,12 @@ class Base:
                 "{} error".format(cls.NAME): {
                     "code": 226,
                     "message": "[last_patched] is unknown class"
+                }
+            },
+            "last_receive_unknown_class": {
+                "{} error".format(cls.NAME): {
+                    "code": 227,
+                    "message": "[last_receive] is unknown class"
                 }
             },
             "username_overlap": {
