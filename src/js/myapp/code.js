@@ -576,6 +576,11 @@ class CodeController extends ClipwebController {
       }
     }
 
+    // チャットを受信
+    if (this.MODEL.STATUS.CHAT) {
+      this.connectChat();
+    }
+
     // サーバに送信
     this.connectSync(() => {
       // コールバック
