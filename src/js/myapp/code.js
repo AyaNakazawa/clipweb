@@ -165,6 +165,24 @@ class CodeView extends ClipwebView {
   ) {
     super(initSetting);
   }
+
+  addChat (time = null, username = null, message = null) {
+    if (this.MODEL.STATUS.CHAT) {
+      if (time == null || username == null || message == null) {
+        Log.error(arguments)();
+        return this.MODEL.ERROR;
+      }
+      super.append({
+        selector: this.MODEL.SELECTOR.CHAT.CHAT_AREA,
+        template: this.MODEL.TEMPLATE.CHAT,
+        model: {
+          time: time,
+          username: username,
+          message: message
+        }
+      });
+    }
+  }
 }
 
 // ----------------------------------------------------------------
