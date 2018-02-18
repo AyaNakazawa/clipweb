@@ -33,6 +33,8 @@ class CodeModel extends ClipwebModel {
     this.STATUS.SYNC = false;
     this.STATUS.PATCHED = false;
     this.STATUS.CONNECTING = false;
+    this.STATUS.CHAT = false;
+    this.STATUS.CHAT_USER = false;
 
     // ----------------------------------------------------------------
     // クリップ
@@ -89,14 +91,27 @@ class CodeModel extends ClipwebModel {
     this.SYNC.KEY.BACKUP = null;
 
     // ----------------------------------------------------------------
+    // 同時編集
+    this.CHAT = {};
+
+    // 送信メッセージ
+    this.CHAT.MESSAGE = null;
+
+    // 受信メッセージ
+    this.CHAT.RECEIVE = null;
+
+    // 最終受信日時
+    this.CHAT.DATE = new Date().formatString();
+
+    // ----------------------------------------------------------------
     // TICK
 
     this.TICK = {};
 
     this.TICK = {};
-    this.TICK.INIT = 2;
-    this.TICK.MAX = 100;
-    this.TICK.TIMES = 1.35;
+    this.TICK.INIT = 1.5;
+    this.TICK.MAX = 10;
+    this.TICK.TIMES = 1.25;
     this.TICK.INTERVAL = 250;
     this.TICK.LIMIT = 10 * 60 * (1000 / this.TICK.INTERVAL);
 
@@ -107,6 +122,8 @@ class CodeModel extends ClipwebModel {
     // ----------------------------------------------------------------
     // テンプレート
     this.TEMPLATE.EDITOR = '#code-editor-template';
+    this.TEMPLATE.CHAT = '#chat-content-template';
+    this.TEMPLATE.USERS = '#chat-user-template';
 
     // ----------------------------------------------------------------
     // セレクタ
@@ -120,9 +137,20 @@ class CodeModel extends ClipwebModel {
     this.SELECTOR.EDITOR.CLOSE = '#code-editor-close';
     this.SELECTOR.EDITOR.DOWNLOAD = '#code-editor-download';
     this.SELECTOR.EDITOR.SAVE = '#code-editor-save';
+    this.SELECTOR.EDITOR.STOP = '#code-editor-stop';
+    this.SELECTOR.EDITOR.CHAT = '#code-editor-chat';
     this.SELECTOR.EDITOR.SHARE = '#code-editor-share';
     this.SELECTOR.EDITOR.DELETE = '#code-editor-delete';
     this.SELECTOR.EDITOR.SETTING = '#code-editor-setting';
+
+    // チャット
+    this.SELECTOR.CHAT = {};
+    this.SELECTOR.CHAT.AREA = '#code-chat-area';
+    this.SELECTOR.CHAT.CHAT_AREA = '#code-chat-chat-area';
+    this.SELECTOR.CHAT.USERS_AREA = '#code-chat-users-area';
+    this.SELECTOR.CHAT.USERS = '#code-chat-users';
+    this.SELECTOR.CHAT.INPUT = '#code-chat-input';
+    this.SELECTOR.CHAT.SEND = '#code-chat-send';
   }
 }
 
@@ -137,6 +165,45 @@ class CodeView extends ClipwebView {
   ) {
     super(initSetting);
   }
+
+  addChat (time = null, username = null, message = null) {
+    if (this.MODEL.STATUS.CHAT) {
+      if (time == null || username == null || message == null) {
+        Log.error(arguments)();
+        return this.MODEL.ERROR;
+      }
+      super.append({
+        selector: this.MODEL.SELECTOR.CHAT.CHAT_AREA,
+        template: this.MODEL.TEMPLATE.CHAT,
+        model: {
+          time: time,
+          username: username,
+          message: message
+        }
+      });
+    }
+  }
+
+  updateUsers () {
+    if (this.MODEL.STATUS.CHAT_USER) {
+      super.clear({
+        selector: this.MODEL.SELECTOR.CHAT.USERS_AREA,
+        type: 'skip'
+      });
+      for (let user of this.MODEL.CHAT.MEMBER) {
+        super.log(user)();
+        super.append({
+          selector: this.MODEL.SELECTOR.CHAT.USERS_AREA,
+          template: this.MODEL.TEMPLATE.USERS,
+          model: {
+            username: user['user_name'],
+            avatar: user['user_gravatar']
+          }
+        });
+      }
+    }
+  }
+
 }
 
 // ----------------------------------------------------------------
@@ -177,6 +244,21 @@ class CodeEvent extends ClipwebEvent {
       func: () => {
         super.log('Editor', 'Save')();
         this.CONTROLLER.saveCode();
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.EDITOR.STOP,
+      func: () => {
+        super.log('Editor', 'Stop')();
+        this.CONTROLLER.stopTick();
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.EDITOR.CHAT,
+      func: () => {
+        this.CONTROLLER.switchChat();
       }
     });
 
@@ -260,6 +342,31 @@ class CodeEvent extends ClipwebEvent {
         }
       }
     });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.CHAT.USERS,
+      func: () => {
+        this.CONTROLLER.switchChatUser();
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.CHAT.INPUT,
+      trigger: 'keydown',
+      func: (event) => {
+        if (event.keyCode == 13) {
+          this.CONTROLLER.sendMessage();
+        }
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.CHAT.SEND,
+      func: () => {
+        this.CONTROLLER.sendMessage();
+      }
+    });
+
   }
 
 }
@@ -381,6 +488,7 @@ class CodeController extends ClipwebController {
     } else if (this.MODEL.ENCRYPTION == 'off') {
       // 暗号化していないとき
       super.log('Tick', 'Start', Log.ARROW_INPUT)();
+      $(this.MODEL.SELECTOR.EDITOR.STOP).removeClass('active');
 
       // 初期化
       this.MODEL.STATUS.OPEN = true;
@@ -405,11 +513,31 @@ class CodeController extends ClipwebController {
   exitTick () {
     // 同時編集終了
     super.log('Tick', 'Exit', Log.ARROW_INPUT)();
+    $(this.MODEL.SELECTOR.EDITOR.STOP).addClass('active');
     this.MODEL.STATUS.OPEN = false;
+  }
+
+  stopTick () {
+    // 一時停止
+    super.log('Tick', 'Time limit')();
+    this.exitTick();
+    new Confirm({
+      title: LN.get('concurrent_editing_stop'),
+      content: LN.get('close_to_start_concurrent_editing'),
+      yes: LN.get('restart'),
+      type: Confirm.TYPE_YES,
+      functionClose: () => {
+        this.startTick();
+      }
+    });
   }
 
   accelerateTick () {
     super.log('Tick', 'Accelerate')();
+    this.MODEL.TICK.CURRENT /= this.MODEL.TICK.TIMES;
+    if (this.MODEL.TICK.CURRENT < this.MODEL.TICK.INIT) {
+      this.MODEL.TICK.CURRENT = this.MODEL.TICK.INIT;
+    }
     this.MODEL.TICK.COUNT = this.MODEL.TICK.CURRENT;
   }
 
@@ -448,6 +576,11 @@ class CodeController extends ClipwebController {
       }
     }
 
+    // チャットを受信
+    if (this.MODEL.STATUS.CHAT) {
+      this.connectChat();
+    }
+
     // サーバに送信
     this.connectSync(() => {
       // コールバック
@@ -481,17 +614,7 @@ class CodeController extends ClipwebController {
         }
         // 一定時間編集なしが続いたら一時停止
         if (this.MODEL.TICK.TOTAL > this.MODEL.TICK.LIMIT) {
-          super.log('Tick', 'Time limit')();
-          this.exitTick();
-          new Confirm({
-            title: LN.get('concurrent_editing_stop'),
-            content: LN.get('close_to_start_concurrent_editing'),
-            yes: LN.get('restart'),
-            type: Confirm.TYPE_YES,
-            functionClose: () => {
-              this.startTick();
-            }
-          });
+          this.stopTick();
         }
       }
     });
@@ -588,6 +711,115 @@ class CodeController extends ClipwebController {
 
         // 接続終了
         this.MODEL.STATUS.CONNECTING = false;
+      }
+    });
+
+    // Post
+    this.post({
+      type: _TYPE,
+      data: this.getSendModel(_TYPE)
+    });
+  }
+
+  // ----------------------------------------------------------------
+  // chat
+
+  switchChat () {
+    if ($(this.MODEL.SELECTOR.CHAT.AREA).is(':visible')) {
+      super.log('Editor', 'Close Chat')();
+      this.MODEL.STATUS.CHAT = false;
+      $(this.MODEL.SELECTOR.EDITOR.CHAT).removeClass('active');
+      this.VIEW.hide({
+        selector: $(this.MODEL.SELECTOR.CHAT.AREA)
+      });
+    } else {
+      super.log('Editor', 'Open Chat')();
+      this.MODEL.STATUS.CHAT = true;
+      $(this.MODEL.SELECTOR.EDITOR.CHAT).addClass('active');
+      this.VIEW.show({
+        selector: $(this.MODEL.SELECTOR.CHAT.AREA)
+      });
+    }
+  }
+
+  switchChatUser () {
+    if ($(this.MODEL.SELECTOR.CHAT.USERS_AREA).is(':visible')) {
+      super.log('Chat', 'Close User')();
+      this.MODEL.STATUS.CHAT_USER = false;
+      $(this.MODEL.SELECTOR.CHAT.USERS).removeClass('active');
+      this.VIEW.hide({
+        selector: $(this.MODEL.SELECTOR.CHAT.USERS_AREA)
+      });
+    } else {
+      super.log('Chat', 'Open User')();
+      this.MODEL.STATUS.CHAT_USER = true;
+      $(this.MODEL.SELECTOR.CHAT.USERS).addClass('active');
+      this.VIEW.show({
+        selector: $(this.MODEL.SELECTOR.CHAT.USERS_AREA)
+      });
+    }
+  }
+
+  sendMessage () {
+    let _send_message = $(this.MODEL.SELECTOR.CHAT.INPUT).val();
+    $(this.MODEL.SELECTOR.CHAT.CHAT_AREA).animate({scrollTop: $(this.MODEL.SELECTOR.CHAT.CHAT_AREA)[0].scrollHeight});
+    if (_send_message.length > 0) {
+      super.log('Chat', _send_message)();
+      $(this.MODEL.SELECTOR.CHAT.INPUT).val('');
+      this.connectChat(_send_message);
+    }
+  }
+
+  // ----------------------------------------------------------------
+  // chat ajax
+
+  connectChat (message = null) {
+    const _TYPE = this.MODEL.TYPE.CHAT;
+    const _FAILED = 'failed_to_connect_chat';
+
+    if (this.MODEL.STATUS.CHATTING) {
+      setTimeout(
+        () => {
+          super.log('Chat', 'Next challenge')();
+          this.connectChat(message);
+        },
+        Math.round(this.MODEL.TICK.INTERVAL * this.MODEL.TICK.INIT)
+      );
+      return;
+    }
+
+    // 接続開始
+    this.MODEL.STATUS.CHATTING = true;
+    this.MODEL.CHAT.MESSAGE = message;
+
+    this.EVENT.setLoading({
+      type: _TYPE,
+      loading: false,
+      errorMessage: _FAILED,
+      errorType: 'toast',
+      check: [
+        'last_date',
+        'new_chat',
+        'delete_access',
+        'messages',
+        'member'
+      ],
+      functionSuccess: () => {
+        this.applyReceiveModel(_TYPE);
+        for (let chat of this.MODEL.CHAT.RECEIVE) {
+          this.VIEW.addChat(
+            chat['created_at'],
+            chat['username'],
+            chat['message']
+          );
+        }
+        this.VIEW.updateUsers();
+
+      },
+      connectionErrorToastModel: super.getErrorModel('toast/server', _FAILED),
+      connectionCompletefunction: () => {
+        // 接続終了
+        this.MODEL.STATUS.CHATTING = false;
       }
     });
 
@@ -772,6 +1004,13 @@ class CodeController extends ClipwebController {
         this.MODEL.SYNC.MEMBER = this.getAjaxData({ key: 'member' });
         break;
 
+      case this.MODEL.TYPE.CHAT:
+        // CHAT
+        this.MODEL.CHAT.DATE = this.getAjaxData({ key: 'last_date' });
+        this.MODEL.CHAT.RECEIVE = this.getAjaxData({ key: 'messages' });
+        this.MODEL.CHAT.MEMBER = this.getAjaxData({ key: 'member' });
+        break;
+
       default:
         Log.error(arguments, 'unknown type X(')();
         return this.MODEL.ERROR;
@@ -814,6 +1053,12 @@ class CodeController extends ClipwebController {
           _model['new_sync_hash'] = this.MODEL.SYNC.HASH.CURRENT;
           _model['sync_patch'] = this.MODEL.SYNC.PATCH.CURRENT;
         }
+        break;
+
+      case this.MODEL.TYPE.CHAT:
+        // CHAT
+        _model['message'] = this.MODEL.CHAT.MESSAGE;
+        _model['last_receive'] = this.MODEL.CHAT.DATE;
         break;
 
       default:

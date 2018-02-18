@@ -117,6 +117,36 @@ table {
   font-weight: 700;
 }
 
+.popover {
+
+  .popover-title {
+
+  }
+
+  .popover-body {
+    hr {
+      margin-top: 0.5rem !important;
+      margin-bottom: 0.5rem !important;
+    }
+    .popover-center {
+      font-weight: bold;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      margin-bottom: 0.5rem;
+    }
+    .popover-item-title {
+      font-weight: bold;
+      margin-left: 0.5rem;
+      margin-top: 0.5rem;
+
+      &::before {
+        content: '・';
+      }
+    }
+  }
+}
+
 .date {
   font-family: sans-serif;
   font-size: 0.85rem;

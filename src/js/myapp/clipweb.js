@@ -58,6 +58,7 @@ class ClipwebModel extends CommonModel {
     this.TYPE.PRIVILEGE = 'privilege';
     this.TYPE.HISTORY = 'history';
     this.TYPE.SYNC = 'sync';
+    this.TYPE.CHAT = 'chat';
 
     this.TIMING = {};
     this.TIMING.AFTER = 'after';
@@ -715,11 +716,11 @@ class ClipwebController extends CommonController {
       dateType: dateType,
       beforeSend: (jqXHR, settings) => {
         if (this.MODEL.LOG.POST) {
-          // this.MODEL.TIME.BEFORE_SEND = new Date();
-          // super.log()();
-          // Log.log('Post Before Send', Log.ALIGN_CENTER)();
-          // super.log('Post', 'Send')();
-          // super.log('settings', settings)();
+          this.MODEL.TIME.BEFORE_SEND = new Date();
+          super.log()();
+          Log.log('Post Before Send', Log.ALIGN_CENTER)();
+          super.log('Post', 'Send')();
+          super.log('settings', settings)();
           // super.log('jqXHR', jqXHR)();
         }
       },
@@ -729,15 +730,17 @@ class ClipwebController extends CommonController {
           super.log()();
           Log.log('Post Success', Log.ALIGN_CENTER)();
           super.log('Post', 'Success')();
-          // super.log('textStatus', textStatus)();
-          // super.log('data', data)();
-          // super.log('jqXHR', jqXHR)();
-          super.log()();
         }
         if (data == '') {
           Log.error(arguments, 'Received data is empty.')();
         }
         data = JSON.parse(data);
+        if (this.MODEL.LOG.POST) {
+          // super.log('textStatus', textStatus)();
+          super.log('data', data)();
+          // super.log('jqXHR', jqXHR)();
+          super.log()();
+        }
         this.MODEL.OBJECT.AJAX = data;
         this.EVENT.trigger({ trigger: `${_post_id}.${this.MODEL.TRIGGER.POST.SUCCESS}` });
       },

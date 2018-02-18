@@ -80,6 +80,22 @@ table button {
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   font-weight: 700; }
 
+.popover .popover-body hr {
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important; }
+.popover .popover-body .popover-center {
+  font-weight: bold;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 0.5rem; }
+.popover .popover-body .popover-item-title {
+  font-weight: bold;
+  margin-left: 0.5rem;
+  margin-top: 0.5rem; }
+  .popover .popover-body .popover-item-title::before {
+    content: '・'; }
+
 .date {
   font-family: sans-serif;
   font-size: 0.85rem;
@@ -572,6 +588,44 @@ footer {
 #clip-area {
   width: 568px; }
 
+#clip-share #clip-share-sns #clip-share-sns-icon {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around; }
+  #clip-share #clip-share-sns #clip-share-sns-icon button.btn {
+    padding: 0 0.275rem; }
+    #clip-share #clip-share-sns #clip-share-sns-icon button.btn i {
+      font-size: 3.75rem;
+      vertical-align: baseline; }
+  #clip-share #clip-share-sns #clip-share-sns-icon #clip-share-twitter {
+    color: #50ABF1;
+    background-color: #fff; }
+    #clip-share #clip-share-sns #clip-share-sns-icon #clip-share-twitter:hover {
+      color: #fff;
+      border-color: #50ABF1;
+      background-color: #50ABF1; }
+  #clip-share #clip-share-sns #clip-share-sns-icon #clip-share-facebook {
+    color: #425E9A;
+    background-color: #fff; }
+    #clip-share #clip-share-sns #clip-share-sns-icon #clip-share-facebook:hover {
+      color: #fff;
+      border-color: #425E9A;
+      background-color: #425E9A; }
+  #clip-share #clip-share-sns #clip-share-sns-icon #clip-share-googleplus {
+    color: #DC4E41;
+    background-color: #fff; }
+    #clip-share #clip-share-sns #clip-share-sns-icon #clip-share-googleplus:hover {
+      color: #fff;
+      border-color: #DC4E41;
+      background-color: #DC4E41; }
+  #clip-share #clip-share-sns #clip-share-sns-icon #clip-share-line {
+    color: #19BC03;
+    background-color: #fff; }
+    #clip-share #clip-share-sns #clip-share-sns-icon #clip-share-line:hover {
+      color: #fff;
+      border-color: #19BC03;
+      background-color: #19BC03; }
+
 #code-area {
   width: 100%;
   height: 100%;
@@ -583,6 +637,7 @@ footer {
   left: 0;
   z-index: 100; }
   #code-area #code-editor-editor {
+    z-index: 110;
     margin: 0;
     position: absolute;
     top: 38px;
@@ -599,6 +654,56 @@ footer {
       -webkit-transition-timing-function: cubic-bezier(0.2, 0.6, 0.4, 0.8);
       -o-transition-timing-function: cubic-bezier(0.2, 0.6, 0.4, 0.8);
       transition-timing-function: cubic-bezier(0.2, 0.6, 0.4, 0.8); }
+  #code-area #code-chat-area {
+    z-index: 120;
+    margin: 0;
+    width: 360px;
+    position: absolute;
+    top: 38px;
+    right: 6px;
+    bottom: 6px;
+    background: #fff; }
+    #code-area #code-chat-area > * {
+      padding-left: 6px;
+      position: absolute;
+      left: 0;
+      right: 0; }
+    #code-area #code-chat-area .code-chat-base {
+      padding-top: 6px;
+      margin-bottom: 6px;
+      background: #fff;
+      top: 0;
+      bottom: 38px;
+      overflow-y: scroll;
+      overflow-x: auto; }
+      #code-area #code-chat-area .code-chat-base hr {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem; }
+    #code-area #code-chat-area #code-chat-chat-area .chat-content {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0.25rem; }
+      #code-area #code-chat-area #code-chat-chat-area .chat-content .chat-detail {
+        margin: 0 0.25rem;
+        flex-basis: 1; }
+        #code-area #code-chat-area #code-chat-chat-area .chat-content .chat-detail .chat-time {
+          font-family: sans-serif;
+          font-size: 0.75rem;
+          vertical-align: middle !important; }
+        #code-area #code-chat-area #code-chat-chat-area .chat-content .chat-detail .chat-username {
+          font-weight: 600; }
+      #code-area #code-chat-area #code-chat-chat-area .chat-content .chat-message {
+        flex-basis: auto; }
+    #code-area #code-chat-area #code-chat-users-area .chat-user {
+      margin: 0.5rem 1rem; }
+      #code-area #code-chat-area #code-chat-users-area .chat-user .chat-user-avatar {
+        margin: 0 0.5rem; }
+      #code-area #code-chat-area #code-chat-users-area .chat-user .chat-user-username {
+        margin: 0 0.5rem; }
+    #code-area #code-chat-area #code-chat-control {
+      bottom: 0; }
+      #code-area #code-chat-area #code-chat-control * {
+        border-radius: 0; }
 
 @media (min-width: 768px) {
   #list-area {

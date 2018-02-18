@@ -617,16 +617,18 @@ class CommonView extends CommonClass {
       return;
     }
     this.EVENT.setOffPopover({ selector: selector });
-    if (speed > 0 || this.getView()) {
-      this.setView({
-        view: false,
-        selector: selector,
-        type: type,
-        speed: speed,
-        delay: delay,
-        easing: easing,
-        callback: callback
-      });
+    if (type != 'skip') {
+      if (speed > 0 || this.getView()) {
+        this.setView({
+          view: false,
+          selector: selector,
+          type: type,
+          speed: speed,
+          delay: delay,
+          easing: easing,
+          callback: callback
+        });
+      }
     }
 
     super.log(selector, 'Clear', Log.ARROW_INPUT)();
