@@ -416,6 +416,142 @@ class Code(cw_base.Base):
         cls.result["result"] = True
         return cls.result
 
+    def chat(cls):
+        cls.result["type"] = sys._getframe().f_code.co_name
+        cls.result["result"] = False
+
+        # ----------------------------------------------------------------
+        # get & check cgi
+
+        user_hash = cls.get_cgi("owner_hash")
+        user_password_hash = cls.get_cgi("password_hash")
+        clip_hash = cls.get_cgi("clip_hash")
+        last_receive = cls.get_cgi("last_receive")
+        message = cls.get_cgi("message", True)
+
+        if cls.error:
+            return cls.result
+
+        # ----------------------------------------------------------------
+        # check user
+
+        if cls.check_user(user_hash, user_password_hash) is False:
+            return cls.result
+
+        # ----------------------------------------------------------------
+        # auth
+
+        auth = cls.DB.select(
+            table="clips",
+            column=[
+                "owner_hash",
+                "clip_mode"
+            ],
+            where={
+                "hash": clip_hash
+            }
+        )
+
+        auth = auth[0]
+        if auth["owner_hash"] != user_hash:
+            if auth["clip_mode"] == 'private':
+                cls.result["error"] = cls._error("permission_denied")
+                return cls.result
+
+        # ----------------------------------------------------------------
+        # delete access
+
+        cls.result["delete_access"] = cls.DB.delete(
+            table="chats",
+            where={
+                "message": "cw_code.access",
+                "clip_hash": clip_hash,
+                "owner_hash": user_hash,
+                "created_at": [
+                    cls.get_date(), "<"
+                ]
+            }
+        )
+
+        # ----------------------------------------------------------------
+        # new chat
+
+        last_date = cls.get_date()
+
+        cls.result["last_date"] = last_date
+
+        value = {
+            "clip_hash": clip_hash,
+            "owner_hash": user_hash,
+            "message": "cw_code.access",
+            "created_at": last_date
+        }
+
+        if message is not None:
+            value["message"] = message
+
+        cls.result["new_chat"] = cls.DB.insert(
+            table="chats",
+            value=value
+        )
+
+        # ----------------------------------------------------------------
+        # select messages
+
+        cls.result["messages"] = cls.DB.select(
+            table="chats",
+            column=[
+                "chats.clip_hash AS clip_hash",
+                "owners.username AS username",
+                "chats.message AS message",
+                "chats.created_at AS created_at"
+            ],
+            where={
+                "chats.message": ["cw_code.access", "<>"],
+                "chats.clip_hash": clip_hash,
+                "chats.created_at": [
+                    last_receive, ">"
+                ]
+            },
+            join_table="owners",
+            join_key="hash",
+            order={
+                "chats.created_at": "ASC"
+            }
+        )
+
+        # ----------------------------------------------------------------
+        # select member
+
+        cls.result["member"] = cls.DB.select(
+            table="chats",
+            distinct=True,
+            column=[
+                "owners.hash AS user_hash",
+                "owners.username AS user_name",
+                "owners.email_address AS user_gravatar"
+            ],
+            where={
+                "clip_hash": clip_hash,
+                "chats.created_at": [
+                    cls.get_date(datetime.datetime.now() - datetime.timedelta(minutes=1)),
+                    ">"
+                ]
+            },
+            join_table="owners",
+            join_key="hash"
+        )
+
+        if isinstance(cls.result["member"], list):
+            for index in range(len(cls.result["member"])):
+                cls.result["member"][index]["user_gravatar"] = cls.get_md5(cls.result["member"][index]["user_gravatar"])
+
+        # ----------------------------------------------------------------
+        # return
+
+        cls.result["result"] = True
+        return cls.result
+
     # ----------------------------------------------------------------
     # Inner Method
     # ----------------------------------------------------------------
