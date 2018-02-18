@@ -1028,14 +1028,38 @@
     </script>
     <!-- clip-share -->
     <script type="text/template" id="clip-share-template">
-      <div class="text-center">
-        <label for="clip-share-link">
-          <%= LN.get('share_clip_message') %>
-        </label>
-        <div class="input-group">
-          <input id="clip-share-link" class="click-select form-control" type="text" value="<%= `${Web.getURL()}?share=${hash}` %>" readonly>
-          <div class="input-group-append">
-            <button id="clip-share-copy" class="btn btn-outline-info"><i class="fas fa-clipboard"></i></button>
+      <div id="clip-share">
+        <div id="clip-share-sns">
+          <div class="text-center">
+            <label for="clip-share-sns">
+              <%= LN.get('share_clip_sns') %>
+            </label>
+            <div id="clip-share-sns-icon">
+              <button id="clip-share-twitter" class="btn">
+                <i class="fab fa-twitter-square"></i>
+              </button>
+              <button id="clip-share-facebook" class="btn">
+                <i class="fab fa-facebook-square"></i>
+              </button>
+              <button id="clip-share-googleplus" class="btn">
+                <i class="fab fa-google-plus-square"></i>
+              </button>
+              <button id="clip-share-line" class="btn">
+                <i class="fab fa-line"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="text-center">
+          <label for="clip-share-link">
+            <%= LN.get('share_clip_message') %>
+          </label>
+          <div class="input-group">
+            <input id="clip-share-link" class="click-select form-control" type="text" value="<%= `${Web.getURL()}?share=${hash}` %>" readonly>
+            <div class="input-group-append">
+              <button id="clip-share-copy" class="btn btn-outline-info"><i class="fas fa-clipboard"></i></button>
+            </div>
           </div>
         </div>
       </div>
