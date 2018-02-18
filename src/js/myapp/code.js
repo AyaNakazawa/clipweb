@@ -500,17 +500,7 @@ class CodeController extends ClipwebController {
         }
         // 一定時間編集なしが続いたら一時停止
         if (this.MODEL.TICK.TOTAL > this.MODEL.TICK.LIMIT) {
-          super.log('Tick', 'Time limit')();
-          this.exitTick();
-          new Confirm({
-            title: LN.get('concurrent_editing_stop'),
-            content: LN.get('close_to_start_concurrent_editing'),
-            yes: LN.get('restart'),
-            type: Confirm.TYPE_YES,
-            functionClose: () => {
-              this.startTick();
-            }
-          });
+          this.stopTick();
         }
       }
     });
