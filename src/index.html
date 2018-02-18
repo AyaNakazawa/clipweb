@@ -1056,7 +1056,7 @@
             <%= LN.get('share_clip_message') %>
           </label>
           <div class="input-group">
-            <input id="clip-share-link" class="click-select form-control" type="text" value="<%= `${Web.getURL()}?share=${hash}` %>" readonly>
+            <input id="clip-share-link" class="click-select form-control" type="text" value="<%= `${Web.getURL()}?share=${hash}&type=copy` %>" readonly>
             <div class="input-group-append">
               <button id="clip-share-copy" class="btn btn-outline-info"><i class="fas fa-clipboard"></i></button>
             </div>
