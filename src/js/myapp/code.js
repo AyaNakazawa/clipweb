@@ -256,6 +256,13 @@ class CodeEvent extends ClipwebEvent {
     });
 
     super.setOn({
+      selector: this.MODEL.SELECTOR.EDITOR.CHAT,
+      func: () => {
+        this.CONTROLLER.switchChat();
+      }
+    });
+
+    super.setOn({
       selector: this.MODEL.SELECTOR.EDITOR.DOWNLOAD,
       func: () => {
         super.log('Editor', 'Download')();
@@ -335,6 +342,31 @@ class CodeEvent extends ClipwebEvent {
         }
       }
     });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.CHAT.USERS,
+      func: () => {
+        this.CONTROLLER.switchChatUser();
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.CHAT.INPUT,
+      trigger: 'keydown',
+      func: (event) => {
+        if (event.keyCode == 13) {
+          this.CONTROLLER.sendMessage();
+        }
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.CHAT.SEND,
+      func: () => {
+        this.CONTROLLER.sendMessage();
+      }
+    });
+
   }
 
 }
