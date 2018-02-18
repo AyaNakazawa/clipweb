@@ -33,6 +33,8 @@ class CodeModel extends ClipwebModel {
     this.STATUS.SYNC = false;
     this.STATUS.PATCHED = false;
     this.STATUS.CONNECTING = false;
+    this.STATUS.CHAT = false;
+    this.STATUS.CHAT_USER = false;
 
     // ----------------------------------------------------------------
     // クリップ
