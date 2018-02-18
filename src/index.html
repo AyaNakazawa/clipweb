@@ -1101,6 +1101,22 @@
         <% } %>
       </div>
       <pre id="code-editor-editor"></pre>
+      <div id="code-chat-area" style="display:none">
+        <div id="code-chat-chat-area" class="code-chat-base">
+        </div>
+        <div id="code-chat-users-area" class="code-chat-base" style="display:none">
+        </div>
+        <div id="code-chat-control" class="input-group">
+          <div class="input-group-prepend">
+            <button id="code-chat-users" class="btn btn-outline-info"><i class="fas fa-users"></i></button>
+          </div>
+          <input id="code-chat-input" class="form-control" type="text">
+          <div class="input-group-append">
+            <button id="code-chat-send" class="btn btn-outline-primary"><i class="fas fa-arrow-square-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </script>
     <!-- chat-content -->
     <script type="text/template" id="chat-content-template">
       <hr>
