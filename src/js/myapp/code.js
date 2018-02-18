@@ -183,6 +183,27 @@ class CodeView extends ClipwebView {
       });
     }
   }
+
+  updateUsers () {
+    if (this.MODEL.STATUS.CHAT_USER) {
+      super.clear({
+        selector: this.MODEL.SELECTOR.CHAT.USERS_AREA,
+        type: 'skip'
+      });
+      for (let user of this.MODEL.CHAT.MEMBER) {
+        super.log(user)();
+        super.append({
+          selector: this.MODEL.SELECTOR.CHAT.USERS_AREA,
+          template: this.MODEL.TEMPLATE.USERS,
+          model: {
+            username: user['user_name'],
+            avatar: user['user_gravatar']
+          }
+        });
+      }
+    }
+  }
+
 }
 
 // ----------------------------------------------------------------
