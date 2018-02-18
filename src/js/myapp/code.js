@@ -488,6 +488,7 @@ class CodeController extends ClipwebController {
     } else if (this.MODEL.ENCRYPTION == 'off') {
       // 暗号化していないとき
       super.log('Tick', 'Start', Log.ARROW_INPUT)();
+      $(this.MODEL.SELECTOR.EDITOR.STOP).removeClass('active');
 
       // 初期化
       this.MODEL.STATUS.OPEN = true;
