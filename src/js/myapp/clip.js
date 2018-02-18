@@ -736,15 +736,16 @@ class ClipController extends ClipwebController {
       Log.error(arguments)();
       return this.MODEL.ERROR;
     }
-    super.log(hash.substr(0, 14), 'Share', Log.ARROW_INPUT)();
+    this.MODEL.HASH = hash;
+    super.log(this.MODEL.HASH.substr(0, 14), 'Share', Log.ARROW_INPUT)();
 
     new Confirm({
       title: LN.get('share_clip'),
       template: this.MODEL.TEMPLATE.SHARE,
       model: {
-        hash: hash,
-        filename: LIST.MODEL.NAMED_CLIPS[hash]['clip_name'],
-        filetype: LIST.MODEL.NAMED_CLIPS[hash]['clip_type']
+        hash: this.MODEL.HASH,
+        filename: LIST.MODEL.NAMED_CLIPS[this.MODEL.HASH]['clip_name'],
+        filetype: LIST.MODEL.NAMED_CLIPS[this.MODEL.HASH]['clip_type']
       },
       type: Confirm.TYPE_YES,
       yes: LN.get('close')
