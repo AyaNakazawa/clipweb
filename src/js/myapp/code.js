@@ -999,6 +999,13 @@ class CodeController extends ClipwebController {
         this.MODEL.SYNC.MEMBER = this.getAjaxData({ key: 'member' });
         break;
 
+      case this.MODEL.TYPE.CHAT:
+        // CHAT
+        this.MODEL.CHAT.DATE = this.getAjaxData({ key: 'last_date' });
+        this.MODEL.CHAT.RECEIVE = this.getAjaxData({ key: 'messages' });
+        this.MODEL.CHAT.MEMBER = this.getAjaxData({ key: 'member' });
+        break;
+
       default:
         Log.error(arguments, 'unknown type X(')();
         return this.MODEL.ERROR;
