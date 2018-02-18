@@ -410,6 +410,10 @@ class CodeController extends ClipwebController {
 
   accelerateTick () {
     super.log('Tick', 'Accelerate')();
+    this.MODEL.TICK.CURRENT /= this.MODEL.TICK.TIMES;
+    if (this.MODEL.TICK.CURRENT < this.MODEL.TICK.INIT) {
+      this.MODEL.TICK.CURRENT = this.MODEL.TICK.INIT;
+    }
     this.MODEL.TICK.COUNT = this.MODEL.TICK.CURRENT;
   }
 
