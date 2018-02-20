@@ -97,9 +97,11 @@
               <% if (title.length > 0) { %>
                 <div class="modal-title"><%- title %></div>
               <% } %>
-              <button class="close modal-close" data-dismiss="modal" id="<%- id %>-close" tabindex="220">
-                <i class="fal fa-times"></i>
-              </button>
+              <% if (close) { %>
+                <button class="close modal-close" data-dismiss="modal" id="<%- id %>-close" tabindex="220">
+                  <i class="fal fa-times"></i>
+                </button>
+              <% } %>
             </div>
             <% if (image.length + content.length > 0) { %>
               <div class="modal-body">

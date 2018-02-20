@@ -17,6 +17,7 @@
  * @param  {String}         selector      Selector of Event
  * @param  {String}         trigger       Trigger of Event
  * @param  {String}         image         Image data of modal
+ * @param  {Boolean}        close         Visible of close icon
  * @param  {String}         yes           Name of Yes button
  * @param  {String}         no            Name of No button
  * @param  {Function}       functionYes   Function run when Yes pressed
@@ -49,6 +50,7 @@ class Confirm extends ConfirmController {
       // selector: null,
       // trigger: 'click',
       // image: '',
+      // close: true,
       // yes: 'Accept',
       // no: 'Close',
       // functionYes: null,

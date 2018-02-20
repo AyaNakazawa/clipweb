@@ -22,6 +22,7 @@ class ConfirmModel extends CommonModel {
       selector: null,
       trigger: 'click',
       image: '',
+      close: true,
       yes: LN.get('accept'),
       no: LN.get('close'),
       functionYes: null,
@@ -85,6 +86,7 @@ class ConfirmView extends CommonView {
         keyboard: this.MODEL.keyboard,
         focus: this.MODEL.focus,
         image: this.MODEL.image,
+        close: this.MODEL.close,
         yes: this.MODEL.yes,
         no: this.MODEL.no
       }
