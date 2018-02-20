@@ -3,11 +3,8 @@
 // Language
 
 class Language {
-  set () {
-    this.default = this.en;
-  }
-
-  generate () {
+  constructor () {
+    this.default = 'ja';
     this.en = {
       language_name: 'English',
 
