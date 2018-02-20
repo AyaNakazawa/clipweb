@@ -17,7 +17,12 @@ class NavModel extends ClipwebModel {
     // 識別子
     this.KEY = 'nav';
 
+    // ----------------------------------------------------------------
+    // テンプレート
     this.TEMPLATE.LICENSE = '#license-template';
+    this.TEMPLATE.FEEDBACK = '#feedback-template';
+    this.TEMPLATE.TERMS = '#terms-template';
+    this.TEMPLATE.PRIVACY = '#privacy-template';
 
     this.SELECTOR = {};
 
