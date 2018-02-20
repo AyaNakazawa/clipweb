@@ -219,6 +219,7 @@ class NavEvent extends ClipwebEvent {
     this.setOnList();
     this.setOnNew();
     this.setOnHelp();
+    this.setOnFeedback();
   }
 
   setOnHeader () {
@@ -375,6 +376,33 @@ class NavEvent extends ClipwebEvent {
       }
     });
   }
+
+  setOnFeedback () {
+    super.setOn({
+      selector: `#${this.MODEL.SELECTOR.NAV.FEEDBACK}`,
+      func: () => {
+        super.log('Feedback', 'Open')();
+        this.CONTROLLER.openFeedback();
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.FEEDBACK.TERMS,
+      func: () => {
+        super.log('Terms', 'Open')();
+        this.CONTROLLER.openTermsOfService();
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.FEEDBACK.PRIVACY,
+      func: () => {
+        super.log('Privacy', 'Open')();
+        this.CONTROLLER.openPrivacyPolicy();
+      }
+    });
+  }
+
 }
 
 // ----------------------------------------------------------------
