@@ -395,6 +395,9 @@ class NavController extends ClipwebController {
   }
 
   init () {
+    if (LocalStorage.getItem(this.MODEL.LS.TERMS) != 'true') {
+      this.openTermsOfService();
+    }
     this.VIEW.writeFooter();
     this.EVENT.setEvent();
     this.logout();
