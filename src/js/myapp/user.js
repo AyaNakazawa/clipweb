@@ -448,7 +448,7 @@ class UserController extends ClipwebController {
           // データがあるとき
           this.MODEL.STATUS.LS_LOAD = true;
           this.submitLogin(true);
-          return this.MODEL.ERROR;
+          return;
         }
       }
     }
