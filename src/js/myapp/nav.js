@@ -150,6 +150,10 @@ class NavView extends ClipwebView {
       id: this.MODEL.SELECTOR.NAV.REGISTER,
       name: LN.get('register')
     });
+    this.addNavItem({
+      id: this.MODEL.SELECTOR.NAV.FEEDBACK,
+      name: LN.get('report')
+    });
     // this.addNavItem({
     //   id: this.MODEL.SELECTOR.NAV.HELP,
     //   name: LN.get('help')
@@ -179,6 +183,10 @@ class NavView extends ClipwebView {
     this.addNavItem({
       id: this.MODEL.SELECTOR.NAV.LOGOUT,
       name: LN.get('logout')
+    });
+    this.addNavItem({
+      id: this.MODEL.SELECTOR.NAV.FEEDBACK,
+      name: LN.get('report')
     });
   }
 
