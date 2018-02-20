@@ -147,6 +147,32 @@ table {
   }
 }
 
+.terms {
+  font-size: 0.8rem;
+  * {
+    margin: 0.5rem 0;
+    &:first-child {
+      margin-top: 0 !important;
+    }
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  .terms-header {
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-top: 1rem;
+  }
+
+  .terms-content {
+  }
+
+  .terms-end {
+    text-align: right;
+  }
+}
+
 #feedback {
   * {
     margin: 0.5rem 0;
