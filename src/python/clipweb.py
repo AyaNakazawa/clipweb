@@ -23,6 +23,7 @@ import cw_user
 import cw_clip
 import cw_list
 import cw_code
+import cw_nav
 
 TIME = {}
 TIME["init"] = datetime.datetime.now()
@@ -67,6 +68,9 @@ class Clipweb:
 
         elif _type[0] == "code":
             cls.check_code(_type[1])
+
+        elif _type[0] == "nav":
+            cls.check_nav(_type[1])
 
         else:
             cls.result["error"] = {}
@@ -152,6 +156,16 @@ class Clipweb:
 
         elif _type == "chat":
             cls.result["code"] = CODE.chat()
+
+        else:
+            cls.result["error"] = {}
+            cls.result["error"]["message"] = "check_clip: {0}".format(_type)
+
+    def check_nav(cls, _type=None):
+        NAV = cw_nav.Nav()
+        NAV.set_cgi(cls.cgi)
+        if _type == "feedback":
+            cls.result["nav"] = NAV.feedback()
 
         else:
             cls.result["error"] = {}

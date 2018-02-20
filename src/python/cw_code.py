@@ -169,7 +169,7 @@ class Code(cw_base.Base):
         user_password_hash = cls.get_cgi("password_hash")
         clip_hash = cls.get_cgi("clip_hash")
         clip_encryption = cls.get_cgi("encryption")
-        clip_data = cls.get_cgi("data")
+        clip_data = cls.get_cgi("data", True)
 
         if cls.error:
             return cls.result
@@ -211,16 +211,20 @@ class Code(cw_base.Base):
         save_time = cls.get_date()
         cls.result["save_time"] = save_time
 
+        code_value = {
+            "hash": code_hash,
+            "clip_hash": clip_hash,
+            "owner_hash": user_hash,
+            "encryption": clip_encryption,
+            "created_at": save_time
+        }
+
+        if clip_data is not None:
+            code_value["data"] = clip_data
+
         cls.result["code"] = cls.DB.insert(
             table="codes",
-            value={
-                "hash": code_hash,
-                "clip_hash": clip_hash,
-                "owner_hash": user_hash,
-                "encryption": clip_encryption,
-                "data": clip_data,
-                "created_at": save_time
-            }
+            value=code_value
         )
 
         # ----------------------------------------------------------------

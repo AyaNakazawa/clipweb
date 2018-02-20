@@ -22,6 +22,7 @@ class ConfirmModel extends CommonModel {
       selector: null,
       trigger: 'click',
       image: '',
+      close: true,
       yes: LN.get('accept'),
       no: LN.get('close'),
       functionYes: null,
@@ -35,6 +36,7 @@ class ConfirmModel extends CommonModel {
     this.SELECTOR = {};
     this.SELECTOR.AREA = '#confirm-view';
     this.SELECTOR.TEMPLATE = '#confirm-view-template';
+    this.SELECTOR.BACKDROP = '.modal-backdrop';
 
     this.TRIGGER.BS = {};
     this.TRIGGER.BS.SHOW = 'show.bs.modal';
@@ -85,6 +87,7 @@ class ConfirmView extends CommonView {
         keyboard: this.MODEL.keyboard,
         focus: this.MODEL.focus,
         image: this.MODEL.image,
+        close: this.MODEL.close,
         yes: this.MODEL.yes,
         no: this.MODEL.no
       }
@@ -264,7 +267,9 @@ class ConfirmController extends CommonController {
     if (Object.getType(this.MODEL.functionYes) == 'Function') {
       super.log('Yes', 'Exec', Log.ARROW_INPUT)();
       this.MODEL.functionYes();
+      $(this.MODEL.SELECTOR.BACKDROP)[0].remove();
     }
+    $(this.MODEL.SELECTOR.ID).modal('hide');
   }
 
   selectNo () {
@@ -272,7 +277,9 @@ class ConfirmController extends CommonController {
     if (Object.getType(this.MODEL.functionNo) == 'Function') {
       super.log('No', 'Exec', Log.ARROW_INPUT)();
       this.MODEL.functionNo();
+      $(this.MODEL.SELECTOR.BACKDROP)[0].remove();
     }
+    $(this.MODEL.SELECTOR.ID).modal('hide');
   }
 
   destroy () {
@@ -281,6 +288,7 @@ class ConfirmController extends CommonController {
       if (Object.getType(this.MODEL.functionClose) == 'Function') {
         super.log('Close', 'Exec', Log.ARROW_INPUT)();
         this.MODEL.functionClose();
+        $(this.MODEL.SELECTOR.BACKDROP)[0].remove();
       }
     });
     setTimeout(() => {
@@ -293,6 +301,10 @@ class ConfirmController extends CommonController {
   remove () {
     super.log(this.MODEL.id, 'Remove', Log.ARROW_INPUT)();
     $(this.MODEL.SELECTOR.ID).remove();
+    if ($(this.MODEL.SELECTOR.BACKDROP).length > 0) {
+      $(this.MODEL.SELECTOR.BACKDROP)[0].remove();
+    }
+    $(this.MODEL.SELECTOR.ID).modal('dispose');
     this.EVENT.setOffHidden();
   }
 }

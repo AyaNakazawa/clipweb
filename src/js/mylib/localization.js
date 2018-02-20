@@ -4,12 +4,10 @@
 
 class Localization {
   constructor () {
-    this.LANG = 'default';
+    this.LANG = '';
     this.SELECTOR = 'select.localization';
 
     this.langs = new Language();
-    this.langs.generate();
-    this.langs.set();
     this._setSelect();
 
     this.errors = {};
@@ -30,6 +28,15 @@ class Localization {
       return;
     }
     Log.classKey('Localization', this.LANG, lang, Log.ARROW_INPUT)();
+    let _exist = true;
+    if (this.langs.hasOwnProperty(lang) == false) {
+      _exist = false;
+    } else if (Object.keys(this.langs[lang]).length <= 1) {
+      _exist = false;
+    }
+    if (_exist == false) {
+      lang = this.langs.default;
+    }
     LocalStorage.setItem('l10n', lang);
     $(`${this.SELECTOR} option[value="${lang}"]`).prop('selected', true);
     this.LANG = lang;
@@ -38,9 +45,15 @@ class Localization {
   _setSelect () {
     let langList = this.getLanguageList();
     for (let lang in langList) {
-      $(this.SELECTOR).append(
-        `<option value="${lang}">${langList[lang]} (${lang})</option>`
-      );
+      if (lang == this.langs.default) {
+        $(this.SELECTOR).append(
+          `<option value="${lang}">${langList[lang]} (default)</option>`
+        );
+      } else {
+        $(this.SELECTOR).append(
+          `<option value="${lang}">${langList[lang]} (${lang})</option>`
+        );
+      }
     }
     $(document).on('change', this.SELECTOR, function () {
       if ($(this)[0].validity.valid) {
@@ -56,13 +69,10 @@ class Localization {
     for (let key of Object.keys(this.langs)) {
       if (!existLimit || Object.keys(this.langs[key]).length > 1) {
         if (typeof this.langs[key]['language_name'] == 'undefined') {
-          // 言語名が定義されていないのでエラー
-          Log.error(arguments, `lang name is not defined: ${key}`, this.langs[key])();
-          return;
+          // 言語名が定義されていないのでスキップ
+          continue;
         }
-        if (key == 'default' || key != 'default' && this.langs[key]['language_name'] != this.langs.default['language_name']) {
-          result[key] = this.langs[key]['language_name'];
-        }
+        result[key] = this.langs[key]['language_name'];
       }
     }
     return result;
@@ -79,7 +89,7 @@ class Localization {
   check (
     id = null
   ) {
-    if (typeof this.langs.default[id] == 'undefined') {
+    if (typeof this.langs[this.langs.default][id] == 'undefined') {
       return false;
     }
     return true;
@@ -94,14 +104,14 @@ class Localization {
       if (typeof this.langs[this.getShortLanguage()] == 'undefined') {
         // 省略言語がない
         // デフォルト言語で返す
-        return this._get({ lang: 'default', id: id, model: model });
+        return this._get({ lang: this.langs.default, id: id, model: model });
       }
 
       // 省略言語がある
       if (typeof this.langs[this.getShortLanguage()][id] == 'undefined') {
         // 省略言語でIDがない
         // デフォルト言語で返す
-        return this._get({ lang: 'default', id: id, model: model });
+        return this._get({ lang: this.langs.default, id: id, model: model });
       }
 
       // 省略言語でIDがある
@@ -112,7 +122,7 @@ class Localization {
     if (typeof this.langs[this.LANG][id] == 'undefined') {
       // 現在の言語でIDがない
       // デフォルト言語で返す
-      return this._get({ lang: 'default', id: id, model: model });
+      return this._get({ lang: this.langs.default, id: id, model: model });
     }
 
     // 現在の言語でIDがある

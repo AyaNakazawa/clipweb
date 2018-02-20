@@ -13,16 +13,33 @@ class NavModel extends ClipwebModel {
   ) {
     super(initSetting);
 
-    this.TEMPLATE.LICENSE = '#license-template';
+    // ----------------------------------------------------------------
+    // 識別子
+    this.KEY = 'nav';
 
+    // ----------------------------------------------------------------
+    // テンプレート
+    this.TEMPLATE.LICENSE = '#license-template';
+    this.TEMPLATE.FEEDBACK = '#feedback-template';
+    this.TEMPLATE.TERMS = '#terms-template';
+    this.TEMPLATE.PRIVACY = '#privacy-template';
+
+    // ----------------------------------------------------------------
+    // セレクタ
+    this.LS.TERMS = 'clipweb.visit';
+
+    // ----------------------------------------------------------------
+    // セレクタ
     this.SELECTOR = {};
 
+    // エリア
     this.SELECTOR.AREA = {};
     this.SELECTOR.AREA.NAV = '#navbar';
     this.SELECTOR.AREA.USER = 'user-area';
     this.SELECTOR.AREA.LIST = 'list-area';
     this.SELECTOR.AREA.CLIP = 'clip-area';
 
+    // ナビゲーション
     this.SELECTOR.NAV = {};
     this.SELECTOR.NAV.BAR = '.navbar-nav';
     this.SELECTOR.NAV.LOGIN = 'nav-login';
@@ -32,14 +49,23 @@ class NavModel extends ClipwebModel {
     this.SELECTOR.NAV.LIST = 'nav-list';
     this.SELECTOR.NAV.NEW = 'nav-new';
     this.SELECTOR.NAV.HELP = 'nav-help';
+    this.SELECTOR.NAV.FEEDBACK = 'nav-feedback';
 
     this.SELECTOR.NAV.SEARCH = {};
     this.SELECTOR.NAV.SEARCH.TEXT = 'nav-seacrh-text';
     this.SELECTOR.NAV.SEARCH.BUTTON = 'nav-seacrh-button';
 
+    // フィードバック
+    this.SELECTOR.FEEDBACK = {};
+    this.SELECTOR.FEEDBACK.CONTENT = '#feedback-content';
+    this.SELECTOR.FEEDBACK.TERMS = '#feedback-terms';
+    this.SELECTOR.FEEDBACK.PRIVACY = '#feedback-privacy';
+
+    // ヘッダー
     this.SELECTOR.HEADER = {};
     this.SELECTOR.HEADER.CLEAR = '#header-clear';
 
+    // フッター
     this.SELECTOR.FOOTER = {};
     this.SELECTOR.FOOTER.LICENSE = '#footer-license';
     this.SELECTOR.FOOTER.CLIPWEB = '#footer-clipweb';
@@ -124,6 +150,10 @@ class NavView extends ClipwebView {
       id: this.MODEL.SELECTOR.NAV.REGISTER,
       name: LN.get('register')
     });
+    this.addNavItem({
+      id: this.MODEL.SELECTOR.NAV.FEEDBACK,
+      name: LN.get('report')
+    });
     // this.addNavItem({
     //   id: this.MODEL.SELECTOR.NAV.HELP,
     //   name: LN.get('help')
@@ -154,6 +184,10 @@ class NavView extends ClipwebView {
       id: this.MODEL.SELECTOR.NAV.LOGOUT,
       name: LN.get('logout')
     });
+    this.addNavItem({
+      id: this.MODEL.SELECTOR.NAV.FEEDBACK,
+      name: LN.get('report')
+    });
   }
 
   writeFooter () {
@@ -175,19 +209,20 @@ class NavEvent extends ClipwebEvent {
   }
 
   setEvent () {
-    this.setClickHeader();
-    this.setClickFooter();
-    this.setClickNavSearch();
-    this.setOpenLogin();
-    this.setOpenSetting();
-    this.setOpenLogout();
-    this.setOpenRegister();
-    this.setOpenList();
-    this.setOpenNew();
-    this.setOpenHelp();
+    this.setOnHeader();
+    this.setOnFooter();
+    this.setOnNavSearch();
+    this.setOnLogin();
+    this.setOnSetting();
+    this.setOnLogout();
+    this.setOnRegister();
+    this.setOnList();
+    this.setOnNew();
+    this.setOnHelp();
+    this.setOnFeedback();
   }
 
-  setClickHeader () {
+  setOnHeader () {
     super.setOn({
       selector: this.MODEL.SELECTOR.HEADER.CLEAR,
       func: () => {
@@ -199,6 +234,7 @@ class NavEvent extends ClipwebEvent {
             View.element({ element: 'hr' }) +
             View.element({ element: 'ul', content:
               View.element({ element: 'li', content: LN.get('language') }) +
+              View.element({ element: 'li', content: LN.get('terms_agree') }) +
               View.element({ element: 'li', content: LN.get('status_login') }) +
               View.element({ element: 'li', content: LN.get('email_address') }) +
               View.element({ element: 'li', content: LN.get('password_hash') }) +
@@ -218,7 +254,7 @@ class NavEvent extends ClipwebEvent {
     });
   }
 
-  setClickFooter () {
+  setOnFooter () {
     super.setOn({
       selector: this.MODEL.SELECTOR.FOOTER.CLIPWEB,
       func: () => {
@@ -239,7 +275,7 @@ class NavEvent extends ClipwebEvent {
     });
   }
 
-  setClickNavSearch () {
+  setOnNavSearch () {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR.NAV.SEARCH.BUTTON}`,
       func: () => {
@@ -265,7 +301,7 @@ class NavEvent extends ClipwebEvent {
     });
   }
 
-  setOpenLogin () {
+  setOnLogin () {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR.NAV.LOGIN}`,
       func: () => {
@@ -276,7 +312,7 @@ class NavEvent extends ClipwebEvent {
     });
   }
 
-  setOpenSetting () {
+  setOnSetting () {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR.NAV.SETTING}`,
       func: () => {
@@ -287,7 +323,7 @@ class NavEvent extends ClipwebEvent {
     });
   }
 
-  setOpenLogout () {
+  setOnLogout () {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR.NAV.LOGOUT}`,
       func: () => {
@@ -298,7 +334,7 @@ class NavEvent extends ClipwebEvent {
     });
   }
 
-  setOpenRegister () {
+  setOnRegister () {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR.NAV.REGISTER}`,
       func: () => {
@@ -309,7 +345,7 @@ class NavEvent extends ClipwebEvent {
     });
   }
 
-  setOpenList () {
+  setOnList () {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR.NAV.LIST}`,
       func: () => {
@@ -319,7 +355,7 @@ class NavEvent extends ClipwebEvent {
     });
   }
 
-  setOpenNew () {
+  setOnNew () {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR.NAV.NEW}`,
       func: () => {
@@ -330,7 +366,7 @@ class NavEvent extends ClipwebEvent {
     });
   }
 
-  setOpenHelp () {
+  setOnHelp () {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR.NAV.HELP}`,
       func: () => {
@@ -340,6 +376,33 @@ class NavEvent extends ClipwebEvent {
       }
     });
   }
+
+  setOnFeedback () {
+    super.setOn({
+      selector: `#${this.MODEL.SELECTOR.NAV.FEEDBACK}`,
+      func: () => {
+        super.log('Feedback', 'Open')();
+        this.CONTROLLER.openFeedback();
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.FEEDBACK.TERMS,
+      func: () => {
+        super.log('Terms', 'Open')();
+        this.CONTROLLER.openTermsOfService();
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.FEEDBACK.PRIVACY,
+      func: () => {
+        super.log('Privacy', 'Open')();
+        this.CONTROLLER.openPrivacyPolicy();
+      }
+    });
+  }
+
 }
 
 // ----------------------------------------------------------------
@@ -360,9 +423,68 @@ class NavController extends ClipwebController {
   }
 
   init () {
+    if (LocalStorage.getItem(this.MODEL.LS.TERMS) != 'true') {
+      this.openTermsOfService();
+    }
     this.VIEW.writeFooter();
     this.EVENT.setEvent();
     this.logout();
+  }
+
+  openTermsOfService () {
+    new Confirm({
+      title: LN.get('terms_of_service'),
+      template: this.MODEL.TEMPLATE.TERMS,
+      keyboard: false,
+      backdrop: 'static',
+      close: false,
+      type: Confirm.TYPE_YES,
+      yes: LN.get('agree'),
+      functionOpen: () => {
+        LocalStorage.removeItem(this.MODEL.LS.TERMS);
+      },
+      functionYes: () => {
+        LocalStorage.setItem(this.MODEL.LS.TERMS, 'true');
+      }
+    });
+  }
+
+  openPrivacyPolicy () {
+    new Confirm({
+      title: LN.get('privacy_policy'),
+      template: this.MODEL.TEMPLATE.PRIVACY,
+      type: Confirm.TYPE_1,
+      yes: LN.get('close')
+    });
+  }
+
+  openFeedback () {
+    new Confirm({
+      title: LN.get('feedback'),
+      template: this.MODEL.TEMPLATE.FEEDBACK,
+      type: Confirm.TYPE_YES_NO,
+      yes: LN.get('send'),
+      no: LN.get('close'),
+      functionYes: () => {
+        // 内容チェック
+        let _feedback = $(this.MODEL.SELECTOR.FEEDBACK.CONTENT).val();
+        if (_feedback.length > 0) {
+          // Post
+          super.log('Feedback', 'Send')();
+          this.VIEW.toast({
+            title: View.element({ element: 'i', clas: 'far fa-heart' }),
+            message: LN.get('thank_you_feedback'),
+            backgroundColor: '#FF99AA'
+          });
+          this.CONTROLLER.post({
+            type: 'feedback',
+            data: {
+              feedback: _feedback
+            }
+          });
+        }
+      }
+    });
   }
 
   login () {

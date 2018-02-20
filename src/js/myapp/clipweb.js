@@ -696,13 +696,17 @@ class ClipwebController extends CommonController {
       return this.MODEL.ERROR;
     }
 
-    // super.log()();
-    // Log.log('Post', Log.ALIGN_CENTER)();
-    // super.log('Post', `${mode.mini()}.${type.mini()}`)();
+    if (this.MODEL.LOG.POST) {
+      super.log()();
+      Log.log('Post', Log.ALIGN_CENTER)();
+      super.log('Post', `${mode.mini()}.${type.mini()}`)();
+    }
 
     data['type'] = `${mode.mini()}.${type.mini()}`;
 
-    // super.log('data', data)();
+    if (this.MODEL.LOG.POST) {
+      super.log('data', data)();
+    }
 
     this.MODEL.TIME.POST = new Date();
 

@@ -176,7 +176,7 @@ class CodeView extends ClipwebView {
         selector: this.MODEL.SELECTOR.CHAT.CHAT_AREA,
         template: this.MODEL.TEMPLATE.CHAT,
         model: {
-          time: time,
+          time: time.substr(11, 8),
           username: username,
           message: message
         }
@@ -576,12 +576,10 @@ class CodeController extends ClipwebController {
       }
     }
 
-    // チャットを受信
-    if (this.MODEL.STATUS.CHAT) {
-      this.connectChat();
-    }
+    // チャットに接続
+    this.connectChat();
 
-    // サーバに送信
+    // サーバに接続
     this.connectSync(() => {
       // コールバック
 
