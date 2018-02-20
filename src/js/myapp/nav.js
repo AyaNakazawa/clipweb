@@ -400,6 +400,15 @@ class NavController extends ClipwebController {
     this.logout();
   }
 
+  openPrivacyPolicy () {
+    new Confirm({
+      title: LN.get('privacy_policy'),
+      template: this.MODEL.TEMPLATE.PRIVACY,
+      type: Confirm.TYPE_1,
+      yes: LN.get('close')
+    });
+  }
+
   openFeedback () {
     new Confirm({
       title: LN.get('feedback'),
