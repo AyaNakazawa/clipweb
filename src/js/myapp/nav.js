@@ -13,6 +13,10 @@ class NavModel extends ClipwebModel {
   ) {
     super(initSetting);
 
+    // ----------------------------------------------------------------
+    // 識別子
+    this.KEY = 'nav';
+
     this.TEMPLATE.LICENSE = '#license-template';
 
     this.SELECTOR = {};
