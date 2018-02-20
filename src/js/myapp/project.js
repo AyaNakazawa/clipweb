@@ -12,7 +12,7 @@ class Project {
   }
 
   static get VERSION () {
-    return '1.1-alpha';
+    return '1.2-alpha';
   }
 
   static get ABBREVIATION () {
