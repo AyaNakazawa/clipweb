@@ -96,6 +96,19 @@ table button {
   .popover .popover-body .popover-item-title::before {
     content: '・'; }
 
+#feedback * {
+  margin: 0.5rem 0; }
+#feedback .feedback-terms-privacy {
+  margin: 0 auto;
+  text-align: center; }
+  #feedback .feedback-terms-privacy * {
+    margin: 0.5rem; }
+#feedback .feedback-header {
+  text-align: center;
+  font-weight: 600; }
+#feedback .feedback-content {
+  min-height: 2rem; }
+
 .date {
   font-family: sans-serif;
   font-size: 0.85rem;
