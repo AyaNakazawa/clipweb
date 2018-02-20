@@ -233,6 +233,7 @@ class NavEvent extends ClipwebEvent {
             View.element({ element: 'hr' }) +
             View.element({ element: 'ul', content:
               View.element({ element: 'li', content: LN.get('language') }) +
+              View.element({ element: 'li', content: LN.get('terms_agree') }) +
               View.element({ element: 'li', content: LN.get('status_login') }) +
               View.element({ element: 'li', content: LN.get('email_address') }) +
               View.element({ element: 'li', content: LN.get('password_hash') }) +
