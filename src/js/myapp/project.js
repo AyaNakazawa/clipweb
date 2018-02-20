@@ -11,6 +11,10 @@ class Project {
     return 'cw';
   }
 
+  static get VERSION () {
+    return '1.1-alpha';
+  }
+
   static get ABBREVIATION () {
     return Project.KEY;
   }
