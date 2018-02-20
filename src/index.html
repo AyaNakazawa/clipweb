@@ -1284,6 +1284,32 @@
         <div class="license-description">Copyright (c) 2009-2015, Kevin Decker</div>
       </div>
     </script>
+    <!-- feedback -->
+    <script type="text/template" id="feedback-template">
+      <div id="feedback">
+        <div class="feedback-terms-privacy">
+          <button id="feedback-terms" class="btn btn-outline-info"><%= LN.get('terms_of_service') %></button>
+          <button id="feedback-privacy" class="btn btn-outline-info"><%= LN.get('privacy_policy') %></button>
+        </div>
+        <hr>
+        <div class="feedback-desc">
+          <%= LN.get('please_feedback') %>
+        </div>
+        <div class="feedback-desc">
+          <%= LN.get('feedback_message') %>
+        </div>
+        <hr>
+        <div class="feedback-main">
+          <div class="feedback-header" for="feedback-content"><%= LN.get('feedback') %></div>
+          <div class="content-input">
+            <textarea id="feedback-content" class="form-control" rows="8"></textarea>
+          </div>
+        </div>
+        <div class="feedback-desc">
+          <%= LN.get('feedback_received_data') %>
+        </div>
+      </div>
+    </script>
     <!-- script -->
     <!-- error -->
     <script src="js/mylib/error.js"></script>
