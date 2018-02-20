@@ -400,6 +400,35 @@ class NavController extends ClipwebController {
     this.logout();
   }
 
+  openFeedback () {
+    new Confirm({
+      title: LN.get('feedback'),
+      template: this.MODEL.TEMPLATE.FEEDBACK,
+      type: Confirm.TYPE_YES_NO,
+      yes: LN.get('send'),
+      no: LN.get('close'),
+      functionYes: () => {
+        // 内容チェック
+        let _feedback = $(this.MODEL.SELECTOR.FEEDBACK.CONTENT).val();
+        if (_feedback.length > 0) {
+          // Post
+          super.log('Feedback', 'Send')();
+          this.VIEW.toast({
+            title: View.element({ element: 'i', clas: 'far fa-heart' }),
+            message: LN.get('thank_you_feedback'),
+            backgroundColor: '#FF99AA'
+          });
+          this.CONTROLLER.post({
+            type: 'feedback',
+            data: {
+              feedback: _feedback
+            }
+          });
+        }
+      }
+    });
+  }
+
   login () {
     this.VIEW.generateLogined();
   }
