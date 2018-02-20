@@ -400,6 +400,24 @@ class NavController extends ClipwebController {
     this.logout();
   }
 
+  openTermsOfService () {
+    new Confirm({
+      title: LN.get('terms_of_service'),
+      template: this.MODEL.TEMPLATE.TERMS,
+      keyboard: false,
+      backdrop: 'static',
+      close: false,
+      type: Confirm.TYPE_YES,
+      yes: LN.get('agree'),
+      functionOpen: () => {
+        LocalStorage.removeItem(this.MODEL.LS.TERMS);
+      },
+      functionYes: () => {
+        LocalStorage.setItem(this.MODEL.LS.TERMS, 'true');
+      }
+    });
+  }
+
   openPrivacyPolicy () {
     new Confirm({
       title: LN.get('privacy_policy'),
