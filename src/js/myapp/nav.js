@@ -209,19 +209,19 @@ class NavEvent extends ClipwebEvent {
   }
 
   setEvent () {
-    this.setClickHeader();
-    this.setClickFooter();
-    this.setClickNavSearch();
-    this.setOpenLogin();
-    this.setOpenSetting();
-    this.setOpenLogout();
-    this.setOpenRegister();
-    this.setOpenList();
-    this.setOpenNew();
-    this.setOpenHelp();
+    this.setOnHeader();
+    this.setOnFooter();
+    this.setOnNavSearch();
+    this.setOnLogin();
+    this.setOnSetting();
+    this.setOnLogout();
+    this.setOnRegister();
+    this.setOnList();
+    this.setOnNew();
+    this.setOnHelp();
   }
 
-  setClickHeader () {
+  setOnHeader () {
     super.setOn({
       selector: this.MODEL.SELECTOR.HEADER.CLEAR,
       func: () => {
@@ -252,7 +252,7 @@ class NavEvent extends ClipwebEvent {
     });
   }
 
-  setClickFooter () {
+  setOnFooter () {
     super.setOn({
       selector: this.MODEL.SELECTOR.FOOTER.CLIPWEB,
       func: () => {
@@ -273,7 +273,7 @@ class NavEvent extends ClipwebEvent {
     });
   }
 
-  setClickNavSearch () {
+  setOnNavSearch () {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR.NAV.SEARCH.BUTTON}`,
       func: () => {
@@ -299,7 +299,7 @@ class NavEvent extends ClipwebEvent {
     });
   }
 
-  setOpenLogin () {
+  setOnLogin () {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR.NAV.LOGIN}`,
       func: () => {
@@ -310,7 +310,7 @@ class NavEvent extends ClipwebEvent {
     });
   }
 
-  setOpenSetting () {
+  setOnSetting () {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR.NAV.SETTING}`,
       func: () => {
@@ -321,7 +321,7 @@ class NavEvent extends ClipwebEvent {
     });
   }
 
-  setOpenLogout () {
+  setOnLogout () {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR.NAV.LOGOUT}`,
       func: () => {
@@ -332,7 +332,7 @@ class NavEvent extends ClipwebEvent {
     });
   }
 
-  setOpenRegister () {
+  setOnRegister () {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR.NAV.REGISTER}`,
       func: () => {
@@ -343,7 +343,7 @@ class NavEvent extends ClipwebEvent {
     });
   }
 
-  setOpenList () {
+  setOnList () {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR.NAV.LIST}`,
       func: () => {
@@ -353,7 +353,7 @@ class NavEvent extends ClipwebEvent {
     });
   }
 
-  setOpenNew () {
+  setOnNew () {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR.NAV.NEW}`,
       func: () => {
@@ -364,7 +364,7 @@ class NavEvent extends ClipwebEvent {
     });
   }
 
-  setOpenHelp () {
+  setOnHelp () {
     super.setOn({
       selector: `#${this.MODEL.SELECTOR.NAV.HELP}`,
       func: () => {
