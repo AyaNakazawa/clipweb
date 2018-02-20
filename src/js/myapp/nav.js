@@ -24,14 +24,22 @@ class NavModel extends ClipwebModel {
     this.TEMPLATE.TERMS = '#terms-template';
     this.TEMPLATE.PRIVACY = '#privacy-template';
 
+    // ----------------------------------------------------------------
+    // セレクタ
+    this.LS.TERMS = 'clipweb.visit';
+
+    // ----------------------------------------------------------------
+    // セレクタ
     this.SELECTOR = {};
 
+    // エリア
     this.SELECTOR.AREA = {};
     this.SELECTOR.AREA.NAV = '#navbar';
     this.SELECTOR.AREA.USER = 'user-area';
     this.SELECTOR.AREA.LIST = 'list-area';
     this.SELECTOR.AREA.CLIP = 'clip-area';
 
+    // ナビゲーション
     this.SELECTOR.NAV = {};
     this.SELECTOR.NAV.BAR = '.navbar-nav';
     this.SELECTOR.NAV.LOGIN = 'nav-login';
@@ -41,14 +49,23 @@ class NavModel extends ClipwebModel {
     this.SELECTOR.NAV.LIST = 'nav-list';
     this.SELECTOR.NAV.NEW = 'nav-new';
     this.SELECTOR.NAV.HELP = 'nav-help';
+    this.SELECTOR.NAV.FEEDBACK = 'nav-feedback';
 
     this.SELECTOR.NAV.SEARCH = {};
     this.SELECTOR.NAV.SEARCH.TEXT = 'nav-seacrh-text';
     this.SELECTOR.NAV.SEARCH.BUTTON = 'nav-seacrh-button';
 
+    // フィードバック
+    this.SELECTOR.FEEDBACK = {};
+    this.SELECTOR.FEEDBACK.CONTENT = '#feedback-content';
+    this.SELECTOR.FEEDBACK.TERMS = '#feedback-terms';
+    this.SELECTOR.FEEDBACK.PRIVACY = '#feedback-privacy';
+
+    // ヘッダー
     this.SELECTOR.HEADER = {};
     this.SELECTOR.HEADER.CLEAR = '#header-clear';
 
+    // フッター
     this.SELECTOR.FOOTER = {};
     this.SELECTOR.FOOTER.LICENSE = '#footer-license';
     this.SELECTOR.FOOTER.CLIPWEB = '#footer-clipweb';
