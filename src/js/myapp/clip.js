@@ -689,6 +689,9 @@ class ClipController extends ClipwebController {
           ],
           functionSuccess: () => {
             // 取得成功
+            CODE.VIEW.hide();
+            $(this.MODEL.COMMON.SELECTOR.BODY).css('overflow', 'auto');
+            CLIP.VIEW.hide();
             LIST.loadList();
             this.VIEW.toast({ type: 'success', message: LN.get('deleted_clip') });
           }
@@ -847,7 +850,6 @@ class ClipController extends ClipwebController {
           })
         }),
       functionYes: () => {
-        CODE.VIEW.hide();
         this.deleteClip(hash);
       }
     });
