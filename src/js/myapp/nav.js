@@ -60,6 +60,7 @@ class NavModel extends ClipwebModel {
     this.SELECTOR.FEEDBACK.CONTENT = '#feedback-content';
     this.SELECTOR.FEEDBACK.TERMS = '#feedback-terms';
     this.SELECTOR.FEEDBACK.PRIVACY = '#feedback-privacy';
+    this.SELECTOR.FEEDBACK.TODO = '#feedback-todo';
 
     // ヘッダー
     this.SELECTOR.HEADER = {};
@@ -399,6 +400,14 @@ class NavEvent extends ClipwebEvent {
       func: () => {
         super.log('Privacy', 'Open')();
         this.CONTROLLER.openPrivacyPolicy();
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.FEEDBACK.TODO,
+      func: () => {
+        super.log('ToDo', 'Open')();
+        window.open('https://clipweb.ayatec.jp/?share=fbf00b396c614d864b06b2e68a1b135f68218a9ae2c3c22444ef4a9b2a448a96&type=official', 'newtab');
       }
     });
   }
