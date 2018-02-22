@@ -407,7 +407,7 @@ class NavEvent extends ClipwebEvent {
       selector: this.MODEL.SELECTOR.FEEDBACK.TODO,
       func: () => {
         super.log('ToDo', 'Open')();
-        window.open('https://clipweb.ayatec.jp/?share=fbf00b396c614d864b06b2e68a1b135f68218a9ae2c3c22444ef4a9b2a448a96&type=official', 'newtab');
+        window.open('https://github.com/ayatec/clipweb/blob/work/docs/memo/todo.md', 'newtab');
       }
     });
   }
