@@ -113,10 +113,10 @@ table button {
 
 #feedback * {
   margin: 0.5rem 0; }
-#feedback .feedback-terms-privacy {
+#feedback .feedback-buttons {
   margin: 0 auto;
   text-align: center; }
-  #feedback .feedback-terms-privacy * {
+  #feedback .feedback-buttons * {
     margin: 0.5rem; }
 #feedback .feedback-header {
   text-align: center;
