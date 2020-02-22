@@ -91,6 +91,7 @@ class ListModel extends ClipwebModel {
     this.SELECTOR.SEARCH.CLIP_DELETE = '.list-search-clip-delete';
     this.SELECTOR.SEARCH.CLIP_SETTING = '.list-search-clip-setting';
     this.SELECTOR.SEARCH.CLIP_SHARE = '.list-search-clip-share';
+    this.SELECTOR.SEARCH.CLIP_STOP = '.list-search-clip-stop';
     this.SELECTOR.SEARCH.CLIP_CLOSE = '.list-search-clip-close';
   }
 }
@@ -317,6 +318,13 @@ class ListEvent extends ClipwebEvent {
       selector: this.MODEL.SELECTOR.SEARCH.CLIP_SHARE,
       func: function () {
         LIST.share({ hash: $(this).parents(LIST.MODEL.SELECTOR.SEARCH.CLIP).find(LIST.MODEL.SELECTOR.SEARCH.CLIP_MAIN).attr('id') });
+      }
+    });
+
+    super.setOn({
+      selector: this.MODEL.SELECTOR.SEARCH.CLIP_STOP,
+      func: function () {
+        LIST.stopShare({ hash: $(this).parents(LIST.MODEL.SELECTOR.SEARCH.CLIP).find(LIST.MODEL.SELECTOR.SEARCH.CLIP_MAIN).attr('id') });
       }
     });
 
@@ -858,6 +866,15 @@ class ListController extends ClipwebController {
     }
     super.log(hash.substr(0, 14), 'Share', Log.ARROW_INPUT)();
     CLIP.share(hash);
+  }
+
+  stopShare ({ hash = null } = {}) {
+    if (hash == null) {
+      Log.error(arguments)();
+      return this.MODEL.ERROR;
+    }
+    super.log(hash.substr(0, 14), 'Stop Share', Log.ARROW_INPUT)();
+
   }
 
   // ----------------------------------------------------------------
